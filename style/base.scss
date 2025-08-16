@@ -1,0 +1,45 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+
+body {
+   min-height: 100%;
+   //* Add accessible line-height  ??
+//   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+ol, menu, ul {
+   list-style: none;
+}
+
+html {
+   min-height: 100%;
+   font-size: 1em;
+   // @media (min-width: 480px) {
+   //    font-size: 1.1em;
+   // }
+   @media (min-width: 576px) {
+      font-size: 1.1em;
+   }
+   @media (min-width: 768px) {
+      font-size: 1.2em;
+   }
+   @media (min-width: 992px) {
+      font-size: 1.3em;
+   }
+   @media (min-width: 1200px) {
+      font-size: 1.4em;
+   }
+   @media (min-width: 1400px) {
+      font-size: 1.5em;
+   }
+}
