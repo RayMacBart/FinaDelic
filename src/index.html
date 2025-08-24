@@ -12,17 +12,53 @@
    <link rel="icon" type="image/svg+xml" href="./assets/FinaDelic Logo.svg">
    <link rel="stylesheet" href="./main.css">
 </head>
+
 <body>
-   <nav class="nav nav--homepage"><img src="./assets/logout.svg" alt="logout" /></nav>
-   <header>
-      <img class="logo logo--hero" src="./assets/FinaDelic Logo.svg" alt="FinaDelic Logo"/>
-      <hgroup>
-         <h1>Finadelic</h1>
-      </hgroup>
-   </header>
-   <main>
-      <section><h3>Professional Service</h3><p>We don't fear any effort to serve your satisfaction.</p></section>
-      <button type="button" id="button1">Click Me!</button>
-   </main>
+   <div class="view-wrapper">
+      <div class="page">
+         <menu style="display: flex; flex-direction: column; justify-content: space-around; align-items: center; flex-grow: 1; background: #F7F8FD; line-height: 2.5rem; padding-top: 2rem;">
+            <li id='HP-loggedout' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Homepage Logged out</li>
+            <li id='login-page' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Login Page</li>
+            <li id='HP-loggedin' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Homepage Logged in</li>
+            <li id='flowpage' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Flowpage</li>
+            <li id='chartpage' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Chartpage</li>
+            <li id='terms' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Terms &amp; Conditions</li>
+            <li id='privacy-policy' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Privacy Policy</li>
+            <li id='legal-notice' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Legal Notice</li>
+            <li id='modals' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Modals</li>
+            <li id='taskbars' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Taskbars</li>
+         </menu>
+      </div>
+      <footer class="footer">
+         <div class="margin-container">
+            <div class="footer__content-flexwrap">
+               <div class="footerLogoBox"></div>
+               <menu class="footer__menu">
+                  <li class="footer-link"><a href="#">Terms &amp; Conditions</a></li>
+                  <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                  <li class="footer-link"><a href="#">Legal Notice</a></li>
+               </menu>
+            </div>
+         </div>
+      </footer>
+   </div>
+   
 </body>
+
+<template id="logged-out_HP">
+      <nav class="nav"><img class="icon icon--logout" src="./assets/logout.svg" alt="logout" /></nav>
+      <div class="margin-container">
+         <header class="header">
+            <div class="heroLogoBox"></div>
+            <button class="button button--call2action" type="button">SIGN IN  /  SIGN UP</button>
+            <hgroup>
+               <h1>Finadelic</h1>
+            </hgroup>
+         </header>
+         <main>
+            <section><h3>Professional Service</h3><p>We don't fear any effort to serve your satisfaction.</p></section>
+         </main>
+      </div>
+</template>
+
 </html>

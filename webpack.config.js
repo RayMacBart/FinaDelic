@@ -31,11 +31,13 @@ module.exports = {
    plugins: [
       new CopyPlugin({
          patterns: [
-            { from: "assets", to: "assets" }
+            { from: "assets", to: "assets" },
+            { from: "lib/fonts", to: "fonts" }
          ],
       }),
       new HtmlPlugin({
-         template: 'src/index.html'
+         template: 'src/index.html',
+         inject: false,
       }),
       new webpack.HotModuleReplacementPlugin({}),
       new ImageMinimizerPlugin({

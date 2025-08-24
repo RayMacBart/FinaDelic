@@ -1,0 +1,50 @@
+.footer {
+  height: 10rem;
+  background-color: #424b89;
+  box-shadow: 0 -1px 2px 0 rgba(61, 72, 143, 0.50), 0 0 10px 7px #5E6BBA inset;
+}
+
+
+.footer__content-flexwrap {
+   height: 10rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.footer__menu {
+  display: flex;
+  flex-direction: column;
+  width: 13rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 1.5rem 0.2rem;
+  position: relative;
+  align-self: stretch;
+  font-family: "Commissioner", Helvetica;
+  font-weight: 400;
+  font-size: 1rem;
+  text-align: right;
+}
+
+.footer__menu > li > a {
+   color: #fbfbfe;
+   text-decoration: none;
+   &:hover {
+      animation-name: linkhover;
+      animation-duration: 0.15s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: forwards;
+   }
+   @keyframes linkhover {
+      0% {
+         font-weight: 400;
+         text-decoration: none;
+      }
+      100% {
+         font-weight: 500;
+         text-decoration: underline;
+      }
+      
+   }
+}

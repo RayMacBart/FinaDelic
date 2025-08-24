@@ -31,7 +31,8 @@ module.exports = {
    plugins: [
       new CopyPlugin({
          patterns: [
-            { from: "assets", to: "assets" }
+            { from: "assets", to: "assets" },
+            { from: "lib/fonts", to: "fonts" }
          ],
       }),
       new ImageMinimizerPlugin({
