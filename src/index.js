@@ -1,9 +1,5 @@
 import { getFooterLogo } from "./sourcefetchs.js";
-// import { listen4effects } from "./UIeffects.js";
-import { setupRoutingMenu } from "./routing.js";
+import { navigate } from "./routing/route.js";
 
-// getHeroLogo();
 getFooterLogo();
-setupRoutingMenu();
-// listen4effects();
-
+navigate();  // 'loggedoutHP' | 'loginPage' | 'loggedinHP' | 'flowPage' | 'chartPage' | 'terms' | 'privacy' | 'legal'
