@@ -1,9 +1,9 @@
-function setupNewRoutes() {
+import { navigate } from "./route.js";
 
-}
+function setup() {
+   console.log('setup loginPage!');
+   // history.pushState('loginPage', "", `/loginPage`);
+   console.log('Current state:', history.state);
+   }
 
-function getRessources() {
-   
-}
-
-export { setupNewRoutes, getRessources };
+export { setup };

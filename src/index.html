@@ -9,7 +9,7 @@
    <meta http-equiv="cache-control" content="no-cache"/>   <!-- could make sense if caching is self handled within PWA or HTML is changed very frequently -->
    <title>FinaDelic</title>
    <script type="module" src="./bundle.js" defer></script>
-   <link rel="icon" type="image/svg+xml" href="./assets/FinaDelic Logo.svg">
+   <link rel="icon" type="image/svg+xml" href="./assets/FinaDelic Logo Hero.svg">
    <link rel="stylesheet" href="./main.css">
 </head>
 
@@ -21,7 +21,7 @@
             <div class="footer__content-flexwrap">
                <div class="footerLogoBox"></div>
                <menu class="footer__menu">
-                  <li class="footer-link"><a href="#">Terms &amp; Conditions</a></li>
+                  <li class="footer-link"><a id='terms-footerlink' href="#">Terms &amp; Conditions</a></li>
                   <li class="footer-link"><a href="#">Privacy Policy</a></li>
                   <li class="footer-link"><a href="#">Legal Notice</a></li>
                </menu>
@@ -40,7 +40,7 @@
       <li id='HP-loggedin' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Homepage Logged in</li>
       <li id='flow-page' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Flowpage</li>
       <li id='chart-page' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Chartpage</li>
-      <li id='terms' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Terms &amp; Conditions</li>
+      <li id='terms & conditions' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Terms &amp; Conditions</li>
       <li id='privacy-policy' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Privacy Policy</li>
       <li id='legal-notice' style="font-family: Commissioner; font-size: 1.2rem; color: #273AB0; cursor: pointer;">Legal Notice</li>
    </menu>
@@ -49,8 +49,8 @@
 
 
 <template id="loggedoutHP">
-   <nav class="nav"><img class="icon icon--logout" src="./assets/logout.svg" alt="logout" /></nav>
-   <div class="margin-container">
+   <nav class="nav"><img class="icon icon--login" src="./assets/login.svg" alt="login" /></nav>
+      <div class="margin-container">
       <header class="header">
          <div class="heroLogoBox"></div>
          <button class="button button--call2action" type="button">SIGN IN  /  SIGN UP</button>
@@ -67,43 +67,43 @@
 
 
 <template id="loginPage">
-
+   <h1>LOGIN PAGE</h1>
 </template>
 
 
 
 <template id="loggedinHP">
-
+   <h1>LOGGED IN HP</h1>
 </template>
 
 
 
 <template id="flowPage">
-
+   <h1>FLOWPAGE</h1>
 </template>
 
 
 
 <template id="chartPage">
-
+   <h1>CHARTPAGE</h1>
 </template>
 
 
 
 <template id="terms">
-
+   <h1>TERMS & CONDITIONS</h1>
 </template>
 
 
 
 <template id="legal">
-
+   <h1>LEGAL NOTICE</h1>
 </template>
 
 
 
 <template id="privacy">
-
+   <h1>PRIVACY POLICY</h1>
 </template>
 
 

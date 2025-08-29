@@ -1,9 +1,7 @@
-function setupNewRoutes() {
+import { navigate } from "./route.js";
 
+function setup() {
+   console.log('setup loggedinHP!');
 }
 
-function getRessources() {
-   
-}
-
-export { setupNewRoutes, getRessources };
+export { setup };

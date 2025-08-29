@@ -1,10 +1,41 @@
-function setupNewRoutes() {
+import { navigate } from "./route.js";
 
+
+const getHeroLogo = () => {
+   fetch('./assets/FinaDelic Logo Hero.svg')
+   .then(res => res.text())
+   .then(svg => {
+                  const logoBox = document.querySelector('.heroLogoBox');
+                  logoBox.innerHTML = svg;
+                  return logoBox;
+                  })
+   .then(logoBox => {
+                  const logo = logoBox.querySelector('svg');
+                  logo.classList.add('logo', 'logo--hero');
+                  return logo;
+                  })
+   .then(logo => logo.addEventListener('click', () => navigate()));
 }
 
-function getRessources() {
-   import('../sourcefetchs.js').then((mod) => mod.getHeroLogo());
-   import('../UIeffects.js').then((mod) => mod.listen4effects());
+
+const getLoginIconHoverEffect = () => {
+   const logInIcon = document.querySelector('.icon, .icon--login');
+   logInIcon.addEventListener('mouseenter', () => {
+      logInIcon.src = './assets/login_hovered.svg';
+   })
+   logInIcon.addEventListener('mouseover', () => {
+      logInIcon.src = './assets/login_hovered.svg';
+   })
+   logInIcon.addEventListener('mouseleave', () => {
+      logInIcon.src = './assets/login.svg';
+   })
 }
 
-export { setupNewRoutes, getRessources };
+
+function setup() {
+   document.querySelector('.icon--login').addEventListener('click', () => navigate('loginPage'));
+   getHeroLogo();
+   getLoginIconHoverEffect();
+}
+
+export { setup };

@@ -10,7 +10,7 @@ module.exports = {
    output: {
       filename: "bundle.js",
       path: path.resolve(__dirname, "dist"),
-      publicPath: "./dist",
+      publicPath: "/",
       clean: true,
    },
    devServer: {
@@ -26,6 +26,7 @@ module.exports = {
          serverSideRender: true,
          writeToDisk: true,
       },
+      historyApiFallback: true,
    },
    devtool: "eval-cheap-module-source-map",
    plugins: [

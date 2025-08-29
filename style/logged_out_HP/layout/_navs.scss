@@ -4,4 +4,17 @@
    align-items: center;
    height: 4.4rem;
    justify-content: right;
+   margin: 1rem 8%;
+   @media (max-width: 1200px) {
+      margin: 0.8rem 6%;
+   }
+   @media (max-width: 992px) {
+      margin: 0.5rem 4%;
+   }
+   @media (max-width: 768px) {
+      margin: 0.3rem 2%;
+   }
+   @media (max-width: 576px) {
+      margin: 0;
+   }
 }
