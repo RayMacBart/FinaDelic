@@ -1,20 +1,15 @@
 import { navigate } from "./route.js";
 
 
-const getHeroLogo = () => {
-   fetch('./assets/FinaDelic Logo Hero.svg')
-   .then(res => res.text())
-   .then(svg => {
-                  const logoBox = document.querySelector('.heroLogoBox');
-                  logoBox.innerHTML = svg;
-                  return logoBox;
-                  })
-   .then(logoBox => {
-                  const logo = logoBox.querySelector('svg');
-                  logo.classList.add('logo', 'logo--hero');
-                  return logo;
-                  })
-   .then(logo => logo.addEventListener('click', () => navigate()));
+const getHeroLogo = async() => {
+   const res = await fetch('./assets/FinaDelic Logo Hero.svg');
+   const svg = await res.text();
+   console.log(svg);
+   const logoBox = document.querySelector('.heroLogoBox');
+   logoBox.innerHTML = svg;
+   const logo = logoBox.querySelector('svg');
+   logo.classList.add('logo', 'logo--hero');
+   logo.addEventListener('click', () => navigate());
 }
 
 

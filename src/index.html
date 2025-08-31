@@ -50,12 +50,18 @@
 
 <template id="loggedoutHP">
    <nav class="nav"><img class="icon icon--login" src="./assets/login.svg" alt="login" /></nav>
-      <div class="margin-container">
+   <div class="margin-container">
       <header class="header">
          <div class="heroLogoBox"></div>
          <button class="button button--call2action" type="button">SIGN IN  /  SIGN UP</button>
-         <hgroup>
-            <h1>Finadelic</h1>
+         <hgroup class="hero">
+            <picture>
+               <div class="hero__pic"></div>
+               <source class="hero__pic--desktop" media="(min-width:992px)" srcset="assets/moneyplant_desktop.jpg" type="image/jpeg">
+               <img class="hero__pic__img-layer" src="assets/empty.png" alt="plant prospering in money">
+               <div class="hero__pic--desktop__overlay"></div>
+            </picture>
+            <h1 class="hero__title">Insight &nbsp;&nbsp;&nbsp;<br> through &nbsp;<br>adaptability</h1>
          </hgroup>
       </header>
       <main>

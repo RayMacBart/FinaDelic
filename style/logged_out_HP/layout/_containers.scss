@@ -3,6 +3,7 @@
    flex-direction: column;
    justify-content: space-between;
    min-height: 100%;
+   background-color: #273AB0;
 }
 
 .page {
@@ -16,7 +17,6 @@
 .margin-container {
    width: 70%;
    margin: auto;
-   height: inherit;
    // border: 1px solid blue;
    @media (max-width: 1200px) {
       width: 75%;
@@ -32,5 +32,8 @@
    }
    @media (max-width: 432px) {
       width: 95%;
+   }
+   @media (max-width: 360px) {
+      width: 98%;
    }
 }

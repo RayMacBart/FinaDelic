@@ -1,7 +1,130 @@
 .header {
-   padding-top: 0.8rem;
    display: flex;
    flex-direction: column;
    overflow: visible;
    gap: 3rem;
+   @media (min-width: 992px) {
+      padding-bottom: 5rem;
+   }
+}
+
+picture {
+   position: relative;
+   @media (min-width: 992px) {
+      left: 4rem;
+   }
+   @media (max-width: 340px) {
+      left: 0rem;
+   }
+   
+}
+
+.hero {
+   display: flex;
+   position: relative;
+   max-width: 90%;
+   @media (min-width: 600px) {
+      margin: 0 auto;
+   }
+   @media (max-width: 390px) {
+      margin-left: 0.4rem;
+   }
+   @media (max-width: 340px) {
+      margin-left: 0.1rem;
+   }
+
+   &__title {
+      display: inline-block;
+      height: fit-content;
+      position: relative;
+      left: -5.5rem;
+      top: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 280;
+      line-height: 150%;
+      font-style: italic;
+      color: #273AB0;
+      font-size: 3.7rem;
+      text-align: end;
+      text-shadow: 0.1rem 0.1rem 0.15rem #06091b32;
+      @media (max-width: 530px) {
+         font-size: 3.3rem;
+         top: 0.7em;
+      }
+      @media (max-width: 460px) {
+         font-size: 3rem;
+         top: 3rem;
+      }
+      @media (max-width: 420px) {
+         font-size: 2.6rem;
+         top: 4.5rem;
+      }
+      @media (max-width: 390px) {
+         font-size: 2.4rem;
+         font-weight: 310;
+         left: -4rem;
+         top: 1.7rem;
+      }
+      @media (max-width: 390px) {
+         font-size: 2.2rem;
+      }
+
+      @media (min-width: 600px) {
+      margin: 0 auto;
+      left: -5.5rem;
+      }
+      @media (min-width: 992px) {
+         top: 5rem;
+         left: -9rem;
+         text-align: center;
+         font-size: 4.3rem;
+      }
+      @media (min-width: 1200px) {
+         font-size: 88px;
+      }
+   }
+   &__pic {
+      height: 15rem;
+      width: auto;
+      flex-shrink: 0;
+      aspect-ratio: 131/121;
+      background-size: contain;
+      border: 0.1rem solid transparent;
+      border-radius: 100rem;
+      background-image: radial-gradient(rgba(244, 244, 251, 0) 54%,
+                                        rgba(244, 244, 251, 0.3) 61%,
+                                        rgba(244, 244, 251, 1) 71%), url('./assets/moneyplant_mobile.png');
+      @media (min-width: 992px) {
+         display: none;
+      }
+      @media (max-width: 390px) {
+         height: 11rem;
+      }
+      &--desktop {
+         &__overlay {
+            position: absolute;
+            left: -2.5rem;
+            display: none;
+            background-image: linear-gradient(90deg, rgba(244, 244, 251, 0) 60%, rgba(244, 244, 251, 0.07) 67%, rgba(244, 244, 251, 0.2) 72%, rgba(244, 244, 251, 0.4) 80%,rgba(244, 244, 251, 0.6) 88%, rgba(244, 244, 251, 1) 97%),
+                              linear-gradient(270deg, rgba(244, 244, 251, 0) 89%, rgba(244, 244, 251, 0.15) 92%,rgba(244, 244, 251, 0.5) 95%, rgba(244, 244, 251, 1) 98%),
+                              linear-gradient(215deg, rgba(244, 244, 251, 0.9) 1%, rgba(244, 244, 251, 0.2) 14%, rgba(244, 244, 251, 0) 20%),
+                              linear-gradient(rgba(244, 244, 251, 1) 1%, rgba(244, 244, 251, 0.4) 5%, rgba(244, 244, 251, 0) 10%),
+                              linear-gradient(135deg, rgba(244, 244, 251, 1) 4%, rgba(244, 244, 251, 0.3) 7%, rgba(244, 244, 251, 0) 15%);
+            height: 20.1rem;
+            width: 30rem;
+            @media (min-width: 992px){
+               display:inline-block;
+            }
+         }
+      }
+      &__img-layer {
+         height: 5rem;
+         @media (min-width: 992px) {
+            margin-left: -2.5rem;
+            height: 20rem;
+            border-radius: 15%;
+            text-shadow: -4rem 1rem 5rem rgb(237, 239, 251) inset;
+         }
+      }
+   }
 }

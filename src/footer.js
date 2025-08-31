@@ -1,19 +1,13 @@
 import { navigate } from "./routing/route.js";
 
-const getFooterLogo = () => {
-   fetch('./assets/FinaDelic Logo Footer.svg')
-   .then(res => res.text())
-   .then(svg => {
-                  const logoBox = document.querySelector('.footerLogoBox');
-                  logoBox.innerHTML = svg;
-                  return logoBox;
-                  })
-   .then(logoBox => {
-                  const logo = logoBox.querySelector('svg');
-                  logo.classList.add('logo', 'logo--footer');
-                  return logo;
-                  })
-   .then(logo => logo.addEventListener('click', () => navigate()));
+const getFooterLogo = async() => {
+   const res = await fetch('./assets/FinaDelic Logo Footer.svg');
+   const svg = await res.text();
+   const logoBox = document.querySelector('.footerLogoBox');
+   logoBox.innerHTML = svg;
+   const logo = logoBox.querySelector('svg');
+   logo.classList.add('logo', 'logo--footer');
+   logo.addEventListener('click', () => navigate());
 }
 
 const setupFooterlinks = () => {

@@ -11,19 +11,16 @@ window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
                                                  }
                                               navigate(window.location.pathname.slice(1), extraClassesWanted, true);
                                               });
-// document.addEventListener('popstate', (e) => console.log('HEY!'));
-// window.onpopstate = (e) => {
-//   console.log('HEY!', e.state);
-// };
+
 if (window.location.pathname === '/') {
    window.location.href = window.location.origin + '/loggedoutHP';
 }
 
 if ((window.location.pathname === '/loggedoutHP') || (window.location.pathname === '/loggedinHP')) {
    navigate(window.location.pathname.slice(1), ['page--landing']);  // 'loggedoutHP', ['page--landing'] | 'loginPage' | 'loggedinHP', ['page--landing'] |
-} else {
+} else {                                                            // 'flowPage' | 'chartPage' | 'terms' | 'privacy' | 'legal'
    navigate(window.location.pathname.slice(1));
 }
-                                             // 'flowPage' | 'chartPage' | 'terms' | 'privacy' | 'legal'
+                                             
 
                                             
