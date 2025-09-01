@@ -53,9 +53,8 @@
    <div class="margin-container">
       <header class="header">
          <div class="heroLogoBox"></div>
-         <button class="button button--call2action" type="button">SIGN IN  /  SIGN UP</button>
          <hgroup class="hero">
-            <picture>
+            <picture class="hero__pic_container">
                <div class="hero__pic"></div>
                <source class="hero__pic--desktop" media="(min-width:992px)" srcset="assets/moneyplant_desktop.jpg" type="image/jpeg">
                <img class="hero__pic__img-layer" src="assets/empty.png" alt="plant prospering in money">
@@ -63,9 +62,29 @@
             </picture>
             <h1 class="hero__title">Insight &nbsp;&nbsp;&nbsp;<br> through &nbsp;<br>adaptability</h1>
          </hgroup>
+          <h2 class="undertitle">Organize your financials <em>your</em> way.<br>
+                                         <strong>FinaDelic</strong> emphasizes <strong>flexibility</strong>,<br class="undertitle__mobile-linebreak">
+                                         delivering<br class="undertitle__desktop-linebreak"> <em>individual</em> insights - 
+                                         <br class="undertitle__mobile-linebreak">giving you the cutting edge!</h2>
       </header>
       <main>
-         <section><h3>Professional Service</h3><p>We don't fear any effort to serve your satisfaction.</p></section>
+         <button class="button button--call2action" type="button">SIGN IN  /  SIGN UP</button>
+         <section class="feature-presentation">
+            <svg class="graphic--bag"></svg>
+            <svg class="graphic--fire"></svg>
+            <svg class="graphic--chart"></svg>   <!-- TODO: check dynamic svg use integration, check pos rel/abs, check pseudo-elem bulletpoints (dt) -->
+            <svg class="graphic--clock"></svg>
+            <svg class="graphic--flow"></svg>
+            <dl class="desc-list">
+               <dt class="desc-list__title">Pockets and Drains</dt>
+               <dd class="desc-list__description">Define, group and nest accounts as you like to keep the perfect overview!</dd>
+               <dt class="desc-list__title">Customizable Charts</dt>
+               <dd class="desc-list__description">Add any Pocket, Drain or Flow to build up your personal charts for any time period and store them for later use!</dd>
+               <dt class="desc-list__title">Flow Entries Made Easy</dt>
+               <dd class="desc-list__description">Note your financial incomes and payments fast and uncomplicated everyday!</dd>
+            </dl>
+         </section>
+         <button class="button button--enter" type="button">ENTER</button>
       </main>
    </div>
 </template>

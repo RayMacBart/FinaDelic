@@ -1,0 +1,32 @@
+.feature-presentation {
+   position: relative;
+}
+
+.desc-list {
+   &__title {
+      width: 100%;
+   }
+   &__description {
+      width: 100%;
+   }
+}
+
+.graphic {
+   display: inline-block;
+   position: absolute;
+   &--bag {
+      left: 0;
+   }
+   &--fire {
+      left: 0;
+   }
+   &--chart {
+      left: 0;
+   }
+   &--clock {
+      left: 0;
+   }
+   &--flows {
+      left: 0;
+   }
+}
