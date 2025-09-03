@@ -3,14 +3,27 @@
    flex-direction: column;
    justify-content: space-between;
    min-height: 100%;
-   background-color: #273AB0;
+   background-color: #F7F8FD;
 }
 
 .page {
    flex-grow: 1;
    background: #F7F8FD;
    &--landing {
-      background: linear-gradient(180deg, rgba(13, 26, 115, 0.50) 0%, rgba(213, 218, 246, 0.20) 34.13%, #F7F8FD 100%), #F7F8FD;
+      background: linear-gradient(180deg, rgba(13, 26, 115, 0.50) 0%, rgba(213, 218, 246, 0.20) 11%, #F7F8FD 100%), #F7F8FD;
+      // background: linear-gradient(180deg, rgba(13, 26, 115, 0.50) 0%, rgba(213, 218, 246, 0.20) 34.13%, #F7F8FD 100%), #F7F8FD;
+      // @media (max-width: 991px) {
+      //    background: linear-gradient(180deg, rgba(13, 26, 115, 0.50) 0%, rgba(213, 218, 246, 0.20) 14.13%, #F7F8FD 100%), #F7F8FD;
+      // }
+      // @media (max-width: 799px) {
+      //    background: linear-gradient(180deg, rgba(13, 26, 115, 0.50) 0%, rgba(213, 218, 246, 0.20) 12.5%, #F7F8FD 100%), #F7F8FD;
+      // }
+      // @media (max-width: 599px) {
+      //    background: linear-gradient(180deg, rgba(13, 26, 115, 0.50) 0%, rgba(213, 218, 246, 0.20) 11.5%, #F7F8FD 100%), #F7F8FD;
+      // }
+      // @media (max-width: 389px) {
+      //    background: linear-gradient(180deg, rgba(13, 26, 115, 0.50) 0%, rgba(213, 218, 246, 0.20) 12%, #F7F8FD 100%), #F7F8FD;
+      // }
    }
 }
 

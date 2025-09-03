@@ -7,47 +7,48 @@
    justify-content: center;
    align-items: center;
    gap: 0.625rem;
-   &--call2action {
-      border-color: #D27E7E;
-      background-color: rgba(246, 254, 248, 0.40);
-      color: #CB4D4D;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      animation-name: buttontextunhover;
-      animation-duration: 0.35s;
+   background-color: rgba(246, 254, 248, 0.40);
+   font-family: 'Inter', sans-serif;
+   font-weight: 500;
+   animation-name: buttontextunhover;
+   animation-duration: 0.35s;
+   animation-timing-function: ease-out;
+   animation-fill-mode: forwards;
+   &:hover {
+      animation-name: buttontexthover;
+      animation-duration: 0.15s;
       animation-timing-function: ease-out;
       animation-fill-mode: forwards;
-      &:hover {
-         animation-name: buttontexthover;
-         animation-duration: 0.15s;
-         animation-timing-function: ease-out;
-         animation-fill-mode: forwards;
-         // animation-iteration-count: infinite;
-         // animation-direction: alternate;
-         }
-         @keyframes buttontexthover {
-            0% {
-               font-weight: 500;
-               background-color: rgba(246, 254, 248, 0.50);
-            }
-            100% {
-               font-weight: 700;
-               background-color: rgba(246, 254, 248, 0.8);
-            }
-         }
-      @keyframes buttontextunhover {
-            0% {
-               font-weight: 700;
-               background-color: rgba(246, 254, 248, 0.8);
-            }
-            100% {
-               font-weight: 500;
-               background-color: rgba(246, 254, 248, 0.50);
-            }
-      
+      // animation-iteration-count: infinite;
+      // animation-direction: alternate;
       }
+      @keyframes buttontexthover {
+         0% {
+            font-weight: 500;
+            background-color: rgba(246, 254, 248, 0.50);
+         }
+         100% {
+            font-weight: 700;
+            background-color: rgba(246, 254, 248, 0.8);
+         }
+      }
+   @keyframes buttontextunhover {
+         0% {
+            font-weight: 700;
+            background-color: rgba(246, 254, 248, 0.8);
+         }
+         100% {
+            font-weight: 500;
+            background-color: rgba(246, 254, 248, 0.50);
+         }
+   
    }
    &--enter {
-      background-color: rgba(246, 254, 248, 0.40);
+      border-color: #1EBA3B;
+      color: #008017;
+   }
+   &--call2action {
+      border-color: #D27E7E;
+      color: #CB4D4D;
    }
 }

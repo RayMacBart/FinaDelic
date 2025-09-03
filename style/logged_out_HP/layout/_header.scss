@@ -4,15 +4,12 @@
    overflow: visible;
    margin-top: -2rem;
    gap: 2.2rem;
-   padding-bottom: 2.7rem;
+   padding-bottom: 3.3rem;
    @media (min-width: 450px) {
-      padding-bottom: 2.9rem;
+      padding-bottom: 4rem;
    }
    @media (min-width: 800px) {
       gap: 3rem;
-   }
-   @media (min-width: 992px) {
-      padding-bottom: 3.3rem;
    }
 }
 
@@ -101,9 +98,12 @@
       background-size: contain;
       border: 0.1rem solid transparent;
       border-radius: 100rem;
-      background-image: radial-gradient(rgba(244, 244, 251, 0) 54%,
-                                        rgba(244, 244, 251, 0.3) 61%,
-                                        rgba(244, 244, 251, 1) 71%), url('./assets/moneyplant_mobile.png');
+      background-image: radial-gradient(rgba(243, 243, 250, 0) 54%,
+                                        rgba(243, 243, 250, 0.3) 61%,
+                                        rgba(243, 243, 250, 1) 71%), url('./assets/moneyplant_mobile.png');
+      // background-image: radial-gradient(rgba(76, 84, 140, 0) 54%,
+      //                                   rgba(76, 84, 140, 0.3) 61%,
+      //                                   rgb(175, 180, 214) 71%), url('./assets/moneyplant_mobile.png');
       @media (min-width: 992px) {
          display: none;
       }
@@ -122,6 +122,11 @@
                               linear-gradient(135deg, rgba(244, 244, 251, 1) 4%, rgba(244, 244, 251, 0.3) 7%, rgba(244, 244, 251, 0) 15%);
             height: 20.1rem;
             width: 30rem;
+            @media (min-width: 992px) {
+               display: inline-block;
+            }
+            // border: 10px solid red;
+            // box-shadow: -4rem 1rem 5rem rgb(237, 239, 251) inset;
             // @media (min-width: 992px){
             //    display:inline-block;
             // }
@@ -136,7 +141,7 @@
             margin-left: -2.5rem;
             height: 20rem;
             border-radius: 15%;
-            text-shadow: -4rem 1rem 5rem rgb(237, 239, 251) inset;
+            
          }
       }
    }
@@ -167,13 +172,16 @@
    @media (min-width: 992px) {
       padding-left: 1.4rem;
    }
+   @media (min-width: 1550px) {
+      padding-left: 4rem;
+   }
    &__mobile-linebreak {
       @media (min-width: 992px) {
          display: none;
       }
    }
    &__desktop-linebreak {
-      @media (max-width: 992px) {
+      @media (max-width: 991px) {
          display: none;
       }
    }
