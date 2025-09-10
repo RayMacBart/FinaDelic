@@ -11,6 +11,12 @@
    @media (min-width: 800px) {
       gap: 3rem;
    }
+   &--loggedin {
+      padding-bottom: 0.7rem;
+      @media (min-width: 450px) {
+         padding-bottom: 1.7rem;
+      }
+   }
 }
 
 

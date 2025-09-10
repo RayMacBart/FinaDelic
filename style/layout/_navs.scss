@@ -1,9 +1,8 @@
 .nav {
    display: flex;
-   justify-content: space-around;
    align-items: center;
    height: 4.4rem;
-   justify-content: right;
+   justify-content: space-between;
    margin: 0 8%;
    @media (max-width: 1200px) {
       margin: 0.8rem 6%;
@@ -15,6 +14,17 @@
       margin: 0.3rem 2%;
    }
    @media (max-width: 576px) {
+      
       margin: 0;
+   }
+   &--HP {
+      &--loggedout {
+         justify-content: right;
+      }
+      :last-child {
+         @media (max-width: 460px) {
+            object-position: 2rem 0;  
+         }
+      }
    }
 }

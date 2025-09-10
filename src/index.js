@@ -13,7 +13,8 @@ window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
                                               });
 
 if (window.location.pathname === '/') {
-   window.location.href = window.location.origin + '/loggedoutHP';
+   // window.location.href = window.location.origin + '/loggedoutHP';
+   window.location.href = window.location.origin + '/flowPage';
 }
 
 if ((window.location.pathname === '/loggedoutHP') || (window.location.pathname === '/loggedinHP')) {

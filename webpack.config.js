@@ -33,6 +33,7 @@ module.exports = {
       new CopyPlugin({
          patterns: [
             { from: "assets", to: "assets" },
+            { from: "assets/icons", to: "assets/icons" },
             { from: "lib/fonts", to: "fonts" }
          ],
       }),

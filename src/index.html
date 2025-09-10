@@ -21,9 +21,9 @@
             <div class="footer__content-flexwrap">
                <div class="footerLogoBox"></div>
                <menu class="footer__menu">
-                  <li class="footer-link"><a id='terms-footerlink' href="#">Terms &amp; Conditions</a></li>
-                  <li class="footer-link"><a href="#">Privacy Policy</a></li>
-                  <li class="footer-link"><a href="#">Legal Notice</a></li>
+                  <li class="footer-link"><a href="#page">Terms &amp; Conditions</a></li>
+                  <li class="footer-link"><a href="#page">Privacy Policy</a></li>
+                  <li class="footer-link"><a href="#page">Legal Notice</a></li>
                </menu>
             </div>
          </div>
@@ -49,7 +49,9 @@
 
 
 <template id="loggedoutHP">
-   <nav class="nav"><img class="icon icon--login" src="./assets/login.svg" alt="login" /></nav>
+   <nav class="nav nav--HP nav--HP--loggedout">
+      <img class="icon" id="login-icon" src="./assets/icons/login.svg" data-icon-desc="login" alt="login icon" />
+   </nav>
    <div class="margin-container">
       <header class="header">
          <div class="heroLogoBox"></div>
@@ -62,7 +64,7 @@
             </picture>
             <h1 class="hero__title">Insight &nbsp;&nbsp;&nbsp;<br> through &nbsp;<br>adaptability</h1>
          </hgroup>
-          <h2 class="undertitle">Organize your financials <em style="font-style: italic">your</em> way.<br>
+         <h2 class="undertitle">Organize your financials <em style="font-style: italic">your</em> way.<br>
                                          <strong style="font-weight: 420;">FinaDelic</strong> emphasizes <strong>flexibility</strong>,<br class="undertitle__mobile-linebreak">
                                          delivering<br class="undertitle__desktop-linebreak"> <em>individual</em> insights - 
                                          <br class="undertitle__mobile-linebreak">giving you the cutting edge!</h2>
@@ -98,13 +100,65 @@
 
 
 <template id="loggedinHP">
-   <h1>LOGGED IN HP</h1>
+   <nav class="nav nav--HP">
+      <hgroup class="workspace-info workspace-info--loggedin-HP">
+         <h4 class="workspace-info workspace-info__signed-in-as">SIGNED IN AS &nbsp;&nbsp;</h4> 
+         <h4 class="workspace-info workspace-info__username" id="username"> RayMacBart</h4>
+      </hgroup>
+      <img class="icon" id="logout-icon" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+   </nav>
+   <div class="margin-container">
+      <header class="header header--loggedin">
+         <div class="heroLogoBox heroLogoBox--loggedin-HP"></div>
+         <a href="#page" id="backlink">GO BACK TO APPLICATION</a>
+         <hgroup class="hero">
+            <picture class="hero__pic_container">
+               <div class="hero__pic"></div>
+               <source class="hero__pic--desktop" media="(min-width:992px)" srcset="assets/moneyplant_desktop.jpg" type="image/jpeg">
+               <img class="hero__pic__img-layer" src="assets/empty.png" alt="plant prospering in money">
+               <div class="hero__pic--desktop__overlay"></div>
+            </picture>
+            <h1 class="hero__title">Insight &nbsp;&nbsp;&nbsp;<br> through &nbsp;<br>adaptability</h1>
+         </hgroup>
+         <h2 class="undertitle">Organize your financials <em style="font-style: italic">your</em> way.<br>
+                                         <strong style="font-weight: 420;">FinaDelic</strong> emphasizes <strong>flexibility</strong>,<br class="undertitle__mobile-linebreak">
+                                         delivering<br class="undertitle__desktop-linebreak"> <em>individual</em> insights - 
+                                         <br class="undertitle__mobile-linebreak">giving you the cutting edge!</h2>
+      </header>
+      <main>
+         <section class="feature-presentation">
+            <svg class="graphic graphic--bag"><use href="assets/bg_bag.svg#bg-bag"></use></svg>
+            <svg class="graphic graphic--fire"><use href="assets/bg_fire.svg#bg-fire"></use></svg>
+            <svg class="graphic graphic--chart"><use href="assets/bg_chart.svg#bg-chart"></use></svg>   <!-- TODO: check dynamic svg use integration, check pos rel/abs, check pseudo-elem bulletpoints (dt) -->
+            <svg class="graphic graphic--clock"><use href="assets/bg_clock.svg#bg-clock"></use></svg>
+            <svg class="graphic graphic--flows"><use href="assets/bg_flows.svg#bg-flows"></use></svg>
+            <dl class="desc-list">
+               <dt class="desc-list__title">Pockets and Drains</dt>
+               <dd class="desc-list__description">Define, group and nest accounts as you like to keep the perfect overview!</dd>
+               <dt class="desc-list__title">Customizable Charts</dt>
+               <dd class="desc-list__description">Add any Pocket, Drain or Flow to build up your personal charts for any time period and store them for later use!</dd>
+               <dt class="desc-list__title">Flow Entries Made Easy</dt>
+               <dd class="desc-list__description">Note your financial incomes and payments fast and uncomplicated everyday!</dd>
+            </dl>
+         </section>
+         <button class="button button--enter" type="button">GO BACK</button>
+      </main>
+   </div>
 </template>
 
 
 
 <template id="flowPage">
-   <h1>FLOWPAGE</h1>
+   <nav class="nav">
+      <img class="logo logo--nav" src="./assets/FinaDelic Logo Nav.svg" data-icon-desc="FinaDelic Logo" alt="FinaDelic Logo" />
+      <img class="icon" id="uparrow-icon" src="./assets/icons/uparrow.svg" data-icon-desc="uparrow" alt="up arrow icon" />
+      <img class="icon" id="clock-icon" src="./assets/icons/clock.svg" data-icon-desc="clock" alt="clock icon" />
+      <img class="icon" id="chart-icon" src="./assets/icons/chart.svg" data-icon-desc="chart" alt="chart icon" />
+      <img class="icon" id="logout-icon" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+   </nav>
+   <div class="margin-container">
+      
+   </div>
 </template>
 
 

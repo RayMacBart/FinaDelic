@@ -1,36 +1,17 @@
 import { navigate } from "./route.js";
+import { getHeroLogo, makeIconHoverEffect } from "../lazyLoader.js";
 
 
-const getHeroLogo = async() => {
-   const res = await fetch('./assets/FinaDelic Logo Hero.svg');
-   const svg = await res.text();
-   console.log(svg);
-   const logoBox = document.querySelector('.heroLogoBox');
-   logoBox.innerHTML = svg;
-   const logo = logoBox.querySelector('svg');
-   logo.classList.add('logo', 'logo--hero');
-   logo.addEventListener('click', () => navigate());
+const setupLoggedoutHPLinks = () => {
+   document.querySelector('#login-icon').addEventListener('click', () => navigate('loginPage'));
+   document.querySelector('.button--call2action').addEventListener('click', () => navigate('loginPage'));
+   document.querySelector('.button--enter').addEventListener('click', () => navigate('loginPage'));
 }
 
-
-const getLoginIconHoverEffect = () => {
-   const logInIcon = document.querySelector('.icon, .icon--login');
-   logInIcon.addEventListener('mouseenter', () => {
-      logInIcon.src = './assets/login_hovered.svg';
-   })
-   logInIcon.addEventListener('mouseover', () => {
-      logInIcon.src = './assets/login_hovered.svg';
-   })
-   logInIcon.addEventListener('mouseleave', () => {
-      logInIcon.src = './assets/login.svg';
-   })
-}
-
-
-function setup() {
-   document.querySelector('.icon--login').addEventListener('click', () => navigate('loginPage'));
+const setup = () => {
+   setupLoggedoutHPLinks();
    getHeroLogo();
-   getLoginIconHoverEffect();
+   makeIconHoverEffect('login');
 }
 
 export { setup };

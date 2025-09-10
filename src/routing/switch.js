@@ -22,6 +22,7 @@ function transit(id, wantedPageClasses) {
    const page = document.getElementById(id).content.cloneNode(true);
    updatePageClasses(wantedPageClasses, pageContainer.classList)
    pageContainer.replaceChildren(page);
+   scrollTo(0, 0);
 }
 
 export { transit };

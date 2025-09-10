@@ -1,0 +1,46 @@
+.icon {
+   width: 6.8rem;
+   animation-name: unhovershade;
+   animation-duration: 0.25s;
+   @keyframes unhovershade {
+      0% {
+         opacity: 100%;
+      }
+      50% {
+         opacity: 0%;
+      }
+      100% {
+         opacity: 100%;
+      }
+   }
+   &:hover {
+      animation-name: hovershade;
+      animation-duration: 0.15s;
+      @keyframes hovershade {
+         0% {
+            opacity: 100%;
+         }
+         50% {
+            opacity: 0%;
+         }
+         100% {
+            opacity: 100%;
+         }
+      }
+   }
+}
+// #uparrow-icon {
+//    width: 1.5rem;
+// }
+// #clock-icon {
+//    width: 2.4rem;
+// }
+// #chart-icon {
+//    width: 2.4rem;
+// }
+#login-icon {
+   width: 7.5rem;
+}
+#logout-icon, #uparrow-icon {
+   width: 6.5rem;
+}
