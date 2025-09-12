@@ -12,8 +12,32 @@
       height: 4.6rem;
    }
    &--nav {
-      width: 8rem;
-      height: 3rem;
+      width: 7rem;
+      height: 2.6rem;
+      animation-name: logoshrink;
+      animation-duration: 0.4s;
+      cursor: pointer;
+      &:hover {
+         animation-name: logogrow;
+         animation-duration: 0.22s;
+         animation-fill-mode: forwards;
+         @keyframes logogrow {
+            0% {
+               transform: scale(1);
+            }
+            100% {
+               transform: scale(1.1);
+            }
+         }
+      }
+      @keyframes logoshrink {
+         0% {
+            transform: scale(1.1);
+         }
+         100% {
+            transform: scale(1);
+         }
+   }
    }
 }
 

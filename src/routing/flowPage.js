@@ -2,7 +2,7 @@ import { navigate } from "./route.js";
 import { makeIconHoverEffect } from "../lazyLoader.js";
 
 const setupFlowPageLinks = () => {
-   document.querySelector('#logout-icon').addEventListener('click', () => navigate('loggedoutHP', ['page--landing']));
+   document.getElementById('logout-icon-tap-area').addEventListener('click', () => navigate('loggedoutHP', ['page--landing']));
 };
 
 function setup() {

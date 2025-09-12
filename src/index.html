@@ -50,7 +50,10 @@
 
 <template id="loggedoutHP">
    <nav class="nav nav--HP nav--HP--loggedout">
-      <img class="icon" id="login-icon" src="./assets/icons/login.svg" data-icon-desc="login" alt="login icon" />
+      <div class="icon-container">
+         <img class="icon icon--login" src="./assets/icons/login.svg" data-icon-desc="login" alt="login icon" />
+         <div class="icon-tap-area icon-tap-area--loggedoutHP" id="login-icon-tap-area"></div>
+      </div>
    </nav>
    <div class="margin-container">
       <header class="header">
@@ -102,10 +105,13 @@
 <template id="loggedinHP">
    <nav class="nav nav--HP">
       <hgroup class="workspace-info workspace-info--loggedin-HP">
-         <h4 class="workspace-info workspace-info__signed-in-as">SIGNED IN AS &nbsp;&nbsp;</h4> 
+         <h4 class="workspace-info workspace-info__pre-username-text">SIGNED IN AS: &nbsp;</h4> 
          <h4 class="workspace-info workspace-info__username" id="username"> RayMacBart</h4>
       </hgroup>
-      <img class="icon" id="logout-icon" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+      <div class="icon-container">
+         <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+         <div class="icon-tap-area icon-tap-area--loggedinHP" id="logout-icon-tap-area"></div>
+      </div>
    </nav>
    <div class="margin-container">
       <header class="header header--loggedin">
@@ -149,15 +155,44 @@
 
 
 <template id="flowPage">
-   <nav class="nav">
+   <nav class="nav nav--workpage">
       <img class="logo logo--nav" src="./assets/FinaDelic Logo Nav.svg" data-icon-desc="FinaDelic Logo" alt="FinaDelic Logo" />
-      <img class="icon" id="uparrow-icon" src="./assets/icons/uparrow.svg" data-icon-desc="uparrow" alt="up arrow icon" />
-      <img class="icon" id="clock-icon" src="./assets/icons/clock.svg" data-icon-desc="clock" alt="clock icon" />
-      <img class="icon" id="chart-icon" src="./assets/icons/chart.svg" data-icon-desc="chart" alt="chart icon" />
-      <img class="icon" id="logout-icon" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+      <div class="icon-container">
+         <img class="icon icon--uparrow" src="./assets/icons/uparrow.svg" data-icon-desc="uparrow" alt="up arrow icon" />
+         <div class="icon-tap-area" id="uparrow-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--clock" src="./assets/icons/clock.svg" data-icon-desc="clock" alt="clock icon" />
+         <div class="icon-tap-area" id="clock-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--chart" src="./assets/icons/chart.svg" data-icon-desc="chart" alt="chart icon" />
+         <div class="icon-tap-area" id="chart-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+         <div class="icon-tap-area" id="logout-icon-tap-area"></div>
+      </div>
    </nav>
+   <dl class="workspace-info">
+      <dt class="workspace-info workspace-info__pre-username-text">WORKSPACE&nbsp; OF </dt> 
+      <dd class="workspace-info workspace-info__username" id="username"> RayMacBart</dd>
+      <div class="workspace-info__space"></div> 
+      <div class="workspace-info--desc">
+         <dt class="workspace-info workspace-info__desc-title">SELECTED&nbsp; TIME: &nbsp;</dt> 
+         <dd class="workspace-info workspace-info__value">
+            <time id="timestart">01.07.2025</time> &nbsp;- &nbsp;<time id="timeend">31.12.2025</time>
+         </dd>
+      </div>
+      <div class="workspace-info--desc">
+         <dt class="workspace-info workspace-info__desc-title">PERIOD &nbsp;TOTAL &nbsp;BALANCE:&nbsp;&nbsp; </dt> 
+         <dd class="workspace-info workspace-info__value" id="total-balance">
+            <span class="positive">3.284.341</span><abbr title="EURO" class="currency"> &euro;</abbr>
+         </dd>
+      </div>
+   </dl>
    <div class="margin-container">
-      
+
    </div>
 </template>
 

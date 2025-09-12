@@ -1,20 +1,52 @@
 .workspace-info {
-   display: inline;
+   display: block;
    font-family: 'Commissioner', sans-serif;
    color: #3B489C;
-   font-weight: 500;
+   font-weight: 480;
    height: 100%;
+   text-align: end;
+   padding-bottom: 1.5rem;
+   &--desc {
+      text-align: center;
+      padding-bottom: 0.9rem;
+   }
+   padding-right: 0.22rem;
+   @media (min-width: 992px) {
+      padding-right: 0.5rem;
+   }
+   @media (min-width: 1400px) {
+      padding-right: 0.7rem;
+   }
    &--loggedin-HP {
+      display: inline-block;
       align-self: flex-start;
       padding-top: 0.5rem;
       @media (max-width: 992px) {
          margin-left: 1rem;
       }
    }
-   &__signed-in-as {
+   &__pre-username-text {
+      display: inline;
       opacity: 70%;
    }
    &__username {
+      display: inline;
       opacity: 80%;
+      text-transform: uppercase;
+   }
+   &__desc-title {
+      display: inline;
+      color: #273AB0;
+      vertical-align: 0.012rem;
+      text-align: center;
+   }
+   &__value {
+      display: inline;
+      color: #273AB0;
+      font-size: 1.1rem;
+      text-wrap-mode: nowrap;
+   }
+   &__space {
+      height: 1.1rem;
    }
 }

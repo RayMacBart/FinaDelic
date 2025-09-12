@@ -1,16 +1,78 @@
+.icon-container {
+   position: relative;
+   width: 3.2rem;
+   height: 3.2rem;
+   @media (min-width: 992px) {
+      width: 2.5rem;
+      height: 2.5rem;
+   }
+}
+
 .icon {
-   width: 6.8rem;
+   overflow: hidden;
+   width: 6.2rem;
+   // border: 1px dashed green;
+   position: absolute;
+   top: -0.8rem;
+   left: -1.5rem;
+   @media (min-width: 992px) {
+      width: 5.7rem;
+      top: -0.92rem;
+      left: -1.65rem;
+   }
+   &--logout, &--uparrow {
+      width: 5.7rem;
+      top: -0.65rem;
+      left: -1.3rem;
+      @media (min-width: 992px) {
+         top: -0.96rem;
+         left: -1.65rem;
+      }
+   }
+}
+
+.icon-tap-area {
+   overflow: visible;
+   position: absolute;
+   // border: 1px solid orange;
+   background-color: #FBFCFD;
+   cursor: pointer;
+   &--loggedoutHP {
+      background: linear-gradient(0deg, rgb(187, 191, 218) 0%, rgb(145, 153, 192) 100%);
+      @media (min-width: 390px) {
+         background: linear-gradient(0deg, rgb(182, 186, 211) 0%, rgb(145, 152, 188) 100%);
+      }
+      @media (min-width: 992px) {
+         background: linear-gradient(0deg, rgb(177, 182, 213) 0%, rgb(151, 158, 198) 100%);
+      }
+   }
+   &--loggedinHP {
+      background: linear-gradient(0deg, rgb(182, 187, 217) 0%, rgb(136, 144, 185) 100%);
+      @media (min-width: 390px) {
+         background: linear-gradient(0deg, rgb(177, 181, 209) 0%, rgb(136, 144, 184) 100%);
+      }
+      @media (min-width: 992px) {
+         background: linear-gradient(0deg, rgb(172, 176, 213) 0%, rgb(141, 148, 190) 100%);
+      }
+   }
+   opacity: 0%;
+   width: 3.2rem;
+   height: 3.2rem;
+   @media (min-width: 992px) {
+      width: 2.5rem;
+      height: 2.5rem;
+   }
    animation-name: unhovershade;
    animation-duration: 0.25s;
    @keyframes unhovershade {
       0% {
-         opacity: 100%;
-      }
-      50% {
          opacity: 0%;
       }
-      100% {
+      50% {
          opacity: 100%;
+      }
+      100% {
+         opacity: 0%;
       }
    }
    &:hover {
@@ -18,29 +80,14 @@
       animation-duration: 0.15s;
       @keyframes hovershade {
          0% {
-            opacity: 100%;
-         }
-         50% {
             opacity: 0%;
          }
-         100% {
+         50% {
             opacity: 100%;
+         }
+         100% {
+            opacity: 0%;
          }
       }
    }
-}
-// #uparrow-icon {
-//    width: 1.5rem;
-// }
-// #clock-icon {
-//    width: 2.4rem;
-// }
-// #chart-icon {
-//    width: 2.4rem;
-// }
-#login-icon {
-   width: 7.5rem;
-}
-#logout-icon, #uparrow-icon {
-   width: 6.5rem;
 }

@@ -11,23 +11,24 @@ const getHeroLogo = async() => {
 
 
 const hoverHandler = (e, hover=true) => {
+   const imgEl = e.target.previousElementSibling;
    if (hover) {
       setTimeout(() => {
-         e.target.src = `./assets/icons/${e.target.dataset.iconDesc}_hovered.svg`;
+         imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_hovered.svg`;
       }, 100);
    } else {
       setTimeout(() => {
-         e.target.src = `./assets/icons/${e.target.dataset.iconDesc}.svg`;
+         imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}.svg`;
       }, 180);
    }  
 }
 
 
 const makeIconHoverEffect = (iconName) => {
-   const icon = document.querySelector(`#${iconName}-icon`);
-   icon.addEventListener('mouseenter', hoverHandler);
-   icon.addEventListener('mouseover', hoverHandler);
-   icon.addEventListener('mouseleave', e => hoverHandler(e, false));
+   const iconTapArea = document.getElementById(`${iconName}-icon-tap-area`);
+   iconTapArea.addEventListener('mouseenter', hoverHandler);
+   iconTapArea.addEventListener('mouseover', hoverHandler);
+   iconTapArea.addEventListener('mouseleave', e => hoverHandler(e, false));
 }
 
 
