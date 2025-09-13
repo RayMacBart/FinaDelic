@@ -6,7 +6,6 @@ const getHeroLogo = async() => {
    logoBox.innerHTML = svg;
    const logo = logoBox.querySelector('svg');
    logo.classList.add('logo', 'logo--hero');
-   logo.addEventListener('click', () => navigate());
 }
 
 

@@ -38,21 +38,21 @@
    background-color: #FBFCFD;
    cursor: pointer;
    &--loggedoutHP {
-      background: linear-gradient(0deg, rgb(187, 191, 218) 0%, rgb(145, 153, 192) 100%);
+      background: linear-gradient(0deg, rgb(181, 186, 214) 0%, rgb(141, 149, 190) 100%);
       @media (min-width: 390px) {
-         background: linear-gradient(0deg, rgb(182, 186, 211) 0%, rgb(145, 152, 188) 100%);
+         background: linear-gradient(0deg, rgb(174, 179, 210) 0%, rgb(138, 146, 183) 100%);
       }
       @media (min-width: 992px) {
-         background: linear-gradient(0deg, rgb(177, 182, 213) 0%, rgb(151, 158, 198) 100%);
+         background: linear-gradient(0deg, rgb(173, 178, 210) 0%, rgb(144, 151, 190) 100%);
       }
    }
    &--loggedinHP {
-      background: linear-gradient(0deg, rgb(182, 187, 217) 0%, rgb(136, 144, 185) 100%);
+      background: linear-gradient(0deg, rgb(175, 181, 214) 0%, rgb(129, 138, 182) 100%);
       @media (min-width: 390px) {
-         background: linear-gradient(0deg, rgb(177, 181, 209) 0%, rgb(136, 144, 184) 100%);
+         background: linear-gradient(0deg, rgb(172, 177, 207) 0%, rgb(129, 137, 181) 100%);
       }
       @media (min-width: 992px) {
-         background: linear-gradient(0deg, rgb(172, 176, 213) 0%, rgb(141, 148, 190) 100%);
+         background: linear-gradient(0deg, rgb(166, 170, 209) 0%, rgb(136, 143, 188) 100%);
       }
    }
    opacity: 0%;
@@ -75,7 +75,7 @@
          opacity: 0%;
       }
    }
-   &:hover {
+   &:hover, &:active {
       animation-name: hovershade;
       animation-duration: 0.15s;
       @keyframes hovershade {

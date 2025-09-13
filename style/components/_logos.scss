@@ -17,7 +17,7 @@
       animation-name: logoshrink;
       animation-duration: 0.4s;
       cursor: pointer;
-      &:hover {
+      &:hover, &:active {
          animation-name: logogrow;
          animation-duration: 0.22s;
          animation-fill-mode: forwards;

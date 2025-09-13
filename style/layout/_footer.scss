@@ -3,7 +3,7 @@
    background: #F7F8FD;
    background-color: #424b89;
    box-shadow: 0 -1px 2px 0 rgba(61, 72, 143, 0.50), 0 0 10px 7px #5E6BBA inset;
-   margin-top: 5rem;
+   margin-top: 4rem;
 }
 
 
@@ -32,7 +32,7 @@
 .footer__menu > li > a {
    color: #fbfbfe;
    text-decoration: none;
-   &:hover {
+   &:hover, &:active {
       animation-name: linkhover;
       animation-duration: 0.15s;
       animation-timing-function: ease-out;

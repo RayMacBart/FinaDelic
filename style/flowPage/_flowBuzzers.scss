@@ -1,0 +1,113 @@
+.buzzer-container {
+   display: flex;
+   height: 10rem;
+   align-items: center;
+   justify-content: space-evenly;
+   padding: 5rem 0 7rem 0;
+   margin-right: 1rem;
+}
+
+.buzzer-wrap {
+   width: 6.45rem;
+   height: 8rem;
+   // border: 1px solid black;
+   text-align: center;
+}
+
+.buzzer {
+   display: inline-block;
+   width: 6.4rem;
+   height: 5.5rem;
+   margin-bottom: 0.5rem;
+   border-radius: 46%;
+   border-style: solid;
+   border-width: 0.24rem;
+   font-family: 'Commissioner', sans-serif;
+   font-weight: 600;
+   font-size: 2rem;
+   &--in {
+      border-color: #1c9d34;
+      box-shadow: 0 0 1rem #007f17 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+      color: #35b24c;
+      text-shadow: 0.0625rem 0.09375rem 0.0625rem #20602C;
+      animation-name: inBuzzerShrink;
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
+      &:hover, &:active {
+         animation-name: inBuzzerGrow;
+         animation-duration: 0.45s;
+         @keyframes inBuzzerGrow {
+            0% {
+               box-shadow: 0 0 1rem #007f17 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+               font-size: 2rem;
+               transform: scale(1);
+            } 20% {
+               box-shadow: 0 0 1rem #00ab1f inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+               font-size: 2.5rem;
+               transform: scale(1.15);
+            } 100% {
+               box-shadow: 0 0 1rem #00ab1f inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+               font-size: 2.3rem;
+               transform: scale(1.08);
+            }
+         }
+      }
+      @keyframes inBuzzerShrink {
+         0% {
+            box-shadow: 0 0 1rem #00ab1f inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+            font-size: 2.3rem;
+            transform: scale(1.08);
+         } 100% {
+            box-shadow: 0 0 1rem #007f17 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+            font-size: 2rem;
+            transform: scale(1);
+         }
+      }
+   }
+   &--out {
+      border-color: #b05c5c;
+      box-shadow: 0 0 1rem #B20000 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+      color: #d47070;
+      text-shadow: 0.0625rem 0.09375rem 0.0625rem #862D2D;
+      animation-name: outBuzzerShrink;
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
+      &:hover, &:active {
+         animation-name: outBuzzerGrow;
+         animation-duration: 0.45s;
+         @keyframes outBuzzerGrow {
+            0% {
+               box-shadow: 0 0 1rem #B20000 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+               font-size: 2rem;
+               transform: scale(1);
+            } 20% {
+               box-shadow: 0 0 1rem #d90000 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+               font-size: 2.3rem;
+               transform: scale(1.15);
+            } 100% {
+               box-shadow: 0 0 1rem #d90000 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+               font-size: 2.15rem;
+               transform: scale(1.08);
+            }
+         }
+      }
+      @keyframes outBuzzerShrink {
+         0% {
+            box-shadow: 0 0 1rem #d90000 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+            font-size: 2.15rem;
+            transform: scale(1.08);
+         } 100% {
+            box-shadow: 0 0 1rem #B20000 inset, 0 0.09375rem 0.1375rem rgba(20,20,100,0.25);
+            font-size: 2rem;
+            transform: scale(1);
+         }
+      }
+   }
+}
+
+#in-total, #out-total {
+   height: 1rem;
+   margin-top: 1rem;
+   padding-left: 0.4rem;
+   opacity: 92%;
+}

@@ -181,18 +181,28 @@
       <div class="workspace-info--desc">
          <dt class="workspace-info workspace-info__desc-title">SELECTED&nbsp; TIME: &nbsp;</dt> 
          <dd class="workspace-info workspace-info__value">
-            <time id="timestart">01.07.2025</time> &nbsp;- &nbsp;<time id="timeend">31.12.2025</time>
+            <time id="time-start">01.07.2025</time> &nbsp;- &nbsp;<time id="time-end">31.12.2025</time>
          </dd>
       </div>
-      <div class="workspace-info--desc">
-         <dt class="workspace-info workspace-info__desc-title">PERIOD &nbsp;TOTAL &nbsp;BALANCE:&nbsp;&nbsp; </dt> 
-         <dd class="workspace-info workspace-info__value" id="total-balance">
-            <span class="positive">3.284.341</span><abbr title="EURO" class="currency"> &euro;</abbr>
-         </dd>
-      </div>
+      
    </dl>
    <div class="margin-container">
-
+      <div class="buzzer-container">
+         <div class="buzzer-wrap">
+            <button class="buzzer buzzer--in">IN</button><br>
+            <span class="positive" id="in-total">4.468.729</span><abbr title="EURO" class="currency"> &euro;</abbr>
+         </div>
+         <div class="buzzer-wrap">
+            <button class="buzzer buzzer--out">OUT</button><br>
+            <span class="negative" id="out-total">-1.184.388</span><abbr title="EURO" class="currency"> &euro;</abbr>
+         </div>
+      </div>
+      <div class="workspace-info--desc">
+         <h4 class="workspace-info workspace-info__desc-title">TOTAL &nbsp;BALANCE:&nbsp;&nbsp; </h4> 
+         <p class="workspace-info workspace-info__value" id="total-balance">
+         <span class="positive">3.284.341</span><abbr title="EURO" class="currency"> &euro;</abbr>
+         </p>
+      </div>
    </div>
 </template>
 
