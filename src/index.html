@@ -187,22 +187,27 @@
       
    </dl>
    <div class="margin-container">
-      <div class="buzzer-container">
-         <div class="buzzer-wrap">
-            <button class="buzzer buzzer--in">IN</button><br>
-            <span class="positive" id="in-total">4.468.729</span><abbr title="EURO" class="currency"> &euro;</abbr>
+      <section id="flow-top">
+         <div class="buzzer-container">
+            <div class="buzzer-wrap">
+               <button class="buzzer buzzer--in">IN</button><br>
+               <span class="positive" id="in-total">4.468.729</span><abbr title="EURO" class="currency"> &euro;</abbr>
+            </div>
+            <div class="buzzer-wrap">
+               <button class="buzzer buzzer--out">OUT</button><br>
+               <span class="negative" id="out-total">-1.184.388</span><abbr title="EURO" class="currency"> &euro;</abbr>
+            </div>
          </div>
-         <div class="buzzer-wrap">
-            <button class="buzzer buzzer--out">OUT</button><br>
-            <span class="negative" id="out-total">-1.184.388</span><abbr title="EURO" class="currency"> &euro;</abbr>
+         <div class="workspace-info--desc">
+            <h4 class="workspace-info workspace-info__desc-title">TOTAL &nbsp;BALANCE:&nbsp;&nbsp; </h4> 
+            <p class="workspace-info workspace-info__value" id="total-balance">
+               <span class="positive">3.284.341</span><abbr title="EURO" class="currency"> &euro;</abbr>
+            </p>
          </div>
-      </div>
-      <div class="workspace-info--desc">
-         <h4 class="workspace-info workspace-info__desc-title">TOTAL &nbsp;BALANCE:&nbsp;&nbsp; </h4> 
-         <p class="workspace-info workspace-info__value" id="total-balance">
-         <span class="positive">3.284.341</span><abbr title="EURO" class="currency"> &euro;</abbr>
-         </p>
-      </div>
+      </section>
+      <section id="flow-bag">
+         HELLO IN THE BAG!
+      </section>
    </div>
 </template>
 

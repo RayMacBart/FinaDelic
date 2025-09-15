@@ -5,7 +5,6 @@ console.log('FULL RELOAD!');
 
 setupFooter();
 window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
-                                              console.log('HEY!');
                                               if (e.state.page === 'loggedoutHP' || e.state.page === 'loggedinHP') {
                                                  extraClassesWanted.push('page--landing');
                                                  }

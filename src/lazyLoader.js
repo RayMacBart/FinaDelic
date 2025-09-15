@@ -1,7 +1,6 @@
 const getHeroLogo = async() => {
    const res = await fetch('./assets/FinaDelic Logo Hero.svg');
    const svg = await res.text();
-   console.log(svg);
    const logoBox = document.querySelector('.heroLogoBox');
    logoBox.innerHTML = svg;
    const logo = logoBox.querySelector('svg');
