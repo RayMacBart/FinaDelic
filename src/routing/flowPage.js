@@ -6,7 +6,29 @@ import { DummyData } from "../dummyData.js";
 const renderFlowBag = (bagName, stepUp=false) => {
    DummyData.setCurrentBag(bagName, stepUp);
    const bag = DummyData.getData();
-   console.log(bag);
+
+   console.log(bagName);
+   for (const key in bag) {
+      console.log(key);
+   }
+
+   if ((Object.keys(bag).length === 2) && ('IN' in bag) && ('OUT')in bag) {
+      document.getElementById('flow-bag').style.display = 'none';
+      document.getElementById('flow-top').style.display = 'block';
+   } else {
+      if (bagName === 'IN' || bagName === 'OUT') { // means 50% chance user came from topmost (at least)
+         document.getElementById('flow-top').style.display = 'none';
+         document.getElementById('flow-bag').style.display = 'block';
+      }
+      const titleBG = document.querySelector('.flowBagTitleBG');
+      if (bag.amount >= 0) {
+         titleBG.classList.remove('flowBagTitleBG--fire');
+         titleBG.classList.add('flowBagTitleBG--bag');
+      } else {
+         titleBG.classList.remove('flowBagTitleBG--bag');
+         titleBG.classList.add('flowBagTitleBG--fire');
+      }
+   }
 }
 
 const setupFlowPageLinks = () => {
