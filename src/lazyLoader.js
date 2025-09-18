@@ -10,15 +10,19 @@ const getHeroLogo = async() => {
 
 const hoverHandler = (e, hover=true) => {
    const imgEl = e.target.previousElementSibling;
-   if (hover) {
-      setTimeout(() => {
-         imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_hovered.svg`;
-      }, 100);
+   if (e.target.dataset.status === 'disabled') {
+      imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_disabled.svg`;
    } else {
-      setTimeout(() => {
-         imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}.svg`;
-      }, 180);
-   }  
+      if (hover) {
+         setTimeout(() => {
+            imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_hovered.svg`;
+         }, 100);
+      } else {
+         setTimeout(() => {
+            imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}.svg`;
+         }, 180);
+      }  
+   }
 }
 
 

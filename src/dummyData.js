@@ -2,6 +2,7 @@ window.date
 
 class DummyData {
    static #currentBag = null
+   static uniqueRefindFlag = Symbol('refinder');
    static #data = {
       "IN": {
          "amount": 4468729.86,
@@ -425,6 +426,10 @@ class DummyData {
    }
 
    static setCurrentBag(bagName, stepUp) {
+      if (bagName === this.uniqueRefindFlag) {
+         console.log('refound flow!');
+         return;
+      }
       if (!this.#currentBag && stepUp) {
          throw new Error("Error: Can't step up from topmost flowPage!");
       }
