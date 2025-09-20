@@ -1,17 +1,16 @@
-import { navigate } from "./route.js";
-import { getHeroLogo, makeIconHoverEffect } from "../lazyLoader.js";
+import app from "../index.js";
 
 
 const setupLoggedoutHPLinks = () => {
-   document.getElementById('login-icon-tap-area').addEventListener('click', () => navigate('loginPage'));
-   document.querySelector('.button--call2action').addEventListener('click', () => navigate('loginPage'));
-   document.querySelector('.button--enter').addEventListener('click', () => navigate('loginPage'));
+   document.getElementById('login-icon-tap-area').addEventListener('click', () => app.navigate('loginPage'));
+   document.querySelector('.button--call2action').addEventListener('click', () => app.navigate('loginPage'));
+   document.querySelector('.button--enter').addEventListener('click', () => app.navigate('loginPage'));
 }
 
 const setup = () => {
    setupLoggedoutHPLinks();
-   getHeroLogo();
-   makeIconHoverEffect('login');
+   app.lazyLoader.importSVG('FinaDelic Logo Hero', 'heroLogoBox', ['logo', 'logo--hero']);
+   app.makeIconHoverEffect('login');
 }
 
 export { setup };

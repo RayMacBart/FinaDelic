@@ -240,5 +240,52 @@
 </template>
 
 
+<template id="toolbar">
+   <menu class="menu menu--account">
+      <li><button class="tool-button">MODIFY</button></li>
+      <li><button class="tool-button">ADD TO<br>CHART</button></li>
+      <li><button class="tool-button">ADD<br>POCKET</button></li> <!-- dynamically alter to DRAIN-->
+      <li><button class="tool-button">ADD<br>GAIN</button></li> <!-- dynamically alter to LOSS-->
+   </menu>
+   <menu class="menu menu--account-modification">
+      <li><button class="tool-button"></button></li> <!-- back! -->
+      <li><button class="tool-button">REMOVE</button></li>
+      <li><button class="tool-button">RENAME</button></li>
+      <li><button class="tool-button">MOVE</button></li>
+   </menu>
+   <menu class="menu menu--account-remove">
+      <li><button class="tool-button"></button></li> <!-- back! -->
+      <li><button class="tool-button">ERASE</button></li>
+      <li>
+         <button class="tool-button">DISBAND</button>
+         <details>
+            <summary>info</summary>
+            Deletes this pocket but moves content up to parent pocket <!-- dynamically alter to DRAIN-->
+         </details>
+      </li>
+   </menu>
+    <menu class="menu menu--flow">
+      <li><button class="tool-button">DELETE</button></li>
+      <li><button class="tool-button">MOVE</button></li>
+      <li><button class="tool-button">CHANGE</button></li>
+   </menu>
+    <menu class="menu menu--flow-change">
+      <li><button class="tool-button"></button></li> <!-- back! -->
+      <li><button class="tool-button">CHANGE<br>DATE</button></li>
+      <li><button class="tool-button">CHANGE<br>TEXT</button></li>
+      <li><button class="tool-button">CHANGE<br>AMOUNT</button></li>
+   </menu>
+    <menu class="menu menu--move">
+      <li><button class="tool-button"></button></li> <!-- back! -->
+      <li><button class="tool-button">MOVE<br>UP</button></li>
+      <li><button class="tool-button">MOVE<br>INTO</button></li>
+   </menu>
+    <menu class="menu menu--chart">
+      <li><button class="tool-button">DELETE</button></li>
+      <li><button class="tool-button">SWITCH<br>TO LINE</button></li> <!-- dynamically alter to PIE-->
+      <li><button class="tool-button">SAVE<br>AS</button></li>
+      <li><button class="tool-button">SAVE</button></li>
+   </menu>
+</template>
 
 </html>

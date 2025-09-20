@@ -1,26 +1,28 @@
-import { setupFooter } from "./footer.js";
-import { navigate } from "./routing/route.js";
+import Footer from "./footer.js";
+import Router from "./route.js";
+import LazyLoader from "./lazyLoader.js";
 
-console.log('FULL RELOAD!');
+class App {
+   constructor(defaultPage) {
+      console.log('FULL RELOAD!');
+      this.navigate = (new Router(defaultPage)).navigate;
+      this.lazyLoader = new LazyLoader();
+      new Footer(this.navigate, this.lazyLoader.importSVG);
+   }
 
-setupFooter();
-window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
-                                              if (e.state.page === 'loggedoutHP' || e.state.page === 'loggedinHP') {
-                                                 extraClassesWanted.push('page--landing');
-                                                 }
-                                              navigate(window.location.pathname.slice(1), extraClassesWanted, true);
-                                              });
+   makeIconHoverEffect(iconName) {
+      const iconTapArea = document.getElementById(`${iconName}-icon-tap-area`);
+      iconTapArea.addEventListener('mouseenter', this.lazyLoader.hoverPicLoader);
+      iconTapArea.addEventListener('mouseover', this.lazyLoader.hoverPicLoader);
+      iconTapArea.addEventListener('mouseleave', e => this.lazyLoader.hoverPicLoader(e, false));
+   }
 
-if (window.location.pathname === '/') {
-   // window.location.href = window.location.origin + '/loggedoutHP';
-   window.location.href = window.location.origin + '/flowPage';
 }
 
-if ((window.location.pathname === '/loggedoutHP') || (window.location.pathname === '/loggedinHP')) {
-   navigate(window.location.pathname.slice(1), ['page--landing']);  // 'loggedoutHP', ['page--landing'] | 'loginPage' | 'loggedinHP', ['page--landing'] |
-} else {                                                            // 'flowPage' | 'chartPage' | 'terms' | 'privacy' | 'legal'
-   navigate(window.location.pathname.slice(1));
-}
-                                             
+
+const app = new App('flowPage');
+
+export default app;
+                           
 
                                             

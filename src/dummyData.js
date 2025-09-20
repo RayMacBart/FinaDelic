@@ -2,7 +2,7 @@ window.date
 
 class DummyData {
    static #currentBag = null
-   static uniqueRefindFlag = Symbol('refinder');
+   static revisitFlag = Symbol('revisitFlag');
    static #data = {
       "IN": {
          "amount": 4468729.86,
@@ -426,8 +426,7 @@ class DummyData {
    }
 
    static setCurrentBag(bagName, stepUp) {
-      if (bagName === this.uniqueRefindFlag) {
-         console.log('refound flow!');
+      if (bagName === this.revisitFlag) {
          return;
       }
       if (!this.#currentBag && stepUp) {

@@ -1,37 +1,38 @@
-const getHeroLogo = async() => {
-   const res = await fetch('./assets/FinaDelic Logo Hero.svg');
-   const svg = await res.text();
-   const logoBox = document.querySelector('.heroLogoBox');
-   logoBox.innerHTML = svg;
-   const logo = logoBox.querySelector('svg');
-   logo.classList.add('logo', 'logo--hero');
-}
+class LazyLoader {
 
+   constructor() {
+      this.parser = new DOMParser();
+   }
+   
+   importSVG = async(svgFilename, wrapperCSSclass, ownCSSclasses) => {  // (?)[../docs/methodAsProperty.txt]
+      const res = await fetch(`./assets/${svgFilename}.svg`);
+      const svgText = await res.text();
+      const svg = this.parser.parseFromString(svgText, 'image/svg+xml').documentElement;
+      const clonedSVG = svg.cloneNode(true);
+      const logoBox = document.querySelector('.'+wrapperCSSclass);
+      for (const cls of ownCSSclasses) {
+         clonedSVG.classList.add(cls);
+      }
+      logoBox.appendChild(clonedSVG);
+      return clonedSVG;
+   }
 
-const hoverHandler = (e, hover=true) => {
-   const imgEl = e.target.previousElementSibling;
-   if (e.target.dataset.status === 'disabled') {
-      imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_disabled.svg`;
-   } else {
-      if (hover) {
-         setTimeout(() => {
-            imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_hovered.svg`;
-         }, 100);
+   hoverPicLoader(e, hover=true) {
+      const imgEl = e.target.previousElementSibling;
+      if (e.target.dataset.status === 'disabled') {
+         imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_disabled.svg`;
       } else {
-         setTimeout(() => {
-            imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}.svg`;
-         }, 180);
-      }  
+         if (hover) {
+            setTimeout(() => {
+               imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_hovered.svg`;
+            }, 100);
+         } else {
+            setTimeout(() => {
+               imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}.svg`;
+            }, 180);
+         }  
+      }
    }
 }
 
-
-const makeIconHoverEffect = (iconName) => {
-   const iconTapArea = document.getElementById(`${iconName}-icon-tap-area`);
-   iconTapArea.addEventListener('mouseenter', hoverHandler);
-   iconTapArea.addEventListener('mouseover', hoverHandler);
-   iconTapArea.addEventListener('mouseleave', e => hoverHandler(e, false));
-}
-
-
-export { getHeroLogo, makeIconHoverEffect };
+export default LazyLoader;
