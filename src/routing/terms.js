@@ -1,6 +1,13 @@
+class TermsPage {
 
-function setup() {
-   console.log('setup terms!');
+   #setupTermsPageLinks(app) {
+
+   }
+
+   setup(app) {
+      console.log('setup TermsPage!');
+      this.#setupTermsPageLinks(app);
+   }
 }
 
-export { setup };
+export default TermsPage;

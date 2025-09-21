@@ -1,6 +1,13 @@
+class PrivacyPage {
 
-function setup() {
-   console.log('setup privacy!');
+   #setupPrivacyPageLinks(app) {
+
+   }
+
+   setup(app) {
+      console.log('setup PrivacyPage!');
+      this.#setupPrivacyPageLinks(app);
+   }
 }
 
-export { setup };
+export default PrivacyPage;

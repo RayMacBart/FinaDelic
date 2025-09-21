@@ -2,12 +2,13 @@ import Footer from "./footer.js";
 import Router from "./route.js";
 import LazyLoader from "./lazyLoader.js";
 
+
 class App {
    constructor(defaultPage) {
       console.log('FULL RELOAD!');
-      this.navigate = (new Router(defaultPage)).navigate;
+      this.router = new Router(this, defaultPage);
       this.lazyLoader = new LazyLoader();
-      new Footer(this.navigate, this.lazyLoader.importSVG);
+      new Footer(this.router.navigate, this.lazyLoader.importSVG);
    }
 
    makeIconHoverEffect(iconName) {

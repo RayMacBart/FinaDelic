@@ -1,6 +1,13 @@
+class ChartPage {
 
-function setup() {
-   console.log('setup chartPage!');
+   #setupChartPageLinks(app) {
+
+   }
+
+   setup(app) {
+      console.log('setup chartPage!');
+      this.#setupChartPageLinks(app);
+   }
 }
 
-export { setup };
+export default ChartPage;

@@ -1,9 +1,11 @@
-window.date
 
 class DummyData {
-   static #currentBag = null
-   static revisitFlag = Symbol('revisitFlag');
-   static #data = {
+   constructor() {
+      this.revisitFlag = Symbol('revisitFlag');
+   }
+   #currentBag = null
+   
+   #data = {
       "IN": {
          "amount": 4468729.86,
          "nestedBags": {
@@ -412,7 +414,7 @@ class DummyData {
    }
 
 
-   static getData() {
+   getData() {
       if (this.#currentBag) {
          let focussedObj = this.#data;
          for (const i of this.#currentBag.split('/')) {
@@ -425,8 +427,11 @@ class DummyData {
       }
    }
 
-   static setCurrentBag(bagName, stepUp) {
+   setCurrentBag(bagName, stepUp) {
+      
+      console.log(`currentBag @ start of setCurrentBag:\n${this.#currentBag}`);
       if (bagName === this.revisitFlag) {
+         console.log('bagName === revisitFlag --> returned from setCurrentBag');
          return;
       }
       if (!this.#currentBag && stepUp) {
@@ -445,6 +450,7 @@ class DummyData {
       }
       else if (stepUp && (this.#currentBag === "IN" || this.#currentBag === "OUT")) {
          this.#currentBag = null;
+         console.log('stepup from IN or OUT: set currentBag to null and returned from setCurrentBag!');
          return;
       }
       else if (stepUp) {
@@ -459,7 +465,8 @@ class DummyData {
             this.#currentBag = bagName;
          }
       }
+      console.log(`currentBag @ end of setCurrentBag:\n${this.#currentBag}`);
    }
 }
 
-export { DummyData };
+export default DummyData;

@@ -1,6 +1,13 @@
+class LegalPage {
 
-function setup() {
-   console.log('setup legal!');
+   #setupLegalPageLinks(app) {
+
+   }
+
+   setup(app) {
+      console.log('setup LegalPage!');
+      this.#setupLegalPageLinks(app);
+   }
 }
 
-export { setup };
+export default LegalPage;

@@ -1,16 +1,17 @@
-import app from "../index.js";
 
-
-const setupLoggedoutHPLinks = () => {
-   document.getElementById('login-icon-tap-area').addEventListener('click', () => app.navigate('loginPage'));
-   document.querySelector('.button--call2action').addEventListener('click', () => app.navigate('loginPage'));
-   document.querySelector('.button--enter').addEventListener('click', () => app.navigate('loginPage'));
+class LoggedoutHP {
+   #setupLoggedoutHPLinks(app) {
+      document.getElementById('login-icon-tap-area').addEventListener('click', () => app.router.navigate('loginPage'));
+      document.querySelector('.button--call2action').addEventListener('click', () => app.router.navigate('loginPage'));
+      document.querySelector('.button--enter').addEventListener('click', () => app.router.navigate('loginPage'));
+   }
+   
+   async setup(app) {
+      this.#setupLoggedoutHPLinks(app);
+      await app.lazyLoader.importSVG('FinaDelic Logo Hero', 'heroLogoBox', ['logo', 'logo--hero']);
+      app.makeIconHoverEffect('login');
+   }
 }
 
-const setup = () => {
-   setupLoggedoutHPLinks();
-   app.lazyLoader.importSVG('FinaDelic Logo Hero', 'heroLogoBox', ['logo', 'logo--hero']);
-   app.makeIconHoverEffect('login');
-}
 
-export { setup };
+export default LoggedoutHP;

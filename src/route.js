@@ -1,8 +1,12 @@
 
 class Router {
 
-   constructor(defaultPage) {
+   pages = {}
+
+   constructor(app, defaultPage) {
+      this.app = app;
       window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
+         console.log(e);
                                               if (e.state.page === 'loggedoutHP' || e.state.page === 'loggedinHP') {
                                                  extraClassesWanted.push('page--landing');
                                                  }
@@ -18,7 +22,7 @@ class Router {
       }
    }
 
-   updatePageClasses(wanted, current) {
+   #updatePageClasses(wanted, current) {
       const toDel = [];
       let cls;
       for (cls of current) {
@@ -36,18 +40,22 @@ class Router {
       }
    }
 
-   transit(id, wantedPageClasses) {
+   #transit(id, wantedPageClasses) {
       const pageContainer = document.querySelector('.page');
       const page = document.getElementById(id).content.cloneNode(true);
-      this.updatePageClasses(wantedPageClasses, pageContainer.classList)
+      this.#updatePageClasses(wantedPageClasses, pageContainer.classList)
       pageContainer.replaceChildren(page);
       scrollTo(0, 0);
    }
 
    navigate = async(pageid='devMenu', wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
-      this.transit(pageid, wantedPageClasses);
-      const module = await import(`./routing/${pageid}.js`);
-      module.setup();
+      this.#transit(pageid, wantedPageClasses);
+      if (!(pageid in this.pages)) {
+         const Module = await import(`./routing/${pageid}.js`);
+         const newInst = new Module.default();
+         this.pages[pageid] = newInst;
+      }
+      this.pages[pageid].setup(this.app);
       if (!popstate) {
          history.pushState({page: `${pageid}`}, "", `/${pageid}`)
       }

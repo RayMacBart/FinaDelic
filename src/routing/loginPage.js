@@ -1,6 +1,13 @@
+class LoginPage {
 
-function setup() {
-   console.log('setup loginPage!');
+   #setupLoginPageLinks(app) {
+
    }
 
-export { setup };
+   setup(app) {
+      console.log('setup LoginPage!');
+      this.#setupLoginPageLinks(app);
+   }
+}
+
+export default LoginPage;

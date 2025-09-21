@@ -1,7 +1,49 @@
-#toolbar {
-   display: none;
+// #toolbar-wrapper {
+//    position: relative;
+// }
+
+.menu {
+   display: flex;
+   position: relative;
+   top: 18rem;
+   left: 22rem;
+   align-items: center;
+   padding-left: 0.2rem;
+   padding-right: 0.2rem;
+   width: fit-content;
+   background-color: #8790C9;
+   border: 0.125rem solid #414C97;
+   border-radius: 0.7rem;
+   &--account {
+      display: none;
+   }
+   &--account-modification {
+      display: none;
+   }
+   &--account-remove {
+      display: none;
+   }
+   &--flow {
+      display: none;
+   }
+   &--flow-change {
+      display: none;
+   }
+   &--move {
+      display: none;
+   }
+   &--chart {
+      display: none;
+   }
 }
 
-menu {
-   display: none;
+.tool-button {
+   width: 4.9rem;
+   height: 2.9rem;
+   font-family: 'Commissioner', sans-serif;
+   background-color: #F7F8FD;
+   border: 0.08rem solid #363F7D;
+   border-radius: 0.5rem;
+   color: #1F2447;
+   margin: 0.27rem 0.2rem;
 }
