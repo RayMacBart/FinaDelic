@@ -428,10 +428,7 @@ class DummyData {
    }
 
    setCurrentBag(bagName, stepUp) {
-      
-      console.log(`currentBag @ start of setCurrentBag:\n${this.#currentBag}`);
       if (bagName === this.revisitFlag) {
-         console.log('bagName === revisitFlag --> returned from setCurrentBag');
          return;
       }
       if (!this.#currentBag && stepUp) {
@@ -450,7 +447,6 @@ class DummyData {
       }
       else if (stepUp && (this.#currentBag === "IN" || this.#currentBag === "OUT")) {
          this.#currentBag = null;
-         console.log('stepup from IN or OUT: set currentBag to null and returned from setCurrentBag!');
          return;
       }
       else if (stepUp) {
@@ -465,7 +461,6 @@ class DummyData {
             this.#currentBag = bagName;
          }
       }
-      console.log(`currentBag @ end of setCurrentBag:\n${this.#currentBag}`);
    }
 }
 

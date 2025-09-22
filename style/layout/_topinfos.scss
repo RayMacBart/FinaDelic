@@ -4,7 +4,7 @@
    color: #3B489C;
    font-weight: 480;
    height: 100%;
-   text-align: end;
+   text-align: start;
    padding-bottom: 1.5rem;
    &--desc {
       text-align: center;
@@ -28,6 +28,7 @@
    &__pre-username-text {
       display: inline;
       opacity: 70%;
+      padding-left: 0.5rem;
    }
    &__username {
       display: inline;

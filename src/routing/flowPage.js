@@ -14,7 +14,6 @@ class FlowPage {
    #renderFlowBag(bagName, stepUp=false) {
       this.dummyData.setCurrentBag(bagName, stepUp);
       const bag = this.dummyData.getData();
-      console.log('bag received from getData():\n', bag);
    
       // console.log('bagName:\n', bagName, '\nkeys:');
       // for (const key in bag) {
@@ -24,6 +23,9 @@ class FlowPage {
       this.surface.setupProperSurface(bag, bagName, (bagName === this.dummyData.revisitFlag));
    
       if (!((Object.keys(bag).length === 2) && ('IN' in bag) && ('OUT'in bag))) { // --> if not topmost
+         if (bagName === this.dummyData.revisitFlag) {
+            this.toolbar.setupBar();
+         }
          this.toolbar.activateBar('account');
       }
       
