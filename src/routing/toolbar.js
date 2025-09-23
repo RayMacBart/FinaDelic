@@ -7,7 +7,7 @@ class Toolbar {
    }
 
    setupBar() {
-      const flowBag = document.getElementById('flow-bag');
+      const flowBag = document.getElementById('flowpage-bag');
       const toolbar = document.getElementById('toolbar').content.cloneNode(true);
       flowBag.appendChild(toolbar);
    }

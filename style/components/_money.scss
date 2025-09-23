@@ -4,10 +4,19 @@
 .negative {
    color: #7d0000;
 }
+
+.account-amount {
+   font-size: 1.05rem;
+}
+
 .currency {
    color:rgb(16, 16, 16);
    color:rgba(39, 58, 176, 0.6);
    font-size: 1.1em;
    font-weight: 550;
    vertical-align: -0.06rem;
+}
+
+.account-balance > .currency {
+   font-size: 1.16rem;
 }

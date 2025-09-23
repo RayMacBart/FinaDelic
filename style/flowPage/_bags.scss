@@ -1,0 +1,48 @@
+.bagItem {
+   display: flex;
+   width: 30rem;
+   border: 0.125rem solid #414C97;
+   border-radius: 999rem;
+   background-color: #EAECFA;
+   box-shadow: 0 0.08rem 0.11rem #d1d3de;
+   justify-content: space-between;
+   align-items: center;
+   margin: 0.5rem 0;
+}
+
+.account-leftwrap {
+   display: inline-flex;
+   align-items: center;
+}
+
+.account-badge {
+   display: inline-block;
+   width: 1.4rem;
+   height: 1.8rem;
+   margin: 0.2rem 0.45rem 0.2rem 0.6rem;
+}
+
+.account-sepline {
+   display: inline;
+   height: 2.2rem;
+   width: 0.06rem;
+   background-color: #414C97;
+}
+
+.bagTitle {
+   display: inline;
+   padding-left: 0.7rem;
+   color: #273AB0;
+   font-family: 'Commissioner', sans-serif;
+   font-size: 1.15rem;
+   font-weight: 500;
+   width: 18rem;
+   text-align: left;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.account-balance {
+   display: inline-block;
+   padding-right: 0.7rem;
+}

@@ -29,6 +29,17 @@ class FlowPage {
          this.toolbar.activateBar('account');
       }
       
+      for (const nestedBag in bag['nestedBags']) {
+         const bagItem = document.getElementById('bag').content.cloneNode(true);
+         bagItem.querySelector('.bagTitle').innerText = nestedBag.toUpperCase();
+         const amount = bagItem.querySelector('.account-amount');
+         if (bag['nestedBags'][nestedBag]['amount'] < 0) {
+            bagItem.querySelector('.account-badge').src = './assets/fireheader.svg';
+           amount.classList.replace('positive', 'negative');
+         }
+         amount.innerText = new Intl.NumberFormat('de-DE').format(parseFloat(bag['nestedBags'][nestedBag]['amount']).toFixed(2));
+         document.querySelector('.baglist').appendChild(bagItem);
+      }
    }
    
    #setupFlowPageLinks(app) {

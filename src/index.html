@@ -187,7 +187,7 @@
       
    </dl>
    <div class="margin-container">
-      <section id="flow-top">
+      <section id="flowpage-top">
          <div class="buzzer-container">
             <div class="buzzer-wrap">
                <button class="buzzer buzzer--in">IN</button><br>
@@ -205,16 +205,29 @@
             </p>
          </div>
       </section>
-      <section id="flow-bag">
+      <section id="flowpage-bag">
          <header class="flowBagHeader">
             <div class="flowBagTitleBG"></div>
             <h2 class="flowBagTitle">Title which is longer</h2>
          </header>
-         
+         <menu class="baglist"></menu>
+         <menu class="flowlist"></menu>
       </section>
    </div>
 </template>
 
+<template id="bag">
+   <li class="bagItem">
+      <div class="account-leftwrap">
+         <img class="account-badge" src="./assets/bagheader.svg" alt="account badge">
+         <div class="account-sepline"></div>
+         <h3 class="bagTitle"></h3>
+      </div>
+      <p class="account-balance">
+         <span class="positive account-amount">3.284.341</span><abbr title="EURO" class="currency"> &euro;</abbr>
+      </p>
+   </li>
+</template>
 
 
 <template id="chartPage">

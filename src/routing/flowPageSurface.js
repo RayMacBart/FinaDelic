@@ -1,8 +1,8 @@
 class FlowbagSurface {
 
    setupProperSurface(bag, bagName, revisit) {
-      const flowbag = document.getElementById('flow-bag');
-      const flowtop = document.getElementById('flow-top');
+      const flowbag = document.getElementById('flowpage-bag');
+      const flowtop = document.getElementById('flowpage-top');
       const uparrow_icon = document.querySelector('.icon--uparrow');
       const uparrow_taparea = document.getElementById('uparrow-icon-tap-area');
       if ((Object.keys(bag).length === 2) && ('IN' in bag) && ('OUT' in bag)) {

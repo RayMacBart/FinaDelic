@@ -1,8 +1,8 @@
-// #flow-top {
+// #flowpage-top {
 //    display: none;
 // }
 
-#flow-bag {
+#flowpage-bag {
    display: none;
    text-align: center;
    position: relative;
@@ -10,6 +10,7 @@
 
 .flowBagHeader {
    position: relative;
+   height: 7rem;
 }
 
 .flowBagTitleBG {
@@ -46,4 +47,10 @@
                  0 0.14rem 0.16rem rgba(14,20,63,0.4), 0.14rem 0 0.16rem rgba(14,20,63,0.4),
                  0 -0.14rem 0.16rem rgba(14,20,63,0.4), -0.14rem 0 0.16rem rgba(14,20,63,0.4);
    color: #273AB0;
+}
+
+.baglist {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
