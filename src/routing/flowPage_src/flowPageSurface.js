@@ -1,11 +1,18 @@
 class FlowbagSurface {
 
-   setupProperSurface(bag, bagName, revisit) {
+   clear() {
+      const bags = document.querySelector('.baglist').children;
+      for (const bagItem of bags) {
+         bagItem.remove();
+      }
+   }
+
+   setupProperSurface(bagData, bagName, revisit) {
       const flowbag = document.getElementById('flowpage-bag');
       const flowtop = document.getElementById('flowpage-top');
       const uparrow_icon = document.querySelector('.icon--uparrow');
       const uparrow_taparea = document.getElementById('uparrow-icon-tap-area');
-      if ((Object.keys(bag).length === 2) && ('IN' in bag) && ('OUT' in bag)) {
+      if ((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData)) {
          flowbag.style.display = 'none';
          flowtop.style.display = 'block';
          uparrow_icon.src = './assets/icons/uparrow_disabled.svg';
@@ -22,14 +29,13 @@ class FlowbagSurface {
             }
          }
          const titleBG = document.querySelector('.flowBagTitleBG');
-         if (bag.amount >= 0) {
+         if (bagData.amount >= 0) {
             titleBG.classList.remove('flowBagTitleBG--fire');
             titleBG.classList.add('flowBagTitleBG--bag');
          } else {
             titleBG.classList.remove('flowBagTitleBG--bag');
             titleBG.classList.add('flowBagTitleBG--fire');
          }
-      
       }
    }
 }

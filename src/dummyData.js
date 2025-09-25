@@ -417,9 +417,17 @@ class DummyData {
    getData() {
       if (this.#currentBag) {
          let focussedObj = this.#data;
-         for (const i of this.#currentBag.split('/')) {
-            focussedObj = focussedObj[i];
+         const currentBagList = this.#currentBag.split('/');
+         for (const i of currentBagList) {
+            if ((i === 'IN') || (i === 'OUT')) {
+               focussedObj = focussedObj[i];
+            } else if ('nestedBags' in focussedObj) {
+               focussedObj = focussedObj['nestedBags'][i];
+            } else {
+               return {};
+            }
          }
+         console.log('focussedObj @ getData (needs to be object!): ', focussedObj);
          return focussedObj;
       }
       else {
@@ -436,8 +444,12 @@ class DummyData {
       }
       else if (!stepUp) {
          if (this.#currentBag) {
-            if (!(bagName in this.#data[this.#currentBag.split('/').pop()])) {
-               throw new Error(`Error: Can't find key "${bagName}" in ${this.#currentBag}!`);
+            try {
+               if (!(bagName in this.#data[this.#currentBag.split('/').pop()]['nestedBags'])) {
+                  throw new Error(`Error: Can't find key "${bagName}" in ${this.#currentBag}!`);
+               }
+            } catch (e) {
+               console.log('End of nestedBags-chain reached.');
             }
          } else {
             if (!(bagName in this.#data)) {
