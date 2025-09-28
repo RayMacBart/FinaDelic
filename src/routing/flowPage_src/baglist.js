@@ -1,10 +1,10 @@
 class BagList {
 
-   render(bagData) {
+   render(bagData, bagPath) {
       for (const nestedBag in bagData['nestedBags']) {
          const bag = document.querySelector('.bag').content.cloneNode(true);
          const bagItem = bag.querySelector('.bagItem');
-         bagItem.id = nestedBag;
+         bagItem.id = bagPath + '/' + nestedBag;
          bagItem.querySelector('.bagTitle').innerText = nestedBag.toUpperCase();
          const amount = bagItem.querySelector('.account-amount');
          if (bagData['nestedBags'][nestedBag]['amount'] < 0) {

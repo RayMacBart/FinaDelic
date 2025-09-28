@@ -1,13 +1,15 @@
 class FlowbagSurface {
 
-   clear() {
-      const bags = document.querySelector('.baglist').children;
-      for (const bagItem of bags) {
-         bagItem.remove();
+   clear(boundBagClickHandlers) {
+      const bags = Array.from(document.querySelector('.baglist').children);
+      for (let i=0; i<bags.length; i++) {
+         bags[i].removeEventListener('click', boundBagClickHandlers[bags[i].id]);
       }
+      boundBagClickHandlers = {};
+      document.querySelector('.baglist').innerHTML = "";
    }
 
-   setupProperSurface(bagData, bagName, revisit) {
+   setupProperSurface(bagData, bagPath, revisit) {
       const flowbag = document.getElementById('flowpage-bag');
       const flowtop = document.getElementById('flowpage-top');
       const uparrow_icon = document.querySelector('.icon--uparrow');
@@ -19,7 +21,7 @@ class FlowbagSurface {
          uparrow_taparea.dataset.status = 'disabled';
          uparrow_taparea.classList.add('icon-tap-area--disabled');
       } else {
-         if (bagName === 'IN' || bagName === 'OUT' || revisit) { // if IN || OUT: 50% chance user came from topmost
+         if (bagPath === 'IN' || bagPath === 'OUT' || revisit) { // if IN || OUT: 50% chance user came from topmost
             flowtop.style.display = 'none';
             flowbag.style.display = 'block';
             if (uparrow_taparea.dataset.status === 'disabled') {

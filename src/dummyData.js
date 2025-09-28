@@ -3,7 +3,7 @@ class DummyData {
    constructor() {
       this.revisitFlag = Symbol('revisitFlag');
    }
-   #currentBag = null
+   #currentBag = ''
    
    #data = {
       "IN": {
@@ -414,27 +414,12 @@ class DummyData {
    }
 
 
-   getData() {
-      if (this.#currentBag) {
-         let focussedObj = this.#data;
-         const currentBagList = this.#currentBag.split('/');
-         for (const i of currentBagList) {
-            if ((i === 'IN') || (i === 'OUT')) {
-               focussedObj = focussedObj[i];
-            } else if ('nestedBags' in focussedObj) {
-               focussedObj = focussedObj['nestedBags'][i];
-            } else {
-               return {};
-            }
-         }
-         console.log('focussedObj @ getData (needs to be object!): ', focussedObj);
-         return focussedObj;
-      }
-      else {
-         return this.#data;
-      }
+   getBagPath() {
+      return this.#currentBag;
    }
 
+
+   
    setCurrentBag(bagName, stepUp) {
       if (bagName === this.revisitFlag) {
          return;
@@ -458,7 +443,7 @@ class DummyData {
          }
       }
       else if (stepUp && (this.#currentBag === "IN" || this.#currentBag === "OUT")) {
-         this.#currentBag = null;
+         this.#currentBag = '';
          return;
       }
       else if (stepUp) {
@@ -473,7 +458,38 @@ class DummyData {
             this.#currentBag = bagName;
          }
       }
+      console.log('setted currentBag to:', this.#currentBag);
    }
+
+
+   getData() {
+      if (this.#currentBag) {
+         let focussedObj = this.#data;
+         const currentBagList = this.#currentBag.split('/');
+         console.log('focussedObj before loop:', focussedObj);
+         console.log('currentBagList:', currentBagList);
+         for (const i of currentBagList) {
+            console.log('i:', i);
+            if ((i === 'IN') || (i === 'OUT')) {
+               console.log('>>> i === IN or OUT');
+               focussedObj = focussedObj[i];
+            } else if ('nestedBags' in focussedObj) {
+               console.log('>>> nestedBags in focussedObj');
+               focussedObj = focussedObj['nestedBags'][i];
+            } else {
+               console.log('>>> neither (i === IN or OUT) nor (nestedBags in focussedObj)');
+               return {};
+            }
+         }
+         console.log('focussedObj @ getData (needs to be object!): ', focussedObj);
+         return focussedObj;
+      }
+      else {
+         return this.#data;
+      }
+   }
+
 }
+
 
 export default DummyData;

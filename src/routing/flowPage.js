@@ -17,14 +17,12 @@ class FlowPage {
 
       this.dummyData.setCurrentBag(bagName, stepUp);
       const bagData = this.dummyData.getData();
-   
-      // console.log('bagDataName:\n', bagName, '\nkeys:');
-      // for (const key in bag) {
-      //    console.log(key);
-      // }
+      const bagPath = this.dummyData.getBagPath();
       
-      this.surface.clear();
-      this.surface.setupProperSurface(bagData, bagName, (bagName === this.dummyData.revisitFlag));
+      this.surface.clear(this.boundBagClickHandlers);
+      console.log("baglist.children after clear():", document.querySelector('.baglist').children);
+
+      this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
    
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT'in bagData))) { // --> if not topmost
          if (bagName === this.dummyData.revisitFlag) {
@@ -33,16 +31,25 @@ class FlowPage {
          this.toolbar.activateBar('account');
       }
       
-      this.baglist.render(bagData);
-      this.#setupBagListLinks(bagData);
+      this.baglist.render(bagData, bagPath);
+      this.#setupBagListLinks(bagData, bagPath);
    }
 
-   #setupBagListLinks(bagData) {
+   #bagClickHandler(nestedBag) {
+      console.log('°°° nestedBag in bagClickHandler:', nestedBag);
+      this.#renderFlowPage(nestedBag);
+   }
+
+   boundBagClickHandlers = {};
+
+   #setupBagListLinks(bagData, bagPath) {
       for (const nestedBag in bagData['nestedBags']) {
-         document.getElementById(`${nestedBag}`).addEventListener('click', () => this.#renderFlowPage(nestedBag));
+         this.boundBagClickHandlers[`${bagPath}/${nestedBag}`] = this.#bagClickHandler.bind(this, nestedBag)
+         document.getElementById(`${bagPath}/${nestedBag}`).addEventListener('click', this.boundBagClickHandlers[`${bagPath}/${nestedBag}`]);
       }
    }
    
+
    #setupFlowPageLinks(app) {
       document.querySelector('.logo--nav').addEventListener('click', () => app.router.navigate('loggedinHP', ['page--landing']));
       document.getElementById('uparrow-icon-tap-area').addEventListener('click', (e) => {
