@@ -14,9 +14,14 @@ class Toolbar {
 
    activateBar(bartype) {
       const bar = document.querySelector(`.menu--${bartype}`);
-      bar.style.display = 'flex';
-      this.#currentType = bartype;
-      this.setupButtons(bartype);
+      if (!bar) {
+         this.setupBar();
+         this.activateBar(bartype);
+      } else {
+         bar.style.display = 'flex';
+         this.#currentType = bartype;
+         this.setupButtons(bartype);
+      }
    }
 
    setupButtons(bartype) {
