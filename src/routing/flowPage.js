@@ -1,16 +1,20 @@
 import FlowpageSurface from "./flowPage_src/flowPageSurface.js";
 import BagList from "./flowPage_src/baglist.js";
+import FlowList from "./flowPage_src/flowlist.js";
 import Toolbar from "./toolbar.js";
 import DummyData from "../dummyData.js";
 // for now, DummyData is used instead of fetching bag related folder and transaction content from backend API!
 
 class FlowPage {
 
+   #lastFlowID = 0;
+
    constructor() {
       this.surface = new FlowpageSurface();
       this.toolbar = new Toolbar();
       this.dummyData = new DummyData();
       this.baglist = new BagList();
+      this.flowlist = new FlowList();
    }
 
    #renderFlowPage(bagName, stepUp=false) {
@@ -33,7 +37,15 @@ class FlowPage {
       
       this.baglist.render(bagData, bagPath);
       this.#setupBagListLinks(bagData, bagPath);
+      this.flowlist.render(bagData, bagPath,
+         // this.#lastFlowID, this.setLastFlowID    THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
+      )
    }
+
+   // setLastFlowID(newID) {             THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
+   //    this.#lastFlowID = newID;
+   //    console.log('set new flowID:', this.#lastFlowID);
+   // }
 
    #bagClickHandler(nestedBag) {
       console.log('°°° nestedBag in bagClickHandler:', nestedBag);

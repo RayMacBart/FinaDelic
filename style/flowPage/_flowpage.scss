@@ -54,3 +54,22 @@
    flex-direction: column;
    align-items: center;
 }
+
+.flowlist {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.flowlist-container {
+   align-items: center;
+}
+
+.flowlist-BG {
+   width: 100vw;
+   height: 30dvh;
+   position: relative;
+   background-color: #CDD2F4;
+   left: -10rem;
+   top: -3rem;
+}

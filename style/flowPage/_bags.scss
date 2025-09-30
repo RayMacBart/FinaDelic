@@ -12,7 +12,15 @@
       background-color: #F2F4FC;
       font-weight: 600;
       outline: 0.007rem solid #414C97;
-      // outline-offset: -0.03rem;
+      .account-sepline {
+         width: 0.1rem;
+      }
+      .bagTitle {
+         font-weight: 600;
+      }
+      .currency {
+         font-weight: 700;
+      }
    }
 }
 

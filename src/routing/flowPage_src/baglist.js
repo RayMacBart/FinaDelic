@@ -6,12 +6,14 @@ class BagList {
          const bagItem = bag.querySelector('.bagItem');
          bagItem.id = bagPath + '/' + nestedBag;
          bagItem.querySelector('.bagTitle').innerText = nestedBag.toUpperCase();
-         const amount = bagItem.querySelector('.account-amount');
-         if (bagData['nestedBags'][nestedBag]['amount'] < 0) {
+         const amountEl = bagItem.querySelector('.account-amount');
+         const amount = parseFloat(bagData['nestedBags'][nestedBag]['amount']);
+         bagItem.querySelector('.account-amount').innerText = String(amount);
+         if (amount < 0) {
             bagItem.querySelector('.account-badge').src = './assets/fireheader.svg';
-           amount.classList.replace('positive', 'negative');
+           amountEl.classList.replace('positive', 'negative');
          }
-         amount.innerText = new Intl.NumberFormat('de-DE').format(parseFloat(bagData['nestedBags'][nestedBag]['amount']).toFixed(2));
+         amountEl.innerText = new Intl.NumberFormat('de-DE').format(amount.toFixed(2));
          document.querySelector('.baglist').appendChild(bagItem);
       }
 

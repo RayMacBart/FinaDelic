@@ -211,7 +211,14 @@
             <h2 class="flowBagTitle">Title which is longer</h2>
          </header>
          <menu class="baglist"></menu>
-         <menu class="flowlist"></menu>
+         <div class="flowlist-container">
+            <div class="flowlist-BG">
+               <hgroup class="flowlist-titles">
+                  <h3>Date</h3><h3>Description</h3><h3>Amount</h3>
+               </hgroup>
+               <menu class="flowlist"></menu>
+            </div>
+         </div>
       </section>
    </div>
 </template>
@@ -230,18 +237,18 @@
 </template>
 
 <template class="flow">
-   <li class="flowItem">
-      <div class="flow-leftwrap">
-         <time class="flowTime"></time>
-         <div class="flow-sepline"></div>
-      </div>
+   <li class="flowItem flowItem--in">
+      <!-- <div class="flow-leftwrap"> -->
+         <time class="flowDate"></time>
+         <!-- <div class="flowSepLine"></div>
+      </div> -->
       <p class="flow-description"></p>
-      <div class="flow-rightwrap">
-         <div class="flow-sepline"></div>
-         <p class="account-balance">
-            <span class="positive account-amount">3.284.341</span><abbr title="EURO" class="currency"> &euro;</abbr>
+      <!-- <div class="flow-rightwrap">
+         <div class="flowSepLine"></div> -->
+         <p class="flow-balance">
+            <span class="positive flow-amount"></span><abbr title="EURO" class="currency"> &euro;</abbr>
          </p>
-      </div>
+      <!-- </div> -->
    </li>
 </template>
 
