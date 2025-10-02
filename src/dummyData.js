@@ -458,7 +458,6 @@ class DummyData {
             this.#currentBag = bagName;
          }
       }
-      console.log('setted currentBag to:', this.#currentBag);
    }
 
 
@@ -466,22 +465,15 @@ class DummyData {
       if (this.#currentBag) {
          let focussedObj = this.#data;
          const currentBagList = this.#currentBag.split('/');
-         console.log('focussedObj before loop:', focussedObj);
-         console.log('currentBagList:', currentBagList);
          for (const i of currentBagList) {
-            console.log('i:', i);
             if ((i === 'IN') || (i === 'OUT')) {
-               console.log('>>> i === IN or OUT');
                focussedObj = focussedObj[i];
             } else if ('nestedBags' in focussedObj) {
-               console.log('>>> nestedBags in focussedObj');
                focussedObj = focussedObj['nestedBags'][i];
             } else {
-               console.log('>>> neither (i === IN or OUT) nor (nestedBags in focussedObj)');
                return {};
             }
          }
-         console.log('focussedObj @ getData (needs to be object!): ', focussedObj);
          return focussedObj;
       }
       else {

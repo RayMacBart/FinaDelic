@@ -26,6 +26,7 @@ class FlowPage {
       this.surface.clear(this.boundBagClickHandlers);
       console.log("baglist.children after clear():", document.querySelector('.baglist').children);
 
+      console.log('bagData:', bagData);
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
    
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT'in bagData))) { // --> if not topmost
@@ -39,7 +40,8 @@ class FlowPage {
       this.#setupBagListLinks(bagData, bagPath);
       this.flowlist.render(bagData, bagPath,
          // this.#lastFlowID, this.setLastFlowID    THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
-      )
+      ) 
+      console.log('flowpage-bag.display:', document.getElementById('flowpage-bag').style.display);
    }
 
    // setLastFlowID(newID) {             THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
@@ -48,7 +50,6 @@ class FlowPage {
    // }
 
    #bagClickHandler(nestedBag) {
-      console.log('°°° nestedBag in bagClickHandler:', nestedBag);
       this.#renderFlowPage(nestedBag);
    }
 

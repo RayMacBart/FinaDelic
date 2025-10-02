@@ -1,6 +1,3 @@
-// #flowpage-top {
-//    display: none;
-// }
 
 #flowpage-bag {
    display: none;
@@ -17,7 +14,6 @@
    display: block;
    width: 100%;
    height: 7rem;
-   
    background-size: contain;
    background-repeat: no-repeat;
    background-position: center;
@@ -47,26 +43,29 @@
                  0 0.14rem 0.16rem rgba(14,20,63,0.4), 0.14rem 0 0.16rem rgba(14,20,63,0.4),
                  0 -0.14rem 0.16rem rgba(14,20,63,0.4), -0.14rem 0 0.16rem rgba(14,20,63,0.4);
    color: #273AB0;
+   text-transform: uppercase;
 }
 
 .baglist {
    display: flex;
    flex-direction: column;
    align-items: center;
+   padding-bottom: 2.5rem;
 }
 
 .flowlist {
    display: flex;
    flex-direction: column;
    align-items: center;
+   gap: 0.8rem;
 }
 
 .flowlist-container-BG {
    display: none;
    align-items: center;
-   width: 100vw;
+   width: 100%;
    height: fit-content;
-   // height: 30dvh;
-   // position: relative;
+   padding-top: 0.25rem;
+   box-shadow: 0 -0.5rem 0.5rem #CDD2F4;
    background-color: #CDD2F4;
 }

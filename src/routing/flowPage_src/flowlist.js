@@ -3,8 +3,12 @@ class FlowList {
    render(bagData, bagPath,
       // lastFlowID, setLastFlowID     THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
    ) {
+      const flowlistBG = document.querySelector('.flowlist-container-BG');
+      const footerMargin = document.querySelector('.footer-margin');
       if (bagData['transactions']) {
-         document.querySelector('.flowlist-container-BG').style.display = 'block';
+         flowlistBG.style.display = 'block';
+         if (!(footerMargin.classList.contains('footer-margin--flowlist')));
+            footerMargin.classList.add('footer-margin--flowlist');
          for (const transaction in bagData['transactions']) {
             const flow = document.querySelector('.flow').content.cloneNode(true);
             const flowItem = flow.querySelector('.flowItem');
@@ -22,9 +26,13 @@ class FlowList {
             }
             amountEl.innerText = new Intl.NumberFormat('de-DE').format(amount.toFixed(2));
             document.querySelector('.flowlist').appendChild(flowItem);
+            const newDiv = document.createElement('div');
+            newDiv.style.height = '4rem';
+            document.querySelector('.baglist').appendChild(newDiv);
          }
       } else {
-         document.querySelector('.flowlist-container-BG').style.display = 'none';
+         flowlistBG.style.display = 'none';
+         footerMargin.classList.remove('footer-margin--flowlist');
       }
    }
 }

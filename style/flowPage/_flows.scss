@@ -13,18 +13,12 @@
       .flowDate, .flow-description {
          border-right: 0.07rem solid #1EBA3B;
       }
-      // .flow-balance {
-      //    border-left: 0.07rem solid #1EBA3B;
-      // }
    }
    &--out {
       border-color: #D27E7E;
       .flowDate, .flow-description {
          border-right: 0.07rem solid #D27E7E;
       }
-      // .flow-balance {
-      //    border-left: 0.07rem solid #D27E7E;
-      // }
    }
    &--choosen {
       border-radius: 0.4rem;
@@ -43,6 +37,8 @@
 .flowDate {
    width: 5.5rem;
    flex-shrink: 0;
+   text-align: center;
+   color: #141E5C;
 }
 
 .flow-description {
@@ -51,18 +47,21 @@
    padding-left: 0.4rem;
    overflow: hidden;
    text-overflow: ellipsis;
+   color: #414458;
 }
 
 .flow-balance {
    width: 7rem;
    flex-shrink: 0;
+   text-align: center;
 }
 
 .flowlist-titles {
    display: inline-block;
    width: 30rem;
    font-family: 'Commissioner', sans-serif;
-   
+   padding-left: 0.25rem;
+   padding-bottom: 0.6rem;
    color: #273AB0;
    & > h3 {
       display: inline-block;
@@ -81,16 +80,3 @@
       }
    }
 }
-
-
-// .flowlist-titles {
-//    &:first-child {
-//       width: 6rem;
-//    }
-//    &:nth-child(2) {
-//       width: 13rem;
-//    }
-//    &:nth-child(3) {
-//       width: 5rem;
-//    }
-// }

@@ -31,12 +31,17 @@ class FlowbagSurface {
             }
          }
          const titleBG = document.querySelector('.flowBagTitleBG');
+         document.querySelector('.flowBagTitle').innerText = bagPath.split('/').pop();
          if (bagData.amount >= 0) {
             titleBG.classList.remove('flowBagTitleBG--fire');
-            titleBG.classList.add('flowBagTitleBG--bag');
+            if (!(titleBG.classList.contains('flowBagTitleBG--bag'))) {
+               titleBG.classList.add('flowBagTitleBG--bag');
+            }
          } else {
             titleBG.classList.remove('flowBagTitleBG--bag');
-            titleBG.classList.add('flowBagTitleBG--fire');
+            if (!(titleBG.classList.contains('flowBagTitleBG--fire'))) {
+               titleBG.classList.add('flowBagTitleBG--fire');
+            }
          }
       }
    }
