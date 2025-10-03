@@ -22,9 +22,19 @@
          font-weight: 700;
       }
    }
+   @media (max-width: 530px) {
+      width: 25rem;
+   }
+   @media (max-width: 430px) {
+      width: 22rem;
+   }
+   @media (max-width: 385px) {
+      width: 19.5rem;
+   }
 }
 
 .account-leftwrap {
+   flex-shrink: 1;
    display: inline-flex;
    align-items: center;
 }
@@ -45,6 +55,7 @@
 
 .bagTitle {
    display: inline;
+   // flex-shrink: 1;
    padding-left: 0.7rem;
    color: #273AB0;
    font-family: 'Commissioner', sans-serif;
@@ -54,9 +65,19 @@
    text-align: left;
    overflow: hidden;
    text-overflow: ellipsis;
+   @media (max-width: 530px) {
+      width: 13rem;
+   }
+   @media (max-width: 430px) {
+      width: 10rem;
+   }
+   @media (max-width: 385px) {
+      width: 7.5rem;
+   }
 }
 
 .account-balance {
    display: inline-block;
    padding-right: 0.7rem;
+   text-wrap: nowrap;
 }

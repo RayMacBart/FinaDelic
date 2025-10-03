@@ -5,7 +5,7 @@ class FlowList {
    ) {
       const flowlistBG = document.querySelector('.flowlist-container-BG');
       const footerMargin = document.querySelector('.footer-margin');
-      if (bagData['transactions']) {
+      if (bagData['transactions'] && Object.keys(bagData['transactions']).length) {
          flowlistBG.style.display = 'block';
          if (!(footerMargin.classList.contains('footer-margin--flowlist')));
             footerMargin.classList.add('footer-margin--flowlist');
@@ -26,9 +26,6 @@ class FlowList {
             }
             amountEl.innerText = new Intl.NumberFormat('de-DE').format(amount.toFixed(2));
             document.querySelector('.flowlist').appendChild(flowItem);
-            const newDiv = document.createElement('div');
-            newDiv.style.height = '4rem';
-            document.querySelector('.baglist').appendChild(newDiv);
          }
       } else {
          flowlistBG.style.display = 'none';

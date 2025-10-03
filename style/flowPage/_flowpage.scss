@@ -3,6 +3,7 @@
    display: none;
    text-align: center;
    position: relative;
+   width: 100%;
 }
 
 .flowBagHeader {
@@ -51,6 +52,9 @@
    flex-direction: column;
    align-items: center;
    padding-bottom: 2.5rem;
+   &--invisible {
+      display: none;
+   }
 }
 
 .flowlist {
@@ -63,7 +67,6 @@
 .flowlist-container-BG {
    display: none;
    align-items: center;
-   width: 100%;
    height: fit-content;
    padding-top: 0.25rem;
    box-shadow: 0 -0.5rem 0.5rem #CDD2F4;

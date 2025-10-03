@@ -23,10 +23,8 @@ class FlowPage {
       const bagData = this.dummyData.getData();
       const bagPath = this.dummyData.getBagPath();
       
-      this.surface.clear(this.boundBagClickHandlers);
-      console.log("baglist.children after clear():", document.querySelector('.baglist').children);
+      this.surface.clear(this.boundClickHandlers);
 
-      console.log('bagData:', bagData);
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
    
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT'in bagData))) { // --> if not topmost
@@ -37,11 +35,10 @@ class FlowPage {
       }
       
       this.baglist.render(bagData, bagPath);
-      this.#setupBagListLinks(bagData, bagPath);
       this.flowlist.render(bagData, bagPath,
          // this.#lastFlowID, this.setLastFlowID    THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
       ) 
-      console.log('flowpage-bag.display:', document.getElementById('flowpage-bag').style.display);
+      this.#setupLinks(bagData, bagPath);
    }
 
    // setLastFlowID(newID) {             THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
@@ -53,12 +50,22 @@ class FlowPage {
       this.#renderFlowPage(nestedBag);
    }
 
-   boundBagClickHandlers = {};
+   #flowClickHandler(id) {
+      // do the UI magic here
+   }
 
-   #setupBagListLinks(bagData, bagPath) {
+   boundClickHandlers = {};
+
+   #setupLinks(bagData, bagPath) {
       for (const nestedBag in bagData['nestedBags']) {
-         this.boundBagClickHandlers[`${bagPath}/${nestedBag}`] = this.#bagClickHandler.bind(this, nestedBag)
-         document.getElementById(`${bagPath}/${nestedBag}`).addEventListener('click', this.boundBagClickHandlers[`${bagPath}/${nestedBag}`]);
+         this.boundClickHandlers[`${bagPath}/${nestedBag}`] = this.#bagClickHandler.bind(this, nestedBag)
+         document.getElementById(`${bagPath}/${nestedBag}`).addEventListener('click', this.boundClickHandlers[`${bagPath}/${nestedBag}`]);
+      }
+      if (bagData['transactions']) {
+         for (const id in bagData['transactions']) {
+            this.boundClickHandlers[id] = this.#flowClickHandler.bind(this, id);
+            document.getElementById(id).addEventListener('click', this.boundClickHandlers[id]);
+         }
       }
    }
    

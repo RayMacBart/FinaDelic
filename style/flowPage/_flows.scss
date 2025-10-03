@@ -23,6 +23,15 @@
    &--choosen {
       border-radius: 0.4rem;
    }
+   @media (max-width: 530px) {
+      width: 25rem;
+   }
+   @media (max-width: 430px) {
+      width: 22rem;
+   }
+   @media (max-width: 385px) {
+      width: 19.5rem;
+   }
 }
 
 .flowDate, .flow-balance, .flow-description {
@@ -43,7 +52,6 @@
 
 .flow-description {
    flex-grow: 1;
-   // text-align: start;
    padding-left: 0.4rem;
    overflow: hidden;
    text-overflow: ellipsis;
@@ -73,10 +81,28 @@
       &:nth-child(2) {
          width: 17.5rem;
          font-weight: 460;
+         @media (max-width: 530px) {
+            width: 12.5rem;
+         }
+         @media (max-width: 430px) {
+            width: 9.5rem;
+         }
+         @media (max-width: 385px) {
+            width: 7rem;
+         }
       }
       &:nth-child(3) {
          width: 6rem;
          font-weight: 460;
       }
+   }
+   @media (max-width: 530px) {
+      width: 25rem;
+   }
+   @media (max-width: 430px) {
+      width: 22rem;
+   }
+   @media (max-width: 385px) {
+      width: 19.5rem;
    }
 }
