@@ -52,8 +52,8 @@
    flex-direction: column;
    align-items: center;
    padding-bottom: 2.5rem;
-   &--invisible {
-      display: none;
+   &--nobag {
+      padding-bottom: 0.9rem;
    }
 }
 

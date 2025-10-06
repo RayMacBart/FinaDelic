@@ -1,6 +1,7 @@
 import FlowpageSurface from "./flowPage_src/flowPageSurface.js";
 import BagList from "./flowPage_src/baglist.js";
 import FlowList from "./flowPage_src/flowlist.js";
+import EventHandler from "./flowPage_src/flowPageEventHandler.js";
 import Toolbar from "./toolbar.js";
 import DummyData from "../dummyData.js";
 // for now, DummyData is used instead of fetching bag related folder and transaction content from backend API!
@@ -8,6 +9,9 @@ import DummyData from "../dummyData.js";
 class FlowPage {
 
    #lastFlowID = 0;
+   choosenFlowID = null;
+   boundBGClickHandler = null;
+   boundClickHandlers = {};
 
    constructor() {
       this.surface = new FlowpageSurface();
@@ -15,6 +19,7 @@ class FlowPage {
       this.dummyData = new DummyData();
       this.baglist = new BagList();
       this.flowlist = new FlowList();
+      this.eventHandler = new EventHandler();
    }
 
    #renderFlowPage(bagName, stepUp=false) {
@@ -24,6 +29,11 @@ class FlowPage {
       const bagPath = this.dummyData.getBagPath();
       
       this.surface.clear(this.boundClickHandlers);
+      if (this.choosenFlowID) {
+         document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
+         this.choosenFlowID = null;
+         this.boundBGClickHandler = null;
+      }
 
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
    
@@ -46,15 +56,42 @@ class FlowPage {
    //    console.log('set new flowID:', this.#lastFlowID);
    // }
 
-   #bagClickHandler(nestedBag) {
+
+   #BGClickHandler(id) {
+      // BGClick()   --> move below code to it and make proper argument passings. Repeat with other clickHandler methods!
+      document.getElementById(id).classList.remove('flowItem--choosen');
+      this.choosenFlowID = null;
+      document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
+      this.boundBGClickHandler = null;
+   }
+
+   #bagClickHandler(nestedBag, event) {
+      event.stopPropagation();
       this.#renderFlowPage(nestedBag);
    }
 
-   #flowClickHandler(id) {
-      // do the UI magic here
+   #flowClickHandler(id, bagPath, event) {
+      event.stopPropagation();
+      if (!(this.choosenFlowID === id)) {
+         if (this.choosenFlowID) {
+            document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
+            document.getElementById(this.choosenFlowID).classList.remove('flowItem--choosen');
+         }
+         this.boundBGClickHandler = this.#BGClickHandler.bind(this, id);
+         document.querySelector('.view-wrapper').addEventListener('click', this.boundBGClickHandler);
+         this.choosenFlowID = id;
+         const flowEl = document.getElementById(id);
+         if (flowEl) {
+            if (!(flowEl.classList.contains('flowItem--choosen'))) {
+               flowEl.classList.add('flowItem--choosen')
+            }
+         } else {
+            console.log('WARNING: TRIED TO ADD FLOW EVENTLISTENER TO NON EXISTING ELEMENT!');
+         }
+      }
    }
 
-   boundClickHandlers = {};
+
 
    #setupLinks(bagData, bagPath) {
       for (const nestedBag in bagData['nestedBags']) {
@@ -63,7 +100,7 @@ class FlowPage {
       }
       if (bagData['transactions']) {
          for (const id in bagData['transactions']) {
-            this.boundClickHandlers[id] = this.#flowClickHandler.bind(this, id);
+            this.boundClickHandlers[id] = this.#flowClickHandler.bind(this, id, bagPath);
             document.getElementById(id).addEventListener('click', this.boundClickHandlers[id]);
          }
       }

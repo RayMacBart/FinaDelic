@@ -21,7 +21,13 @@
       }
    }
    &--choosen {
-      border-radius: 0.4rem;
+      border: 0.125rem solid #B20000;
+      box-shadow: 0 0 0.3125rem #D27E7E inset, 0 0 0.3125rem #0E143F;
+      &:hover {
+         border: 0.03125rem solid #273AB0;
+         box-shadow: 0 0 0.1875rem #0E143F;
+      }
+
    }
    @media (max-width: 530px) {
       width: 25rem;
@@ -31,6 +37,10 @@
    }
    @media (max-width: 385px) {
       width: 19.5rem;
+   }
+   &:hover {
+      border: 0.075rem solid #273AB0;
+      box-shadow: 0 0 0.27rem #0E143F;
    }
 }
 

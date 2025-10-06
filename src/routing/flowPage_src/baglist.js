@@ -3,7 +3,7 @@ class BagList {
    render(bagData, bagPath) {
       const bagList = document.querySelector('.baglist');
       if (bagData['nestedBags'] && Object.keys(bagData['nestedBags']).length) {
-         bagList.classList.remove('baglist--invisible');
+         bagList.classList.remove('baglist--nobag');
          for (const nestedBag in bagData['nestedBags']) {
             const bag = document.querySelector('.bag').content.cloneNode(true);
             const bagItem = bag.querySelector('.bagItem');
@@ -20,8 +20,8 @@ class BagList {
             bagList.appendChild(bagItem);
          }
       } else {
-         if (!(bagList.classList.contains('baglist--invisible'))) {
-            bagList.classList.add('baglist--invisible');
+         if (!(bagList.classList.contains('baglist--nobag'))) {
+            bagList.classList.add('baglist--nobag');
          }
       }
 

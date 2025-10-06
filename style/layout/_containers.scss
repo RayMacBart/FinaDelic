@@ -5,9 +5,9 @@
    
    background-color: #F7F8FD;
    @media screen {
-      @media (orientation: landscape) {
-         min-height: 140%;
-      }
+      // @media (orientation: landscape) {
+      //    min-height: 140%;
+      // }
       @media (orientation: portrait) or (min-width: 992px) {
          min-height: 100%;
       }
