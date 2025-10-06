@@ -1,44 +1,55 @@
 class EventHandler {
 
    boundBagClickHandlers = {};
-   boundBGClickHandler = null;
-   choosenFlowID = null;
-   boundFlowClickHandler = null;
+   boundBGClickHandler;
+   choosenFlowID;
+   boundFlowClickHandler;
 
-   #BGClick(flowEl) {
+   #unchooseFlow(flowEl) {
       flowEl.classList.remove('flowItem--choosen');
       if (!(flowEl.classList.contains('flowItem--unchoosen'))) {
          flowEl.classList.add('flowItem--unchoosen');
       }
+   }
+
+   #deselectFormerFlow() {
+      document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
+      const flowItems = document.querySelectorAll('.flowItem');
+      flowItems.forEach((flowItem) => {
+         if (flowItem.dataset.flowId === this.choosenFlowID) {
+            this.#unchooseFlow(flowItem);
+         }
+      })
+   }
+
+   #BGClick(flowEl, toolbar) {
+      this.#unchooseFlow(flowEl);
       this.choosenFlowID = null;
       document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
       this.boundBGClickHandler = null;
+      if (toolbar.currentType !== 'account') {
+         toolbar.activateBar('account');
+      }
    }
 
-   #flowClick(event) {
+   #flowClick(toolbar, event) {
       event.stopPropagation();
       const flowEl = event.target.closest('.flowItem');
       if (flowEl) {
          const id = flowEl.dataset.flowId;
          if (!(this.choosenFlowID === id)) {
             if (this.choosenFlowID) {
-               document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
-               const flowItems = document.querySelectorAll('.flowItem');
-               flowItems.forEach((flowItem) => {
-                  if (flowItem.dataset.flowId === this.choosenFlowID) {
-                     flowItem.classList.remove('flowItem--choosen');
-                     if (!(flowItem.classList.contains('flowItem--unchoosen'))) {
-                        flowItem.classList.add('flowItem--unchoosen');
-                     }
-                  }
-               })
+               this.#deselectFormerFlow();
             }
-            this.boundBGClickHandler = this.#BGClick.bind(this, flowEl);
+            this.boundBGClickHandler = this.#BGClick.bind(this, flowEl, toolbar);
             document.querySelector('.view-wrapper').addEventListener('click', this.boundBGClickHandler);
             this.choosenFlowID = id;
             flowEl.classList.remove('flowItem--unchoosen');
             if (!(flowEl.classList.contains('flowItem--choosen'))) {
                flowEl.classList.add('flowItem--choosen')
+            }
+            if (toolbar.currentType !== 'flow') {
+               toolbar.activateBar('flow');
             }
          } 
       } else {
@@ -46,9 +57,9 @@ class EventHandler {
       }
    }
 
-   linkFlows(bagData) {
+   linkFlows(bagData, toolbar) {
       if (bagData['transactions']) {
-         this.boundFlowClickHandler = this.#flowClick.bind(this);
+         this.boundFlowClickHandler = this.#flowClick.bind(this, toolbar);
          document.querySelector('.flowlist').addEventListener('click', this.boundFlowClickHandler);
       }
    }

@@ -42,7 +42,7 @@ class FlowPage {
          // this.#lastFlowID, this.setLastFlowID    THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
       ) 
       this.#linkBags(bagData, bagPath);
-      this.eventHandler.linkFlows(bagData);
+      this.eventHandler.linkFlows(bagData, this.toolbar);
    }
 
    // setLastFlowID(newID) {             THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
@@ -76,7 +76,7 @@ class FlowPage {
       document.querySelector('.buzzer--out').addEventListener('click', () => this.#renderFlowPage('OUT'));
    };
    
-   
+
    setup(app) {
       this.#renderFlowPage(this.dummyData.revisitFlag);
       this.#setupFlowPageLinks(app);

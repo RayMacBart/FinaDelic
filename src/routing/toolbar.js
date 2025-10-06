@@ -1,6 +1,7 @@
 class Toolbar {
 
-   #currentType;
+   currentType;
+   toolbar;
 
    constructor() {
       this.setupBar();
@@ -8,18 +9,25 @@ class Toolbar {
 
    setupBar() {
       const flowBag = document.getElementById('flowpage-bag');
-      const toolbar = document.getElementById('toolbar').content.cloneNode(true);
-      flowBag.appendChild(toolbar);
+      const toolbarFragment = document.getElementById('toolbar').content.cloneNode(true);
+      this.toolbar = toolbarFragment.getElementById('toolbar-wrapper');
+      flowBag.appendChild(this.toolbar);
    }
 
    activateBar(bartype) {
-      const bar = document.querySelector(`.menu--${bartype}`);
-      if (!bar) {
+      // const bar = document.querySelector(`.menu--${bartype}`);
+      if (!this.toolbar) {
          this.setupBar();
          this.activateBar(bartype);
       } else {
-         bar.style.display = 'flex';
-         this.#currentType = bartype;
+         if (this.toolbar.style.display === 'none') {
+            this.toolbar.style.display = 'block';
+         }
+         if (this.currentType && this.currentType !== bartype) {
+            this.toolbar.querySelector(`.menu--${this.currentType}`).style.display = 'none';
+         }
+         this.toolbar.querySelector(`.menu--${bartype}`).style.display = 'flex';
+         this.currentType = bartype;
          this.setupButtons(bartype);
       }
    }
