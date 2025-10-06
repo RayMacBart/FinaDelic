@@ -1,17 +1,21 @@
 class FlowbagSurface {
 
-   clear(boundClickHandlers) {
-      const bags = Array.from(document.querySelector('.baglist').children);
+   clear(boundBagClickHandlers, boundBGClickHandler, boundFlowClickHandler, choosenFlowID) {
+      const baglist = document.querySelector('.baglist');
+      const flowlist = document.querySelector('.flowlist');
+      const bags = Array.from(baglist.children);
       for (let i=0; i<bags.length; i++) {
-         bags[i].removeEventListener('click', boundClickHandlers[bags[i].id]);
+         bags[i].removeEventListener('click', boundBagClickHandlers[bags[i].id]);
       }
-      const flows = Array.from(document.querySelector('.flowlist').children);
-      for (let i=0; i<flows.length; i++) {
-         flows[i].removeEventListener('click', boundClickHandlers[flows[i].id]);
+      boundBagClickHandlers = {};
+      baglist.innerHTML = "";
+      flowlist.removeEventListener('click', boundFlowClickHandler);
+      flowlist.innerHTML = "";
+      if (choosenFlowID) {
+         document.querySelector('.view-wrapper').removeEventListener('click', boundBGClickHandler);
+         choosenFlowID = null;
+         boundBGClickHandler = null;
       }
-      boundClickHandlers = {};
-      document.querySelector('.baglist').innerHTML = "";
-      document.querySelector('.flowlist').innerHTML = "";
    }
 
    setupProperSurface(bagData, bagPath, revisit) {

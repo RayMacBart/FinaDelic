@@ -11,7 +11,8 @@ class FlowPage {
    #lastFlowID = 0;
    choosenFlowID = null;
    boundBGClickHandler = null;
-   boundClickHandlers = {};
+   boundBagClickHandlers = {};
+   boundFlowClickHandler = null;
 
    constructor() {
       this.surface = new FlowpageSurface();
@@ -28,12 +29,7 @@ class FlowPage {
       const bagData = this.dummyData.getData();
       const bagPath = this.dummyData.getBagPath();
       
-      this.surface.clear(this.boundClickHandlers);
-      if (this.choosenFlowID) {
-         document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
-         this.choosenFlowID = null;
-         this.boundBGClickHandler = null;
-      }
+      this.surface.clear(this.boundBagClickHandlers, this.boundBGClickHandler, this.boundFlowClickHandler, this.choosenFlowID);
 
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
    
@@ -57,52 +53,66 @@ class FlowPage {
    // }
 
 
-   #BGClickHandler(id) {
+   BGClickHandler(flowEl) {
       // BGClick()   --> move below code to it and make proper argument passings. Repeat with other clickHandler methods!
-      document.getElementById(id).classList.remove('flowItem--choosen');
+      flowEl.classList.remove('flowItem--choosen');
+      if (!(flowEl.classList.contains('flowItem--unchoosen'))) {
+         flowEl.classList.add('flowItem--unchoosen');
+      }
       this.choosenFlowID = null;
       document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
       this.boundBGClickHandler = null;
    }
 
-   #bagClickHandler(nestedBag, event) {
-      event.stopPropagation();
+   #bagClickHandler(nestedBag) {
       this.#renderFlowPage(nestedBag);
    }
 
-   #flowClickHandler(id, bagPath, event) {
+   #flowClickHandler(event) {
       event.stopPropagation();
-      if (!(this.choosenFlowID === id)) {
-         if (this.choosenFlowID) {
-            document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
-            document.getElementById(this.choosenFlowID).classList.remove('flowItem--choosen');
-         }
-         this.boundBGClickHandler = this.#BGClickHandler.bind(this, id);
-         document.querySelector('.view-wrapper').addEventListener('click', this.boundBGClickHandler);
-         this.choosenFlowID = id;
-         const flowEl = document.getElementById(id);
-         if (flowEl) {
+      const flowEl = event.target.closest('.flowItem');
+      console.log("flowEl:", flowEl);
+      if (flowEl) {
+         const id = flowEl.dataset.flowId;
+         if (!(this.choosenFlowID === id)) {
+            if (this.choosenFlowID) {
+               document.querySelector('.view-wrapper').removeEventListener('click', this.boundBGClickHandler);
+               const flowItems = document.querySelectorAll('.flowItem');
+               flowItems.forEach((flowItem) => {
+                  if (flowItem.dataset.flowId === this.choosenFlowID) {
+                     console.log('flowItem.classList before:', flowItem.classList);
+                     flowItem.classList.remove('flowItem--choosen');
+                     if (!(flowItem.classList.contains('flowItem--unchoosen'))) {
+                        flowItem.classList.add('flowItem--unchoosen');
+                     }
+                     console.log('flowItem.classList after:', flowItem.classList);
+                  }
+               })
+            }
+            console.log('BGClickHandler:', this.BGClickHandler);
+            console.log(this);
+            this.boundBGClickHandler = this.BGClickHandler.bind(this, flowEl);
+            document.querySelector('.view-wrapper').addEventListener('click', this.boundBGClickHandler);
+            this.choosenFlowID = id;
+            flowEl.classList.remove('flowItem--unchoosen');
             if (!(flowEl.classList.contains('flowItem--choosen'))) {
                flowEl.classList.add('flowItem--choosen')
             }
-         } else {
-            console.log('WARNING: TRIED TO ADD FLOW EVENTLISTENER TO NON EXISTING ELEMENT!');
-         }
+         } 
+      } else {
+         console.log('WARNING: TRIED TO ADD FLOW EVENTLISTENER TO NON EXISTING ELEMENT!');
       }
    }
-
 
 
    #setupLinks(bagData, bagPath) {
       for (const nestedBag in bagData['nestedBags']) {
-         this.boundClickHandlers[`${bagPath}/${nestedBag}`] = this.#bagClickHandler.bind(this, nestedBag)
-         document.getElementById(`${bagPath}/${nestedBag}`).addEventListener('click', this.boundClickHandlers[`${bagPath}/${nestedBag}`]);
+         this.boundBagClickHandlers[`${bagPath}/${nestedBag}`] = this.#bagClickHandler.bind(this, nestedBag)
+         document.getElementById(`${bagPath}/${nestedBag}`).addEventListener('click', this.boundBagClickHandlers[`${bagPath}/${nestedBag}`]);
       }
       if (bagData['transactions']) {
-         for (const id in bagData['transactions']) {
-            this.boundClickHandlers[id] = this.#flowClickHandler.bind(this, id, bagPath);
-            document.getElementById(id).addEventListener('click', this.boundClickHandlers[id]);
-         }
+         this.boundFlowClickHandler = this.#flowClickHandler.bind(this);
+         document.querySelector('.flowlist').addEventListener('click', this.boundFlowClickHandler);
       }
    }
    

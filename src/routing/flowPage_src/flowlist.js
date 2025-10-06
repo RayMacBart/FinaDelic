@@ -14,7 +14,7 @@ class FlowList {
             const flowItem = flow.querySelector('.flowItem');
             // flowItem.id = String(lastFlowID++);   THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
             // setLastFlowID(lastFlowID++);          THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
-            flowItem.id = transaction;
+            flowItem.dataset.flowId = transaction;
             flowItem.querySelector('.flowDate').innerText = bagData['transactions'][transaction]['date'];
             flowItem.querySelector('.flow-description').innerText = bagData['transactions'][transaction]['desc'];
             const amount = parseFloat(bagData['transactions'][transaction]['amount']);
