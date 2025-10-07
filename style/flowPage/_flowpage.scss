@@ -8,7 +8,7 @@
 
 .flowBagHeader {
    position: relative;
-   height: 7rem;
+   height: 9rem;
 }
 
 .flowBagTitleBG {
@@ -45,6 +45,11 @@
                  0 -0.14rem 0.16rem rgba(14,20,63,0.4), -0.14rem 0 0.16rem rgba(14,20,63,0.4);
    color: #273AB0;
    text-transform: uppercase;
+}
+
+#bag-total {
+   position: relative;
+   top: 5.5rem;
 }
 
 .baglist {

@@ -212,6 +212,12 @@
          <header class="flowBagHeader">
             <div class="flowBagTitleBG"></div>
             <h2 class="flowBagTitle">Title which is longer</h2>
+            <div class="workspace-info--desc" id="bag-total">
+               <h4 class="workspace-info workspace-info__desc-title">TOTAL: &nbsp;</h4> 
+               <p class="workspace-info workspace-info__value">
+                  <span class="positive">3.284.341</span><abbr title="EURO" class="currency"> &euro;</abbr>
+               </p>
+            </div>
          </header>
          <menu class="baglist"></menu>
       </section>
@@ -289,8 +295,8 @@
       <menu class="menu menu--account">
          <li><button class="tool-button">MODIFY</button></li>
          <li><button class="tool-button">ADD TO<br>CHART</button></li>
-         <li><button class="tool-button">ADD<br>POCKET</button></li> <!-- dynamically alter to DRAIN-->
-         <li><button class="tool-button">ADD<br>GAIN</button></li> <!-- dynamically alter to LOSS-->
+         <li><button class="tool-button">ADD<br><span class="bagname--uppercase">POCKET</span></button></li>
+         <li><button class="tool-button">ADD<br><span class="flowname">GAIN</span></button></li>
       </menu>
       <menu class="menu menu--account-modification">
          <li><button class="tool-button"></button></li> <!-- back! -->
@@ -305,7 +311,8 @@
             <button class="tool-button">DISBAND</button>
             <details>
                <summary>info</summary>
-               Deletes this pocket but moves content up to parent pocket <!-- dynamically alter to DRAIN-->
+               Deletes this <span class="bagname--lowercase">pocket</span>
+               but moves content up to parent <span class="bagname--lowercase">pocket</span>
             </details>
          </li>
       </menu>
@@ -327,7 +334,7 @@
       </menu>
       <menu class="menu menu--chart">
          <li><button class="tool-button">DELETE</button></li>
-         <li><button class="tool-button">SWITCH<br>TO LINE</button></li> <!-- dynamically alter to PIE-->
+         <li><button class="tool-button">SWITCH<br>TO <span class="chartname">LINE</span></button></li> <!-- dynamically alter to PIE-->
          <li><button class="tool-button">SAVE<br>AS</button></li>
          <li><button class="tool-button">SAVE</button></li>
       </menu>

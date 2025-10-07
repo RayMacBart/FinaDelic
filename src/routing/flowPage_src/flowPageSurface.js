@@ -42,15 +42,24 @@ class FlowbagSurface {
          }
          const titleBG = document.querySelector('.flowBagTitleBG');
          document.querySelector('.flowBagTitle').innerText = bagPath.split('/').pop();
+         const totalBagAmountEl = document.querySelector('#bag-total > p > span');
+         console.log('totalBagAmountEl:', totalBagAmountEl);
+         totalBagAmountEl.innerText = bagData.amount;
          if (bagData.amount >= 0) {
             titleBG.classList.remove('flowBagTitleBG--fire');
             if (!(titleBG.classList.contains('flowBagTitleBG--bag'))) {
                titleBG.classList.add('flowBagTitleBG--bag');
             }
+            if (totalBagAmountEl.classList.contains('negative')) {
+               totalBagAmountEl.classList.replace('negative', 'positive');
+            }
          } else {
             titleBG.classList.remove('flowBagTitleBG--bag');
             if (!(titleBG.classList.contains('flowBagTitleBG--fire'))) {
                titleBG.classList.add('flowBagTitleBG--fire');
+            }
+            if (totalBagAmountEl.classList.contains('positive')) {
+               totalBagAmountEl.classList.replace('positive', 'negative');
             }
          }
       }

@@ -5,11 +5,11 @@ class DummyData {
    }
    #currentBag = ''
    
-   #data = {
+   data = {
       "IN": {
          "amount": 4468729.86,
          "nestedBags": {
-            "officialhbweihbwecihbwef": {
+            "official": {
                "amount": 233745.5376,
                "nestedBags": {
                   "teaching": {
@@ -430,14 +430,14 @@ class DummyData {
       else if (!stepUp) {
          if (this.#currentBag) {
             try {
-               if (!(bagName in this.#data[this.#currentBag.split('/').pop()]['nestedBags'])) {
+               if (!(bagName in this.data[this.#currentBag.split('/').pop()]['nestedBags'])) {
                   throw new Error(`Error: Can't find key "${bagName}" in ${this.#currentBag}!`);
                }
             } catch (e) {
                console.log('End of nestedBags-chain reached.');
             }
          } else {
-            if (!(bagName in this.#data)) {
+            if (!(bagName in this.data)) {
                throw new Error(`Error: Can't find key "${bagName}" at topmost flow page!`);
             }
          }
@@ -463,7 +463,7 @@ class DummyData {
 
    getData() {
       if (this.#currentBag) {
-         let focussedObj = this.#data;
+         let focussedObj = this.data;
          const currentBagList = this.#currentBag.split('/');
          for (const i of currentBagList) {
             if ((i === 'IN') || (i === 'OUT')) {
@@ -477,7 +477,7 @@ class DummyData {
          return focussedObj;
       }
       else {
-         return this.#data;
+         return this.data;
       }
    }
 

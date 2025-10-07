@@ -13,8 +13,8 @@ class FlowPage {
 
    constructor() {
       this.surface = new FlowpageSurface();
-      this.toolbar = new Toolbar();
       this.dummyData = new DummyData();
+      this.toolbar = new Toolbar(this.dummyData);
       this.baglist = new BagList();
       this.flowlist = new FlowList();
       this.eventHandler = new EventHandler();
@@ -35,6 +35,7 @@ class FlowPage {
             this.toolbar.setupBar();
          }
          this.toolbar.activateBar('account');
+         this.toolbar.handleDirection(bagPath);
       }
       
       this.baglist.render(bagData, bagPath);
