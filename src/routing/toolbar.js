@@ -6,8 +6,8 @@ class Toolbar {
    toolbarElement;
    direction = 'IN';
 
-   constructor(dummyData) {
-      this.TEH = new ToolbarEventHandler(dummyData);
+   constructor(dummyData, reloadEvent) {
+      this.TEH = new ToolbarEventHandler(dummyData, reloadEvent);
       this.setupBar();
    }
 
@@ -41,10 +41,17 @@ class Toolbar {
    setupButtons(bartype) {
       const buttons = this.toolbarElement.querySelectorAll('button');
       if (bartype === 'account') {
-         this.TEH.boundHandlers.push(this.TEH.modifyAccount.bind(this.TEH));
-         buttons[0].addEventListener('click', this.TEH.boundHandlers[0]);
+         buttons[0].addEventListener('click', this.setupModifyToolbar.bind(this), {once: true});
+         buttons[1].addEventListener('click', this.TEH.add2chart.bind(this.TEH), {once: true});  // (warning)[../../docs/onceListenerWarning.txt]
+         // this.TEH.boundHandlers.push(this.TEH.add2chart.bind(this.TEH));
          // addEventListener
       }
+   }
+
+
+   setupModifyToolbar(event) {
+      event.stopPropagation();
+      this.activateBar('account-modification');
    }
    
    

@@ -14,10 +14,11 @@ class FlowPage {
    constructor() {
       this.surface = new FlowpageSurface();
       this.dummyData = new DummyData();
-      this.toolbar = new Toolbar(this.dummyData);
+      this.reloadEvent = new Event('bagReload');  // (?)[../../docs/customEventToolbarTrigger.txt]
+      this.toolbar = new Toolbar(this.dummyData, this.reloadEvent);
       this.baglist = new BagList();
       this.flowlist = new FlowList();
-      this.eventHandler = new EventHandler();
+      this.eventHandler = new EventHandler();  
    }
 
    #renderFlowPage(bagName, stepUp=false) {
@@ -36,8 +37,11 @@ class FlowPage {
          }
          this.toolbar.activateBar('account');
          this.toolbar.handleDirection(bagPath);
+         this.toolbar.toolbarElement.addEventListener('bagReload',
+                                                      this.#bagClickHandler.bind(this, this.dummyData.revisitFlag),
+                                                      {once: true}
+                                                     );   // (?)[../../docs/customEventToolbarTrigger.txt]
       }
-      
       this.baglist.render(bagData, bagPath);
       this.flowlist.render(bagData, bagPath,
          // this.#lastFlowID, this.setLastFlowID    THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!

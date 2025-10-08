@@ -1,0 +1,2 @@
+This only works if changes worth to be applied on chart always trigger reload and hence new toolbar button build.
+Hence take care about it.
