@@ -1,0 +1,2 @@
+The code actually also works without the eventListener option {once: true},
+though I added it to be safe regarding preventing memory leaks.

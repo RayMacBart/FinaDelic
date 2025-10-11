@@ -1,6 +1,6 @@
 class ToolbarEventHandler {
    
-   boundHandlers = [];
+   boundAdd2chartHandler;
 
    constructor(dummyData, reloadEvent) {
       this.dummyData = dummyData;
@@ -11,12 +11,12 @@ class ToolbarEventHandler {
       document.getElementById('toolbar-wrapper').dispatchEvent(this.reloadEvent);
    }
 
-   add2chart() {
+   add2chartHandler(event) {
+      event.stopPropagation();
+      console.log('ToolbarEventHandler.dummyData:', this.dummyData);
       this.dummyData.data['IN']['nestedBags']['official']['amount'] = 123456789;
       this.triggerBagReload();
    }
-
-   // next issue to fix: Clicking on flow when Modify-Toolbar is activated leads to unwanted behaviour!
 
 }
 

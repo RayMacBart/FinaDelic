@@ -21,8 +21,9 @@ class FlowPage {
       this.eventHandler = new EventHandler();  
    }
 
-   #renderFlowPage(bagName, stepUp=false) {
 
+   #renderFlowPage(bagName, stepUp=false, toolbarType='account') {
+      console.log('render');
       this.dummyData.setCurrentBag(bagName, stepUp);
       const bagData = this.dummyData.getData();
       const bagPath = this.dummyData.getBagPath();
@@ -31,16 +32,14 @@ class FlowPage {
 
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
    
-      if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT'in bagData))) { // --> if not topmost
-         if (bagName === this.dummyData.revisitFlag) {
-            this.toolbar.setupBar();
-         }
-         this.toolbar.activateBar('account');
+      if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
+         this.toolbar.activateBar(toolbarType);
          this.toolbar.handleDirection(bagPath);
-         this.toolbar.toolbarElement.addEventListener('bagReload',
-                                                      this.#bagClickHandler.bind(this, this.dummyData.revisitFlag),
-                                                      {once: true}
-                                                     );   // (?)[../../docs/customEventToolbarTrigger.txt]
+         if (this.toolbar.boundRefreshHandler) {
+            this.toolbar.toolbarElement.removeEventListener('bagReload', this.toolbar.boundRefreshHandler);
+         }
+         this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.dummyData.revisitFlag, false, this.toolbar.currentType);
+         this.toolbar.toolbarElement.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
       }
       this.baglist.render(bagData, bagPath);
       this.flowlist.render(bagData, bagPath,
@@ -58,6 +57,7 @@ class FlowPage {
    #bagClickHandler(nestedBag) {
       this.#renderFlowPage(nestedBag);
    }
+
 
    #linkBags(bagData, bagPath) {
       for (const nestedBag in bagData['nestedBags']) {

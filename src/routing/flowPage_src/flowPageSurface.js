@@ -43,7 +43,6 @@ class FlowbagSurface {
          const titleBG = document.querySelector('.flowBagTitleBG');
          document.querySelector('.flowBagTitle').innerText = bagPath.split('/').pop();
          const totalBagAmountEl = document.querySelector('#bag-total > p > span');
-         console.log('totalBagAmountEl:', totalBagAmountEl);
          totalBagAmountEl.innerText = new Intl.NumberFormat('de-DE').format(bagData.amount.toFixed(2));
          if (bagData.amount >= 0) {
             titleBG.classList.remove('flowBagTitleBG--fire');
