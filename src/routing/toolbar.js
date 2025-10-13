@@ -6,9 +6,9 @@ class Toolbar {
    toolbarElement;
    direction = 'IN';
    boundRefreshHandler;
+   currentBagName;
 
    constructor(dummyData, reloadEvent) {
-      console.log('new toolbar construct!');
       this.TEH = new ToolbarEventHandler(dummyData, reloadEvent);
       this.boundModifyHandler = this.modifyHandler.bind(this);
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
@@ -21,17 +21,12 @@ class Toolbar {
       const toolbarFragment = document.getElementById('toolbar').content.cloneNode(true);
       this.toolbarElement = toolbarFragment.getElementById('toolbar-wrapper');
       flowBag.appendChild(this.toolbarElement);
-      console.log('new toolbarElement set up!');
+      document.querySelector('.toolbar-caption').lastElementChild.style.fontStyle = 'italic';
    }
 
 
    activateBar(bartype) {
-      console.log('X');
-      // console.log('toolbarElement:', this.toolbarElement);
-      // console.log('bartype:', bartype);
-      // console.log('this.currentType:', this.currentType);
       if (!this.toolbarElement) {
-         console.log('no this.toolbarElement! --> setup');
          this.setupBar();
          this.activateBar(bartype);
       } else {
@@ -43,12 +38,28 @@ class Toolbar {
          }
          this.toolbarElement.querySelector(`.menu--${bartype}`).style.display = 'flex';
          this.currentType = bartype;
-         this.setupButtons(bartype);
+         this.#setCaption(bartype);
+         this.#setupButtons(bartype);
       }
    }
 
 
-   setupButtons(bartype) {
+   #setCaption(bartype) {
+      const captionEl = document.querySelector('.toolbar-caption');
+      if (bartype === 'account') {
+         captionEl.firstElementChild.innerText = '';
+         captionEl.lastElementChild.innerText = `${this.currentBagName}`;
+      } else if (bartype === 'account-modification') {
+         captionEl.firstElementChild.innerText = 'Modify ';
+         captionEl.lastElementChild.innerText = `"${this.currentBagName}"`;
+      } else if (bartype === 'flow') {
+         captionEl.firstElementChild.innerText = 'Marked Flow:'
+         captionEl.lastElementChild.innerText = '';
+      }
+   }
+
+
+   #setupButtons(bartype) {
       const buttons = this.toolbarElement.querySelectorAll('button');
       if (bartype === 'account') {
          buttons[0].addEventListener('click', this.boundModifyHandler, {once: true});  // (!)[../../docs/secureOnceNote.txt]

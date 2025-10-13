@@ -27,12 +27,16 @@ class FlowPage {
       this.dummyData.setCurrentBag(bagName, stepUp);
       const bagData = this.dummyData.getData();
       const bagPath = this.dummyData.getBagPath();
+      if (stepUp) {
+         bagName = bagPath.split('/').pop();
+      }
       
       this.surface.clear(this.eventHandler);
 
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
    
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
+         this.toolbar.currentBagName = bagName;
          this.toolbar.activateBar(toolbarType);
          this.toolbar.handleDirection(bagPath);
          if (this.toolbar.boundRefreshHandler) {

@@ -21,26 +21,28 @@
       flex-direction: row;
       bottom: 10.4rem;
       @media (max-width: 575px) {
-         right: calc(50% - 10.35rem);
+         left: calc(50% - 12.2rem);
       }
       @media (max-width: 359px) {
-         right: calc(50% - 9.8rem);
+         left: calc(50% - 9.8rem);
       }
       @media (min-width: 576px) {
-         right: calc(50% - 11rem);
+         left: calc(50% - 19rem);
       }
    }
    @media screen and (orientation: landscape) {
+      bottom: initial;
+      top: 19.5%;
       @media (min-width: 768px) {
-         bottom: calc(30% - 3.9rem);
+         top: 28%;
          right: 1rem;
       }
       @media (min-width: 992px) {
-         bottom: 30%;
+         top: 30%;
          right: 2rem;
       }
       @media (min-width: 1200px) {
-         bottom: 35%;
+         top: 32%;
          right: calc(30% - 14rem);
       }
    }
@@ -108,4 +110,67 @@
    margin-top: 0.2rem;
    width: 1.75rem;
    height: 1.05rem;
+}
+
+.toolbar-caption {
+   display: inline-block;
+   width: 6rem;
+   z-index: 1;
+   font-family: 'Commissioner', sans-serif;
+   font-size: 1rem;
+   font-weight: 530;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   position: fixed;
+   bottom: calc(30% - 5.2rem);
+   padding: 0 0.4rem 0.2rem 0.5rem;
+   right: 0.5rem;
+   background-color: #6773be;
+   color: #f8f9ff;
+   text-shadow: 0rem 0rem 1.5rem #000526, 0rem 0rem 1.2rem #000526, 0rem 0rem 0.4rem #000526;
+   box-shadow: 0.06rem 0.06rem 0.07rem #252d64, -0.06rem -0.06rem 0.07rem #252d64, 0 0 0.6rem #6475d7 inset;
+   border: 0.12rem dotted #3c4998;
+   border-radius: 0.5rem;
+   margin: 0 auto;
+   opacity: 0.77;
+   @media screen and (orientation: portrait) {
+      bottom: 13.95rem;
+      width: fit-content;
+      text-wrap: nowrap;
+      text-align: center;
+      @media (max-width: 575px) {
+         left: calc(50% - 12.2rem);
+         max-width: 20rem;
+      }
+      @media (max-width: 359px) {
+         left: calc(50% - 9.8rem);
+         max-width: 18.7rem;
+      }
+      @media (min-width: 576px) {
+         left: calc(50% - 19rem);
+         max-width: 19.6rem;
+      }
+   }
+   @media screen and (orientation: landscape) {
+      z-index: unset;
+      bottom:  initial;
+      right: 5.95rem;
+      @media (max-width: 767px) {
+         width: fit-content;
+         max-width: 6rem;
+         top: 21%;
+      }
+      @media (min-width: 768px) {
+         bottom: 72.2%;
+         right: 0.8rem;
+      }
+      @media (min-width: 992px) {
+         bottom: 70.2%;
+         right: 1.8rem;
+      }
+      @media (min-width: 1200px) {
+         bottom: 68.2%;
+         right: calc(30% - 14.2rem);
+      }
+   }
 }
