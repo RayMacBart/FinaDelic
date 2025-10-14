@@ -27,18 +27,20 @@ class FlowPage {
       this.dummyData.setCurrentBag(bagName, stepUp);
       const bagData = this.dummyData.getData();
       const bagPath = this.dummyData.getBagPath();
-      if (stepUp) {
-         bagName = bagPath.split('/').pop();
-      }
       
       this.surface.clear(this.eventHandler);
-
+      
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
-   
+
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
-         this.toolbar.currentBagName = bagName;
-         this.toolbar.activateBar(toolbarType);
+
+         if (bagName === this.dummyData.revisitFlag) {
+            this.toolbar.setupBar();
+         }
+
+         this.toolbar.currentBagName = bagPath.split('/').pop();
          this.toolbar.handleDirection(bagPath);
+         this.toolbar.activateBar(toolbarType);
          if (this.toolbar.boundRefreshHandler) {
             this.toolbar.toolbarElement.removeEventListener('bagReload', this.toolbar.boundRefreshHandler);
          }
@@ -69,6 +71,12 @@ class FlowPage {
          document.getElementById(`${bagPath}/${nestedBag}`).addEventListener('click', this.eventHandler.boundBagClickHandlers[`${bagPath}/${nestedBag}`]);
       }
    }
+
+
+   #setTimeHeader(timespan) {
+      document.getElementById('time-start').innerText = timespan.start.getDate()+'.'+(timespan.start.getMonth()+1)+'.'+timespan.start.getFullYear();
+      document.getElementById('time-end').innerText = timespan.end.getDate()+'.'+(timespan.end.getMonth()+1)+'.'+timespan.end.getFullYear();
+   }
    
    
    #setupFlowPageLinks(app) {
@@ -88,6 +96,7 @@ class FlowPage {
 
    setup(app) {
       this.#renderFlowPage(this.dummyData.revisitFlag);
+      this.#setTimeHeader(app.timespan);
       this.#setupFlowPageLinks(app);
       app.makeIconHoverEffect('uparrow');
       app.makeIconHoverEffect('clock');

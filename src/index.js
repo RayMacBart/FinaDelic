@@ -1,11 +1,13 @@
 import Footer from "./footer.js";
 import Router from "./route.js";
 import LazyLoader from "./lazyLoader.js";
+import TimeSpan from "./timespan.js";
 
 
 class App {
    constructor(defaultPage) {
       console.log('FULL RELOAD!');
+      this.timespan = new TimeSpan();
       this.router = new Router(this, defaultPage);
       this.lazyLoader = new LazyLoader();
       new Footer(this.router.navigate, this.lazyLoader.importSVG);

@@ -12,16 +12,22 @@ class Toolbar {
       this.TEH = new ToolbarEventHandler(dummyData, reloadEvent);
       this.boundModifyHandler = this.modifyHandler.bind(this);
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
+      this.TEH.boundAddNestedBagHandler = this.TEH.addNestedBagHandler.bind(this.TEH);
+      this.TEH.boundAddFlowHandler = this.TEH.addFlowHandler.bind(this.TEH);
       this.setupBar();
    }
 
 
    setupBar() {
-      const flowBag = document.getElementById('flowpage-bag');
-      const toolbarFragment = document.getElementById('toolbar').content.cloneNode(true);
-      this.toolbarElement = toolbarFragment.getElementById('toolbar-wrapper');
-      flowBag.appendChild(this.toolbarElement);
-      document.querySelector('.toolbar-caption').lastElementChild.style.fontStyle = 'italic';
+      if (!document.querySelector('.toolbar-caption')) {
+         const flowBag = document.getElementById('flowpage-bag');
+         const toolbarFragment = document.getElementById('toolbar').content.cloneNode(true);
+         this.toolbarElement = toolbarFragment.getElementById('toolbar-wrapper');
+         flowBag.appendChild(this.toolbarElement);
+         document.querySelector('.toolbar-caption').lastElementChild.style.fontStyle = 'italic';
+      } else {
+         console.log('Toolbar setup aborted: Toolbar already existed!');
+      }
    }
 
 
@@ -46,15 +52,26 @@ class Toolbar {
 
    #setCaption(bartype) {
       const captionEl = document.querySelector('.toolbar-caption');
-      if (bartype === 'account') {
-         captionEl.firstElementChild.innerText = '';
-         captionEl.lastElementChild.innerText = `${this.currentBagName}`;
-      } else if (bartype === 'account-modification') {
-         captionEl.firstElementChild.innerText = 'Modify ';
-         captionEl.lastElementChild.innerText = `"${this.currentBagName}"`;
-      } else if (bartype === 'flow') {
-         captionEl.firstElementChild.innerText = 'Marked Flow:'
-         captionEl.lastElementChild.innerText = '';
+      if (captionEl) {
+         if (bartype === 'account') {
+            const bagDir = this.direction === 'IN' ? 'Pocket:' : 'Drain:';
+            if (this.currentBagName === 'IN' || this.currentBagName === 'OUT') {
+               captionEl.firstElementChild.style.display = 'none';
+               captionEl.lastElementChild.innerText = `${this.currentBagName}`;
+            } else {
+               captionEl.firstElementChild.style.display = 'inline';
+               captionEl.firstElementChild.innerText = bagDir;
+               captionEl.lastElementChild.innerText = ` ${this.currentBagName}`;
+            }
+         } else if (bartype === 'account-modification') {
+            captionEl.firstElementChild.innerText = 'Modify:';
+            captionEl.lastElementChild.innerText = ` ${this.currentBagName}`;
+         } else if (bartype === 'flow') {
+            captionEl.firstElementChild.innerText = 'Selection:'
+            captionEl.lastElementChild.innerText = '';
+         }
+      } else {
+         console.log('toolbar-caption element doesn\'t exist!');
       }
    }
 
@@ -62,9 +79,15 @@ class Toolbar {
    #setupButtons(bartype) {
       const buttons = this.toolbarElement.querySelectorAll('button');
       if (bartype === 'account') {
-         buttons[0].addEventListener('click', this.boundModifyHandler, {once: true});  // (!)[../../docs/secureOnceNote.txt]
+         if (this.currentBagName !== 'IN' && this.currentBagName !== 'OUT') {
+            buttons[0].style.display = 'inline-block';
+            buttons[0].addEventListener('click', this.boundModifyHandler, {once: true});  // (!)[../../docs/secureOnceNote.txt]
+         } else {
+            buttons[0].style.display = 'none';
+         }
          buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});  // (warning)[../../docs/onceListenerWarning.txt]
-
+         buttons[2].addEventListener('click', this.TEH.boundAddNestedBagHandler, {once: true});
+         buttons[3].addEventListener('click', this.TEH.boundAddFlowHandler, {once: true});
       }
    }
 

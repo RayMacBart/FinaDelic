@@ -114,30 +114,48 @@
 
 .toolbar-caption {
    display: inline-block;
-   width: 6rem;
+   width: fit-content;
    z-index: 1;
    font-family: 'Commissioner', sans-serif;
    font-size: 1rem;
    font-weight: 530;
    overflow: hidden;
    text-overflow: ellipsis;
-   position: fixed;
    bottom: calc(30% - 5.2rem);
-   padding: 0 0.4rem 0.2rem 0.5rem;
-   right: 0.5rem;
+   padding: 0 0.35rem 0.06rem 0.35rem;
    background-color: #6773be;
    color: #f8f9ff;
    text-shadow: 0rem 0rem 1.5rem #000526, 0rem 0rem 1.2rem #000526, 0rem 0rem 0.4rem #000526;
    box-shadow: 0.06rem 0.06rem 0.07rem #252d64, -0.06rem -0.06rem 0.07rem #252d64, 0 0 0.6rem #6475d7 inset;
    border: 0.12rem dotted #3c4998;
-   border-radius: 0.5rem;
+   border-radius: 0.6rem;
    margin: 0 auto;
    opacity: 0.77;
    @media screen and (orientation: portrait) {
-      bottom: 13.95rem;
-      width: fit-content;
       text-wrap: nowrap;
-      text-align: center;
+   }
+   @media screen and (orientation: landscape) {
+      max-width: 6rem;
+   }
+   & > span {
+      text-decoration: underline;
+      text-underline-offset: 0.15rem;
+      text-decoration-thickness: 0.04rem;
+      text-decoration-color: rgba(248, 249, 255, 0.5);
+   }
+}
+
+.toolbar-caption-wrapper {
+   display: inline-block;
+   height: fit-content;
+   position: fixed;
+   bottom: calc(30% - 5.2rem);
+   right: 0.5rem;
+   margin: 0 auto;
+   vertical-align: bottom;
+   @media screen and (orientation: portrait) {
+      bottom: 13.85rem;
+      width: fit-content;
       @media (max-width: 575px) {
          left: calc(50% - 12.2rem);
          max-width: 20rem;
@@ -152,20 +170,20 @@
       }
    }
    @media screen and (orientation: landscape) {
-      z-index: unset;
       bottom:  initial;
-      right: 5.95rem;
+      right: 6.1rem;
+      width: 6rem;
       @media (max-width: 767px) {
          width: fit-content;
-         max-width: 6rem;
+         max-width: 6.5rem;
          top: 21%;
       }
       @media (min-width: 768px) {
-         bottom: 72.2%;
+         bottom: 72%;
          right: 0.8rem;
       }
       @media (min-width: 992px) {
-         bottom: 70.2%;
+         bottom: 70.1%;
          right: 1.8rem;
       }
       @media (min-width: 1200px) {
