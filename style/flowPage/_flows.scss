@@ -8,6 +8,7 @@
    box-shadow: 0 0 0.1875rem #0E143F;
    justify-content: space-between;
    align-items: center;
+   cursor: cell;
    &--in {
       border-color: #1EBA3B;
       .flowDate, .flow-description {
@@ -43,6 +44,7 @@
 
 .flowDate, .flow-balance, .flow-description {
    display: inline-block;
+   cursor: cell;
 }
 
 .flowDate, .flow-description {
@@ -69,6 +71,10 @@
    width: 7rem;
    flex-shrink: 0;
    text-align: center;
+}
+
+.flow-amount {
+   cursor: inherit;
 }
 
 .flowlist-titles {

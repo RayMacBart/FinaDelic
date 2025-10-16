@@ -37,9 +37,15 @@ class ToolbarEventHandler {
                         // For the modal, implement an already pre-entered date value which is the current day.
                         // This enhances user experience. But let the user be able to change it.
       console.log('add flow!');
-
    }
 
+
+   // IDEA FOR BUTTON "MOVE" IN "MODIFY":
+   // IN THE MODAL, MAKE A DROPDOWN (SELECT-) ELEMENT WITH ALL THE BAGS TO CHOOSE FROM.
+   // PROVIDE ONLY DRAINS FOR DRAINS, AND ONLY POCKETS FOR POCKETS IN THIS LIST, AND DON'T FORGET TO OMIT
+   // THE CURRENT BAG ITSELF IN THE MENU. IF EASILY IMPLEMENTABLE, VISUALIZE BAG NESTING LEVELS IN THE SELECT-MENU.
+
+   // FOR THE "REMOVE"-TOOLBAR, ALSO IMPLEMENT A "BACK"-BUTTON (NOT IN DESIGN YET!)
 }
 
 export default ToolbarEventHandler;

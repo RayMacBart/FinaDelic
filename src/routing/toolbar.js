@@ -14,6 +14,7 @@ class Toolbar {
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
       this.TEH.boundAddNestedBagHandler = this.TEH.addNestedBagHandler.bind(this.TEH);
       this.TEH.boundAddFlowHandler = this.TEH.addFlowHandler.bind(this.TEH);
+      this.boundBackToMainHandler = this.backToMainHandler.bind(this);
       this.setupBar();
    }
 
@@ -89,12 +90,20 @@ class Toolbar {
          buttons[2].addEventListener('click', this.TEH.boundAddNestedBagHandler, {once: true});
          buttons[3].addEventListener('click', this.TEH.boundAddFlowHandler, {once: true});
       }
+      else if (bartype === 'account-modification') {
+         buttons[4].addEventListener('click', this.boundBackToMainHandler, {once: true});
+      }
    }
 
 
    modifyHandler(event) {
       event.stopPropagation();
       this.activateBar('account-modification');
+   }
+
+   backToMainHandler(event) {
+      event.stopPropagation();
+      this.activateBar('account');
    }
    
    

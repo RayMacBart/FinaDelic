@@ -8,6 +8,7 @@
    justify-content: space-between;
    align-items: center;
    margin: 0.5rem 0;
+   cursor: pointer;
    &:hover, &:active {
       background-color: #F2F4FC;
       font-weight: 600;
@@ -20,6 +21,7 @@
       }
       .currency {
          font-weight: 700;
+         cursor: pointer;
       }
    }
    @media (max-width: 530px) {
@@ -37,6 +39,7 @@
    flex-shrink: 1;
    display: inline-flex;
    align-items: center;
+   cursor: pointer;
 }
 
 .account-badge {
@@ -44,6 +47,7 @@
    width: 1.4rem;
    height: 1.8rem;
    margin: 0.2rem 0.45rem 0.2rem 0.6rem;
+   cursor: pointer;
 }
 
 .account-sepline {
@@ -51,6 +55,7 @@
    height: 2.2rem;
    width: 0.06rem;
    background-color: #414C97;
+   cursor: pointer;
 }
 
 .bagTitle {
@@ -65,6 +70,7 @@
    text-align: left;
    overflow: hidden;
    text-overflow: ellipsis;
+   cursor: pointer;
    @media (max-width: 530px) {
       width: 13rem;
    }
@@ -80,4 +86,5 @@
    display: inline-block;
    padding-right: 0.7rem;
    text-wrap: nowrap;
+   cursor: pointer;
 }

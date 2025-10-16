@@ -7,6 +7,7 @@
 
 .account-amount {
    font-size: 1.05rem;
+   cursor: inherit;
 }
 
 .currency {
@@ -15,6 +16,7 @@
    font-size: 1.1em;
    font-weight: 550;
    vertical-align: -0.06rem;
+   cursor: inherit;
 }
 
 .account-balance > .currency {
