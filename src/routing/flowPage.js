@@ -3,7 +3,7 @@ import BagList from "./flowPage_src/baglist.js";
 import FlowList from "./flowPage_src/flowlist.js";
 import EventHandler from "./flowPage_src/flowPageEventHandler.js";
 import Toolbar from "./toolbar.js";
-import DummyData from "../dummyData.js";
+
 // for now, DummyData is used instead of fetching bag related folder and transaction content from backend API!
 
 
@@ -11,11 +11,11 @@ class FlowPage {
 
    #lastFlowID = 0;
 
-   constructor() {
+   constructor(dummyData, modal) {
       this.surface = new FlowpageSurface();
-      this.dummyData = new DummyData();
+      this.dummyData = dummyData;
       this.reloadEvent = new Event('bagReload');  // (?)[../../docs/customEventToolbarTrigger.txt]
-      this.toolbar = new Toolbar(this.dummyData, this.reloadEvent);
+      this.toolbar = new Toolbar(dummyData, this.reloadEvent, modal);
       this.baglist = new BagList();
       this.flowlist = new FlowList();
       this.eventHandler = new EventHandler();  

@@ -51,7 +51,7 @@ class Router {
       this.#transit(pageid, wantedPageClasses);
       if (!(pageid in this.pages)) {
          const Module = await import(`./routing/${pageid}.js`);
-         const newInst = new Module.default();
+         const newInst = new Module.default(this.app.dummyData, this.app.modal);
          this.pages[pageid] = newInst;
       }
       this.pages[pageid].setup(this.app);

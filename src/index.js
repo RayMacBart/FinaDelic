@@ -2,12 +2,17 @@ import Footer from "./footer.js";
 import Router from "./route.js";
 import LazyLoader from "./lazyLoader.js";
 import TimeSpan from "./timespan.js";
+import DummyData from "./dummyData.js";
+import Modal from "./modal.js";
+import { modalContents } from "./modalContents.js";
 
 
 class App {
    constructor(defaultPage) {
       console.log('FULL RELOAD!');
       this.timespan = new TimeSpan();
+      this.dummyData = new DummyData();
+      this.modal = new Modal(this.dummyData, modalContents);
       this.router = new Router(this, defaultPage);
       this.lazyLoader = new LazyLoader();
       new Footer(this.router.navigate, this.lazyLoader.importSVG);

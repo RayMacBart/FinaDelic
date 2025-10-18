@@ -4,9 +4,10 @@ class ToolbarEventHandler {
    boundAddNestedBagHandler;
    boundAddFlowHandler;
 
-   constructor(dummyData, reloadEvent) {
+   constructor(dummyData, reloadEvent, modal) {
       this.dummyData = dummyData;
       this.reloadEvent = reloadEvent;
+      this.modal = modal;
    }
 
    triggerBagReload() {
@@ -24,7 +25,7 @@ class ToolbarEventHandler {
    addNestedBagHandler(event) {   // open modal (just for name), add bag to dummyData, render it to page.
                              // also if canceled, refresh the page (renews eventlistener for used button) OR BETTER:
                              // add EventListener here using event.target.closest('.button')!
-      console.log('add bag!');
+      this.modal.manageModal('bag-create')
    }
 
 

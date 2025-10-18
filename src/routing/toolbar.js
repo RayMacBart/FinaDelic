@@ -8,8 +8,8 @@ class Toolbar {
    boundRefreshHandler;
    currentBagName;
 
-   constructor(dummyData, reloadEvent) {
-      this.TEH = new ToolbarEventHandler(dummyData, reloadEvent);
+   constructor(dummyData, reloadEvent, modal) {
+      this.TEH = new ToolbarEventHandler(dummyData, reloadEvent, modal);
       this.boundModifyHandler = this.modifyHandler.bind(this);
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
       this.TEH.boundAddNestedBagHandler = this.TEH.addNestedBagHandler.bind(this.TEH);
@@ -68,7 +68,8 @@ class Toolbar {
             captionEl.firstElementChild.innerText = 'Modify:';
             captionEl.lastElementChild.innerText = ` ${this.currentBagName}`;
          } else if (bartype === 'flow') {
-            captionEl.firstElementChild.innerText = 'Selection:'
+            captionEl.firstElementChild.style.display = 'inline';
+            captionEl.firstElementChild.innerText = 'Selected Flow:'
             captionEl.lastElementChild.innerText = '';
          }
       } else {
@@ -108,7 +109,6 @@ class Toolbar {
    
    
    handleDirection(bagPath) {
-      const firstBag = bagPath.split('/')[0];
       if (bagPath.split('/')[0] !== this.direction) {
          this.direction = this.direction === 'IN' ? 'OUT' : 'IN';
          const dynamicWordList = this.toolbarElement.querySelectorAll('span');
