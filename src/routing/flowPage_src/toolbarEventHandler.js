@@ -22,10 +22,10 @@ class ToolbarEventHandler {
    }
 
 
-   addNestedBagHandler(event) {   // open modal (just for name), add bag to dummyData, render it to page.
+   addNestedBagHandler() {   // open modal (just for name), add bag to dummyData, render it to page.
                              // also if canceled, refresh the page (renews eventlistener for used button) OR BETTER:
                              // add EventListener here using event.target.closest('.button')!
-      this.modal.manageModal('bag-create')
+      this.modal.manageModal('bag-create');
    }
 
 

@@ -1,20 +1,111 @@
 dialog {
    background-color: #757BA3;
-   border: 0.125rem solid #273AB0;
-   padding: 3rem;
-   // &--newbag {
-
-   // }
+   border: 0.125rem solid #323e89;
+   border-radius: 1rem;
+   padding: 2.1rem 2rem 1.4rem 2rem;
+   margin: 9rem auto;
+   box-shadow: 0.125rem 0.125rem 0.25rem rgba(70, 76, 120, 0.5), 0 0 0.9375rem #2E366B inset;
+   &::backdrop {
+      backdrop-filter: blur(0.1rem);
+      background-color: rgba(30, 35, 45, 0.3);
+   }
+   @media (max-height: 680px) {
+      margin: 6rem auto;
+   }
+   @media (max-height: 460px) {
+      margin: 3rem auto;
+   }
+   @media (max-height: 370px) {
+      margin: 1.2rem auto;
+   }
+   @media (max-width: 390px) {
+      padding: 1.8rem 1rem 1.1rem 1rem;
+   }
 }
 
-.modal-pretext {
+.modal {
    display: none;
+   font-family: 'Commissioner', sans-serif;
+   color: #F7F8FD;
+   text-shadow: 0.05rem 0.1rem 0.1rem rgb(46, 54, 107), 0.075rem 0.15rem 0.15rem rgba(46, 54, 107, 0.5);
+   text-align: center;
+   white-space: pre;
+   letter-spacing: -4%;
+   margin-bottom: 1.5rem;
+   &__text{
+      font-size: 1.25rem;
+   }
+   &__questionmark {
+      font-size: 1.5625rem;
+   }
+   &__input-label {
+      font-size: 1.375rem;
+      margin-bottom: 0.5rem;
+   }
+   &__select-label {
+      font-size: 1.375rem;
+      margin-bottom: 0.5rem;
+   }
+   &__input, &__select {
+      width: 12rem;
+      color: #232B5C;
+      border: 0.1rem solid #273AB0;
+      border-radius: 0.25rem;
+      text-shadow: initial;
+      margin: 0 auto 1.2rem auto;
+      text-align: start;
+      padding: 0.1rem 0.3rem;
+      &:focus {
+         outline: 0.05rem solid #273AB0;
+         box-shadow: 0 0 0.5rem #828CC9;
+      }
+      & > option {
+         text-align: center;
+      }
+   }
+   &__button {
+      border: 0.2rem solid #2039DF;
+      border-radius: 0.5rem;
+      background-color: #E6E9F9;
+      color: #2039DF;
+      padding: 0.5rem 1.1rem;
+      margin: 0.8rem;
+      box-shadow: 0 0 0.2775rem #949CD1 inset;
+      font-size: 1.11125rem;
+      font-weight: 600;
+      text-shadow: 0.035rem 0.07rem 0.07rem rgba(35, 43, 92, 0.2);
+      letter-spacing: initial;
+      &--positive {
+         border-color: #008017;
+         color: #008017;
+         &:hover, &:active {
+            box-shadow: 0 0 0.417rem #828CC9, 0.035rem 0.035rem 0.1044rem #949CD1;
+            text-shadow: none;
+            font-weight: 700;
+         }
+      }
+      &--negative {
+         border-color: #AC5353;
+         color: #AC5353;
+         &:hover, &:active {
+            box-shadow: 0 0 0.417rem #828CC9, 0.035rem 0.035rem 0.1044rem #949CD1;
+            text-shadow: none;
+            font-weight: 700;
+         }
+      }
+      &--disabled {
+         border-color: #6d7298;
+         color: #6d7298;
+         background-color: #a8add0;
+      }
+      @media (max-width: 390px) {
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+   }
+   }
 }
 
-.modal-title {
-   display: none;
-}
-
-.modal-text {
+.modal-select-defaulttext {
+   text-align: center;
    display: none;
 }

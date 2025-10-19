@@ -346,15 +346,22 @@
 
 
 <dialog id="main-modal-element">
-   <form class="modal-form">
-      <p class="modal-pretext"></p>
-      <h3 class="modal-title"></h3>
-      <p class="modal-text"></p>
-      <label for="modal-input" class="modal-label"></label>
-      <input type="text" id="modal-input" name="modal-input" />
+   <form method="dialog" class="modal-form">
+      <p class="modal modal__text modal__text-1">This  is  modal</p>
+      <p class="modal modal__text modal__text-2">Testtext</p>
+      <p class="modal modal__text modal__text-3"></p>
+      <p class="modal modal__text modal__text-4"></p>
+      <p class="modal modal__questionmark">?</p>
+      <label for="modal-input" class="modal modal__input-label">Enter name:</label>
+      <input type="text" id="modal-input" class="modal modal__input" name="modal-input" />
+      <label for="modal-select" class="modal modal__select-label"></label>
+      <select id="modal-select" class="modal modal__select" name="modal-select">
+         <option value="" class="modal-select-defaulttext" disabled selected>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- choose --</option>
+      </select>
       <div class="modal-button-wrapper">
-         <button class="modal-button modalbutton--positive"></button>
-         <button class="modal-button modalbutton--negative"></button>
+         <input type="submit" class="modal modal__button modal__button--disabled" disabled>
+         <button class="modal modal__button modal__button--negative">NO</button>
       </div>
    </form>
 </dialog>
