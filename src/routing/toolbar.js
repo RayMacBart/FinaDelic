@@ -14,7 +14,11 @@ class Toolbar {
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
       this.TEH.boundAddNestedBagHandler = this.TEH.addNestedBagHandler.bind(this.TEH);
       this.TEH.boundAddFlowHandler = this.TEH.addFlowHandler.bind(this.TEH);
+      this.TEH.boundRenameBagHandler = this.TEH.renameBagHandler.bind(this.TEH);
+      this.TEH.boundMoveBagHandler = this.TEH.moveBagHandler.bind(this.TEH);
       this.boundBackToMainHandler = this.backToMainHandler.bind(this);
+      this.boundAccountRemoveHandler = this.accountRemoveHandler.bind(this);
+
       this.setupBar();
    }
 
@@ -93,6 +97,12 @@ class Toolbar {
       }
       else if (bartype === 'account-modification') {
          buttons[4].addEventListener('click', this.boundBackToMainHandler, {once: true});
+         buttons[5].addEventListener('click', this.boundAccountRemoveHandler, {once: true});
+         buttons[6].addEventListener('click', this.TEH.boundRenameBagHandler, {once: true});
+         buttons[7].addEventListener('click', this.TEH.boundMoveBagHandler, {once: true});
+      }
+      else if (bartype === 'account-remove') {
+         buttons[8].addEventListener('click', this.boundModifyHandler, {once: true});
       }
    }
 
@@ -106,7 +116,13 @@ class Toolbar {
       event.stopPropagation();
       this.activateBar('account');
    }
-   
+
+   accountRemoveHandler(event) {
+      event.stopPropagation();
+      this.activateBar('account-remove');
+   }
+
+
    
    handleDirection(bagPath) {
       if (bagPath.split('/')[0] !== this.direction) {

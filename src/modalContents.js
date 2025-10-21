@@ -5,7 +5,34 @@ const modalContents = {
          'input': true,
          'submit-button': 'CREATE',
          'cancel-button': 'CANCEL'
-      }
+      },
+      'bag-rename': {
+         'text-1': 'old name:',
+         'text-2': 'BAG',
+         'input-label': 'Enter new name:',
+         'input': true,
+         'submit-button': 'RENAME',
+         'cancel-button': 'CANCEL'
+      },
+      'flow-amount': {
+         'input-label': 'Enter Amount:',
+         'input': true,
+         'submit-button': 'OK',
+         'cancel-button': 'CANCEL'
+      },
+      'flow-desc': {
+         'input-label': 'Enter Description:',
+         'input': true,
+         'submit-button': 'OK',
+         'cancel-button': 'CANCEL'
+      },
+      'flow-date': {
+         'input-label': 'Enter Date:',
+         'input': true,    // type='date'  !!!
+         'submit-button': 'OK',
+         'cancel-button': 'CANCEL'
+      },
+
    }
 
    export { modalContents };

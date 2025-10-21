@@ -3,6 +3,8 @@ class ToolbarEventHandler {
    boundAdd2chartHandler;
    boundAddNestedBagHandler;
    boundAddFlowHandler;
+   boundRenameBagHandler;
+   boundMoveBagHandler;
 
    constructor(dummyData, reloadEvent, modal) {
       this.dummyData = dummyData;
@@ -41,6 +43,17 @@ class ToolbarEventHandler {
                         // This enhances user experience. But let the user be able to change it.
       console.log('add flow!');
    }
+
+
+   renameBagHandler() {
+
+   }
+
+
+   moveBagHandler() {
+      
+   }
+
 
 
    // IDEA FOR BUTTON "MOVE" IN "MODIFY" (FOR BAGS) AND FOR "MOVE" OF SELECTED FLOWS:

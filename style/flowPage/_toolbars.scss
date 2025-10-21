@@ -107,7 +107,54 @@
 }
 
 .menu > li > details {
-   position: absolute;
+   
+   color: #f8f9ff;
+   text-shadow: 0.10rem 0.10rem 0.08rem #2E366B, -0.10rem 0.10rem 0.08rem #2E366B,
+                0.10rem -0.10rem 0.08rem #2E366B, -0.10rem -0.10rem 0.08rem #2E366B;
+   
+   font-size: 1rem;
+   font-weight: 425;
+   @media screen and (orientation: landscape) {
+         display: block;
+      }
+      @media screen and (orientation: portrait) {
+         display: inline-block;
+      }
+   
+   & > summary {
+      text-decoration: underline;
+      padding-right: 0.5rem;
+      padding-bottom: 0.5rem;
+   }
+   &::details-content {
+      position: absolute;
+      background-color: rgba(80, 88, 140, 0.85);
+      padding: 0.5rem;
+      opacity: 0;
+      transition: opacity 600ms, content-visibility 600ms allow-discrete;
+      border: 0.17rem solid #4a517d;
+      border-radius: 1rem;
+      font-style: italic;
+      @media screen and (orientation: landscape) {
+         width: 11rem;
+         left: -12.5rem;
+         top: 3rem;
+         @media (min-width: 768px) {
+            top: -0.3rem;
+         }
+      }
+      @media screen and (orientation: portrait) {
+         width: 16rem;
+         top: -9.3rem;
+         left: 1rem;
+         @media (max-width: 575px) {
+            top: -9.5rem;
+         }
+      }
+   }
+   &[open]::details-content {
+      opacity: 1;
+   }
 }
 
 .toolback {

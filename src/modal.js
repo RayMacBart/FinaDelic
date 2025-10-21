@@ -100,7 +100,7 @@ class Modal {
    }
 
 
-   runModal() {       // TODO: outsource single modal code
+   runModal() {
       this.elements['submit-button'].disabled = true;
       for (const elemName in this.modalContents[this.currentModalType]) {
          if (['submit-button', 'cancel-button'].includes(elemName)) {
