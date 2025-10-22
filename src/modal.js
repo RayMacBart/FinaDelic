@@ -70,11 +70,13 @@ class Modal {
       const bagtype = this.direction === 'IN' ? 'POCKET' : 'DRAIN';
       const flowtype = this.direction === 'IN' ? 'GAIN' : 'LOSS';
       let innerText = this.modalContents[this.currentModalType][elemName];
-      if (innerText.includes('BAG')) {
-         innerText = innerText.replace('BAG', bagtype);
-      }
-      if (innerText.includes('FLOW')) {
-         innerText = innerText.replace('FLOW', flowtype);
+      if (typeof innerText === 'string') {
+         if (innerText.includes('BAG')) {
+            innerText = innerText.replace('BAG', bagtype);
+         }
+         if (innerText.includes('FLOW')) {
+            innerText = innerText.replace('FLOW', flowtype);
+         }
       }
       return innerText
    }
@@ -101,14 +103,13 @@ class Modal {
 
 
    runModal() {
-      this.elements['submit-button'].disabled = true;
       for (const elemName in this.modalContents[this.currentModalType]) {
          if (['submit-button', 'cancel-button'].includes(elemName)) {
             this.elements[elemName].style.display = 'inline-block';
          } else {
             this.elements[elemName].style.display = 'block';
          }
-         if (this.elements[elemName] === 'submit-button') {
+         if (elemName === 'submit-button') {
             this.elements[elemName].value = this.getAdjustedInnerText(elemName);
          } else if (!(['input', 'select'].includes(elemName))) {
             this.elements[elemName].innerText = this.getAdjustedInnerText(elemName);
@@ -118,9 +119,18 @@ class Modal {
          this.elements['input-label'].style.fontSize = '1.1rem';
       }
       if (this.inputModalTypes.includes(this.currentModalType)) {
+         this.elements['submit-button'].disabled = true;
+         if (!this.elements['submit-button'].classList.contains('modal__button--disabled')) {
+            this.elements['submit-button'].classList.add('modal__button--disabled');
+         }
+         this.elements['submit-button'].classList.remove('modal__button--positive');
          const boundInputWatcher = this.watchInput.bind(this);
          this.elements['input'].addEventListener('input', boundInputWatcher);
       } else {
+         if (!this.elements['submit-button'].classList.contains('modal__button--positive')) {
+            this.elements['submit-button'].classList.add('modal__button--positive');
+         }
+         this.elements['submit-button'].classList.remove('modal__button--disabled');
          this.currentBoundSubmitFunction = this.submitModal.bind(this);
          this.elements['submit-button'].addEventListener('click', this.currentBoundSubmitFunction, {once: true});
       }

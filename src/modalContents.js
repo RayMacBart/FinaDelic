@@ -14,6 +14,29 @@ const modalContents = {
          'submit-button': 'RENAME',
          'cancel-button': 'CANCEL'
       },
+      'bag-erase': {
+         'text-1': 'Are you sure you want to delete',
+         'text-2': 'BAG',
+         'text-3': 'and also all the content inside',
+         'questionmark': '?',
+         'submit-button': 'YES',
+         'cancel-button': 'NO'
+      },
+      'bag-disband': {
+         'text-1': 'Are you sure you want to delete',
+         'text-2': 'BAG',
+         'text-3': 'and move all it\'s content up to',
+         'text-4': 'PARENTBAG',
+         'questionmark': '?',
+         'submit-button': 'YES',
+         'cancel-button': 'NO'
+      },
+      'flow-delete': {
+         'text-1': 'Are you sure you want to delete the selected flow',
+         'questionmark': '?',
+         'submit-button': 'YES',
+         'cancel-button': 'NO'
+      },
       'flow-amount': {
          'input-label': 'Enter Amount:',
          'input': true,

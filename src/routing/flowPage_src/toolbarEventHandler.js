@@ -5,12 +5,18 @@ class ToolbarEventHandler {
    boundAddFlowHandler;
    boundRenameBagHandler;
    boundMoveBagHandler;
+   boundEraseBagHandler;
+   boundDisbandBagHandler;
+   boundDeleteFlowHandler;
+   boundMoveFlowHandler;
+   boundChangeFlowHandler;
 
    constructor(dummyData, reloadEvent, modal) {
       this.dummyData = dummyData;
       this.reloadEvent = reloadEvent;
       this.modal = modal;
       this.modal.reloadEvent = reloadEvent;
+
    }
 
 
@@ -18,13 +24,7 @@ class ToolbarEventHandler {
       event.stopPropagation();
       console.log('ToolbarEventHandler.dummyData:', this.dummyData);
       this.dummyData.data['IN']['nestedBags']['official']['amount'] = 123456789;
-      this.triggerBagReload();
-   }
-
-   // not yet listened to from toolbar: (!)
-   delete() {   // may be necessary to separate it into 'deleteFlow' and 'deleteBag' - let's see.
-      // DON'T USE STOPPROPAGATION() HERE - SO AUTOMATIC DISELECTION IS ENSURED.
-      this.modal.manageModal('delete');
+      document.getElementById('toolbar-wrapper').dispatchEvent(this.reloadEvent);
    }
 
 
@@ -51,7 +51,33 @@ class ToolbarEventHandler {
 
 
    moveBagHandler() {
-      
+
+   }
+
+
+   eraseBagHandler() {
+
+   }
+
+
+   disbandBagHandler() {
+
+   }
+
+
+   deleteFlowHandler() {
+      this.modal.manageModal('flow-delete');
+      const choosenFlow = document.querySelector('.flowItem--choosen');
+   }
+
+
+   moveFlowHandler() {
+
+   }
+
+
+   changeFlowHandler() {
+
    }
 
 

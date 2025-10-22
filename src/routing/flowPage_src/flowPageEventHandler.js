@@ -46,7 +46,7 @@ class EventHandler {
             this.choosenFlowID = id;
             flowEl.classList.remove('flowItem--unchoosen');
             if (!(flowEl.classList.contains('flowItem--choosen'))) {
-               flowEl.classList.add('flowItem--choosen')
+               flowEl.classList.add('flowItem--choosen');
             }
             if (toolbar.currentType !== 'flow') {
                toolbar.activateBar('flow');
