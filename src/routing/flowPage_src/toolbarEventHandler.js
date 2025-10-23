@@ -41,7 +41,8 @@ class ToolbarEventHandler {
                         // in all cases (also if not or canceled), refresh the page (renews eventlistener for used button) OR BETTER:
                         // For the modal, implement an already pre-entered date value which is the current day.
                         // This enhances user experience. But let the user be able to change it.
-      console.log('add flow!');
+      this.modal.manageModal('flow-amount');
+      document.getElementById('toolbar-wrapper').dispatchEvent(this.reloadEvent);
    }
 
 

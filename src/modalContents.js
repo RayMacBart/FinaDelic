@@ -38,8 +38,8 @@ const modalContents = {
          'cancel-button': 'NO'
       },
       'flow-amount': {
-         'input-label': 'Enter Amount:',
-         'input': true,
+         'text-1': 'Enter Amount:',
+         'amount-input-wrapper': true,
          'submit-button': 'OK',
          'cancel-button': 'CANCEL'
       },

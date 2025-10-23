@@ -63,6 +63,36 @@ dialog {
          text-align: center;
       }
    }
+   &__amount-input-wrapper {
+      display: none;
+      height: 1.63rem;
+      align-items: stretch;
+      gap: 0.1rem;
+   }
+   &__amount-sign, &__amount-currency {
+      padding: auto;
+      margin: 0 0.3rem;
+      text-shadow: none;
+      width: 2rem;
+      height: 100%;
+      flex-grow: 0;
+      flex-shrink: 0;
+      border-width: 0.15rem;
+      border-color: #D27E7E;
+      border-style: solid;
+      border-radius: 0.3rem;
+      box-shadow: 0 0 0.3175rem rgba(39, 58, 176, 0.5) inset, 0.08rem 0.08rem 0.159rem rgba(31, 36, 71, 0.25);
+      background-color: #E6E9F9;
+      display: inline-block;
+   }
+   &__amount-sign {
+      color: #B20000;
+      font-weight: 800;
+      // font-size: 1.5rem;
+   }
+   &__amount-currency {
+      border-color: #707BC2;
+   }
    &__button {
       border: 0.2rem solid #2039DF;
       border-radius: 0.5rem;
@@ -113,4 +143,31 @@ dialog {
 .modal-button-wrapper {
    width: fit-content;
    margin: 0 auto;
+}
+
+#amount-predecimal {
+   display: inline-block;
+   width:  fit-content;
+   min-width: 8.6rem;
+   text-align: end;
+   // box-sizing:
+   height: 100%;
+   flex-basis: 2rem;
+   // flex-grow: 1;
+   flex-shrink: 2;
+}
+
+#amount-decimal {
+   display: inline-block;
+   flex-basis:  2.1rem;
+   width: 2.1rem;
+   height: 100%;
+}
+
+.modal__amount-comma {
+   display: inline-block;
+   width: 0.5rem;
+   color: #E6E9F9;
+   font-size: 1.8rem;
+   margin-top: -0.3rem;
 }

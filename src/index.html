@@ -360,8 +360,15 @@
          <option value="" class="modal-select-defaulttext" disabled selected>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- choose --</option>
       </select>
+      <div class="modal modal__amount-input-wrapper">
+         <div class="modal modal__amount-sign">-</div>
+         <input class="modal modal__input" id="amount-predecimal" type="number" min="0" placeholder="0" />
+         <span class="modal modal__amount-comma">,</span>
+         <input class="modal modal__input" id="amount-decimal" type="number" min="0" max="99" placeholder="00" />
+         <div class="modal modal__amount-currency"><abbr title="EURO" class="currency">&euro;</abbr></div>
+      </div>
       <div class="modal-button-wrapper">
-         <input type="submit" class="modal modal__button modal__button--positive">
+         <input type="submit" class="modal modal__button modal__button--positive" />
          <button class="modal modal__button modal__button--negative"></button>
       </div>
    </form>

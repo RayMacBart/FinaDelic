@@ -23,6 +23,7 @@ class Modal {
          'input': this.dialog.querySelector('.modal__input'),
          'select-label': this.dialog.querySelector('.modal__select-label'),
          'select': this.dialog.querySelector('.modal__select'),
+         'amount-input-wrapper': this.dialog.querySelector('.modal__amount-input-wrapper'),
          'submit-button': this.dialog.querySelector('.modal-button-wrapper > input'),
          'cancel-button': this.dialog.querySelector('.modal-button-wrapper > button'),
       }
@@ -65,6 +66,12 @@ class Modal {
       this.finishModal();
    }
 
+   restrictDecimalChars(event) {
+      if (event.target.value.length > 2) {
+         event.target.value = event.target.value.slice(0,2);
+      }
+   }
+
 
    getAdjustedInnerText(elemName) {
       const bagtype = this.direction === 'IN' ? 'POCKET' : 'DRAIN';
@@ -101,17 +108,24 @@ class Modal {
       }
    }
 
-
+   // TODO:
+   // implement required amount-input-wrapper predecimal OR decimal value to provide submitbutton access!
+   // use 'this.direction' to implement color/+- for amount-sign choice.
    runModal() {
       for (const elemName in this.modalContents[this.currentModalType]) {
          if (['submit-button', 'cancel-button'].includes(elemName)) {
             this.elements[elemName].style.display = 'inline-block';
+         } else if (elemName === 'amount-input-wrapper') {
+            this.elements[elemName].style.display = 'flex';
+            const decimalEl = document.getElementById('amount-decimal');
+            decimalEl.removeEventListener('input', this.restrictDecimalChars);
+            decimalEl.addEventListener('input', this.restrictDecimalChars);
          } else {
             this.elements[elemName].style.display = 'block';
          }
          if (elemName === 'submit-button') {
             this.elements[elemName].value = this.getAdjustedInnerText(elemName);
-         } else if (!(['input', 'select'].includes(elemName))) {
+         } else if (!(['input', 'select', 'amount-input-wrapper'].includes(elemName))) {
             this.elements[elemName].innerText = this.getAdjustedInnerText(elemName);
          }
       }
