@@ -67,7 +67,7 @@ dialog {
       display: none;
       height: 1.63rem;
       align-items: stretch;
-      gap: 0.1rem;
+      gap: 0.05rem;
    }
    &__amount-sign, &__amount-currency {
       padding: auto;
@@ -91,7 +91,7 @@ dialog {
       // font-size: 1.5rem;
    }
    &__amount-currency {
-      border-color: #707BC2;
+      border-color: #585f92;
    }
    &__button {
       border: 0.2rem solid #2039DF;
@@ -148,7 +148,7 @@ dialog {
 #amount-predecimal {
    display: inline-block;
    width:  fit-content;
-   min-width: 8.6rem;
+   min-width: 7.7rem;
    text-align: end;
    // box-sizing:
    height: 100%;

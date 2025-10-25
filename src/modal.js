@@ -89,28 +89,37 @@ class Modal {
    }
 
 
-   watchInput() {
+   watchInput(event) {
       this.elements['submit-button'].removeEventListener('click', this.currentBoundSubmitFunction);
-      if (this.elements['input'].value) {
+      if (event.target.value) {
          this.elements['submit-button'].disabled = false;
-         if (this.elements['submit-button'].classList.contains('modal__button--disabled')) {
-            this.elements['submit-button'].classList.remove('modal__button--disabled');
+         this.elements['submit-button'].classList.remove('modal__button--disabled');
+         if (!this.elements['submit-button'].classList.contains('modal__button--positive')) {
+            this.elements['submit-button'].classList.add('modal__button--positive');
          }
-         this.elements['submit-button'].classList.add('modal__button--positive');
          this.currentBoundSubmitFunction = this.submitModal.bind(this);
          this.elements['submit-button'].addEventListener('click', this.currentBoundSubmitFunction, {once: true});
       } else {
-         this.elements['submit-button'].disabled = true;
-         if (this.elements['submit-button'].classList.contains('modal__button--positive')) {
-            this.elements['submit-button'].classList.remove('modal__button--positive');
+         if (this.currentModalType !== 'flow-amount' || 
+            (!document.getElementById('amount-predecimal').value && !document.getElementById('amount-decimal').value)) {
+            this.elements['submit-button'].disabled = true;
+            if (this.elements['submit-button'].classList.contains('modal__button--positive')) {
+               this.elements['submit-button'].classList.remove('modal__button--positive');
+            }
+            this.elements['submit-button'].classList.add('modal__button--disabled');
          }
-         this.elements['submit-button'].classList.add('modal__button--disabled');
+      }
+      if (this.currentModalType === 'flow-amount') {
+         if (event.target.value.toString().includes('e')) {
+            event.target.value = event.target.value.toString().replace('e', '');
+         }
+         if (event.target.value.includes('-')) {
+            event.target.value = event.target.value.replace('-', '');
+         }
       }
    }
 
-   // TODO:
-   // implement required amount-input-wrapper predecimal OR decimal value to provide submitbutton access!
-   // use 'this.direction' to implement color/+- for amount-sign choice.
+// TODO: CLEAN UP, CONNECT FLOW-AMOUNT TO FLOW-DESC AND FLOW-DATE
    runModal() {
       for (const elemName in this.modalContents[this.currentModalType]) {
          if (['submit-button', 'cancel-button'].includes(elemName)) {
@@ -120,6 +129,7 @@ class Modal {
             const decimalEl = document.getElementById('amount-decimal');
             decimalEl.removeEventListener('input', this.restrictDecimalChars);
             decimalEl.addEventListener('input', this.restrictDecimalChars);
+
          } else {
             this.elements[elemName].style.display = 'block';
          }
@@ -139,7 +149,26 @@ class Modal {
          }
          this.elements['submit-button'].classList.remove('modal__button--positive');
          const boundInputWatcher = this.watchInput.bind(this);
-         this.elements['input'].addEventListener('input', boundInputWatcher);
+         if (this.currentModalType === 'flow-amount') {
+            for (const prefix of ['pre', '']) {
+               const inputElem = document.getElementById(`amount-${prefix}decimal`);
+               inputElem.removeEventListener('input', boundInputWatcher);
+               inputElem.addEventListener('input', boundInputWatcher);
+            };
+            const signElem = this.elements['amount-input-wrapper'].querySelector('.modal__amount-sign');
+            if (this.direction === 'IN') {
+               signElem.style.borderColor = '#399149ff';
+               signElem.style.color = '#008017';
+               signElem.innerText = '+';
+            } else if (this.direction === 'OUT') {
+               signElem.style.borderColor = '#9d5e5eff';
+               signElem.style.color = '#B20000';
+               signElem.innerText = '-';
+            }
+         } else {
+            this.elements['input'].removeEventListener('input', boundInputWatcher);
+            this.elements['input'].addEventListener('input', boundInputWatcher);
+         }
       } else {
          if (!this.elements['submit-button'].classList.contains('modal__button--positive')) {
             this.elements['submit-button'].classList.add('modal__button--positive');
