@@ -31,6 +31,14 @@ const modalContents = {
          'submit-button': 'YES',
          'cancel-button': 'NO'
       },
+      'bag-move': {
+         'text-1': 'MOVE',
+         'text-2': 'BAG', // shall be replaced with bag's name!
+         'select-label': 'Choose destination bag:',
+         'select': true,
+         'submit-button': 'MOVE',
+         'cancel-button': 'CANCEL'
+      },
       'flow-delete': {
          'text-1': 'Are you sure you want to delete the selected flow',
          'questionmark': '?',
@@ -55,7 +63,13 @@ const modalContents = {
          'submit-button': 'OK',
          'cancel-button': 'CANCEL'
       },
-
+      'flow-move': {
+         'text-1': 'MOVE FLOW',
+         'select-label': 'Choose destination bag:',
+         'select': true,
+         'submit-button': 'MOVE',
+         'cancel-button': 'CANCEL'
+      },
    }
 
    export { modalContents };

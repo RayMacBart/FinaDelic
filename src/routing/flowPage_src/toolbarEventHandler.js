@@ -30,7 +30,7 @@ class ToolbarEventHandler {
 
    addNestedBagHandler() {
       // NO STOPPROPAGATION() HERE - THIS CAN ONLY BE TRIGGERED IF NO FLOW IS SELECTED ANYWAY
-      this.modal.manageModal('bag-create');
+      this.modal.startModal('bag-create');
    }
 
 
@@ -41,7 +41,7 @@ class ToolbarEventHandler {
                         // in all cases (also if not or canceled), refresh the page (renews eventlistener for used button) OR BETTER:
                         // For the modal, implement an already pre-entered date value which is the current day.
                         // This enhances user experience. But let the user be able to change it.
-      this.modal.manageModal('flow-amount');
+      this.modal.startModal('flow-amount');
       document.getElementById('toolbar-wrapper').dispatchEvent(this.reloadEvent);
    }
 
@@ -67,18 +67,19 @@ class ToolbarEventHandler {
 
 
    deleteFlowHandler() {
-      this.modal.manageModal('flow-delete');
+      event.stopPropagation();
+      this.modal.startModal('flow-delete');
       const choosenFlow = document.querySelector('.flowItem--choosen');
    }
 
 
    moveFlowHandler() {
-
+      event.stopPropagation();
    }
 
 
-   changeFlowHandler() {
-
+   changeFlowHandler(event) {
+      event.stopPropagation();
    }
 
 
