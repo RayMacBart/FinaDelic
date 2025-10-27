@@ -11,20 +11,18 @@ class ToolbarEventHandler {
    boundMoveFlowHandler;
    boundChangeFlowHandler;
 
-   constructor(dummyData, reloadEvent, modal) {
+   constructor(dummyData, reloadEvent, modal, chart) {
       this.dummyData = dummyData;
       this.reloadEvent = reloadEvent;
       this.modal = modal;
-      this.modal.reloadEvent = reloadEvent;
-
+      this.modal.setAllocation(reloadEvent, chart);
    }
 
 
    add2chartHandler(event) {
-      event.stopPropagation();
-      console.log('ToolbarEventHandler.dummyData:', this.dummyData);
-      this.dummyData.data['IN']['nestedBags']['official']['amount'] = 123456789;
-      document.getElementById('toolbar-wrapper').dispatchEvent(this.reloadEvent);
+      // event.stopPropagation();
+      this.modal.startModal('add2chart');
+      
    }
 
 
@@ -42,12 +40,11 @@ class ToolbarEventHandler {
                         // For the modal, implement an already pre-entered date value which is the current day.
                         // This enhances user experience. But let the user be able to change it.
       this.modal.startModal('flow-amount');
-      document.getElementById('toolbar-wrapper').dispatchEvent(this.reloadEvent);
    }
 
 
    renameBagHandler() {
-
+      this.modal.startModal('bag-rename');
    }
 
 

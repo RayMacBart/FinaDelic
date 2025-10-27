@@ -9,8 +9,8 @@ class Toolbar {
    currentBagName;
    TEH;
 
-   constructor(dummyData, reloadEvent, modal) {
-      this.TEH = new ToolbarEventHandler(dummyData, reloadEvent, modal);
+   constructor(dummyData, reloadEvent, modal, chart) {
+      this.TEH = new ToolbarEventHandler(dummyData, reloadEvent, modal, chart);
       this.boundModifyHandler = this.modifyHandler.bind(this);
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
       this.TEH.boundAddNestedBagHandler = this.TEH.addNestedBagHandler.bind(this.TEH);

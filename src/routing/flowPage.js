@@ -11,11 +11,11 @@ class FlowPage {
 
    #lastFlowID = 0;
 
-   constructor(dummyData, modal) {
+   constructor(dummyData, modal, chart) {
       this.surface = new FlowpageSurface();
       this.dummyData = dummyData;
       this.reloadEvent = new Event('bagReload');  // (?)[../../docs/customEventToolbarTrigger.txt]
-      this.toolbar = new Toolbar(dummyData, this.reloadEvent, modal);
+      this.toolbar = new Toolbar(dummyData, this.reloadEvent, modal, chart);
       this.baglist = new BagList();
       this.flowlist = new FlowList();
       this.eventHandler = new EventHandler();  

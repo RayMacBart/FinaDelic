@@ -4,20 +4,23 @@ import FlowSubmits from "./flowSubmits.js";
 
 class ModalSubmitAllocator {
 
-   constructor() {
-      this.bagSubmits = new BagSubmits();
-      this.flowSubmits = new FlowSubmits();
+   constructor(reloadEvent, dummyData, chart) {
+      this.bagSubmits = new BagSubmits(reloadEvent, dummyData, chart);
+      this.flowSubmits = new FlowSubmits(reloadEvent, dummyData);
    }
 
    prepare(currelems, modType, bagPath, startNextMod) {
-      if (modType.split('-')[0] === 'bag') {
+      if (modType.split('-')[0] === 'bag' || modType === 'add2chart') {
          this.bagSubmits.currelems = currelems;
          this.bagSubmits.bagPath = bagPath;
       } else if (modType.split('-')[0] === 'flow') {
          this.flowSubmits.currelems = currelems;
          this.flowSubmits.bagPath = bagPath;
          this.flowSubmits.startNextMod = startNextMod;
-         this.flowSubmits.flowID = document.querySelector('.flowItem--choosen').dataset.flowId;
+         if (['flow-delete', 'flow-move'].includes(modType)) {
+            console.log(document.querySelector('.flowItem--choosen'));
+            this.flowSubmits.flowID = document.querySelector('.flowItem--choosen').dataset.flowId;
+         }
       }
    }
 

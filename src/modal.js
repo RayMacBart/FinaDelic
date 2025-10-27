@@ -32,7 +32,11 @@ class Modal {
       this.boundSubmitFunction = this.submitModal.bind(this);
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new InputModal(this);
-      this.modSub = new ModalSubmitAllocator();
+      
+   }
+
+   setAllocation(reloadEvent, chart) {
+      this.modSub = new ModalSubmitAllocator(reloadEvent, this.dummyData, chart);
    }
 
    startModal(modalType) {
@@ -63,12 +67,11 @@ class Modal {
          }
          this.elements['submit-button'].classList.add('modal__button--disabled');
       }
-      document.getElementById('toolbar-wrapper').dispatchEvent(this.reloadEvent);
    }
 
 
    submitModal() {
-      currentElems = {};
+      const currentElems = {};
       for (const elemName in this.modalContents[this.currentModalType]) {
          currentElems[elemName] = this.elements[elemName];
       }

@@ -3,6 +3,7 @@ import Router from "./route.js";
 import LazyLoader from "./lazyLoader.js";
 import TimeSpan from "./timespan.js";
 import DummyData from "./dummyData.js";
+import Chart from "./chart.js";
 import Modal from "./modal.js";
 import { modalContents } from "./modalContents.js";
 
@@ -13,6 +14,7 @@ class App {
       this.timespan = new TimeSpan();
       this.dummyData = new DummyData();
       this.modal = new Modal(this.dummyData, modalContents);
+      this.chart = new Chart();
       this.router = new Router(this, defaultPage);
       this.lazyLoader = new LazyLoader();
       new Footer(this.router.navigate, this.lazyLoader.importSVG);

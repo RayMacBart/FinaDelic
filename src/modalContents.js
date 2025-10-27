@@ -1,8 +1,14 @@
 const modalContents = {
+      'add2chart': {
+         'text-1': 'Are you sure you want to add',
+         'text-2': 'BAG',  // shall be replaced with bag's name!
+         'text-3': 'to the current chart?',
+         'submit-button': 'YES',
+         'cancel-button': 'NO'
+      },
       'bag-create': {
-         'text-1': 'CREATE NEW BAG',  // always replace the word 'BAG' with the dynamic words 'Pocket' or 'Drain' by creating a brandnew span!!  
-         'input-label': 'Enter Name', // If doing so, don't forget to set innerHTML of all modal's text elements to "" after everything is done!
-         'input': true,
+         'text-1': 'CREATE NEW BAG',
+         'input-label': 'Enter Name',
          'submit-button': 'CREATE',
          'cancel-button': 'CANCEL'
       },
