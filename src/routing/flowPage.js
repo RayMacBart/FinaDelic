@@ -42,10 +42,10 @@ class FlowPage {
          this.toolbar.handleDirection(bagPath);
          this.toolbar.activateBar(toolbarType);
          if (this.toolbar.boundRefreshHandler) {
-            this.toolbar.toolbarElement.removeEventListener('bagReload', this.toolbar.boundRefreshHandler);
+            document.removeEventListener('bagReload', this.toolbar.boundRefreshHandler);
          }
          this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.dummyData.revisitFlag, false, this.toolbar.currentType);
-         this.toolbar.toolbarElement.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
+         document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
       }
       this.baglist.render(bagData, bagPath);
       this.flowlist.render(bagData, bagPath,

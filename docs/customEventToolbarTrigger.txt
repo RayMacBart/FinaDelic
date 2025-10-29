@@ -3,6 +3,3 @@ because here there's access to a proper full reload of the Flowpage-Bag via '#ba
 The Event is forwarded to 'ToolbarEventHandler' (over 'Toolbar') by being passed to the contructors,
 because in 'ToolbarEventHandler', where functionality of toolbar buttons is implemented which need reloads,
 this custom Event is dispatched (=triggered).
-Note, that there's no technical reason for the event being attached to the '.toolbar-wrapper'-Element - 
-actually, it could be attached to any DOM-Element.
-Choosing the Toolbar Wrapper for this just made some semantic sense.

@@ -418,6 +418,15 @@ class DummyData {
       return this.#currentBag;
    }
 
+   
+   changeCurrentBagProp(newName=null) {
+      const curBagArray = this.#currentBag.split('/');
+      curBagArray.pop();
+      if (newName) {
+         curBagArray.push(newName);
+      }
+      this.#currentBag = curBagArray.join('/');
+   }
 
    
    setCurrentBag(bagName, stepUp) {

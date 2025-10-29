@@ -26,28 +26,27 @@ class ModalSubmitAllocator {
 
 
    allocateAndSubmit(modType) {
-      switch (modType) {
-         case 'bag-create':
-            this.bagSubmits.bagCreate();
-         case 'bag-rename':
-            this.bagSubmits.bagRename();
-         case 'bag-erase':
-            this.bagSubmits.bagErase();
-         case 'bag-disband':
-            this.bagSubmits.bagDisband();
-         case 'bag-move':
-            this.bagSubmits.bagMove();
-         case 'flow-amount':
-            this.flowSubmits.flowAmount();
-         case 'flow-desc':
-            this.flowSubmits.flowDesc();
-         case 'flow-date':
-            this.flowSubmits.flowDate();
-         case 'flow-delete':
-            this.flowSubmits.flowDelete();
-         case 'flow-move':
-            this.flowSubmits.flowMove();
-         }
+      if (modType === 'bag-create') {
+         this.bagSubmits.bagCreate();
+      } else if (modType === 'bag-rename') {
+         this.bagSubmits.bagRename();
+      } else if (modType === 'bag-erase') {
+         this.bagSubmits.bagErase();
+      } else if (modType === 'bag-disband') {
+         this.bagSubmits.bagDisband();
+      } else if (modType === 'bag-move') {
+         this.bagSubmits.bagMove();
+      } else if (modType === 'flow-amount') {
+         this.flowSubmits.flowAmount();
+      } else if (modType === 'flow-desc') {
+         this.flowSubmits.flowDesc();
+      } else if (modType === 'flow-date') {
+         this.flowSubmits.flowDate();
+      } else if (modType === 'flow-delete') {
+         this.flowSubmits.flowDelete();
+      } else if (modType === 'flow-move') {
+         this.flowSubmits.flowMove();
+      }
    }
 }
 

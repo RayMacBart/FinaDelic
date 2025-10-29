@@ -27,7 +27,7 @@ class FlowSubmits {
 
    flowDate() {
 
-      document.getElementById('toolbar-wrapper').dispatchEvent(this.reloadEvent);
+      document.dispatchEvent(this.reloadEvent);
    }
 
 

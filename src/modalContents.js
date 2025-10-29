@@ -1,7 +1,7 @@
 const modalContents = {
       'add2chart': {
          'text-1': 'Are you sure you want to add',
-         'text-2': 'BAG',  // shall be replaced with bag's name!
+         'text-2': 'BAGNAME',
          'text-3': 'to the current chart?',
          'submit-button': 'YES',
          'cancel-button': 'NO'
@@ -9,6 +9,7 @@ const modalContents = {
       'bag-create': {
          'text-1': 'CREATE NEW BAG',
          'input-label': 'Enter Name',
+         'input': true,
          'submit-button': 'CREATE',
          'cancel-button': 'CANCEL'
       },
@@ -39,7 +40,7 @@ const modalContents = {
       },
       'bag-move': {
          'text-1': 'MOVE',
-         'text-2': 'BAG', // shall be replaced with bag's name!
+         'text-2': 'BAGNAME',
          'select-label': 'Choose destination bag:',
          'select': true,
          'submit-button': 'MOVE',

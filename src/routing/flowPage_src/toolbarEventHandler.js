@@ -15,7 +15,8 @@ class ToolbarEventHandler {
       this.dummyData = dummyData;
       this.reloadEvent = reloadEvent;
       this.modal = modal;
-      this.modal.setAllocation(reloadEvent, chart);
+      this.modal.reloadEvent = reloadEvent;
+      this.modal.setAllocation(chart);
    }
 
 
@@ -54,7 +55,7 @@ class ToolbarEventHandler {
 
 
    eraseBagHandler() {
-
+      this.modal.startModal('bag-erase');
    }
 
 
@@ -63,14 +64,14 @@ class ToolbarEventHandler {
    }
 
 
-   deleteFlowHandler() {
+   deleteFlowHandler(event) {
       event.stopPropagation();
       this.modal.startModal('flow-delete');
       const choosenFlow = document.querySelector('.flowItem--choosen');
    }
 
 
-   moveFlowHandler() {
+   moveFlowHandler(event) {
       event.stopPropagation();
    }
 
@@ -85,8 +86,6 @@ class ToolbarEventHandler {
    // IN THE MODAL, MAKE A DROPDOWN (SELECT-) ELEMENT WITH ALL THE BAGS TO CHOOSE FROM.
    // PROVIDE ONLY DRAINS FOR DRAINS, AND ONLY POCKETS FOR POCKETS IN THIS LIST, AND DON'T FORGET TO OMIT
    // THE CURRENT BAG ITSELF IN THE MENU. IF EASILY IMPLEMENTABLE, VISUALIZE BAG NESTING LEVELS IN THE SELECT-MENU.
-
-   // FOR THE "REMOVE"-TOOLBAR, ALSO IMPLEMENT A "BACK"-BUTTON (NOT IN DESIGN YET!)
 }
 
 export default ToolbarEventHandler;

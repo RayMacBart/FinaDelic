@@ -36,9 +36,10 @@ class Toolbar {
          this.toolbarElement = toolbarFragment.getElementById('toolbar-wrapper');
          flowBag.appendChild(this.toolbarElement);
          document.querySelector('.toolbar-caption').lastElementChild.style.fontStyle = 'italic';
-      } else {
-         console.log('Toolbar setup aborted: Toolbar already existed!');
       }
+      // else {
+      //    console.log('Toolbar setup aborted: Toolbar already existed!');
+      // }
    }
 
 

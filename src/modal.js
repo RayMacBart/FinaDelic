@@ -35,8 +35,8 @@ class Modal {
       
    }
 
-   setAllocation(reloadEvent, chart) {
-      this.modSub = new ModalSubmitAllocator(reloadEvent, this.dummyData, chart);
+   setAllocation(chart) {
+      this.modSub = new ModalSubmitAllocator(this.reloadEvent, this.dummyData, chart);
    }
 
    startModal(modalType) {
@@ -67,6 +67,8 @@ class Modal {
          }
          this.elements['submit-button'].classList.add('modal__button--disabled');
       }
+      console.log('finishing!');
+      document.dispatchEvent(this.reloadEvent);
    }
 
 
@@ -81,6 +83,7 @@ class Modal {
       } else if (this.currentModalType === 'flow-desc') {
          startNextMod = this.startModal.bind(this, 'flow-date');
       }
+      console.log('@submit');
       this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), startNextMod);
       this.modSub.allocateAndSubmit(this.currentModalType);
       this.finishModal();
@@ -92,6 +95,9 @@ class Modal {
       const flowtype = this.direction === 'IN' ? 'GAIN' : 'LOSS';
       let innerText = this.modalContents[this.currentModalType][elemName];
       if (typeof innerText === 'string') {
+         if (innerText.includes('BAGNAME')) {
+            innerText = innerText.replace('BAGNAME', '"'+this.dummyData.getBagPath().split('/').pop().toUpperCase()+'"');
+         }
          if (innerText.includes('BAG')) {
             innerText = innerText.replace('BAG', bagtype);
          }
