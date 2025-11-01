@@ -18,7 +18,7 @@ class ModalSubmitAllocator {
          this.flowSubmits.bagPath = bagPath;
          this.flowSubmits.startNextMod = startNextMod;
          if (['flow-delete', 'flow-move'].includes(modType)) {
-            console.log(document.querySelector('.flowItem--choosen'));
+            // console.log(document.querySelector('.flowItem--choosen'));
             this.flowSubmits.flowID = document.querySelector('.flowItem--choosen').dataset.flowId;
          }
       }

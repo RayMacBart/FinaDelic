@@ -136,8 +136,58 @@ dialog {
 }
 
 .modal-select-defaulttext {
-   text-align: center;
    display: none;
+   text-indent: 4rem;
+}
+
+.modal__select, ::picker(select) {
+   appearance: base-select;
+}
+
+.modal__select {
+   background-color: #f2f3f8;
+   font-family: 'Inter', sans-serif;
+   text-indent: 2.3rem;
+}
+
+::picker(select) {
+   text-indent: 0;
+   opacity: 0;
+   transition: all 0.4s;
+   max-width: 16rem;
+   top: calc(anchor(bottom) + 0.07rem);
+   left: calc(anchor(left));
+   background-color: #e9eaf4;
+   height: 6rem;
+   box-sizing: content-box;
+   border: 0.15rem solid#575c8e;
+   box-shadow: 0 0 0.6rem rgb(130, 131, 162) inset;
+   border-radius: 0.6rem;
+   &:popover-open {
+      opacity: 1;
+   }
+}
+
+@starting-style {
+  ::picker(select):popover-open {
+    opacity: 0;
+  }
+}
+
+
+.modal-select-option {
+   font-family: 'Inter', sans-serif;
+   color: rgb(38, 45, 59);
+   font-weight: 430;
+   &:hover {
+      background-color: #4f5275;
+      color: #f2f3f8;
+   }
+   &:checked {
+      color: rgb(0, 77, 0);
+      outline: 0.05rem dashed rgb(186, 198, 186);
+      background-color: #e8ece8;
+   }
 }
 
 .modal-button-wrapper {

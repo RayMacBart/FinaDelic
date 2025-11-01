@@ -1,4 +1,5 @@
 import InputModal from './modals_src/inputModal.js';
+import SelectModal from './modals_src/selectModal.js';
 import ModalSubmitAllocator from './modals_src/modalSubmitAllocator.js';
 
 class Modal {
@@ -32,7 +33,7 @@ class Modal {
       this.boundSubmitFunction = this.submitModal.bind(this);
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new InputModal(this);
-      
+      this.selectModal = new SelectModal(this);
    }
 
    setAllocation(chart) {
@@ -67,7 +68,11 @@ class Modal {
          }
          this.elements['submit-button'].classList.add('modal__button--disabled');
       }
-      console.log('finishing!');
+      if (['bag-move', 'flow-move'].includes(this.currentModalType)) {
+         this.elements['select'].querySelector('.option-container').innerHTML = '';
+         this.elements['select'].value = '';
+         this.elements['select'].querySelector('.modal-select-defaulttext').innerText = ' -- choose -- ';
+      }
       document.dispatchEvent(this.reloadEvent);
    }
 
@@ -83,7 +88,7 @@ class Modal {
       } else if (this.currentModalType === 'flow-desc') {
          startNextMod = this.startModal.bind(this, 'flow-date');
       }
-      console.log('@submit');
+      // console.log('@submit');
       this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), startNextMod);
       this.modSub.allocateAndSubmit(this.currentModalType);
       this.finishModal();
@@ -132,8 +137,15 @@ class Modal {
       if (this.smallInputLabelModalTypes.includes(this.currentModalType)) {
          this.elements['input-label'].style.fontSize = '1.1rem';
       }
+      if (this.currentModalType === 'bag-disband') {
+         const pathArray = this.dummyData.getBagPath().split('/');
+         const parentBagName = pathArray[pathArray.length-2];
+         document.querySelector('.modal__text-4').innerText = parentBagName.toUpperCase();
+      }
       if (this.inputModalTypes.includes(this.currentModalType)) {
          this.inputModal.setup();
+      } else if (['bag-move', 'flow-move'].includes(this.currentModalType)) {
+         this.selectModal.setup();
       } else {
          if (!this.elements['submit-button'].classList.contains('modal__button--positive')) {
             this.elements['submit-button'].classList.add('modal__button--positive');

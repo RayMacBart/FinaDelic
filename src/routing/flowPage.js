@@ -22,7 +22,7 @@ class FlowPage {
    }
 
 
-   #renderFlowPage(bagName, stepUp=false, toolbarType='account') {
+   #renderFlowPage(bagName, stepUp=false) {
       console.log('render');
       this.dummyData.setCurrentBag(bagName, stepUp);
       const bagData = this.dummyData.getData();
@@ -40,7 +40,7 @@ class FlowPage {
 
          this.toolbar.currentBagName = bagPath.split('/').pop();
          this.toolbar.handleDirection(bagPath);
-         this.toolbar.activateBar(toolbarType);
+         this.toolbar.activateBar(this.toolbar.currentType);
          if (this.toolbar.boundRefreshHandler) {
             document.removeEventListener('bagReload', this.toolbar.boundRefreshHandler);
          }

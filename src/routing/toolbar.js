@@ -2,7 +2,7 @@ import ToolbarEventHandler from "./flowPage_src/toolbarEventHandler.js";
 
 class Toolbar {
 
-   currentType;
+   currentType = 'account';
    toolbarElement;
    direction = 'IN';
    boundRefreshHandler;

@@ -15,7 +15,7 @@ const modalContents = {
       },
       'bag-rename': {
          'text-1': 'old name:',
-         'text-2': 'BAG',
+         'text-2': 'BAGNAME',
          'input-label': 'Enter new name:',
          'input': true,
          'submit-button': 'RENAME',
@@ -23,7 +23,7 @@ const modalContents = {
       },
       'bag-erase': {
          'text-1': 'Are you sure you want to delete',
-         'text-2': 'BAG',
+         'text-2': 'BAGNAME',
          'text-3': 'and also all the content inside',
          'questionmark': '?',
          'submit-button': 'YES',
@@ -31,7 +31,7 @@ const modalContents = {
       },
       'bag-disband': {
          'text-1': 'Are you sure you want to delete',
-         'text-2': 'BAG',
+         'text-2': 'BAGNAME',
          'text-3': 'and move all it\'s content up to',
          'text-4': 'PARENTBAG',
          'questionmark': '?',

@@ -1,30 +1,17 @@
+import SubmitUtils from './submitUtils.js';
+
+
 class BagSubmits {
 
    currelems;
    bagPath;
    
-   
    constructor(reloadEvent, dummyData, chart) {
       this.reloadEvent = reloadEvent;
       this.dummyData = dummyData;
       this.chart = chart;
-   }
-
-
-   getParentObj(currentBagName) {
-      const pathArray =  this.bagPath.split('/');
-      let focussedObj = this.dummyData.data[pathArray[0]]['nestedBags'];
-      for (const bag of pathArray) {
-         if (bag === 'IN' || bag === 'OUT') {
-            continue;
-         }
-         if (!(bag === currentBagName)) {
-            focussedObj = focussedObj[bag]['nestedBags']
-         }
-      }
-      return focussedObj;
-   } 
-      
+      this.utils = new SubmitUtils(this.dummyData);
+   }  
 
    // here comes reaction/functionality of submits
    // to receive and forward the 'return'-values to work with,
@@ -32,6 +19,7 @@ class BagSubmits {
    // for move (select) modals, take '.value' property from currelems['select'].
 
    add2chart() {
+      this.utils.bagPath = this.bagPath;
       console.log('ToolbarEventHandler.dummyData:', this.dummyData);               // dummyCode
       this.dummyData.data['IN']['nestedBags']['official']['amount'] = 123456789;   // dummyCode
       this.chart.bags[this.bagPath] = this.dummyData.data['nestedBags'];  // dummyCode --> recursive bag collector wanted!
@@ -47,7 +35,6 @@ class BagSubmits {
 
    bagCreate() {
       const newBagName = this.currelems['input'].value;
-      console.log('data:', this.dummyData.getData());
       this.dummyData.getData()['nestedBags'][newBagName] = {
          'amount': 0,
          'nestedBags': {},
@@ -57,10 +44,10 @@ class BagSubmits {
 
 
    bagRename() {
-      console.log('in rename!!!');
+      this.utils.bagPath = this.bagPath;
       const newBagName = this.currelems['input'].value;
       const currentBagName = this.bagPath.split('/').pop();
-      const parentObj = this.getParentObj(currentBagName);
+      const parentObj = this.utils.getParentObj(currentBagName);
       parentObj[newBagName] = {...parentObj[currentBagName]};
       delete parentObj[currentBagName];
       this.dummyData.changeCurrentBagProp(newBagName);
@@ -68,20 +55,46 @@ class BagSubmits {
 
 
    bagErase() {
+      this.utils.bagPath = this.bagPath;
       const currentBagName = this.bagPath.split('/').pop();
-      const parentObj = this.getParentObj(currentBagName);
+      const parentObj = this.utils.getParentObj(currentBagName);
       delete parentObj[currentBagName];
+      this.dummyData.changeCurrentBagProp();
+   }
+
+   transferBag(destinationBag=null) {
+      this.utils.bagPath = this.bagPath;
+      const currentBagObj = this.dummyData.getData();
+      const pathArray = this.bagPath.split('/');
+      const currentBagName = pathArray[pathArray.length-1];
+      const parentObj = this.utils.getParentObj(currentBagName, true);
+      const destObj = destinationBag ? destinationBag : parentObj;
+      console.log('destObj:', destObj);
+      if (destinationBag) {  // move
+         destObj['nestedBags'][currentBagName] = currentBagObj;
+      } else {  // disband
+         for (const bagname in currentBagObj['nestedBags']) {
+            destObj['nestedBags'][bagname] = currentBagObj['nestedBags'][bagname];
+         }
+         for (const flowId in currentBagObj['transactions']) {
+            destObj['transactions'][flowId] = currentBagObj['transactions'][flowId];
+         }
+      }
+      destObj['amount'] += currentBagObj['amount'];
+      delete parentObj['nestedBags'][currentBagName];
       this.dummyData.changeCurrentBagProp();
    }
 
 
    bagDisband() {
-
+      this.transferBag();
    }
 
 
-   bagMove() {
-
+   bagMove() {  // implement that you cannot move into child objects and it's direct parent (not in itself is done)!!!!!!
+      const selection = document.getElementById('modal-select').value;
+      const choosenObj = this.utils.getBagObjByPath(selection);
+      this.transferBag(choosenObj);
    }
 }
 

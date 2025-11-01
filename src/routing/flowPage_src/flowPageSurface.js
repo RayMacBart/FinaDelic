@@ -24,7 +24,7 @@ class FlowbagSurface {
       const flowtop = document.getElementById('flowpage-top');
       const uparrow_icon = document.querySelector('.icon--uparrow');
       const uparrow_taparea = document.getElementById('uparrow-icon-tap-area');
-      console.log(bagData);
+      // console.log(bagData);
       if ((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData)) {
          flowbag.style.display = 'none';
          flowtop.style.display = 'block';

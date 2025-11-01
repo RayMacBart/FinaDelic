@@ -50,7 +50,7 @@ class ToolbarEventHandler {
 
 
    moveBagHandler() {
-
+      this.modal.startModal('bag-move');
    }
 
 
@@ -60,7 +60,7 @@ class ToolbarEventHandler {
 
 
    disbandBagHandler() {
-
+      this.modal.startModal('bag-disband');
    }
 
 
