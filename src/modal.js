@@ -88,7 +88,6 @@ class Modal {
       } else if (this.currentModalType === 'flow-desc') {
          startNextMod = this.startModal.bind(this, 'flow-date');
       }
-      // console.log('@submit');
       this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), startNextMod);
       this.modSub.allocateAndSubmit(this.currentModalType);
       this.finishModal();
@@ -144,8 +143,10 @@ class Modal {
       }
       if (this.inputModalTypes.includes(this.currentModalType)) {
          this.inputModal.setup();
-      } else if (['bag-move', 'flow-move'].includes(this.currentModalType)) {
-         this.selectModal.setup();
+      } else if (this.currentModalType === 'bag-move') {
+         this.selectModal.setup(true);
+      } else if (this.currentModalType === 'flow-move') {
+         this.selectModal.setup(false);
       } else {
          if (!this.elements['submit-button'].classList.contains('modal__button--positive')) {
             this.elements['submit-button'].classList.add('modal__button--positive');

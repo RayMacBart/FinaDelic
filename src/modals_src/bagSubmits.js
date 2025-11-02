@@ -13,10 +13,6 @@ class BagSubmits {
       this.utils = new SubmitUtils(this.dummyData);
    }  
 
-   // here comes reaction/functionality of submits
-   // to receive and forward the 'return'-values to work with,
-   // for inputType modals, take '.value' property from currelems['input'],
-   // for move (select) modals, take '.value' property from currelems['select'].
 
    add2chart() {
       this.utils.bagPath = this.bagPath;
@@ -69,7 +65,6 @@ class BagSubmits {
       const currentBagName = pathArray[pathArray.length-1];
       const parentObj = this.utils.getParentObj(currentBagName, true);
       const destObj = destinationBag ? destinationBag : parentObj;
-      console.log('destObj:', destObj);
       if (destinationBag) {  // move
          destObj['nestedBags'][currentBagName] = currentBagObj;
       } else {  // disband
@@ -91,7 +86,7 @@ class BagSubmits {
    }
 
 
-   bagMove() {  // implement that you cannot move into child objects and it's direct parent (not in itself is done)!!!!!!
+   bagMove() {
       const selection = document.getElementById('modal-select').value;
       const choosenObj = this.utils.getBagObjByPath(selection);
       this.transferBag(choosenObj);

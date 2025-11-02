@@ -428,6 +428,16 @@ class DummyData {
       this.#currentBag = curBagArray.join('/');
    }
 
+
+   changeFlow(flowId, 
+      date=null,
+      desc=null,
+      amount=null) {
+      this.data[this.#currentBag]['transactions'][flowId]['date'] = date ? date : this.data[this.#currentBag]['transactions'][flowId]['date'];
+      this.data[this.#currentBag]['transactions'][flowId]['desc'] = desc ? desc : this.data[this.#currentBag]['transactions'][flowId]['desc'];
+      this.data[this.#currentBag]['transactions'][flowId]['amount'] = amount ? amount : this.data[this.#currentBag]['transactions'][flowId]['amount'];
+   }
+
    
    setCurrentBag(bagName, stepUp) {
       if (bagName === this.revisitFlag) {

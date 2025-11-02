@@ -17,17 +17,29 @@ class SelectModal {
       this.modIns.elements['submit-button'].addEventListener('click', this.modIns.boundSubmitFunction, {once: true});
    }
 
-   renderSelect() {
+
+   filterOutBadDestinations(bagObjects, currentBagPath) {
+      for (const objPath in bagObjects) {
+         if (objPath.includes(currentBagPath)) {
+            delete bagObjects[objPath];
+         }
+      }
+      const pathArray = currentBagPath.split('/');
+      pathArray.pop();
+      delete bagObjects[pathArray.join('/')];
+   }
+
+
+   renderSelect(isBagMove) {
       const currentBagPath = this.modIns.dummyData.getBagPath();
       this.utils.bagPath = currentBagPath;
       const direction = currentBagPath.split('/')[0];
-      const bagObjects = this.utils.getAllChildBagObjects(this.modIns.dummyData.data[direction], direction);
-       // implement that you cannot move into child objects and it's direct parent (not in itself is done)!!!!!!
-       // implement that you cannot move into child objects and it's direct parent (not in itself is done)!!!!!!
-       // implement that you cannot move into child objects and it's direct parent (not in itself is done)!!!!!!
-       // implement that you cannot move into child objects and it's direct parent (not in itself is done)!!!!!!
-       // implement that you cannot move into child objects and it's direct parent (not in itself is done)!!!!!!
-      delete bagObjects[currentBagPath];
+      const bagObjects = this.utils.getAll1DirBagObjects(this.modIns.dummyData.data[direction], direction);
+      if (isBagMove) {
+         this.filterOutBadDestinations(bagObjects, currentBagPath);
+      } else {
+         delete bagObjects[currentBagPath];
+      }
       const optionContainer = document.querySelector('.option-container');
       for (const bag in bagObjects) {
          const optElem = document.createElement('option');
@@ -40,13 +52,13 @@ class SelectModal {
       }
    }
 
-   setup() {
+   setup(isBagMove) {
       this.modIns.elements['submit-button'].disabled = true;
       if (!this.modIns.elements['submit-button'].classList.contains('modal__button--disabled')) {
          this.modIns.elements['submit-button'].classList.add('modal__button--disabled');
       }
       this.modIns.elements['submit-button'].classList.remove('modal__button--positive');
-      this.renderSelect();
+      this.renderSelect(isBagMove);
       this.modIns.elements['select'].addEventListener('change', this.boundRecognizeSelection);
    }
 }

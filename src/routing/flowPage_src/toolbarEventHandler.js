@@ -67,12 +67,13 @@ class ToolbarEventHandler {
    deleteFlowHandler(event) {
       event.stopPropagation();
       this.modal.startModal('flow-delete');
-      const choosenFlow = document.querySelector('.flowItem--choosen');
+      
    }
 
 
    moveFlowHandler(event) {
       event.stopPropagation();
+      this.modal.startModal('flow-move');
    }
 
 

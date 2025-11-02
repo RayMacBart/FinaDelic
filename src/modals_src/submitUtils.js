@@ -35,12 +35,12 @@ class SubmitUtils {
    }
    
    
-   getAllChildBagObjects(parentObj, parentName) {  // recursive
+   getAll1DirBagObjects(parentObj, parentName) {  // recursive
       let collection = {};
       collection[parentName] = parentObj;
       if (parentObj['nestedBags']) {
          for (const bagName in parentObj['nestedBags']) {
-            collection = {...collection, ...this.getAllChildBagObjects(parentObj['nestedBags'][bagName], parentName+'/'+bagName)};
+            collection = {...collection, ...this.getAll1DirBagObjects(parentObj['nestedBags'][bagName], parentName+'/'+bagName)};
          }
       }
       return collection;

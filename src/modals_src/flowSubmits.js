@@ -1,3 +1,6 @@
+import SubmitUtils from './submitUtils.js';
+
+
 class FlowSubmits {
 
    currelems;
@@ -8,12 +11,9 @@ class FlowSubmits {
    constructor(reloadEvent, dummyData) {
       this.reloadEvent = reloadEvent;
       this.dummyData = dummyData;
+      this.utils = new SubmitUtils(this.dummyData);
    }
 
-   // here comes reaction/functionality of submits
-   // to receive and forward the 'return'-values to work with,
-   // for inputType modals, take '.value' property from currelems['input'],
-   // for move (select) modals, take '.value' property from currelems['select'].
 
    flowAmount() {
 
@@ -32,12 +32,17 @@ class FlowSubmits {
 
 
    flowDelete() {
-
+      const bagObj = this.utils.getBagObjByPath(this.bagPath);
+      delete bagObj['transactions'][this.flowID];
    }
 
 
    flowMove() {
-
+      const bagObj = this.utils.getBagObjByPath(this.bagPath);
+      const selection = document.getElementById('modal-select').value;
+      const choosenObj = this.utils.getBagObjByPath(selection);
+      choosenObj['transactions'][this.flowID] = bagObj['transactions'][this.flowID];
+      delete bagObj['transactions'][this.flowID];
    }
 }
 

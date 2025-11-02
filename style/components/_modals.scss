@@ -148,6 +148,11 @@ dialog {
    background-color: #f2f3f8;
    font-family: 'Inter', sans-serif;
    text-indent: 2.3rem;
+   &::picker-icon {
+      color: #676987;
+      position: relative;
+      left: 0.9rem;
+   }
 }
 
 ::picker(select) {
@@ -158,7 +163,7 @@ dialog {
    top: calc(anchor(bottom) + 0.07rem);
    left: calc(anchor(left));
    background-color: #e9eaf4;
-   height: 6rem;
+   max-height: 7rem;
    box-sizing: content-box;
    border: 0.15rem solid#575c8e;
    box-shadow: 0 0 0.6rem rgb(130, 131, 162) inset;
@@ -167,6 +172,8 @@ dialog {
       opacity: 1;
    }
 }
+
+
 
 @starting-style {
   ::picker(select):popover-open {
