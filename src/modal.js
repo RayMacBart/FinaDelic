@@ -73,24 +73,35 @@ class Modal {
          this.elements['select'].value = '';
          this.elements['select'].querySelector('.modal-select-defaulttext').innerText = ' -- choose -- ';
       }
+      if (this.currentModalType === 'flow-date') {
+         this.elements['input'].type = 'text';
+      }
       document.dispatchEvent(this.reloadEvent);
    }
 
 
    submitModal() {
+      this.elements['submit-button'].removeEventListener('click', this.boundSubmitFunction);
       const currentElems = {};
       for (const elemName in this.modalContents[this.currentModalType]) {
          currentElems[elemName] = this.elements[elemName];
       }
       let startNextMod = () => {}; 
-      if (this.currentModalType === 'flow-amount') {
-         startNextMod = this.startModal.bind(this, 'flow-desc');
-      } else if (this.currentModalType === 'flow-desc') {
-         startNextMod = this.startModal.bind(this, 'flow-date');
-      }
+      // if (this.currentModalType === 'flow-amount') {
+      //    startNextMod = this.startModal.bind(this, 'flow-desc');
+      //    this.finishModal();
+      // } else if (this.currentModalType === 'flow-desc') {
+      //    startNextMod = this.startModal.bind(this, 'flow-date');
+      //    this.finishModal();
+      // }
       this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), startNextMod);
       this.modSub.allocateAndSubmit(this.currentModalType);
       this.finishModal();
+      if (this.currentModalType === 'flow-amount') {
+         this.startModal('flow-desc');
+      } else if (this.currentModalType === 'flow-desc') {
+         this.startModal('flow-date');
+      }
    }
 
 
@@ -136,10 +147,8 @@ class Modal {
       if (this.smallInputLabelModalTypes.includes(this.currentModalType)) {
          this.elements['input-label'].style.fontSize = '1.1rem';
       }
-      if (this.currentModalType === 'bag-disband') {
-         const pathArray = this.dummyData.getBagPath().split('/');
-         const parentBagName = pathArray[pathArray.length-2];
-         document.querySelector('.modal__text-4').innerText = parentBagName.toUpperCase();
+      if (this.currentModalType === 'flow-date') {
+         this.elements['input'].type = 'date';
       }
       if (this.inputModalTypes.includes(this.currentModalType)) {
          this.inputModal.setup();
@@ -147,6 +156,10 @@ class Modal {
          this.selectModal.setup(true);
       } else if (this.currentModalType === 'flow-move') {
          this.selectModal.setup(false);
+      } else if (this.currentModalType === 'bag-disband') {
+         const pathArray = this.dummyData.getBagPath().split('/');
+         const parentBagName = pathArray[pathArray.length-2];
+         document.querySelector('.modal__text-4').innerText = parentBagName.toUpperCase();
       } else {
          if (!this.elements['submit-button'].classList.contains('modal__button--positive')) {
             this.elements['submit-button'].classList.add('modal__button--positive');

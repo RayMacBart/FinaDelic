@@ -48,7 +48,7 @@ class FlowPage {
          if (this.toolbar.boundRefreshHandler) {
             document.removeEventListener('bagReload', this.toolbar.boundRefreshHandler);
          }
-         this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.dummyData.revisitFlag, false);
+         this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.dummyData.revisitFlag);
          document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
       }
       this.baglist.render(bagData, bagPath);
@@ -87,7 +87,7 @@ class FlowPage {
       document.querySelector('.logo--nav').addEventListener('click', () => app.router.navigate('loggedinHP', ['page--landing']));
       document.getElementById('uparrow-icon-tap-area').addEventListener('click', (e) => {
                                                                             if (!(e.target.dataset.status === 'disabled')) {
-                                                                              this.#renderFlowPage('', true);
+                                                                              this.#renderFlowPage('', true, true);
                                                                             }
                                                                         });
       // document.getElementById('clock-icon-tap-area').addEventListener('click', () => ??????????); // OPEN MODAL
