@@ -1,4 +1,23 @@
+import renderAmount from './renderAmount.js';
+
 class BagList {
+
+   doStyle2DirAdjust(amount, amountEl, bagItem) {
+      if (amount < 0) {
+         bagItem.querySelector('.account-badge').src = './assets/fireheader.svg';
+         if (amountEl.classList.contains('positive')) {
+            amountEl.classList.replace('positive', 'negative');
+         }
+      }
+      else if (amount > 0) {
+         bagItem.querySelector('.account-badge').src = './assets/bagheader.svg';
+         if (amountEl.classList.contains('negative')) {
+            amountEl.classList.replace('negative', 'positive');
+         }
+      } else {
+         bagItem.querySelector('.account-badge').src = './assets/nullheader.svg';
+      }
+   }
 
    render(bagData, bagPath) {
       const bagList = document.querySelector('.baglist');
@@ -11,12 +30,8 @@ class BagList {
             bagItem.querySelector('.bagTitle').innerText = nestedBag.toUpperCase();
             const amountEl = bagItem.querySelector('.account-amount');
             const amount = parseFloat(bagData['nestedBags'][nestedBag]['amount']);
-            bagItem.querySelector('.account-amount').innerText = String(amount);
-            if (amount < 0) {
-               bagItem.querySelector('.account-badge').src = './assets/fireheader.svg';
-               amountEl.classList.replace('positive', 'negative');
-            }
-            amountEl.innerText = new Intl.NumberFormat('de-DE').format(amount.toFixed(2));
+            this.doStyle2DirAdjust(amount, amountEl, bagItem);
+            renderAmount(amount, amountEl);
             bagList.appendChild(bagItem);
          }
       } else {

@@ -21,9 +21,15 @@
          border-right: 0.07rem solid #D27E7E;
       }
    }
+   &--neutral {
+      border-color: #6b6b6b;
+      .flowDate, .flow-description {
+         border-right: 0.07rem solid #909090;
+      }
+   }
    &--choosen {
-      border: 0.125rem solid #B20000;
-      box-shadow: 0 0 0.3125rem #D27E7E inset, 0 0 0.3125rem #0E143F;
+      border: 0.125rem solid #005eff;
+      box-shadow: 0 0 0.3125rem #0015ff inset, 0 0 0.3125rem #0E143F;
    }
    @media (max-width: 530px) {
       width: 25rem;

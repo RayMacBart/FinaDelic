@@ -19,19 +19,20 @@ class FlowSubmits {
 
 
    flowAmount() {
-      this.cachedAmount = String(document.getElementById('amount-predecimal').value)+'.'+String(document.getElementById('amount-predecimal').value);
-      // this.startNextMod();
+      const predec = document.getElementById('amount-predecimal').value ? document.getElementById('amount-predecimal').value : 0;
+      let dec = document.getElementById('amount-decimal').value ? document.getElementById('amount-decimal').value : 0;
+      this.cachedAmount = Number(predec+'.'+dec);
    }
 
 
    flowDesc() {
       this.cachedDesc = this.currelems['input'].value;
-      // this.startNextMod();
    }
 
 
    flowDate() {
-      const flowDate = this.currelems['input'].value;
+      const flowDateArray = (this.currelems['input'].value).split('-');
+      const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
       // flowDate = flowDate.getDate()+'.'+(flowDate.getMonth()+1)+'.'+flowDate.getFullYear();
       // check out if date object and convert properly. Style the date input.
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
@@ -43,7 +44,7 @@ class FlowSubmits {
       document.dispatchEvent(this.reloadEvent);
    }
 
-date
+
    flowDelete() {
       const bagObj = this.utils.getBagObjByPath(this.bagPath);
       delete bagObj['transactions'][this.flowID];

@@ -53,16 +53,11 @@ class FlowPage {
       }
       this.baglist.render(bagData, bagPath);
       this.flowlist.render(bagData, bagPath,
-         // this.#lastFlowID, this.setLastFlowID    THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
       ) 
       this.#linkBags(bagData, bagPath);
       this.eventHandler.linkFlows(bagData, this.toolbar);
    }
 
-   // setLastFlowID(newID) {             THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
-   //    this.#lastFlowID = newID;
-   //    console.log('set new flowID:', this.#lastFlowID);
-   // }
 
    #bagClickHandler(nestedBag) {
       this.#renderFlowPage(nestedBag, false, true);

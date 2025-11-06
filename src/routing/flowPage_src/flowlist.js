@@ -1,8 +1,35 @@
+import renderAmount from './renderAmount.js';
+
+
 class FlowList {
 
-   render(bagData, bagPath,
-      // lastFlowID, setLastFlowID     THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
-   ) {
+   doStyle2DirAdjust(amount, amountEl) {
+      if (amount < 0) {
+         if (amountEl.classList.contains('positive')) {
+            amountEl.classList.replace('positive', 'negative');
+            if (amountEl.classList.contains('flowItem--in')) {
+               flowItem.classList.replace('flowItem--in', 'flowItem--out');
+            } else if (amountEl.classList.contains('flowItem--neutral')) {
+               flowItem.classList.replace('flowItem--neutral', 'flowItem--out');
+            }
+         }
+      } else if ((amount > 0) && amountEl.classList.contains('negative')) {
+         amountEl.classList.replace('negative', 'positive');
+         if (amountEl.classList.contains('flowItem--out')) {
+            flowItem.classList.replace('flowItem--out', 'flowItem--in');
+         } else if (amountEl.classList.contains('flowItem--neutral')) {
+            flowItem.classList.replace('flowItem--neutral', 'flowItem--in');
+         }
+      } else {
+         if (amountEl.classList.contains('flowItem--out')) {
+            flowItem.classList.replace('flowItem--out', 'flowItem--neutral');
+         } else if (amountEl.classList.contains('flowItem--in')) {
+            flowItem.classList.replace('flowItem--in', 'flowItem--neutral');
+         }
+      }
+   }
+
+   render(bagData) {
       const flowlistBG = document.querySelector('.flowlist-container-BG');
       const footerMargin = document.querySelector('.footer-margin');
       if (bagData['transactions'] && Object.keys(bagData['transactions']).length) {
@@ -10,21 +37,22 @@ class FlowList {
          if (!(footerMargin.classList.contains('footer-margin--flowlist')));
             footerMargin.classList.add('footer-margin--flowlist');
          for (const transaction in bagData['transactions']) {
+            /////////////////
+            const dateArray = bagData['transactions'][transaction]['date'].split('.');
+            const formattedDateString = dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
+            const transDateObj = new Date(formattedDateString);
+            // TO DO:  need access to the app's stored timespan here - to be able to filter the flows depending on it!
+            // Date.prototype.getTime()    millisecs since 1.1.1970 - use to check if in timespan!!!
+            ///////////////////
             const flow = document.querySelector('.flow').content.cloneNode(true);
             const flowItem = flow.querySelector('.flowItem');
-            // flowItem.id = String(lastFlowID++);   THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
-            // setLastFlowID(lastFlowID++);          THIS WILL ONLY BE RELEVANT WHEN CREATING A FLOW!
             flowItem.dataset.flowId = transaction;
             flowItem.querySelector('.flowDate').innerText = bagData['transactions'][transaction]['date'];
             flowItem.querySelector('.flow-description').innerText = bagData['transactions'][transaction]['desc'];
-            const amount = parseFloat(bagData['transactions'][transaction]['amount']);
+            const amount = bagData['transactions'][transaction]['amount'];
             const amountEl = flowItem.querySelector('.flow-amount');
-            flowItem.querySelector('.flow-amount').innerText = String(amount);
-            if (amount < 0) {
-               amountEl.classList.replace('positive', 'negative');
-               flowItem.classList.replace('flowItem--in', 'flowItem--out');
-            }
-            amountEl.innerText = new Intl.NumberFormat('de-DE').format(amount.toFixed(2));
+            this.doStyle2DirAdjust(amount, amountEl);
+            renderAmount(amount, amountEl);
             document.querySelector('.flowlist').appendChild(flowItem);
          }
       } else {
