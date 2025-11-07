@@ -1,4 +1,5 @@
 import renderAmount from './renderAmount.js';
+import chronoInsertFlow from './chronoOrder.js';
 
 
 class FlowList {
@@ -29,27 +30,38 @@ class FlowList {
       }
    }
 
-   render(bagData) {
+   render(bagData, timespan) {
       const flowlistBG = document.querySelector('.flowlist-container-BG');
       const footerMargin = document.querySelector('.footer-margin');
       if (bagData['transactions'] && Object.keys(bagData['transactions']).length) {
          flowlistBG.style.display = 'block';
          if (!(footerMargin.classList.contains('footer-margin--flowlist')));
             footerMargin.classList.add('footer-margin--flowlist');
+         const orderedFlows = [];
          for (const transaction in bagData['transactions']) {
             /////////////////
             const dateArray = bagData['transactions'][transaction]['date'].split('.');
             const formattedDateString = dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
             const transDateObj = new Date(formattedDateString);
-            // TO DO:  need access to the app's stored timespan here - to be able to filter the flows depending on it!
+
             // Date.prototype.getTime()    millisecs since 1.1.1970 - use to check if in timespan!!!
             ///////////////////
+            // ALSO TO DO: Make recursive adding calc functions for total bag amounts and use renderAmount func for rendering.
+            // The calcs also have to take care of the choosen timespan.
+            // --> do this also for total amounts shown @ the bag's headers, including topmost page (total 'IN'- & 'OUT'-amounts, and 'total balance')
+            // ALSO TO DO: check initial focus on inputs @ every modal!
+            // ALSO TO DO: The 'change' button of flows. Take care to implement pre-entered values!
+            if ((timespan.start.getTime() <= transDateObj.getTime()) && (timespan.end.getTime()+86400000 > transDateObj.getTime() )) {  // (?)['../../docs/timespanAddedMS.txt']
+               chronoInsertFlow(orderedFlows, transaction, 0, orderedFlows.length, transDateObj);
+            }
+         }
+         for (const orderedFlow of orderedFlows) {
             const flow = document.querySelector('.flow').content.cloneNode(true);
             const flowItem = flow.querySelector('.flowItem');
-            flowItem.dataset.flowId = transaction;
-            flowItem.querySelector('.flowDate').innerText = bagData['transactions'][transaction]['date'];
-            flowItem.querySelector('.flow-description').innerText = bagData['transactions'][transaction]['desc'];
-            const amount = bagData['transactions'][transaction]['amount'];
+            flowItem.dataset.flowId = orderedFlow[0];
+            flowItem.querySelector('.flowDate').innerText = bagData['transactions'][orderedFlow[0]]['date'];
+            flowItem.querySelector('.flow-description').innerText = bagData['transactions'][orderedFlow[0]]['desc'];
+            const amount = bagData['transactions'][orderedFlow[0]]['amount'];
             const amountEl = flowItem.querySelector('.flow-amount');
             this.doStyle2DirAdjust(amount, amountEl);
             renderAmount(amount, amountEl);

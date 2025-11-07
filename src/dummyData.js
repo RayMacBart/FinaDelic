@@ -41,7 +41,7 @@ class DummyData {
                      "nestedBags": {},
                      "transactions": {
                         "97": {
-                           "date": "06.01.2025",
+                           "date": "06.11.2024",
                            "desc": "wimberger",
                            "amount": 177.5,
                            "currency": "EUR"
@@ -90,7 +90,7 @@ class DummyData {
                      "nestedBags": {},
                      "transactions": {
                         "111": {
-                           "date": "23.02.2025",
+                           "date": "13.12.2024",
                            "desc": "Mayers",
                            "amount": 80,
                            "currency": "EUR"
@@ -120,13 +120,13 @@ class DummyData {
                            "currency": "EUR"
                         },
                         "182": {
-                           "date": "22.09.2025",
+                           "date": "22.11.2025",
                            "desc": "Jan",
                            "amount": 40,
                            "currency": "EUR"
                         },
                         "77": {
-                           "date": "03.11.2025",
+                           "date": "03.12.2025",
                            "desc": "Teckentrups",
                            "amount": 50,
                            "currency": "EUR"
@@ -138,7 +138,7 @@ class DummyData {
                      "nestedBags": {},
                      "transactions": {
                         "297": {
-                           "date": "19.01.2025",
+                           "date": "19.10.2024",
                            "desc": "Susi Louisi",
                            "amount": 72,
                            "currency": "EUR"
@@ -246,7 +246,7 @@ class DummyData {
                            "currency": "EUR"
                         },
                         "19": {
-                           "date": "10.02.2025",
+                           "date": "10.11.2024",
                            "desc": "Spar",
                            "amount": -111.42,
                            "currency": "EUR"
@@ -282,7 +282,7 @@ class DummyData {
                      "nestedBags": {},
                      "transactions": {
                         "414": {
-                           "date": "07.06.2025",
+                           "date": "17.09.2024",
                            "desc": "Watertuin",
                            "amount": -52.4,
                            "currency": "EUR"
@@ -324,14 +324,14 @@ class DummyData {
                      "nestedBags": {},
                      "transactions": {
                         "70": {
-                           "date": "03.09.2025",
-                           "desc": "Willhaben Sitzbank und Schuhkasten @ Graz",
+                           "date": "13.10.2025",
+                           "desc": "A1 Internet Monatsgebühren",
                            "amount": -32,
                            "currency": "EUR"
                         },
                         "400": {
-                           "date": "04.10.2025",
-                           "desc": "Kastengriffe @ Ikea",
+                           "date": "13.11.2025",
+                           "desc": "A1 Internet Monatsgebühren",
                            "amount": -32,
                            "currency": "EUR"
                         }
@@ -360,7 +360,7 @@ class DummyData {
                      "nestedBags": {},
                      "transactions": {
                         "479": {
-                           "date": "05.01.2025",
+                           "date": "15.11.2024",
                            "desc": "Tanken",
                            "amount": -76.5,
                            "currency": "EUR"

@@ -9,7 +9,7 @@ import Toolbar from "./toolbar.js";
 
 class FlowPage {
 
-   #lastFlowID = 0;
+   timespan;
 
    constructor(dummyData, modal, chart) {
       this.surface = new FlowpageSurface();
@@ -52,8 +52,7 @@ class FlowPage {
          document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
       }
       this.baglist.render(bagData, bagPath);
-      this.flowlist.render(bagData, bagPath,
-      ) 
+      this.flowlist.render(bagData, this.timespan); 
       this.#linkBags(bagData, bagPath);
       this.eventHandler.linkFlows(bagData, this.toolbar);
    }
@@ -94,6 +93,9 @@ class FlowPage {
    
 
    setup(app) {
+      if (!this.timespan) {
+         this.timespan = app.timespan;
+      }
       this.#renderFlowPage(this.dummyData.revisitFlag);
       this.#setTimeHeader(app.timespan);
       this.#setupFlowPageLinks(app);

@@ -1,0 +1,3 @@
+The number '86400000' was added to the timespan's end within the check, to cause
+a inclusion of the end date's full day. 86400000 is the number of milliseconds in a day.
+Otherwise, it would end at 00:00 at the end date.
