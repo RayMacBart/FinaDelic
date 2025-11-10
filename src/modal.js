@@ -63,10 +63,10 @@ class Modal {
          document.getElementById('amount-decimal').value = '';
       }
       if (this.inputModalTypes.includes(this.currentModalType)) {
-         if (this.elements['submit-button'].classList.contains('modal__button--positive')) {
-            this.elements['submit-button'].classList.remove('modal__button--positive');
+         if (this.elements['submit-button'].classList.contains('modal__button--disabled')) {
+            this.elements['submit-button'].classList.remove('modal__button--disabled');
          }
-         this.elements['submit-button'].classList.add('modal__button--disabled');
+         this.elements['submit-button'].classList.add('modal__button--positive');
       }
       if (['bag-move', 'flow-move'].includes(this.currentModalType)) {
          this.elements['select'].querySelector('.option-container').innerHTML = '';
@@ -78,7 +78,7 @@ class Modal {
       }
       document.dispatchEvent(this.reloadEvent);
    }
-
+disabled
 
    submitModal() {
       this.elements['submit-button'].removeEventListener('click', this.boundSubmitFunction);

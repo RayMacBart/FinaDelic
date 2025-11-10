@@ -181,7 +181,7 @@ class DummyData {
 
 
       "OUT": {
-         "amount": -1123281.84,
+         "amount": -2123281.84,
          "nestedBags": {
             "official": {
                "amount": -116780,

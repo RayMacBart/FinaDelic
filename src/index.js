@@ -12,7 +12,7 @@ class App {
    constructor(defaultPage) {
       console.log('FULL RELOAD!');
       this.timespan = new TimeSpan();
-      this.dummyData = new DummyData();
+      this.dummyData = new DummyData();  // TO DO: IMPLEMENT BAG AMOUNT CHECK AND MODIFICATION!
       this.modal = new Modal(this.dummyData, modalContents);
       this.chart = new Chart();
       this.router = new Router(this, defaultPage);

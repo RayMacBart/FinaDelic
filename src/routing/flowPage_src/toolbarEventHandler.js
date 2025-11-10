@@ -78,7 +78,8 @@ class ToolbarEventHandler {
 
 
    changeFlowHandler(event) {
-      event.stopPropagation();
+      event.stopPropagation();                                        // TO DO:
+      this.modal.startModal('flow-change');  // only diff. to flow-amount - desc - date: preentered values (reuse existing methods for creation somehow)
    }
 
 

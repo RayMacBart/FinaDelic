@@ -10,6 +10,7 @@ import Toolbar from "./toolbar.js";
 class FlowPage {
 
    timespan;
+   lastFlowCount;
 
    constructor(dummyData, modal, chart) {
       this.surface = new FlowpageSurface();
@@ -23,7 +24,7 @@ class FlowPage {
 
 
    #renderFlowPage(bagName, stepUp=false, toolbarReset=false) {
-      console.log('render');
+      // console.log('render');
       this.dummyData.setCurrentBag(bagName, stepUp);
       const bagData = this.dummyData.getData();
       const bagPath = this.dummyData.getBagPath();
@@ -31,6 +32,9 @@ class FlowPage {
       this.surface.clear(this.eventHandler);
       
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
+      
+      this.baglist.render(bagData, bagPath);
+      this.flowlist.render(bagData, this.timespan);
 
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
 
@@ -40,6 +44,11 @@ class FlowPage {
 
          this.toolbar.currentBagName = bagPath.split('/').pop();
          this.toolbar.handleDirection(bagPath);
+
+         if ((this.toolbar.currentType === 'flow') && (document.querySelector(".flowlist").children.length < this.lastFlowCount)) {
+            toolbarReset = true;
+         }
+
          if (toolbarReset) {
             this.toolbar.activateBar('account');
          } else {
@@ -51,10 +60,9 @@ class FlowPage {
          this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.dummyData.revisitFlag);
          document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
       }
-      this.baglist.render(bagData, bagPath);
-      this.flowlist.render(bagData, this.timespan); 
       this.#linkBags(bagData, bagPath);
       this.eventHandler.linkFlows(bagData, this.toolbar);
+      this.lastFlowCount = document.querySelector(".flowlist").children.length;
    }
 
 

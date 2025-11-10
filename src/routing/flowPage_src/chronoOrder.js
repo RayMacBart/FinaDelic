@@ -1,8 +1,7 @@
-function chronoInsertFlow(orderedTimes, ID, startIDX, endIDX, dateObj) {  // recursive
-   
+function chronoInsertFlow(orderedTimes, ID, startIDX, endIDX, dateObj) {  // recursive 'divide & conquer' algorithm
+
    if (orderedTimes.length) {
       const midDist = Math.floor((endIDX-startIDX)/2);
-      console.log('start:', startIDX, '   end:', endIDX);
       if (dateObj.getTime() > orderedTimes[startIDX+midDist][1]) {
          if (midDist) {
             chronoInsertFlow(orderedTimes, ID, startIDX+midDist, endIDX, dateObj);

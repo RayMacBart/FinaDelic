@@ -112,7 +112,10 @@
 
 #in-total, #out-total {
    height: 1rem;
-   margin-top: 1rem;
-   padding-left: 0.4rem;
+   width: 10rem;
    opacity: 92%;
+}
+
+.in-total-wrap, .out-total-wrap {
+   text-wrap: nowrap;
 }

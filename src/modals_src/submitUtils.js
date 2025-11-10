@@ -1,3 +1,6 @@
+import renderAmount from '../routing/flowPage_src/renderAmount.js';
+
+
 class SubmitUtils {
 
    bagPath;
@@ -55,6 +58,62 @@ class SubmitUtils {
          return this.getBagObjByPath(nextPathPart, obj['nestedBags'][pathArray.shift()]);
       } else {
          return obj;
+      }
+   }
+
+
+   #getDateObject(dateString) {
+      const dateArray = dateString.split('.');
+      const formattedDateString = dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
+      const transDateObj = new Date(formattedDateString);
+      return transDateObj;
+   }
+
+
+   #retrieveDateSpanFromDOM() {
+      const startArr = document.getElementById('time-start').innerText.split('.');
+      const endArr = document.getElementById('time-end').innerText.split('.');
+      const formatStartStr = startArr[2]+'-'+startArr[1]+'-'+startArr[0];
+      const formatEndStr = endArr[2]+'-'+endArr[1]+'-'+endArr[0];
+      const startObj = new Date(formatStartStr);
+      const endObj = new Date(formatEndStr);
+      return [startObj, endObj];
+   }
+
+
+   recalcBagAmounts(bagPathArray, bagObj=null) {   // recursive
+      if (!bagObj) {
+         let focussedObj = this.dummyData.data[bagPathArray[0]];
+         for (const bag of bagPathArray) {
+            if (bag !== 'IN' && bag !== 'OUT' && focussedObj['nestedBags']) {
+               focussedObj = focussedObj['nestedBags'][bag];
+            }
+         }
+         bagObj = focussedObj;
+      }
+      let bagSum = 0;
+      if (bagObj['nestedBags']) {
+         for (const nestedBag in bagObj['nestedBags']) {
+            bagSum += bagObj['nestedBags'][nestedBag]['amount'];
+         }
+      }
+      const flowIDs = [];
+      if (bagObj['transactions']) {
+         for (const flowID in bagObj['transactions']) {
+            const transDateObj = this.#getDateObject(bagObj['transactions'][flowID]['date']);
+            const [startDateObj, endDateObj] = this.#retrieveDateSpanFromDOM()
+            if ((startDateObj.getTime() <= transDateObj.getTime()) && (endDateObj.getTime()+86400000 > transDateObj.getTime() )) {
+               flowIDs.push(flowID);
+            }
+         }
+         for (const flowID of flowIDs) {
+            bagSum += bagObj['transactions'][flowID]['amount'];
+         }
+      }
+      bagObj.amount = bagSum;
+      if (bagPathArray.length > 1) {
+         bagPathArray.pop();
+         this.recalcBagAmounts(bagPathArray, bagObj['nestedBags'][bagPathArray[bagPathArray.length-1]]);
       }
    }
 }

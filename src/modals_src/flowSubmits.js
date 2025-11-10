@@ -33,21 +33,21 @@ class FlowSubmits {
    flowDate() {
       const flowDateArray = (this.currelems['input'].value).split('-');
       const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
-      // flowDate = flowDate.getDate()+'.'+(flowDate.getMonth()+1)+'.'+flowDate.getFullYear();
-      // check out if date object and convert properly. Style the date input.
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-      currentBagObj['transactions'][this.flowID] = {
+      currentBagObj['transactions'][987654321] = {   // 987654321 = flowID. Replace with method (from submitUtils) call that returns new unique ID!
                            "date": flowDate,
                            "desc": this.cachedDesc,
                            "amount": this.cachedAmount,
-                           "currency": "EUR"}
-      document.dispatchEvent(this.reloadEvent);
+                           "currency": "EUR"};
+      this.utils.recalcBagAmounts(this.bagPath.split('/'));
+      // document.dispatchEvent(this.reloadEvent);
    }
 
 
    flowDelete() {
       const bagObj = this.utils.getBagObjByPath(this.bagPath);
       delete bagObj['transactions'][this.flowID];
+      this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
 
 
@@ -57,6 +57,7 @@ class FlowSubmits {
       const choosenObj = this.utils.getBagObjByPath(selection);
       choosenObj['transactions'][this.flowID] = bagObj['transactions'][this.flowID];
       delete bagObj['transactions'][this.flowID];
+      this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
 }
 
