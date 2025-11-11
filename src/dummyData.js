@@ -1,19 +1,24 @@
+import SubmitUtils from './modals_src/submitUtils.js';
+
 
 class DummyData {
-   constructor() {
+
+   constructor(timespan) {
       this.revisitFlag = Symbol('revisitFlag');
+      this.utils = new SubmitUtils(this);
+      this.setBagAmounts(timespan);
    }
+
+
    #currentBag = ''
    
+
    data = {
       "IN": {
-         "amount": 4468729.86,
          "nestedBags": {
             "official": {
-               "amount": 233745.5376,
                "nestedBags": {
                   "teaching": {
-                     "amount": 27088.75,
                      "nestedBags": {},
                      "transactions": {
                         "31": {
@@ -37,7 +42,6 @@ class DummyData {
                      }
                   },
                   "gigs": {
-                     "amount": 11855.2,
                      "nestedBags": {},
                      "transactions": {
                         "97": {
@@ -83,10 +87,8 @@ class DummyData {
                }
             },
             "inofficial": {
-               "amount": 141856.99,
                "nestedBags": {
                   "teaching": {
-                     "amount": 300655.5,
                      "nestedBags": {},
                      "transactions": {
                         "111": {
@@ -134,7 +136,6 @@ class DummyData {
                      }
                   },
                   "gigs": {
-                     "amount": 99700.11,
                      "nestedBags": {},
                      "transactions": {
                         "297": {
@@ -181,13 +182,10 @@ class DummyData {
 
 
       "OUT": {
-         "amount": -2123281.84,
          "nestedBags": {
             "official": {
-               "amount": -116780,
                "nestedBags": {
                   "music equipment": {
-                     "amount": -9650.9,
                      "nestedBags": {},
                      "transactions": {
                         "22": {
@@ -227,10 +225,8 @@ class DummyData {
                }
             },
             "inofficial": {
-               "amount": -912503,
                "nestedBags": {
                   "Supermarkt": {
-                     "amount": -280715.54,
                      "nestedBags": {},
                      "transactions": {
                         "203": {
@@ -254,7 +250,6 @@ class DummyData {
                      }
                   },
                   "Miete": {
-                     "amount": -7800,
                      "nestedBags": {},
                      "transactions": {
                         "414": {
@@ -278,7 +273,6 @@ class DummyData {
                      }
                   },
                   "Essen gehen": {
-                     "amount": -1290.80,
                      "nestedBags": {},
                      "transactions": {
                         "414": {
@@ -302,7 +296,6 @@ class DummyData {
                      }
                   },
                   "Einrichtungen": {
-                     "amount": -3008.13,
                      "nestedBags": {},
                      "transactions": {
                         "999": {
@@ -320,7 +313,6 @@ class DummyData {
                      }
                   },
                   "Internet": {
-                     "amount": -384,
                      "nestedBags": {},
                      "transactions": {
                         "70": {
@@ -338,7 +330,6 @@ class DummyData {
                      }
                   },
                   "Handytarif": {
-                     "amount": -93.6,
                      "nestedBags": {},
                      "transactions": {
                         "951": {
@@ -356,7 +347,6 @@ class DummyData {
                      }
                   },
                   "Auto": {
-                     "amount": -4450.36,
                      "nestedBags": {},
                      "transactions": {
                         "479": {
@@ -410,6 +400,37 @@ class DummyData {
                "currency": "EUR"
             },
          }
+      }
+   }
+
+
+   setBagAmounts(timespan) {
+      const deepestPaths = [];
+      const getMostNestedPath = (focussedObj=this.data, path='') => {
+         if (path) {
+            if (Object.keys(focussedObj['nestedBags']).length) {
+               
+               for (const bag in focussedObj['nestedBags']) {
+                  getMostNestedPath(focussedObj['nestedBags'][bag], path+'/'+bag);
+               }
+            } else {
+               deepestPaths.push(path);
+            }
+         } else {
+            for (const bag in focussedObj) {
+               if (Object.keys(focussedObj[bag]['nestedBags']).length) {
+                  for (const nestedBag in focussedObj[bag]['nestedBags']) {
+                     getMostNestedPath(focussedObj[bag]['nestedBags'][nestedBag], bag+'/'+nestedBag);
+                  }
+               } else {
+                  deepestPaths.push(bag);
+               }
+            }
+         }
+      }
+      getMostNestedPath();
+      for (const path of deepestPaths) {
+         this.utils.recalcBagAmounts(path.split('/'), null, true, timespan);
       }
    }
 

@@ -81,27 +81,33 @@ class SubmitUtils {
    }
 
 
-   recalcBagAmounts(bagPathArray, bagObj=null) {   // recursive
+   recalcBagAmounts(bagPathArray, bagObj=null, dataInit=false, timespan=null) {   // recursive
       if (!bagObj) {
          let focussedObj = this.dummyData.data[bagPathArray[0]];
          for (const bag of bagPathArray) {
-            if (bag !== 'IN' && bag !== 'OUT' && focussedObj['nestedBags']) {
+            if (bag !== 'IN' && bag !== 'OUT' && Object.keys(focussedObj['nestedBags']).length) {
                focussedObj = focussedObj['nestedBags'][bag];
             }
          }
          bagObj = focussedObj;
       }
       let bagSum = 0;
-      if (bagObj['nestedBags']) {
+      if (Object.keys(bagObj['nestedBags']).length) {
          for (const nestedBag in bagObj['nestedBags']) {
             bagSum += bagObj['nestedBags'][nestedBag]['amount'];
          }
       }
       const flowIDs = [];
-      if (bagObj['transactions']) {
+      if (Object.keys(bagObj['transactions']).length) {
          for (const flowID in bagObj['transactions']) {
             const transDateObj = this.#getDateObject(bagObj['transactions'][flowID]['date']);
-            const [startDateObj, endDateObj] = this.#retrieveDateSpanFromDOM()
+            let startDateObj;
+            let endDateObj;
+            if (timespan) {
+               [startDateObj, endDateObj] = [timespan.start, timespan.end];
+            } else {
+               [startDateObj, endDateObj] = this.#retrieveDateSpanFromDOM();
+            }
             if ((startDateObj.getTime() <= transDateObj.getTime()) && (endDateObj.getTime()+86400000 > transDateObj.getTime() )) {
                flowIDs.push(flowID);
             }
@@ -113,7 +119,7 @@ class SubmitUtils {
       bagObj.amount = bagSum;
       if (bagPathArray.length > 1) {
          bagPathArray.pop();
-         this.recalcBagAmounts(bagPathArray, bagObj['nestedBags'][bagPathArray[bagPathArray.length-1]]);
+         this.recalcBagAmounts(bagPathArray, bagObj['nestedBags'][bagPathArray[bagPathArray.length-1]], dataInit, timespan);
       }
    }
 }
