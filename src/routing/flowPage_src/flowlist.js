@@ -53,12 +53,13 @@ class FlowList {
             const flow = document.querySelector('.flow').content.cloneNode(true);
             const flowItem = flow.querySelector('.flowItem');
             flowItem.dataset.flowId = orderedFlow[0];
-            flowItem.querySelector('.flowDate').innerText = bagData['transactions'][orderedFlow[0]]['date'];
+            flowItem.querySelector('.flow-date').innerText = bagData['transactions'][orderedFlow[0]]['date'];
             flowItem.querySelector('.flow-description').innerText = bagData['transactions'][orderedFlow[0]]['desc'];
             const amount = bagData['transactions'][orderedFlow[0]]['amount'];
             const amountEl = flowItem.querySelector('.flow-amount');
             this.doStyle2DirAdjust(amount, amountEl);
             renderAmount(amount, amountEl);
+            console.log('appended');
             document.querySelector('.flowlist').appendChild(flowItem);
          }
       } else {

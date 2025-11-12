@@ -252,17 +252,11 @@
 
 <template class="flow">
    <li class="flowItem flowItem--in flowItem--unchoosen">
-      <!-- <div class="flow-leftwrap"> -->
-         <time class="flowDate"></time>
-         <!-- <div class="flowSepLine"></div>
-      </div> -->
+      <time class="flow-date"></time>
       <p class="flow-description"></p>
-      <!-- <div class="flow-rightwrap">
-         <div class="flowSepLine"></div> -->
-         <p class="flow-balance">
-            <span class="positive flow-amount"></span><abbr title="EURO" class="currency"> &euro;</abbr>
-         </p>
-      <!-- </div> -->
+      <p class="flow-balance">
+         <span class="positive flow-amount"></span><abbr title="EURO" class="currency"> &euro;</abbr>
+      </p>
    </li>
 </template>
 
@@ -376,7 +370,8 @@
       </div>
       <div class="modal-button-wrapper">
          <input type="submit" class="modal modal__button modal__button--positive" />
-         <button class="modal modal__button modal__button--negative"></button>
+         <button type="submit" class="modal modal__button modal__button--positive datesubmit">OK</button>
+         <button class="modal modal__button modal__button--negative cancelButton"></button>
       </div>
    </form>
 </dialog>

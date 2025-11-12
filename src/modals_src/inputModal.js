@@ -7,14 +7,14 @@ class InputModal {
       this.boundInputWatcher = this.watchInput.bind(this);
    }
 
-   restrictDecimalChars(event) {
+   #restrictDecimalChars(event) {
       if (event.target.value.length > 2) {
          event.target.value = event.target.value.slice(0,2);
       }
    }
 
 
-   setSignDir() {
+   #setSignDir() {
       const signElem = this.modIns.elements['amount-input-wrapper'].querySelector('.modal__amount-sign');
       if (this.modIns.direction === 'IN') {
          signElem.style.borderColor = '#399149ff';
@@ -28,21 +28,49 @@ class InputModal {
    }
 
 
-   setupAmountInput() {
+   #setupAmountInput() {
       this.modIns.elements['amount-input-wrapper'].style.display = 'flex';
       const decimalEl = document.getElementById('amount-decimal');
-      decimalEl.removeEventListener('input', this.restrictDecimalChars);
-      decimalEl.addEventListener('input', this.restrictDecimalChars);
+      decimalEl.removeEventListener('input', this.#restrictDecimalChars);
+      decimalEl.addEventListener('input', this.#restrictDecimalChars);
       for (const prefix of ['pre', '']) {
          const inputElem = document.getElementById(`amount-${prefix}decimal`);
          inputElem.removeEventListener('input', this.boundInputWatcher);
          inputElem.addEventListener('input', this.boundInputWatcher);
       };
-      this.setSignDir();
+      this.#setSignDir();
    }
 
 
+   #prepFlowInputs() {
+      if ((this.modIns.currentModalType === 'flow-amount' || this.modIns.currentModalType === 'flow-desc') && (!this.modIns.isModalSeries)) {
+         this.modIns.elements['input'].value = this.modIns.currentModalType === 'flow-desc' ? document.querySelector(`.flowItem--choosen .flow-description`).value : document.querySelector(`.flowItem--choosen .flow-amount`).value;
+         this.modIns.elements['input'].select();
+      } else if (this.modIns.currentModalType === 'flow-date') {
+         this.modIns.elements['input'].type = 'date';
+      } else if (this.modIns.currentModalType === 'flow-desc') {
+         this.modIns.elements['input'].focus();
+      }
+      if (this.modIns.currentModalType === 'flow-date') {
+         if (this.modIns.isModalSeries) {
+            let today = new Date();
+            today = today.toISOString().split('T')[0];
+            this.modIns.elements['input'].value = today;
+         } else {
+            const dateArray = document.querySelector('.flowItem--choosen > .flow-date').innerText.split('.');
+            this.modIns.elements['input'].value = dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
+         }
+      }
+   }
+
+
+
+
    watchInput(event) {
+      if (this.modIns.currentModalType === 'flow-date') {
+         console.log('ewfwef');
+         this.modIns.elements['submit-button'].disabled = false;
+      }
       this.modIns.elements['submit-button'].removeEventListener('click', this.modIns.boundSubmitFunction);
       if (event.target.value) {
          this.modIns.elements['submit-button'].disabled = false;
@@ -79,11 +107,19 @@ class InputModal {
       }
       this.modIns.elements['submit-button'].classList.remove('modal__button--positive');
       if (this.modIns.currentModalType === 'flow-amount') {
-         this.setupAmountInput();
+         this.#setupAmountInput();
+      } 
+      else if (this.modIns.currentModalType === 'flow-date') {
+         
+         this.modIns.elements['date-submit-button'].addEventListener('click', this.modIns.boundSubmitFunction, {once: true})
       } else {
          this.modIns.elements['input'].removeEventListener('input', this.boundInputWatcher);
          this.modIns.elements['input'].addEventListener('input', this.boundInputWatcher);
       }
+      if (['flow-date', 'flow-desc', 'flow-amount'].includes(this.modIns.currentModalType)) {
+         this.#prepFlowInputs();
+      }
+      
    }
 }
 

@@ -66,8 +66,8 @@ const modalContents = {
       },
       'flow-date': {
          'input-label': 'Enter Date:',
-         'input': true,    // type='date'  !!!
-         'submit-button': 'OK',
+         'input': true,
+         'date-submit-button': 'OK',
          'cancel-button': 'CANCEL'
       },
       'flow-move': {

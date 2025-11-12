@@ -23,7 +23,11 @@ class Toolbar {
       this.TEH.boundDisbandBagHandler = this.TEH.disbandBagHandler.bind(this.TEH);
       this.TEH.boundDeleteFlowHandler = this.TEH.deleteFlowHandler.bind(this.TEH);
       this.TEH.boundMoveFlowHandler = this.TEH.moveFlowHandler.bind(this.TEH);
-      this.TEH.boundChangeFlowHandler = this.TEH.changeFlowHandler.bind(this.TEH);
+      this.boundChangeFlowHandler = this.changeFlowHandler.bind(this);
+      this.boundBackToFlowHandler = this.backToFlowHandler.bind(this);
+      this.TEH.boundChangeDateHandler = this.TEH.changeDateHandler.bind(this.TEH);
+      this.TEH.boundChangeTextHandler = this.TEH.changeTextHandler.bind(this.TEH);
+      this.TEH.boundChangeAmountHandler = this.TEH.changeAmountHandler.bind(this.TEH);
 
       this.setupBar();
    }
@@ -82,6 +86,8 @@ class Toolbar {
             captionEl.firstElementChild.style.display = 'inline';
             captionEl.firstElementChild.innerText = 'Selected Flow:'
             captionEl.lastElementChild.innerText = '';
+         } else if (bartype === 'flow-change') {
+            captionEl.firstElementChild.innerText = 'Change Flow:'
          }
       } else {
          console.log('toolbar-caption element doesn\'t exist!');
@@ -116,14 +122,14 @@ class Toolbar {
       else if (bartype === 'flow') {
          buttons[11].addEventListener('click', this.TEH.boundDeleteFlowHandler, {once: true});
          buttons[12].addEventListener('click', this.TEH.boundMoveFlowHandler, {once: true});
-         buttons[13].addEventListener('click', this.TEH.boundChangeFlowHandler, {once: true});
+         buttons[13].addEventListener('click', this.boundChangeFlowHandler, {once: true});
       }
-      // else if (bartype === 'flow-change') {
-      //    buttons[14].addEventListener('click', this.boundChangeFlowHandler, {once: true});
-      //    buttons[15].addEventListener('click', this.TEH.boundChangeFlowHandler, {once: true});
-      //    buttons[16].addEventListener('click', this.TEH.boundChangeFlowHandler, {once: true});
-      //    buttons[17].addEventListener('click', this.TEH.boundChangeFlowHandler, {once: true});
-      // }
+      else if (bartype === 'flow-change') {
+         buttons[14].addEventListener('click', this.boundBackToFlowHandler, {once: true});
+         buttons[15].addEventListener('click', this.TEH.boundChangeDateHandler, {once: true});
+         buttons[16].addEventListener('click', this.TEH.boundChangeTextHandler, {once: true});
+         buttons[17].addEventListener('click', this.TEH.boundChangeAmountHandler, {once: true});
+      }
    }
 
 
@@ -140,6 +146,16 @@ class Toolbar {
    removeBagHandler(event) {
       event.stopPropagation();
       this.activateBar('account-remove');
+   }
+
+   backToFlowHandler(event) {
+      event.stopPropagation();
+      this.activateBar('flow');
+   }
+
+   changeFlowHandler(event) {
+      event.stopPropagation();
+      this.activateBar('flow-change');
    }
 
 

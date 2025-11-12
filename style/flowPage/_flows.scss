@@ -11,19 +11,19 @@
    cursor: cell;
    &--in {
       border-color: #1EBA3B;
-      .flowDate, .flow-description {
+      .flow-date, .flow-description {
          border-right: 0.07rem solid #1EBA3B;
       }
    }
    &--out {
       border-color: #D27E7E;
-      .flowDate, .flow-description {
+      .flow-date, .flow-description {
          border-right: 0.07rem solid #D27E7E;
       }
    }
    &--neutral {
       border-color: #6b6b6b;
-      .flowDate, .flow-description {
+      .flow-date, .flow-description {
          border-right: 0.07rem solid #909090;
       }
    }
@@ -48,17 +48,17 @@
    }
 }
 
-.flowDate, .flow-balance, .flow-description {
+.flow-date, .flow-balance, .flow-description {
    display: inline-block;
    cursor: cell;
 }
 
-.flowDate, .flow-description {
+.flow-date, .flow-description {
    height: 1.7rem;
    padding-top: 0.27rem;
 }
 
-.flowDate {
+.flow-date {
    width: 5.5rem;
    flex-shrink: 0;
    text-align: center;

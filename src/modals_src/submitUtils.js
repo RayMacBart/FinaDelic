@@ -122,7 +122,35 @@ class SubmitUtils {
          this.recalcBagAmounts(bagPathArray, bagObj['nestedBags'][bagPathArray[bagPathArray.length-1]], dataInit, timespan);
       }
    }
+
+   
+   extractFlowIDs(usedIDs, focussedObj) {  // recursive
+      for (const flowID in focussedObj['transactions']) {
+         usedIDs.push(flowID);
+      }
+      if (focussedObj['nestedBags']) {
+         for (const nestedBagName in focussedObj['nestedBags']) {
+            this.extractFlowIDs(usedIDs, focussedObj['nestedBags'][nestedBagName]);
+         }
+      }
+   }
+
+
+   createNewFlowID() {
+      const usedIDs = [];
+      for (const dirName in this.dummyData.data) {
+         this.extractFlowIDs(usedIDs, this.dummyData.data[dirName]);
+      }
+      for (let i = 0; i <= Math.max(...usedIDs); i++) {
+         if (!usedIDs.includes(`${i}`)) {
+            return i;
+         }
+      }
+      return Math.max(...usedIDs)+1;
+   }
 }
+
+
 
 
 export default SubmitUtils;

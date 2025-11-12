@@ -9,7 +9,7 @@ class Modal {
    inputModalTypes = ['bag-create', 'bag-rename', 'flow-amount', 'flow-desc', 'flow-date'];
    smallInputLabelModalTypes = ['bag-create', 'bag-rename'];  // extendable array!
    currentModalType;
-   choosenFlow;
+   isModalSeries;
 
    constructor(dummyData, modalContents) {
       this.dummyData = dummyData;
@@ -28,21 +28,24 @@ class Modal {
          'select': this.dialog.querySelector('.modal__select'),
          'amount-input-wrapper': this.dialog.querySelector('.modal__amount-input-wrapper'),
          'submit-button': this.dialog.querySelector('.modal-button-wrapper > input'),
-         'cancel-button': this.dialog.querySelector('.modal-button-wrapper > button'),
+         'date-submit-button': this.dialog.querySelector('.modal-button-wrapper > .datesubmit'),
+         'cancel-button': this.dialog.querySelector('.modal-button-wrapper > .cancelButton'),
       }
       this.boundSubmitFunction = this.submitModal.bind(this);
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new InputModal(this);
       this.selectModal = new SelectModal(this);
+      this.dialog.addEventListener('keydown', (e) => {if (e.key === 'Escape') {document.dispatchEvent(this.reloadEvent);}});
    }
 
    setAllocation(chart) {
       this.modSub = new ModalSubmitAllocator(this.reloadEvent, this.dummyData, chart);
    }
 
-   startModal(modalType) {
+   startModal(modalType, isModalSeries=false) {
       this.direction = this.dummyData.getBagPath().split('/')[0];
       this.currentModalType = modalType;
+      this.isModalSeries = isModalSeries;
       this.runModal();
       this.dialog.showModal();
    }
@@ -54,7 +57,7 @@ class Modal {
       }
       for (const elemName in this.modalContents[this.currentModalType]) {
          this.elements[elemName].style.display = 'none';
-         if (elemName === 'input') {
+         if (elemName === 'input' || elemName === 'date-submit-button') {
             this.elements[elemName].value = '';
          }
       }
@@ -78,7 +81,7 @@ class Modal {
       }
       document.dispatchEvent(this.reloadEvent);
    }
-disabled
+
 
    submitModal() {
       this.elements['submit-button'].removeEventListener('click', this.boundSubmitFunction);
@@ -86,21 +89,17 @@ disabled
       for (const elemName in this.modalContents[this.currentModalType]) {
          currentElems[elemName] = this.elements[elemName];
       }
-      let startNextMod = () => {}; 
-      // if (this.currentModalType === 'flow-amount') {
-      //    startNextMod = this.startModal.bind(this, 'flow-desc');
-      //    this.finishModal();
-      // } else if (this.currentModalType === 'flow-desc') {
-      //    startNextMod = this.startModal.bind(this, 'flow-date');
-      //    this.finishModal();
-      // }
-      this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), startNextMod);
+      let flowchange = false;
+      if (['flow-date', 'flow-desc', 'flow-amount'].includes(this.currentModalType) && !this.isModalSeries) {
+         flowchange = true;
+      }
+      this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), flowchange);
       this.modSub.allocateAndSubmit(this.currentModalType);
       this.finishModal();
-      if (this.currentModalType === 'flow-amount') {
-         this.startModal('flow-desc');
-      } else if (this.currentModalType === 'flow-desc') {
-         this.startModal('flow-date');
+      if (this.currentModalType === 'flow-amount' && this.isModalSeries) {
+         this.startModal('flow-desc', true);
+      } else if (this.currentModalType === 'flow-desc' && this.isModalSeries) {
+         this.startModal('flow-date', true);
       }
    }
 
@@ -130,15 +129,14 @@ disabled
    }
    
 
-// TODO: CLEAN UP, CONNECT FLOW-AMOUNT TO FLOW-DESC AND FLOW-DATE
    runModal() {
       for (const elemName in this.modalContents[this.currentModalType]) {
-         if (['submit-button', 'cancel-button'].includes(elemName)) {
+         if (['submit-button', 'cancel-button', 'date-submit-button'].includes(elemName)) {
             this.elements[elemName].style.display = 'inline-block';
          } else {
             this.elements[elemName].style.display = 'block';
          }
-         if (elemName === 'submit-button') {
+         if (['submit-button', 'date-submit-button'].includes(elemName)) {
             this.elements[elemName].value = this.getAdjustedInnerText(elemName);
          } else if (!(['input', 'select', 'amount-input-wrapper'].includes(elemName))) {
             this.elements[elemName].innerText = this.getAdjustedInnerText(elemName);
@@ -146,9 +144,6 @@ disabled
       }
       if (this.smallInputLabelModalTypes.includes(this.currentModalType)) {
          this.elements['input-label'].style.fontSize = '1.1rem';
-      }
-      if (this.currentModalType === 'flow-date') {
-         this.elements['input'].type = 'date';
       }
       if (this.inputModalTypes.includes(this.currentModalType)) {
          this.inputModal.setup();

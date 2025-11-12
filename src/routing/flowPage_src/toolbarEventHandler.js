@@ -40,7 +40,7 @@ class ToolbarEventHandler {
                         // in all cases (also if not or canceled), refresh the page (renews eventlistener for used button) OR BETTER:
                         // For the modal, implement an already pre-entered date value which is the current day.
                         // This enhances user experience. But let the user be able to change it.
-      this.modal.startModal('flow-amount');
+      this.modal.startModal('flow-amount', true);
    }
 
 
@@ -77,9 +77,21 @@ class ToolbarEventHandler {
    }
 
 
-   changeFlowHandler(event) {
-      event.stopPropagation();                                        // TO DO:
-      this.modal.startModal('flow-change');  // only diff. to flow-amount - desc - date: preentered values (reuse existing methods for creation somehow)
+   changeDateHandler(event) {
+      event.stopPropagation();
+      this.modal.startModal('flow-date');
+   }
+
+
+   changeTextHandler(event) {
+      event.stopPropagation();
+      this.modal.startModal('flow-desc');
+   }
+
+
+   changeAmountHandler(event) {
+      event.stopPropagation();
+      this.modal.startModal('flow-amount');
    }
 
 

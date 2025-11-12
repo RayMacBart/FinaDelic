@@ -5,10 +5,10 @@ class FlowSubmits {
 
    currelems;
    bagPath;
-   startNextMod;
    flowID;
    cachedAmount;
    cachedDesc;
+   flowchange;
 
 
    constructor(reloadEvent, dummyData) {
@@ -34,13 +34,15 @@ class FlowSubmits {
       const flowDateArray = (this.currelems['input'].value).split('-');
       const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-      currentBagObj['transactions'][987654321] = {   // 987654321 = flowID. Replace with method (from submitUtils) call that returns new unique ID!
+      console.log(this.flowID);
+      const ID = this.flowchange ? this.flowID : this.utils.createNewFlowID();
+      currentBagObj['transactions'][ID] = {
                            "date": flowDate,
                            "desc": this.cachedDesc,
                            "amount": this.cachedAmount,
                            "currency": "EUR"};
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
-      // document.dispatchEvent(this.reloadEvent);
+      document.dispatchEvent(this.reloadEvent);
    }
 
 

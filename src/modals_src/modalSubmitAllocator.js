@@ -9,15 +9,18 @@ class ModalSubmitAllocator {
       this.flowSubmits = new FlowSubmits(reloadEvent, dummyData);
    }
 
-   prepare(currelems, modType, bagPath, startNextMod) {
+   prepare(currelems, modType, bagPath, flowchange) {
+      this.flowSubmits.flowchange = flowchange;
       if (modType.split('-')[0] === 'bag' || modType === 'add2chart') {
          this.bagSubmits.currelems = currelems;
          this.bagSubmits.bagPath = bagPath;
       } else if (modType.split('-')[0] === 'flow') {
          this.flowSubmits.currelems = currelems;
          this.flowSubmits.bagPath = bagPath;
-         this.flowSubmits.startNextMod = startNextMod;
          if (['flow-delete', 'flow-move'].includes(modType)) {
+            this.flowSubmits.flowID = document.querySelector('.flowItem--choosen').dataset.flowId;
+         }
+         if (flowchange) {
             this.flowSubmits.flowID = document.querySelector('.flowItem--choosen').dataset.flowId;
          }
       }
