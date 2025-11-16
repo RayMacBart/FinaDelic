@@ -59,7 +59,6 @@ class FlowList {
             const amountEl = flowItem.querySelector('.flow-amount');
             this.doStyle2DirAdjust(amount, amountEl);
             renderAmount(amount, amountEl);
-            console.log('appended');
             document.querySelector('.flowlist').appendChild(flowItem);
          }
       } else {

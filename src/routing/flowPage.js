@@ -29,7 +29,9 @@ class FlowPage {
       const bagData = this.dummyData.getData();
       const bagPath = this.dummyData.getBagPath();
       
+      const cachedFlowId = this.eventHandler.choosenFlowID;
       this.surface.clear(this.eventHandler);
+      
       
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
       
@@ -62,6 +64,10 @@ class FlowPage {
       }
       this.#linkBags(bagData, bagPath);
       this.eventHandler.linkFlows(bagData, this.toolbar);
+      
+      if (cachedFlowId) {
+         this.#reselectFlow(cachedFlowId);
+      }
       this.lastFlowCount = document.querySelector(".flowlist").children.length;
    }
 
@@ -75,6 +81,24 @@ class FlowPage {
       for (const nestedBag in bagData['nestedBags']) {
          this.eventHandler.boundBagClickHandlers[`${bagPath}/${nestedBag}`] = this.#bagClickHandler.bind(this, nestedBag)
          document.getElementById(`${bagPath}/${nestedBag}`).addEventListener('click', this.eventHandler.boundBagClickHandlers[`${bagPath}/${nestedBag}`]);
+      }
+   }
+   
+
+   #reselectFlow(cachedFlowId) {
+      const flowlist = document.querySelector('.flowlist');
+      const flowArray = Array.from(flowlist.querySelectorAll('.flowItem'));
+      let flowStillHere = false;
+      for (const flowItem of flowArray) {
+         if (flowItem.dataset.flowId === cachedFlowId) {
+            flowStillHere = true;
+            flowItem.click();
+            this.toolbar.activateBar('flow-change');
+         }
+      }
+      if (!flowStillHere) {
+         this.toolbar.activateBar('account');
+         // IMPLEMENT POP UP INFO, TELLING THE FLOW DOESN'T APPEAR ANYMORE BECAUSE IT'S NOT IN THE CHOOSEN TIMESPAN ANYMORE!
       }
    }
 

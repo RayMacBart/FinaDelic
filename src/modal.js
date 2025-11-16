@@ -1,6 +1,8 @@
 import InputModal from './modals_src/inputModal.js';
 import SelectModal from './modals_src/selectModal.js';
 import ModalSubmitAllocator from './modals_src/modalSubmitAllocator.js';
+// import SubmitUtils from './modals_src/submitUtils.js';
+
 
 class Modal {
 
@@ -35,6 +37,7 @@ class Modal {
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new InputModal(this);
       this.selectModal = new SelectModal(this);
+      // this.utils = new SubmitUtils(this.dummyData);
       this.dialog.addEventListener('keydown', (e) => {if (e.key === 'Escape') {document.dispatchEvent(this.reloadEvent);}});
    }
 
@@ -127,7 +130,7 @@ class Modal {
       }
       return innerText
    }
-   
+
 
    runModal() {
       for (const elemName in this.modalContents[this.currentModalType]) {

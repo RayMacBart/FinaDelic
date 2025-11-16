@@ -1,6 +1,3 @@
-import renderAmount from '../routing/flowPage_src/renderAmount.js';
-
-
 class SubmitUtils {
 
    bagPath;

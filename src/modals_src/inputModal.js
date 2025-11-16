@@ -43,15 +43,29 @@ class InputModal {
 
 
    #prepFlowInputs() {
-      if ((this.modIns.currentModalType === 'flow-amount' || this.modIns.currentModalType === 'flow-desc') && (!this.modIns.isModalSeries)) {
-         this.modIns.elements['input'].value = this.modIns.currentModalType === 'flow-desc' ? document.querySelector(`.flowItem--choosen .flow-description`).value : document.querySelector(`.flowItem--choosen .flow-amount`).value;
-         this.modIns.elements['input'].select();
-      } else if (this.modIns.currentModalType === 'flow-date') {
-         this.modIns.elements['input'].type = 'date';
+      if (!this.modIns.isModalSeries) {
+         if (this.modIns.currentModalType === 'flow-amount' || this.modIns.currentModalType === 'flow-desc') {
+            if (this.modIns.currentModalType === 'flow-desc') {
+               this.modIns.elements['input'].value = document.querySelector('.flowItem--choosen > .flow-description').innerText;
+               this.modIns.elements['input'].select();
+            } else if (this.modIns.currentModalType === 'flow-amount') {
+               const commaAdjustedAmountStr = (document.querySelector('.flowItem--choosen .flow-amount').innerText).replace(',', '.');
+               let absAmountStr = String(Math.abs(Number(commaAdjustedAmountStr)));
+               if (absAmountStr.includes('.')) {
+                  document.getElementById('amount-predecimal').value = absAmountStr.split('.')[0];
+                  document.getElementById('amount-predecimal').select();
+                  document.getElementById('amount-decimal').value = absAmountStr.split('.')[1];
+               } else {
+                  document.getElementById('amount-predecimal').value = absAmountStr;
+                  document.getElementById('amount-predecimal').select();
+               }
+            }
+         }
       } else if (this.modIns.currentModalType === 'flow-desc') {
          this.modIns.elements['input'].focus();
       }
       if (this.modIns.currentModalType === 'flow-date') {
+         this.modIns.elements['input'].type = 'date';
          if (this.modIns.isModalSeries) {
             let today = new Date();
             today = today.toISOString().split('T')[0];
@@ -68,7 +82,6 @@ class InputModal {
 
    watchInput(event) {
       if (this.modIns.currentModalType === 'flow-date') {
-         console.log('ewfwef');
          this.modIns.elements['submit-button'].disabled = false;
       }
       this.modIns.elements['submit-button'].removeEventListener('click', this.modIns.boundSubmitFunction);
@@ -98,7 +111,7 @@ class InputModal {
          }
       }
    }
-
+today
 
    setup() {
       this.modIns.elements['submit-button'].disabled = true;

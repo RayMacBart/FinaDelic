@@ -21,12 +21,24 @@ class FlowSubmits {
    flowAmount() {
       const predec = document.getElementById('amount-predecimal').value ? document.getElementById('amount-predecimal').value : 0;
       let dec = document.getElementById('amount-decimal').value ? document.getElementById('amount-decimal').value : 0;
-      this.cachedAmount = Number(predec+'.'+dec);
+      const amount = this.bagPath.split('/')[0] === 'IN' ? Number(predec+'.'+dec) : Number(predec+'.'+dec) * (-1);
+      if (this.flowchange) {
+         const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
+         currentBagObj['transactions'][this.flowID]['amount'] = amount;
+         this.utils.recalcBagAmounts(this.bagPath.split('/'));
+      } else {
+         this.cachedAmount = amount;
+      }
    }
 
 
    flowDesc() {
-      this.cachedDesc = this.currelems['input'].value;
+      if (this.flowchange) {
+         const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
+         currentBagObj['transactions'][this.flowID]['desc'] = this.currelems['input'].value;
+      } else {
+         this.cachedDesc = this.currelems['input'].value;
+      }
    }
 
 
@@ -34,15 +46,16 @@ class FlowSubmits {
       const flowDateArray = (this.currelems['input'].value).split('-');
       const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-      console.log(this.flowID);
-      const ID = this.flowchange ? this.flowID : this.utils.createNewFlowID();
-      currentBagObj['transactions'][ID] = {
-                           "date": flowDate,
-                           "desc": this.cachedDesc,
-                           "amount": this.cachedAmount,
-                           "currency": "EUR"};
+      if (this.flowchange) {
+         currentBagObj['transactions'][this.flowID]['date'] = flowDate;
+      } else {
+         currentBagObj['transactions'][this.utils.createNewFlowID()] = {
+                              "date": flowDate,
+                              "desc": this.cachedDesc,
+                              "amount": this.cachedAmount,
+                              "currency": "EUR"};
+      }
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
-      document.dispatchEvent(this.reloadEvent);
    }
 
 
