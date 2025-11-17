@@ -116,7 +116,7 @@ class FlowPage {
                                                                               this.#renderFlowPage('', true, true);
                                                                             }
                                                                         });
-      // document.getElementById('clock-icon-tap-area').addEventListener('click', () => ??????????); // OPEN MODAL
+      document.getElementById('clock-icon-tap-area').addEventListener('click', () => app.modal.startModal('time')); // OPEN MODAL
       document.getElementById('chart-icon-tap-area').addEventListener('click', () => app.router.navigate('chartPage'));
       document.getElementById('logout-icon-tap-area').addEventListener('click', () => app.router.navigate('loggedoutHP', ['page--landing']));
       document.querySelector('.buzzer--in').addEventListener('click', () => this.#renderFlowPage('IN'));

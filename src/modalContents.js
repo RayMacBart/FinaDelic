@@ -77,6 +77,15 @@ const modalContents = {
          'submit-button': 'MOVE',
          'cancel-button': 'CANCEL'
       },
+      'time': {
+         'text-1': 'Select the time period to be considered',
+         'start-date-label': 'Start Date:',
+         'start-date': true,
+         'end-date-label': 'End Date:',
+         'end-date': true,
+         'date-submit-button': 'SET',
+         'cancel-button': 'CANCEL'
+      }
    }
 
    export { modalContents };

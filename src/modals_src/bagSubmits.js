@@ -6,8 +6,7 @@ class BagSubmits {
    currelems;
    bagPath;
    
-   constructor(reloadEvent, dummyData, chart) {
-      this.reloadEvent = reloadEvent;
+   constructor(dummyData, chart) {
       this.dummyData = dummyData;
       this.chart = chart;
       this.utils = new SubmitUtils(this.dummyData);

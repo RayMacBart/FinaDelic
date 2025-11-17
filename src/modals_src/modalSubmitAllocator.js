@@ -1,12 +1,14 @@
 import BagSubmits from "./bagSubmits.js";
 import FlowSubmits from "./flowSubmits.js";
+import TimeSet from "./timeSet.js"
 
 
 class ModalSubmitAllocator {
 
-   constructor(reloadEvent, dummyData, chart) {
-      this.bagSubmits = new BagSubmits(reloadEvent, dummyData, chart);
-      this.flowSubmits = new FlowSubmits(reloadEvent, dummyData);
+   constructor(dummyData, chart) {
+      this.bagSubmits = new BagSubmits(dummyData, chart);
+      this.flowSubmits = new FlowSubmits(dummyData);
+      this.timeSet = new TimeSet(dummyData);
    }
 
    prepare(currelems, modType, bagPath, flowchange) {
@@ -23,6 +25,9 @@ class ModalSubmitAllocator {
          if (flowchange) {
             this.flowSubmits.flowID = document.querySelector('.flowItem--choosen').dataset.flowId;
          }
+      }
+      if (modType === 'time') {
+         this.timeSet.currelems = currelems;
       }
    }
 
@@ -48,6 +53,8 @@ class ModalSubmitAllocator {
          this.flowSubmits.flowDelete();
       } else if (modType === 'flow-move') {
          this.flowSubmits.flowMove();
+      } else if (modType === 'time') {
+         this.timeSet.setTime();
       }
    }
 }

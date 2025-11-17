@@ -32,7 +32,9 @@ class App {
 
 const app = new App('flowPage');
 
-export default app;
+const timespan = app.timespan;
+const router = app.router;
+export { timespan, router };
                            
 
                                             

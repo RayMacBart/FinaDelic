@@ -67,11 +67,20 @@ class SubmitUtils {
    }
 
 
+   formatDateStr(dateStr) {
+      const dateArray = dateStr.split('.');
+      for (let i=0; i<dateArray.length; i++) {
+         if (dateArray[i].length === 1) {
+            dateArray[i] = '0'+dateArray[i];
+         }
+      }
+      return dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
+   }
+
+
    #retrieveDateSpanFromDOM() {
-      const startArr = document.getElementById('time-start').innerText.split('.');
-      const endArr = document.getElementById('time-end').innerText.split('.');
-      const formatStartStr = startArr[2]+'-'+startArr[1]+'-'+startArr[0];
-      const formatEndStr = endArr[2]+'-'+endArr[1]+'-'+endArr[0];
+      const formatStartStr = this.formatDateStr(document.getElementById('time-start').innerText);
+      const formatEndStr = this.formatDateStr(document.getElementById('time-end').innerText);
       const startObj = new Date(formatStartStr);
       const endObj = new Date(formatEndStr);
       return [startObj, endObj];

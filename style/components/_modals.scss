@@ -38,15 +38,21 @@ dialog {
    &__questionmark {
       font-size: 1.5625rem;
    }
-   &__input-label {
+   &__input-label, &__start-date-label, &__end-date-label {
       font-size: 1.375rem;
       margin-bottom: 0.5rem;
+   }
+   &__start-date-wrapper, &__end-date-wrapper {
+      margin-left: 1.2rem;
+      margin-right: 1.2rem;
+      margin-top: 1rem;
+      margin-bottom: 1.6rem;
    }
    &__select-label {
       font-size: 1.375rem;
       margin-bottom: 0.5rem;
    }
-   &__input, &__select {
+   &__input, &__select, &__start-date, &__end-date {
       width: 12rem;
       color: #232B5C;
       border: 0.1rem solid #273AB0;
@@ -61,6 +67,12 @@ dialog {
       }
       & > option {
          text-align: center;
+      }
+   }
+   &__start-date, &__end-date {
+      &::selection {
+         appearance: none;
+         background: yellow;
       }
    }
    &__amount-input-wrapper {

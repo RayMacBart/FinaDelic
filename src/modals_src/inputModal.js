@@ -42,7 +42,18 @@ class InputModal {
    }
 
 
-   #prepFlowInputs() {
+   #formatDateStr(dateStr) {
+      const dateArray = dateStr.split('.');
+      for (let i=0; i<dateArray.length; i++) {
+         if (dateArray[i].length === 1) {
+            dateArray[i] = '0'+dateArray[i];
+         }
+      }
+      return dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
+   }
+
+
+   #prepInputs() {
       if (!this.modIns.isModalSeries) {
          if (this.modIns.currentModalType === 'flow-amount' || this.modIns.currentModalType === 'flow-desc') {
             if (this.modIns.currentModalType === 'flow-desc') {
@@ -71,17 +82,17 @@ class InputModal {
             today = today.toISOString().split('T')[0];
             this.modIns.elements['input'].value = today;
          } else {
-            const dateArray = document.querySelector('.flowItem--choosen > .flow-date').innerText.split('.');
-            this.modIns.elements['input'].value = dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
+            this.modIns.elements['input'].value = this.#formatDateStr(document.querySelector('.flowItem--choosen > .flow-date').innerText);
          }
+      } else if (this.modIns.currentModalType === 'time') {
+         this.modIns.elements['start-date'].value = this.#formatDateStr(document.getElementById('time-start').innerText);
+         this.modIns.elements['end-date'].value = this.#formatDateStr(document.getElementById('time-end').innerText);
       }
    }
 
 
-
-
    watchInput(event) {
-      if (this.modIns.currentModalType === 'flow-date') {
+      if (this.modIns.currentModalType === 'flow-date' || this.modIns.currentModalType === 'time') {
          this.modIns.elements['submit-button'].disabled = false;
       }
       this.modIns.elements['submit-button'].removeEventListener('click', this.modIns.boundSubmitFunction);
@@ -111,7 +122,7 @@ class InputModal {
          }
       }
    }
-today
+
 
    setup() {
       this.modIns.elements['submit-button'].disabled = true;
@@ -122,15 +133,14 @@ today
       if (this.modIns.currentModalType === 'flow-amount') {
          this.#setupAmountInput();
       } 
-      else if (this.modIns.currentModalType === 'flow-date') {
-         
+      else if (this.modIns.currentModalType === 'flow-date' || this.modIns.currentModalType === 'time') {
          this.modIns.elements['date-submit-button'].addEventListener('click', this.modIns.boundSubmitFunction, {once: true})
       } else {
          this.modIns.elements['input'].removeEventListener('input', this.boundInputWatcher);
          this.modIns.elements['input'].addEventListener('input', this.boundInputWatcher);
       }
-      if (['flow-date', 'flow-desc', 'flow-amount'].includes(this.modIns.currentModalType)) {
-         this.#prepFlowInputs();
+      if (['flow-date', 'flow-desc', 'flow-amount', 'time'].includes(this.modIns.currentModalType)) {
+         this.#prepInputs();
       }
       
    }

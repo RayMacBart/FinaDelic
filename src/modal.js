@@ -8,7 +8,7 @@ class Modal {
 
    direction;
    reloadEvent;
-   inputModalTypes = ['bag-create', 'bag-rename', 'flow-amount', 'flow-desc', 'flow-date'];
+   inputModalTypes = ['bag-create', 'bag-rename', 'flow-amount', 'flow-desc', 'flow-date', 'time'];
    smallInputLabelModalTypes = ['bag-create', 'bag-rename'];  // extendable array!
    currentModalType;
    isModalSeries;
@@ -26,6 +26,10 @@ class Modal {
          'questionmark': this.dialog.querySelector('.modal__questionmark'),
          'input-label': this.dialog.querySelector('.modal__input-label'),
          'input': this.dialog.querySelector('.modal__input'),
+         'start-date-label': this.dialog.querySelector('.modal__start-date-label'),
+         'start-date': this.dialog.querySelector('.modal__start-date'),
+         'end-date-label': this.dialog.querySelector('.modal__end-date-label'),
+         'end-date': this.dialog.querySelector('.modal__end-date'),
          'select-label': this.dialog.querySelector('.modal__select-label'),
          'select': this.dialog.querySelector('.modal__select'),
          'amount-input-wrapper': this.dialog.querySelector('.modal__amount-input-wrapper'),
@@ -37,12 +41,11 @@ class Modal {
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new InputModal(this);
       this.selectModal = new SelectModal(this);
-      // this.utils = new SubmitUtils(this.dummyData);
       this.dialog.addEventListener('keydown', (e) => {if (e.key === 'Escape') {document.dispatchEvent(this.reloadEvent);}});
    }
 
    setAllocation(chart) {
-      this.modSub = new ModalSubmitAllocator(this.reloadEvent, this.dummyData, chart);
+      this.modSub = new ModalSubmitAllocator(this.dummyData, chart);
    }
 
    startModal(modalType, isModalSeries=false) {
@@ -57,6 +60,10 @@ class Modal {
    finishModal() {
       if (this.smallInputLabelModalTypes.includes(this.currentModalType)) {   
          this.elements['input-label'].style.fontSize = '1.375rem';
+      }
+      if (this.currentModalType === 'time') {
+         this.elements['start-date-label'].style.fontSize = '1.375rem';
+         this.elements['end-date-label'].style.fontSize = '1.375rem';
       }
       for (const elemName in this.modalContents[this.currentModalType]) {
          this.elements[elemName].style.display = 'none';
@@ -136,6 +143,10 @@ class Modal {
       for (const elemName in this.modalContents[this.currentModalType]) {
          if (['submit-button', 'cancel-button', 'date-submit-button'].includes(elemName)) {
             this.elements[elemName].style.display = 'inline-block';
+         } else if (['start-date', 'end-date'].includes(elemName)) {
+            console.log(`.${elemName}-wrapper`);
+            this.elements[elemName].closest(`.modal__${elemName}-wrapper`).style.display = 'inline-block';
+            this.elements[elemName].style.display = 'block';
          } else {
             this.elements[elemName].style.display = 'block';
          }
@@ -147,6 +158,10 @@ class Modal {
       }
       if (this.smallInputLabelModalTypes.includes(this.currentModalType)) {
          this.elements['input-label'].style.fontSize = '1.1rem';
+      }
+      if (this.currentModalType === 'time') {
+         this.elements['start-date-label'].style.fontSize = '1.1rem';
+         this.elements['end-date-label'].style.fontSize = '1.1rem';
       }
       if (this.inputModalTypes.includes(this.currentModalType)) {
          this.inputModal.setup();

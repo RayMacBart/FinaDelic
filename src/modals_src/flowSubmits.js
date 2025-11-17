@@ -11,10 +11,8 @@ class FlowSubmits {
    flowchange;
 
 
-   constructor(reloadEvent, dummyData) {
-      this.reloadEvent = reloadEvent;
-      this.dummyData = dummyData;
-      this.utils = new SubmitUtils(this.dummyData);
+   constructor(dummyData) {
+      this.utils = new SubmitUtils(dummyData);
    }
 
 
