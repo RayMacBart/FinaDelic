@@ -1,6 +1,12 @@
 class Chart {
+
    type = 'line'
    bags = {};  // keys: bagnames, values: array of (ALL! also nested) flows
+
+   constructor(timespan) {
+      this.startDate = timespan.start;
+      this.endDate = timespan.end;
+   }
 }
 
 export default Chart;

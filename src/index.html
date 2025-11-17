@@ -85,7 +85,7 @@
                <dt class="desc-list__title">Pockets and Drains</dt>
                <dd class="desc-list__description">Define, group and nest accounts as you like to keep the perfect overview!</dd>
                <dt class="desc-list__title">Customizable Charts</dt>
-               <dd class="desc-list__description">Add any Pocket, Drain or Flow to build up your personal charts for any time period and store them for later use!</dd>
+               <dd class="desc-list__description">Add any Pocket, Drain or Flow to build up your personal charts for any time period!</dd>  <!-- and store them for later use -->
                <dt class="desc-list__title">Flow Entries Made Easy</dt>
                <dd class="desc-list__description">Note your financial incomes and payments fast and uncomplicated everyday!</dd>
             </dl>
@@ -145,7 +145,7 @@
                <dt class="desc-list__title">Pockets and Drains</dt>
                <dd class="desc-list__description">Define, group and nest accounts as you like to keep the perfect overview!</dd>
                <dt class="desc-list__title">Customizable Charts</dt>
-               <dd class="desc-list__description">Add any Pocket, Drain or Flow to build up your personal charts for any time period and store them for later use!</dd>
+               <dd class="desc-list__description">Add any Pocket, Drain or Flow to build up your personal charts for any time period!</dd>  <!-- and store them for later use -->
                <dt class="desc-list__title">Flow Entries Made Easy</dt>
                <dd class="desc-list__description">Note your financial incomes and payments fast and uncomplicated everyday!</dd>
             </dl>
@@ -262,7 +262,37 @@
 
 
 <template id="chartPage">
-   <h1>CHARTPAGE</h1>
+   <nav class="nav nav--workpage">
+      <img class="logo logo--nav" src="./assets/FinaDelic Logo Nav.svg" data-icon-desc="FinaDelic Logo" alt="FinaDelic Logo" />
+      <div class="icon-container">
+         <img class="icon icon--switch" src="./assets/icons/switch.svg" data-icon-desc="switch" alt="switch icon" />
+         <div class="icon-tap-area" id="switch-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--clock" src="./assets/icons/clock.svg" data-icon-desc="clock" alt="clock icon" />
+         <div class="icon-tap-area" id="clock-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--flows" src="./assets/icons/flows.svg" data-icon-desc="flows" alt="flows icon" />
+         <div class="icon-tap-area" id="flows-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+         <div class="icon-tap-area" id="logout-icon-tap-area"></div>
+      </div>
+   </nav>
+   <dl class="workspace-info">
+      <dt class="workspace-info workspace-info__pre-username-text">WORKSPACE&nbsp; OF </dt> 
+      <dd class="workspace-info workspace-info__username" id="username"> RayMacBart</dd>
+      <div class="workspace-info__space"></div> 
+      <div class="workspace-info--desc">
+         <dt class="workspace-info workspace-info__desc-title">SELECTED&nbsp; TIME: &nbsp;</dt> 
+         <dd class="workspace-info workspace-info__value">
+            <time id="time-start"></time> &nbsp;- &nbsp;<time id="time-end"></time>
+         </dd>
+      </div>
+   </dl>
+   <div class="margin-container">
    <div class="footer-margin"></div>
 </template>
 

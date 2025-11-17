@@ -5,8 +5,11 @@ class ChartPage {
    }
 
    setup(app) {
-      console.log('setup chartPage!');
       this.#setupChartPageLinks(app);
+      app.makeIconHoverEffect('switch');
+      app.makeIconHoverEffect('clock');
+      app.makeIconHoverEffect('flows');
+      app.makeIconHoverEffect('logout');
    }
 }
 
