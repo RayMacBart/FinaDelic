@@ -16,7 +16,8 @@ class TimeSet {
       timespan.start = new Date(startDateStr);
       timespan.end = new Date(endDateStr);
       this.dummyData.setBagAmounts(timespan);
-      router.navigate('flowPage');
+      const currentPage = window.location.href.split('/').pop();
+      router.navigate(currentPage);
    }
 }
 

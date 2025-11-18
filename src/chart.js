@@ -1,6 +1,6 @@
 class Chart {
 
-   type = 'line'
+   type = 'line';
    bags = {};  // keys: bagnames, values: array of (ALL! also nested) flows
 
    constructor(timespan) {
