@@ -1,0 +1,35 @@
+.infobox {
+   display: inline-block;
+   position: fixed;
+   width: 18rem;
+   height: fit-content;
+   top: calc(50dvh - 5rem);
+   left: calc(50dvw - 9rem);
+   padding: 0.5rem 1rem;
+   background-color: rgb(228, 235, 175);
+   border: 0.15rem solid rgb(115, 35, 0);
+   box-shadow: 0 0 0.5rem rgb(9, 0, 48), 0 0 0.8rem rgba(171, 56, 7, 0.2) inset;
+   border-radius: 0.5rem;
+   z-index: 2;
+   &--warning {
+      background-color: rgb(228, 235, 175);
+      border: 0.15rem solid rgb(115, 35, 0);
+      box-shadow: 0 0 0.5rem rgb(9, 0, 48), 0 0 0.8rem rgba(171, 56, 7, 0.2) inset;
+   }
+   &--neutral {
+      background-color: rgb(175, 235, 208);
+      border: 0.15rem solid rgb(0, 67, 115);
+      box-shadow: 0 0 0.5rem rgb(9, 0, 48), 0 0 0.8rem rgba(171, 56, 7, 0.2) inset;
+   }
+}
+
+.infotext {
+   font-weight: 500;
+   margin: 0;
+   &--warning {
+      color: rgb(60, 0, 0);
+   }
+   &--neutral {
+      color: rgb(0, 20, 60);
+   }
+}

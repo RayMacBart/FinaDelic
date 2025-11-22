@@ -1,19 +1,23 @@
 import BagSubmits from "./bagSubmits.js";
 import FlowSubmits from "./flowSubmits.js";
 import TimeSet from "./timeSet.js"
+import ChartOps from "./chartOps.js";
 
 
 class ModalSubmitAllocator {
 
    constructor(dummyData, chart) {
-      this.bagSubmits = new BagSubmits(dummyData, chart);
+      this.bagSubmits = new BagSubmits(dummyData);
       this.flowSubmits = new FlowSubmits(dummyData);
       this.timeSet = new TimeSet(dummyData);
+      this.chartOps = new ChartOps(dummyData, chart);
    }
 
-   prepare(currelems, modType, bagPath, flowchange) {
+   prepare(currelems, modType, bagPath, flowchange, reloadEvent) {
       this.flowSubmits.flowchange = flowchange;
-      if (modType.split('-')[0] === 'bag' || modType === 'add2chart') {
+      if (modType === 'add2chart' || modType === 'removeFromChart') {
+         this.chartOps.bagPath = bagPath;
+      } else if (modType.split('-')[0] === 'bag') {
          this.bagSubmits.currelems = currelems;
          this.bagSubmits.bagPath = bagPath;
       } else if (modType.split('-')[0] === 'flow') {
@@ -28,6 +32,7 @@ class ModalSubmitAllocator {
       }
       if (modType === 'time') {
          this.timeSet.currelems = currelems;
+         this.timeSet.reloadEvent = reloadEvent;
       }
    }
 
@@ -55,7 +60,11 @@ class ModalSubmitAllocator {
          this.flowSubmits.flowMove();
       } else if (modType === 'time') {
          this.timeSet.setTime();
-      }
+      } else if (modType === 'add2chart') {
+         this.chartOps.add2chart();
+      } else if (modType === 'removeFromChart') {
+         this.chartOps.removeFromChart();
+      } 
    }
 }
 

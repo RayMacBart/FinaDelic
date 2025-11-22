@@ -6,26 +6,10 @@ class BagSubmits {
    currelems;
    bagPath;
    
-   constructor(dummyData, chart) {
+   constructor(dummyData) {
       this.dummyData = dummyData;
-      this.chart = chart;
       this.utils = new SubmitUtils(this.dummyData);
    }  
-
-
-   add2chart() {
-      this.utils.bagPath = this.bagPath;
-      console.log('ToolbarEventHandler.dummyData:', this.dummyData);               // dummyCode
-      this.dummyData.data['IN']['nestedBags']['official']['amount'] = 123456789;   // dummyCode
-      this.chart.bags[this.bagPath] = this.dummyData.data['nestedBags'];  // dummyCode --> recursive bag collector wanted!
-      // app.chart.bags must contain all nested bags (recursive)
-      // when creating line charts, the choosen timespan must be splitted into smaller timespans (around 7-15 would be good).
-      // The program has to decide, how to split, depending on the choosen timespan's length
-      // (eg. year => months, 3 months => weeks. For a half year, you may take half months...).
-      // then, the bags within app.chart.bags are allocated to each small timespan.
-      console.log('chart:', this.chart); // dummyCode
-      // here at last, add temporary message that bag NAME has been added to chart!
-   }
 
 
    bagCreate() {

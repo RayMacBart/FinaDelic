@@ -404,7 +404,7 @@ class DummyData {
    }
 
 
-   setBagAmounts(timespan) {
+   getDeepestPaths() {
       const deepestPaths = [];
       const getMostNestedPath = (focussedObj=this.data, path='') => {
          if (path) {
@@ -429,8 +429,14 @@ class DummyData {
          }
       }
       getMostNestedPath();
+      return deepestPaths;
+   }
+
+
+   setBagAmounts(timespan) {
+      const deepestPaths = this.getDeepestPaths();
       for (const path of deepestPaths) {
-         this.utils.recalcBagAmounts(path.split('/'), null, true, timespan);
+         this.utils.recalcBagAmounts(path.split('/'), null, timespan);
       }
    }
 

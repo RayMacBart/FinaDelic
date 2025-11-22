@@ -89,7 +89,9 @@ class Modal {
       if (this.currentModalType === 'flow-date') {
          this.elements['input'].type = 'text';
       }
-      document.dispatchEvent(this.reloadEvent);
+      if ((this.currentModalType !== 'time') || (window.location.href.split('/').pop() === 'flowPage')) {
+         document.dispatchEvent(this.reloadEvent);
+      }
    }
 
 
@@ -103,7 +105,7 @@ class Modal {
       if (['flow-date', 'flow-desc', 'flow-amount'].includes(this.currentModalType) && !this.isModalSeries) {
          flowchange = true;
       }
-      this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), flowchange);
+      this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), flowchange, this.reloadEvent);
       this.modSub.allocateAndSubmit(this.currentModalType);
       this.finishModal();
       if (this.currentModalType === 'flow-amount' && this.isModalSeries) {

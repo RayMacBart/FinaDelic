@@ -13,6 +13,7 @@ class Toolbar {
       this.TEH = new ToolbarEventHandler(dummyData, reloadEvent, modal, chart);
       this.boundModifyHandler = this.modifyHandler.bind(this);
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
+      this.TEH.boundRemoveFromChartHandler = this.TEH.removeFromChartHandler.bind(this.TEH);
       this.TEH.boundAddNestedBagHandler = this.TEH.addNestedBagHandler.bind(this.TEH);
       this.TEH.boundAddFlowHandler = this.TEH.addFlowHandler.bind(this.TEH);
       this.TEH.boundRenameBagHandler = this.TEH.renameBagHandler.bind(this.TEH);
@@ -28,7 +29,7 @@ class Toolbar {
       this.TEH.boundChangeDateHandler = this.TEH.changeDateHandler.bind(this.TEH);
       this.TEH.boundChangeTextHandler = this.TEH.changeTextHandler.bind(this.TEH);
       this.TEH.boundChangeAmountHandler = this.TEH.changeAmountHandler.bind(this.TEH);
-
+      this.chartBags = chart.bags;
       this.setupBar();
    }
 
@@ -104,7 +105,16 @@ class Toolbar {
          } else {
             buttons[0].style.display = 'none';
          }
-         buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});  // (warning)[../../docs/onceListenerWarning.txt]
+         if (this.TEH.dummyData.getBagPath() in this.chartBags) {
+            buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {once: true});
+         } else {
+            buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});  // (warning)[../../docs/onceListenerWarning.txt]
+         }
+         // if (buttons[1].firstElementChild.innerText === 'ADD TO CHART') {
+         //    buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});  // (warning)[../../docs/onceListenerWarning.txt]
+         // } else if (buttons[1].firstElementChild.innerText === 'CHART: REMOVE') {
+         //    buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {once: true});
+         // }
          buttons[2].addEventListener('click', this.TEH.boundAddNestedBagHandler, {once: true});
          buttons[3].addEventListener('click', this.TEH.boundAddFlowHandler, {once: true});
       }

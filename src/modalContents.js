@@ -6,6 +6,13 @@ const modalContents = {
          'submit-button': 'YES',
          'cancel-button': 'NO'
       },
+      'removeFromChart': {
+         'text-1': 'Are you sure you want to remove',
+         'text-2': 'BAGNAME',
+         'text-3': 'from the current chart?',
+         'submit-button': 'YES',
+         'cancel-button': 'NO'
+      },
       'bag-create': {
          'text-1': 'CREATE NEW BAG',
          'input-label': 'Enter Name',

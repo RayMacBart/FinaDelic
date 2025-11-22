@@ -59,7 +59,7 @@ class SubmitUtils {
    }
 
 
-   #getDateObject(dateString) {
+   getDateObject(dateString) {
       const dateArray = dateString.split('.');
       const formattedDateString = dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
       const transDateObj = new Date(formattedDateString);
@@ -78,7 +78,7 @@ class SubmitUtils {
    }
 
 
-   #retrieveDateSpanFromDOM() {
+   retrieveDateSpanFromDOM() {
       const formatStartStr = this.formatDateStr(document.getElementById('time-start').innerText);
       const formatEndStr = this.formatDateStr(document.getElementById('time-end').innerText);
       const startObj = new Date(formatStartStr);
@@ -87,7 +87,7 @@ class SubmitUtils {
    }
 
 
-   recalcBagAmounts(bagPathArray, bagObj=null, dataInit=false, timespan=null) {   // recursive
+   recalcBagAmounts(bagPathArray, bagObj=null, timespan=null) {   // recursive
       if (!bagObj) {
          let focussedObj = this.dummyData.data[bagPathArray[0]];
          for (const bag of bagPathArray) {
@@ -106,14 +106,11 @@ class SubmitUtils {
       const flowIDs = [];
       if (Object.keys(bagObj['transactions']).length) {
          for (const flowID in bagObj['transactions']) {
-            const transDateObj = this.#getDateObject(bagObj['transactions'][flowID]['date']);
+            const transDateObj = this.getDateObject(bagObj['transactions'][flowID]['date']);
             let startDateObj;
             let endDateObj;
-            if (timespan) {
-               [startDateObj, endDateObj] = [timespan.start, timespan.end];
-            } else {
-               [startDateObj, endDateObj] = this.#retrieveDateSpanFromDOM();
-            }
+            [startDateObj, endDateObj] = timespan ? [timespan.start, timespan.end] : this.utils.retrieveDateSpanFromDOM();
+            
             if ((startDateObj.getTime() <= transDateObj.getTime()) && (endDateObj.getTime()+86400000 > transDateObj.getTime() )) {
                flowIDs.push(flowID);
             }
@@ -125,7 +122,7 @@ class SubmitUtils {
       bagObj.amount = bagSum;
       if (bagPathArray.length > 1) {
          bagPathArray.pop();
-         this.recalcBagAmounts(bagPathArray, bagObj['nestedBags'][bagPathArray[bagPathArray.length-1]], dataInit, timespan);
+         this.recalcBagAmounts(bagPathArray, bagObj['nestedBags'][bagPathArray[bagPathArray.length-1]], timespan);
       }
    }
 

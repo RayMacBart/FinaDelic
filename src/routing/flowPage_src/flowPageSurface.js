@@ -40,11 +40,15 @@ class FlowbagSurface {
    }
 
 
-   setupProperSurface(bagData, bagPath, revisit) {
+   setupProperSurface(bagData, bagPath, revisit, timespan) {
       const flowbag = document.getElementById('flowpage-bag');
       const flowtop = document.getElementById('flowpage-top');
       const uparrow_icon = document.querySelector('.icon--uparrow');
       const uparrow_taparea = document.getElementById('uparrow-icon-tap-area');
+
+      document.getElementById('time-start').innerText = timespan.start.getDate()+'.'+(timespan.start.getMonth()+1)+'.'+timespan.start.getFullYear();
+      document.getElementById('time-end').innerText = timespan.end.getDate()+'.'+(timespan.end.getMonth()+1)+'.'+timespan.end.getFullYear();
+      
       if ((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData)) {  // if topmost
          flowbag.style.display = 'none';
          flowtop.style.display = 'block';
@@ -62,6 +66,8 @@ class FlowbagSurface {
                uparrow_taparea.classList.remove('icon-tap-area--disabled');
             }
          }
+
+
          const titleBG = document.querySelector('.flowBagTitleBG');
          document.querySelector('.flowBagTitle').innerText = bagPath.split('/').pop();
          const totalBagAmountEl = document.querySelector('#bag-total > p > span');

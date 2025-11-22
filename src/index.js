@@ -14,7 +14,7 @@ class App {
       this.timespan = new TimeSpan();
       this.dummyData = new DummyData(this.timespan);
       this.modal = new Modal(this.dummyData, modalContents);
-      this.chart = new Chart(this.timespan);
+      this.chart = new Chart(this.dummyData);
       this.router = new Router(this, defaultPage);
       this.lazyLoader = new LazyLoader();
       new Footer(this.router.navigate, this.lazyLoader.importSVG);

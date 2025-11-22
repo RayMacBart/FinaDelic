@@ -19,7 +19,8 @@ class FlowPage {
       this.toolbar = new Toolbar(dummyData, this.reloadEvent, modal, chart);
       this.baglist = new BagList();
       this.flowlist = new FlowList();
-      this.eventHandler = new EventHandler();  
+      this.eventHandler = new EventHandler();
+      this.chartBags = chart.bags;
    }
 
 
@@ -32,25 +33,25 @@ class FlowPage {
       const cachedFlowId = this.eventHandler.choosenFlowID;
       this.surface.clear(this.eventHandler);
       
-      
-      this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag));
+      this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag), this.timespan);
       
       this.baglist.render(bagData, bagPath);
       this.flowlist.render(bagData, this.timespan);
 
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
-
+         
          if (bagName === this.dummyData.revisitFlag) {
             this.toolbar.setupBar();
          }
-
+         
          this.toolbar.currentBagName = bagPath.split('/').pop();
          this.toolbar.handleDirection(bagPath);
-
+         
          if ((this.toolbar.currentType === 'flow') && (document.querySelector(".flowlist").children.length < this.lastFlowCount)) {
             toolbarReset = true;
          }
-
+         
+         
          if (toolbarReset) {
             this.toolbar.activateBar('account');
          } else {
@@ -61,7 +62,11 @@ class FlowPage {
          }
          this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.dummyData.revisitFlag);
          document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
+         
+         document.querySelector('.dynamicChartButtonText').innerText = (bagPath in this.chartBags) ? 'CHART: REMOVE' : 'ADD TO CHART';
       }
+      
+
       this.#linkBags(bagData, bagPath);
       this.eventHandler.linkFlows(bagData, this.toolbar);
       
@@ -101,12 +106,6 @@ class FlowPage {
          // IMPLEMENT POP UP INFO, TELLING THE FLOW DOESN'T APPEAR ANYMORE BECAUSE IT'S NOT IN THE CHOOSEN TIMESPAN ANYMORE!
       }
    }
-
-
-   #setTimeHeader(timespan) {
-      document.getElementById('time-start').innerText = timespan.start.getDate()+'.'+(timespan.start.getMonth()+1)+'.'+timespan.start.getFullYear();
-      document.getElementById('time-end').innerText = timespan.end.getDate()+'.'+(timespan.end.getMonth()+1)+'.'+timespan.end.getFullYear();
-   }
    
    
    #setupFlowPageLinks(app) {
@@ -129,7 +128,6 @@ class FlowPage {
          this.timespan = app.timespan;
       }
       this.#renderFlowPage(this.dummyData.revisitFlag);
-      this.#setTimeHeader(app.timespan);
       this.#setupFlowPageLinks(app);
       app.makeIconHoverEffect('uparrow');
       app.makeIconHoverEffect('clock');

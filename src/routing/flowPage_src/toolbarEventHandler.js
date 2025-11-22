@@ -1,6 +1,7 @@
 class ToolbarEventHandler {
    
    boundAdd2chartHandler;
+   boundRemoveFromChartHandler;
    boundAddNestedBagHandler;
    boundAddFlowHandler;
    boundRenameBagHandler;
@@ -24,9 +25,14 @@ class ToolbarEventHandler {
 
 
    add2chartHandler(event) {
-      // event.stopPropagation();
+      event.stopPropagation();
       this.modal.startModal('add2chart');
-      
+   }
+
+
+   removeFromChartHandler(event) {
+      event.stopPropagation();
+      this.modal.startModal('removeFromChart');
    }
 
 
