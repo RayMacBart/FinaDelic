@@ -54,10 +54,10 @@ class Router {
          const newInst = new Module.default(this.app.dummyData, this.app.modal, this.app.chart);
          this.pages[pageid] = newInst;
       }
-      this.pages[pageid].setup(this.app);
       if (!popstate) {
          history.pushState({page: `${pageid}`}, "", `/${pageid}`)
       }
+      this.pages[pageid].setup(this.app);
    }
 }
 

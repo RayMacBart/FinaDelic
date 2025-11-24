@@ -27,7 +27,7 @@ class TimeSet {
          router.navigate('chartPage');
       } 
       else if (currentPage === 'flowPage') {
-         router.navigate('flowPage')
+         router.navigate('flowPage');
       }
    }
 }

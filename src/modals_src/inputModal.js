@@ -85,8 +85,13 @@ class InputModal {
             this.modIns.elements['input'].value = this.#formatDateStr(document.querySelector('.flowItem--choosen > .flow-date').innerText);
          }
       } else if (this.modIns.currentModalType === 'time') {
-         this.modIns.elements['start-date'].value = this.#formatDateStr(document.getElementById('time-start').innerText);
-         this.modIns.elements['end-date'].value = this.#formatDateStr(document.getElementById('time-end').innerText);
+         if (window.location.href.split('/').pop() === 'flowPage') {
+            this.modIns.elements['start-date'].value = this.#formatDateStr(document.getElementById('time-start').innerText);
+            this.modIns.elements['end-date'].value = this.#formatDateStr(document.getElementById('time-end').innerText);
+         } else if (window.location.href.split('/').pop() === 'chartPage') {
+            this.modIns.elements['start-date'].value = this.#formatDateStr(document.getElementById('time-start-chart').innerText);
+            this.modIns.elements['end-date'].value = this.#formatDateStr(document.getElementById('time-end-chart').innerText);
+         }
       }
    }
 

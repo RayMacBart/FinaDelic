@@ -6,20 +6,17 @@
    top: calc(50dvh - 5rem);
    left: calc(50dvw - 9rem);
    padding: 0.5rem 1rem;
-   background-color: rgb(228, 235, 175);
-   border: 0.15rem solid rgb(115, 35, 0);
-   box-shadow: 0 0 0.5rem rgb(9, 0, 48), 0 0 0.8rem rgba(171, 56, 7, 0.2) inset;
-   border-radius: 0.5rem;
+   border-radius: 0.4rem;
    z-index: 2;
    &--warning {
-      background-color: rgb(228, 235, 175);
-      border: 0.15rem solid rgb(115, 35, 0);
-      box-shadow: 0 0 0.5rem rgb(9, 0, 48), 0 0 0.8rem rgba(171, 56, 7, 0.2) inset;
+      background-color: rgb(250, 255, 210);
+      border: 0.1rem solid rgb(168, 50, 0);
+      box-shadow: 0 0 0.3rem rgba(9, 0, 48, 0.3), 0 0 0.4rem rgba(226, 68, 0, 0.2) inset;
    }
    &--neutral {
-      background-color: rgb(175, 235, 208);
-      border: 0.15rem solid rgb(0, 67, 115);
-      box-shadow: 0 0 0.5rem rgb(9, 0, 48), 0 0 0.8rem rgba(171, 56, 7, 0.2) inset;
+      background-color: rgb(233, 255, 246);
+      border: 0.1rem solid rgb(63, 94, 116);
+      box-shadow: 0 0 0.3rem rgba(9, 0, 48, 0.3), 0 0 0.4rem rgba(7, 23, 171, 0.2) inset;
    }
 }
 

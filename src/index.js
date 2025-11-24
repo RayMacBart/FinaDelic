@@ -34,7 +34,8 @@ const app = new App('flowPage');
 
 const timespan = app.timespan;
 const router = app.router;
-export { timespan, router };
+const chart = app.chart;
+export { timespan, router, chart };
                            
 
                                             

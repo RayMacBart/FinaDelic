@@ -79,8 +79,15 @@ class SubmitUtils {
 
 
    retrieveDateSpanFromDOM() {
-      const formatStartStr = this.formatDateStr(document.getElementById('time-start').innerText);
-      const formatEndStr = this.formatDateStr(document.getElementById('time-end').innerText);
+      let formatStartStr;
+      let formatEndStr;
+      if (window.location.href.split('/').pop() === 'flowPage') {
+         formatStartStr = this.formatDateStr(document.getElementById('time-start').innerText);
+         formatEndStr = this.formatDateStr(document.getElementById('time-end').innerText);
+      } else if (window.location.href.split('/').pop() === 'chartPage') {
+         formatStartStr = this.formatDateStr(document.getElementById('time-start-chart').innerText);
+         formatEndStr = this.formatDateStr(document.getElementById('time-end-chart').innerText);
+      }
       const startObj = new Date(formatStartStr);
       const endObj = new Date(formatEndStr);
       return [startObj, endObj];
@@ -109,9 +116,9 @@ class SubmitUtils {
             const transDateObj = this.getDateObject(bagObj['transactions'][flowID]['date']);
             let startDateObj;
             let endDateObj;
-            [startDateObj, endDateObj] = timespan ? [timespan.start, timespan.end] : this.utils.retrieveDateSpanFromDOM();
+            [startDateObj, endDateObj] = timespan ? [timespan.start, timespan.end] : this.retrieveDateSpanFromDOM();
             
-            if ((startDateObj.getTime() <= transDateObj.getTime()) && (endDateObj.getTime()+86400000 > transDateObj.getTime() )) {
+            if ((startDateObj.getTime() <= transDateObj.getTime()) && (endDateObj.getTime()+86399999 > transDateObj.getTime() )) {
                flowIDs.push(flowID);
             }
          }

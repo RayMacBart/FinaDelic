@@ -1,7 +1,6 @@
 import InputModal from './modals_src/inputModal.js';
 import SelectModal from './modals_src/selectModal.js';
 import ModalSubmitAllocator from './modals_src/modalSubmitAllocator.js';
-// import SubmitUtils from './modals_src/submitUtils.js';
 
 
 class Modal {
@@ -41,12 +40,10 @@ class Modal {
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new InputModal(this);
       this.selectModal = new SelectModal(this);
+      this.modSub = new ModalSubmitAllocator(this.dummyData);
       this.dialog.addEventListener('keydown', (e) => {if (e.key === 'Escape') {document.dispatchEvent(this.reloadEvent);}});
    }
 
-   setAllocation(chart) {
-      this.modSub = new ModalSubmitAllocator(this.dummyData, chart);
-   }
 
    startModal(modalType, isModalSeries=false) {
       this.direction = this.dummyData.getBagPath().split('/')[0];
@@ -146,7 +143,6 @@ class Modal {
          if (['submit-button', 'cancel-button', 'date-submit-button'].includes(elemName)) {
             this.elements[elemName].style.display = 'inline-block';
          } else if (['start-date', 'end-date'].includes(elemName)) {
-            console.log(`.${elemName}-wrapper`);
             this.elements[elemName].closest(`.modal__${elemName}-wrapper`).style.display = 'inline-block';
             this.elements[elemName].style.display = 'block';
          } else {
@@ -181,6 +177,10 @@ class Modal {
          }
          this.elements['submit-button'].classList.remove('modal__button--disabled');
          
+         if (['add2chart', 'removeFromChart'].includes(this.currentModalType)) {
+            this.elements['submit-button'].disabled = false;
+         }
+
          this.elements['submit-button'].addEventListener('click', this.boundSubmitFunction, {once: true});
       }
       this.elements['cancel-button'].addEventListener('click', this.boundCancelFunction, {once: true});

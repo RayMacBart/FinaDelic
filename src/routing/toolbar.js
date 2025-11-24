@@ -10,7 +10,7 @@ class Toolbar {
    TEH;
 
    constructor(dummyData, reloadEvent, modal, chart) {
-      this.TEH = new ToolbarEventHandler(dummyData, reloadEvent, modal, chart);
+      this.TEH = new ToolbarEventHandler(dummyData, reloadEvent, modal);
       this.boundModifyHandler = this.modifyHandler.bind(this);
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
       this.TEH.boundRemoveFromChartHandler = this.TEH.removeFromChartHandler.bind(this.TEH);

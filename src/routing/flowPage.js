@@ -39,8 +39,10 @@ class FlowPage {
       this.flowlist.render(bagData, this.timespan);
 
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
-         
-         if (bagName === this.dummyData.revisitFlag) {
+
+         // if (bagName === this.dummyData.revisitFlag) {
+         if (!(document.getElementById('flowpage-bag').querySelector('#toolbar-wrapper'))) {
+            console.log('IN NOT TOP');
             this.toolbar.setupBar();
          }
          
@@ -63,7 +65,11 @@ class FlowPage {
          this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.dummyData.revisitFlag);
          document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
          
-         document.querySelector('.dynamicChartButtonText').innerText = (bagPath in this.chartBags) ? 'CHART: REMOVE' : 'ADD TO CHART';
+         if (document.querySelector('.dynamicChartButtonText')) {
+            document.querySelector('.dynamicChartButtonText').innerText = (bagPath in this.chartBags) ? 'CHART REMOVE' : 'ADD TO CHART';
+         } else {
+            alert("WARNING!\nCOULDN'T SET DYNAMIC CHART BUTTON TEXT - BUTTON'S TEXT ELEMENT IS MISSING!");
+         }
       }
       
 

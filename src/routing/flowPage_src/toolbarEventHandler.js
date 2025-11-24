@@ -15,12 +15,11 @@ class ToolbarEventHandler {
    boundChangeTextHandler;
    boundChangeAmountHandler;
 
-   constructor(dummyData, reloadEvent, modal, chart) {
+   constructor(dummyData, reloadEvent, modal) {
       this.dummyData = dummyData;
       this.reloadEvent = reloadEvent;
       this.modal = modal;
       this.modal.reloadEvent = reloadEvent;
-      this.modal.setAllocation(chart);
    }
 
 

@@ -30,7 +30,7 @@ class Infos {
       
       setTimeout(() => {
          viewWrapper.removeChild(box);
-      }, text.innerText.length*33);
+      }, text.innerText.length*40);
    }
 }
 
