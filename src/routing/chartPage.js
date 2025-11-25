@@ -17,7 +17,7 @@ class ChartPage {
       let dataObj;
       if (this.chart.type === 'line') {
          dataObj = this.dataPrep.prepareLineChartData();
-         console.log(dataObj);
+         console.log('DATA:', dataObj);
       }
 
       (async function() {

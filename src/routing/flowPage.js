@@ -42,7 +42,6 @@ class FlowPage {
 
          // if (bagName === this.dummyData.revisitFlag) {
          if (!(document.getElementById('flowpage-bag').querySelector('#toolbar-wrapper'))) {
-            console.log('IN NOT TOP');
             this.toolbar.setupBar();
          }
          
