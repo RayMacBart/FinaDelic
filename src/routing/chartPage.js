@@ -20,6 +20,8 @@ class ChartPage {
          console.log('DATA:', dataObj);
       }
 
+      // ALSO TODO: UPON FLOW CREATIONS, DELETIONS, MOVES AND RENAMES AUTOMATICALLY UPDATE CHART TOO!!!
+
       (async function() {
          const data = [
             { year: 1987, count: 30 },
