@@ -73,7 +73,7 @@ class DummyData {
                      "currency": "EUR"
                   },
                   "635": {
-                     "date": "31.06.2025",
+                     "date": "30.06.2025",
                      "desc": "small company job",
                      "amount": 9856.3,
                      "currency": "EUR"
@@ -217,7 +217,7 @@ class DummyData {
                      "currency": "EUR"
                   },
                   "541": {
-                     "date": "31.06.2025",
+                     "date": "30.06.2025",
                      "desc": "Kirchenbeitrag",
                      "amount": -31.42,
                      "currency": "EUR"

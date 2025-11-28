@@ -1,11 +1,11 @@
 import SubmitUtils from "../../modals_src/submitUtils";
-import PeriodDataCalcer from "./PeriodDataCalcer.js";
+import PeriodAggregator from "./PeriodAggregator.js";
 
 class dataPreparator {
 
    constructor(dummyData, chart) {
       this.utils = new SubmitUtils(dummyData);
-      this.PDC = new PeriodDataCalcer(chart);
+      this.PA = new PeriodAggregator(chart);
    }
 
 
@@ -27,20 +27,19 @@ class dataPreparator {
 
    #createTimelineData(unit, startObj, endObj) {
       
-      this.PDC.startObj = startObj;
-      this.PDC.endObj = endObj;
-      let resultObj = {};
+      this.PA.startObj = startObj;
+      this.PA.endObj = endObj;
       console.log('unit:', unit);
       if (unit === 'day') {
-         return this.PDC.getDailyData();
+         return this.PA.getDailyData();
       } else if (unit === 'week') {
-         return this.PDC.getWeeklyData();
+         return this.PA.getWeeklyData();
       } else if (unit === 'month') {
-         return this.PDC.getMonthlyData();
+         return this.PA.getMonthlyData();
       } else if (unit === 'quarter') {
-         return this.PDC.getQuarterlyData();
+         return this.PA.getQuarterlyData();
       } else if (unit === 'year') {
-         return this.PDC.getYearlyData();
+         return this.PA.getYearlyData();
       }
    }
 
