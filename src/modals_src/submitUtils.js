@@ -1,9 +1,13 @@
+import ChartAdjuster from "./chartAdjuster.js";
+
+
 class SubmitUtils {
 
    bagPath;
    
    constructor(dummyData) {
       this.dummyData = dummyData;
+      this.CA = new ChartAdjuster(dummyData);
    }
 
    getParentObj(currentBagName, fullObject=false) {
@@ -157,6 +161,13 @@ class SubmitUtils {
          }
       }
       return Math.max(...usedIDs)+1;
+   }
+
+
+   checkAndAdjustChart(defaultAffectedBag=null, bagRemoval=false, renameInfo=null) {
+      const affectedChartBags = this.CA.getAffectedChartBags(defaultAffectedBag, bagRemoval, renameInfo);
+      // console.log('affectedChartBags:', affectedChartBags);
+      this.CA.refreshAffectedCharts(affectedChartBags);
    }
 }
 

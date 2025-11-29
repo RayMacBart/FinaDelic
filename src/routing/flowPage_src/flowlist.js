@@ -34,20 +34,28 @@ class FlowList {
       const flowlistBG = document.querySelector('.flowlist-container-BG');
       const footerMargin = document.querySelector('.footer-margin');
       if (bagData['transactions'] && Object.keys(bagData['transactions']).length) {
-         flowlistBG.style.display = 'block';
-         if (!(footerMargin.classList.contains('footer-margin--flowlist')));
-            footerMargin.classList.add('footer-margin--flowlist');
+         
          const orderedFlows = [];
+         let flowInPeriodExists = false;
          for (const transaction in bagData['transactions']) {
             const dateArray = bagData['transactions'][transaction]['date'].split('.');
             const formattedDateString = dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
             const transDateObj = new Date(formattedDateString);
-            ///////////////////
-            // ALSO TO DO: check initial focus on inputs @ every modal!
-            // ALSO TO DO: The 'change' button of flows. Take care to implement pre-entered values!
             if ((timespan.start.getTime() <= transDateObj.getTime()) && (timespan.end.getTime()+86400000 > transDateObj.getTime() )) {  // (?)['../../../../../docs/timespanAddedMS.txt']
                chronoInsertFlow(orderedFlows, transaction, 0, orderedFlows.length, transDateObj);
+               if (!flowInPeriodExists) {
+                  flowInPeriodExists = true;
+               }
             }
+         }
+         if (flowInPeriodExists) {
+            flowlistBG.style.display = 'block';
+            if (!(footerMargin.classList.contains('footer-margin--flowlist'))) {
+               footerMargin.classList.add('footer-margin--flowlist');
+            }
+         } else {
+            flowlistBG.style.display = 'none';
+            footerMargin.classList.remove('footer-margin--flowlist');
          }
          for (const orderedFlow of orderedFlows) {
             const flow = document.querySelector('.flow').content.cloneNode(true);

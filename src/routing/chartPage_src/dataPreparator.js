@@ -29,7 +29,7 @@ class dataPreparator {
       
       this.PA.startObj = startObj;
       this.PA.endObj = endObj;
-      console.log('unit:', unit);
+      // console.log('unit:', unit);
       if (unit === 'day') {
          return this.PA.getDailyData();
       } else if (unit === 'week') {

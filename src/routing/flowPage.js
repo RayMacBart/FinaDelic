@@ -47,8 +47,8 @@ class FlowPage {
          
          this.toolbar.currentBagName = bagPath.split('/').pop();
          this.toolbar.handleDirection(bagPath);
-         
-         if ((this.toolbar.currentType === 'flow') && (document.querySelector(".flowlist").children.length < this.lastFlowCount)) {
+         if (((this.toolbar.currentType === 'flow') && (document.querySelector(".flowlist").children.length < this.lastFlowCount)) || 
+                                                   (document.querySelector('.menu--account-remove').dataset.removalHappened === 'true')) {
             toolbarReset = true;
          }
          

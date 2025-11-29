@@ -1,4 +1,3 @@
-import SubmitUtils from "./submitUtils.js";
 import { showInfo } from "../infos.js"
 import { chart } from "../index.js";
 
@@ -8,11 +7,10 @@ class ChartOps {
 
    constructor(dummyData) {
       this.dummyData = dummyData;
-      this.utils = new SubmitUtils(dummyData);
    }
 
 
-   #getNestedFlows(bagPathArray, bagObj) {   // recursive
+   getNestedFlows(bagPathArray, bagObj) {   // recursive
       let choosenFlows = [];
       if (Object.keys(bagObj['transactions']).length) {
          for (const flowID in bagObj['transactions']) {
@@ -21,19 +19,29 @@ class ChartOps {
       }
       for (const nestedObjKey in bagObj['nestedBags']) {
          const nextBagPathArray = bagPathArray.concat(nestedObjKey);
-         choosenFlows = choosenFlows.concat(this.#getNestedFlows(nextBagPathArray, bagObj['nestedBags'][nestedObjKey]));
+         choosenFlows = choosenFlows.concat(this.getNestedFlows(nextBagPathArray, bagObj['nestedBags'][nestedObjKey]));
       }
       return choosenFlows;
    }
 
 
-   
+   getBagObjByPath(bagPath, obj=this.dummyData.data[bagPath.split('/')[0]]) {  // recursive
+      if (bagPath.includes('/')) {
+         const pathArray = bagPath.split('/');
+         pathArray.shift();
+         const nextPathPart = pathArray.join('/');
+         return this.getBagObjByPath(nextPathPart, obj['nestedBags'][pathArray.shift()]);
+      } else {
+         return obj;
+      }
+   }
 
 
-   add2chart() {
-      this.utils.bagPath = this.bagPath;
-      const bagObj = this.utils.getBagObjByPath(this.bagPath);
-      const nestedFlows = this.#getNestedFlows(this.bagPath.split('/'), bagObj);
+   add2chart(broughtBagPath=null, broughtData=null) {
+      const bagPath2Use = broughtBagPath ? broughtBagPath : this.bagPath;
+      const dummyData2Use = broughtData ? broughtData : this.dummyData.data[bagPath2Use.split('/')[0]];
+      const bagObj = this.getBagObjByPath(bagPath2Use, dummyData2Use);
+      const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
       const data = {};
       for (const obj of nestedFlows) {
          if (obj['date'] in data) {
@@ -42,8 +50,10 @@ class ChartOps {
             data[obj['date']] = Math.abs(obj['amount']);
          }
       }
-      chart.bags[this.bagPath] = data;
-      showInfo('added2chart');
+      chart.bags[bagPath2Use] = data;
+      if (!(broughtBagPath || broughtData)) {
+         showInfo('added2chart');
+      }
 
 
 

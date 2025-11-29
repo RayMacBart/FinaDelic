@@ -25,11 +25,13 @@ class BagSubmits {
    bagRename() {
       this.utils.bagPath = this.bagPath;
       const newBagName = this.currelems['input'].value;
-      const currentBagName = this.bagPath.split('/').pop();
+      const bagArray = this.bagPath.split('/');
+      const currentBagName = bagArray.pop();
       const parentObj = this.utils.getParentObj(currentBagName);
       parentObj[newBagName] = {...parentObj[currentBagName]};
       delete parentObj[currentBagName];
       this.dummyData.changeCurrentBagProp(newBagName);
+      this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
    }
 
 
@@ -39,6 +41,8 @@ class BagSubmits {
       const parentObj = this.utils.getParentObj(currentBagName);
       delete parentObj[currentBagName];
       this.dummyData.changeCurrentBagProp();
+      this.utils.checkAndAdjustChart();
+      document.querySelector('.menu--account-remove').dataset.removalHappened = true;
    }
 
    transferBag(destinationBag=null) {
@@ -66,6 +70,8 @@ class BagSubmits {
 
    bagDisband() {
       this.transferBag();
+      document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+      this.utils.checkAndAdjustChart(null, true);
    }
 
 
@@ -73,6 +79,7 @@ class BagSubmits {
       const selection = document.getElementById('modal-select').value;
       const choosenObj = this.utils.getBagObjByPath(selection);
       this.transferBag(choosenObj);
+      this.utils.checkAndAdjustChart();
    }
 }
 

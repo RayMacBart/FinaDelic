@@ -52,7 +52,7 @@ class Modal {
       this.runModal();
       this.dialog.showModal();
    }
-
+'time'
 
    finishModal() {
       if (this.smallInputLabelModalTypes.includes(this.currentModalType)) {   
@@ -61,6 +61,8 @@ class Modal {
       if (this.currentModalType === 'time') {
          this.elements['start-date-label'].style.fontSize = '1.375rem';
          this.elements['end-date-label'].style.fontSize = '1.375rem';
+         document.querySelector('.modal__start-date-wrapper').style.display = 'none';
+         document.querySelector('.modal__end-date-wrapper').style.display = 'none';
       }
       for (const elemName in this.modalContents[this.currentModalType]) {
          this.elements[elemName].style.display = 'none';
@@ -77,6 +79,9 @@ class Modal {
             this.elements['submit-button'].classList.remove('modal__button--disabled');
          }
          this.elements['submit-button'].classList.add('modal__button--positive');
+      }
+      if (this.currentModalType === 'time') {
+         document.querySelector('.modal__button--positive').disabled = false;
       }
       if (['bag-move', 'flow-move'].includes(this.currentModalType)) {
          this.elements['select'].querySelector('.option-container').innerHTML = '';
@@ -167,11 +172,12 @@ class Modal {
          this.selectModal.setup(true);
       } else if (this.currentModalType === 'flow-move') {
          this.selectModal.setup(false);
-      } else if (this.currentModalType === 'bag-disband') {
-         const pathArray = this.dummyData.getBagPath().split('/');
-         const parentBagName = pathArray[pathArray.length-2];
-         document.querySelector('.modal__text-4').innerText = parentBagName.toUpperCase();
       } else {
+         if (this.currentModalType === 'bag-disband') {
+            const pathArray = this.dummyData.getBagPath().split('/');
+            const parentBagName = pathArray[pathArray.length-2];
+            document.querySelector('.modal__text-4').innerText = parentBagName.toUpperCase();
+         }
          if (!this.elements['submit-button'].classList.contains('modal__button--positive')) {
             this.elements['submit-button'].classList.add('modal__button--positive');
          }

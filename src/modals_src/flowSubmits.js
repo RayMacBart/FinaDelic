@@ -24,6 +24,7 @@ class FlowSubmits {
          const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
          currentBagObj['transactions'][this.flowID]['amount'] = amount;
          this.utils.recalcBagAmounts(this.bagPath.split('/'));
+         this.utils.checkAndAdjustChart();
       } else {
          this.cachedAmount = amount;
       }
@@ -46,13 +47,15 @@ class FlowSubmits {
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
       if (this.flowchange) {
          currentBagObj['transactions'][this.flowID]['date'] = flowDate;
+         this.utils.checkAndAdjustChart(this.bagPath);
       } else {
          currentBagObj['transactions'][this.utils.createNewFlowID()] = {
                               "date": flowDate,
                               "desc": this.cachedDesc,
                               "amount": this.cachedAmount,
                               "currency": "EUR"};
-      }
+                           }
+         this.utils.checkAndAdjustChart();
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
 
@@ -60,6 +63,7 @@ class FlowSubmits {
    flowDelete() {
       const bagObj = this.utils.getBagObjByPath(this.bagPath);
       delete bagObj['transactions'][this.flowID];
+      this.utils.checkAndAdjustChart();
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
 
@@ -70,6 +74,7 @@ class FlowSubmits {
       const choosenObj = this.utils.getBagObjByPath(selection);
       choosenObj['transactions'][this.flowID] = bagObj['transactions'][this.flowID];
       delete bagObj['transactions'][this.flowID];
+      this.utils.checkAndAdjustChart();
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
 }
