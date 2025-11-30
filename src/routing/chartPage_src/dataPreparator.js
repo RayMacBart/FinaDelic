@@ -6,6 +6,7 @@ class dataPreparator {
    constructor(dummyData, chart) {
       this.utils = new SubmitUtils(dummyData);
       this.PA = new PeriodAggregator(chart);
+      this.chart = chart;
    }
 
 
@@ -49,6 +50,57 @@ class dataPreparator {
       
       return this.#createTimelineData(timeUnit, startObj, endObj);
    }
+
+
+   addProcentualValues(pieData) {
+      let wholeChartAmount = 0;
+      for (const bag in pieData) {
+         wholeChartAmount += pieData[bag];
+      }
+      console.log('wholeChartAmount:', wholeChartAmount);
+      for (const bag in pieData) {
+         console.log('pieData[bag]:', pieData[bag]);
+         const bagShare = ((pieData[bag]/wholeChartAmount)*100).toFixed(2);
+         pieData[bag+`: ${bagShare}%`] = pieData[bag];
+         delete pieData[bag];
+      }
+      return pieData;
+   }
+
+
+   preparePieChartData() {
+      let pieData = {};
+      const [startObj, endObj] = this.utils.retrieveDateSpanFromDOM();
+      for (const bag in this.chart.bags) {
+         let totalAmount = 0;
+         for (const datekey in this.chart.bags[bag]) {
+            const dateKeyArr = datekey.split('.');
+            const formDateKeyStr = dateKeyArr[2]+'-'+dateKeyArr[1]+'-'+dateKeyArr[0];
+            const dateKeyObj = new Date(formDateKeyStr);
+            if ((dateKeyObj >= startObj) && (dateKeyObj <= endObj)) {
+               totalAmount += this.chart.bags[bag][datekey];
+            }
+         }
+         pieData[bag] = totalAmount;
+      }
+      pieData = this.addProcentualValues(pieData);
+      return pieData;
+   }
+
+   // const dailyData = {};
+   //    for (const bag in this.chart.bags) {
+   //       const data = [];
+   //       let totalAmount = 0;
+   //       for (let ms=this.startObj.getTime(); ms<=this.endObj.getTime(); ms+=86400000) {
+   //          const currentDate = this.agutils.getUIdateFromMS(ms);
+   //          if (currentDate in this.chart.bags[bag]) {
+   //             totalAmount += this.chart.bags[bag][currentDate];
+   //          }
+   //          data.push({'period': currentDate, 'amount': totalAmount});
+   //       }
+   //       dailyData[bag] = data;
+   //    }
+   //    return dailyData;
 }
 
 

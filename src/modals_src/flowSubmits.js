@@ -1,4 +1,5 @@
 import SubmitUtils from './submitUtils.js';
+import { showInfo } from "../infos.js";
 
 
 class FlowSubmits {
@@ -54,8 +55,13 @@ class FlowSubmits {
                               "desc": this.cachedDesc,
                               "amount": this.cachedAmount,
                               "currency": "EUR"};
-                           }
          this.utils.checkAndAdjustChart();
+                           }
+      const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
+      const flowDateObj = new Date(this.currelems['input'].value);
+      if (!((flowDateObj >= startDateObj) && (flowDateObj <= endDateObj))) {
+         showInfo('flowNotInPeriod', 'warning');
+      }
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
 
@@ -76,6 +82,7 @@ class FlowSubmits {
       delete bagObj['transactions'][this.flowID];
       this.utils.checkAndAdjustChart();
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
+      this.utils.recalcBagAmounts(selection.split('/'));
    }
 }
 

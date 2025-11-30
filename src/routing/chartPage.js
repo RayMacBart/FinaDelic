@@ -1,7 +1,6 @@
 import dataPreparator from './chartPage_src/dataPreparator.js';
 import { Chart, Colors, Legend, LineController, LineElement, PointElement, CategoryScale, LinearScale, PieController, ArcElement } from 'chart.js';
 Chart.register(Colors, Legend, LineController, LineElement, PointElement, CategoryScale, LinearScale, PieController, ArcElement);
-Chart.register(Colors, Legend, LineController, LineElement, CategoryScale, LinearScale, PieController, ArcElement);
 
 
 class ChartPage {
@@ -41,11 +40,11 @@ class ChartPage {
 
    #renderChart() {
 
-      let dataObj;
+      let lineDataObj;
       if (this.chart.type === 'line') {
-         dataObj = this.dataPrep.prepareLineChartData();
-         const periodLabels = this.createPeriodLabels(dataObj);
-         const amountSets = this.createAmountSets(dataObj);
+         lineDataObj = this.dataPrep.prepareLineChartData();
+         const periodLabels = this.createPeriodLabels(lineDataObj);
+         const amountSets = this.createAmountSets(lineDataObj);
          let lineWidth;
          const canvasXpos = document.querySelector('canvas').getBoundingClientRect().x;
          if (canvasXpos < 150) {
@@ -72,13 +71,50 @@ class ChartPage {
                }
             );
          })();
-      } else if (this.chart.type === 'pie') {
 
+      } else if (this.chart.type === 'pie') {
+         const pieDataObj = this.dataPrep.preparePieChartData();
+         (async function() {
+            new Chart(
+               document.getElementById('chart'),
+               {
+                  type: 'pie',
+                  data: {
+                     labels: Object.keys(pieDataObj),
+                     
+                     datasets: [
+                        {
+                           data: Object.values(pieDataObj),
+                           backgroundColor: [
+                        "#3333dd",
+                        "#dd3333",
+                        "#eedd00",
+                        "#119911",
+                        "#bb44bb",
+                        "#00bbbb",
+                        "#ee9900",
+                        "#999999",
+                        "#aa7744",
+                        "#555555",
+                        "#ff8888",
+                        "#cccccc",
+                        "#111111"
+                     ],
+                        }
+                     ]
+                  },
+                  options: {
+                     borderWidth: 0
+                  }
+               }
+            );
+         })();
       }
    
 
       // ALSO TODO: 
-      // - WARN USER UPON FLOW CREATION THAT IT'S NOT SHOWN DUE TO BEING OUTSIDE OF SELECTED TIME!
+      // - IMPLEMENT CHART-TYPE-SWITCH-BUTTON FUNCTIONALITY
+      // - FOR EVERY INPUT IN EVERY MODAL: INPUT VALIDATION!!!
 
    }
 

@@ -1,4 +1,4 @@
-import { showInfo } from "../infos.js"
+import { showInfo } from "../infos.js";
 import { chart } from "../index.js";
 
 class ChartOps {

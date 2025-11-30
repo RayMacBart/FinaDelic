@@ -1,6 +1,7 @@
 class Chart {
 
-   type = 'line';
+   // type = 'line';
+   type = 'pie';
    bags = {};  // keys: paths, values: objects of (ALL! also nested) flows with dates as keys and amounts as values!
 
    constructor(dummyData) {
