@@ -54,22 +54,20 @@ class dataPreparator {
 
    addProcentualValues(pieData) {
       let wholeChartAmount = 0;
-      for (const bag in pieData) {
-         wholeChartAmount += pieData[bag];
+      for (const bagObj of pieData) {
+         wholeChartAmount += bagObj['amount'];
       }
-      console.log('wholeChartAmount:', wholeChartAmount);
-      for (const bag in pieData) {
-         console.log('pieData[bag]:', pieData[bag]);
-         const bagShare = ((pieData[bag]/wholeChartAmount)*100).toFixed(2);
-         pieData[bag+`: ${bagShare}%`] = pieData[bag];
-         delete pieData[bag];
+      for (const bagObj of pieData) {
+         const bagShare = ((bagObj['amount']/wholeChartAmount)*100).toFixed(2);
+         bagObj['bagDesc'] = bagObj['bagDesc']+`: ${bagShare}%`;
+         // delete pieData[bag];
       }
       return pieData;
    }
 
 
    preparePieChartData() {
-      let pieData = {};
+      let pieData = [];
       const [startObj, endObj] = this.utils.retrieveDateSpanFromDOM();
       for (const bag in this.chart.bags) {
          let totalAmount = 0;
@@ -81,9 +79,20 @@ class dataPreparator {
                totalAmount += this.chart.bags[bag][datekey];
             }
          }
-         pieData[bag] = totalAmount;
+         const bagDesc = bag.length > 22 ? '...'+bag.slice(-20) : bag;
+
+         // let bagDescArray = bag.split('/');
+         // let bagDesc;
+         // if (bagDescArray.length > 2) {
+         //    const last = bagDescArray.pop();
+         //    const secondlast = bagDescArray.pop();
+         //    bagDesc = '.../'+secondlast+'/'+last;
+         // }
+         pieData.push({'bagDesc': bagDesc, 'amount': totalAmount});
+         pieData[bagDesc] = totalAmount;
       }
       pieData = this.addProcentualValues(pieData);
+      pieData = pieData.sort((a,b) => b.amount - a.amount);
       return pieData;
    }
 

@@ -38,10 +38,23 @@ class ChartPage {
    }
 
 
-   #renderChart() {
+   #switchChart(app) {
+      this.chart.type = this.chart.type === 'line' ? 'pie' : 'line';
+      app.router.navigate('chartPage');
+   }
 
+
+   #renderChart() {
       let lineDataObj;
+      const pageWrap = document.querySelector('.view-wrapper');
+      let legendSize;
+      if (pageWrap.getBoundingClientRect().width < 500) {
+         legendSize = 16;
+      } else {
+         legendSize = 21;
+      }
       if (this.chart.type === 'line') {
+         document.querySelector('.chart-container').classList.add('line-chart-box');
          lineDataObj = this.dataPrep.prepareLineChartData();
          const periodLabels = this.createPeriodLabels(lineDataObj);
          const amountSets = this.createAmountSets(lineDataObj);
@@ -72,22 +85,29 @@ class ChartPage {
             );
          })();
 
+         
       } else if (this.chart.type === 'pie') {
-         const pieDataObj = this.dataPrep.preparePieChartData();
+         document.querySelector('.chart-container').classList.add('pie-chart-box');
+         const pieDataArr = this.dataPrep.preparePieChartData();
+         if (pieDataArr.length < 4) {
+            document.querySelector('.pie-chart-box').style.height = '16rem';
+         } else {
+            document.querySelector('.pie-chart-box').style.minHeight = String(5.5*pieDataArr.length)+'rem';
+         }
          (async function() {
             new Chart(
                document.getElementById('chart'),
                {
                   type: 'pie',
                   data: {
-                     labels: Object.keys(pieDataObj),
+                     labels: pieDataArr.map(l => l.bagDesc),
                      
                      datasets: [
                         {
-                           data: Object.values(pieDataObj),
+                           data: pieDataArr.map(l => l.amount),
                            backgroundColor: [
-                        "#3333dd",
                         "#dd3333",
+                        "#3333dd",
                         "#eedd00",
                         "#119911",
                         "#bb44bb",
@@ -104,8 +124,40 @@ class ChartPage {
                      ]
                   },
                   options: {
-                     borderWidth: 0
-                  }
+                     maintainAspectRatio: false,
+                     borderWidth: 0,
+                     layout: {
+                        autoPadding: false
+                        // padding: {
+                        //    bottom: 200
+                        // },
+                     },
+                     plugins: {
+                        // htmlLegend: {
+                        //    containerID: 'legends'
+                        // },
+                        legend: {
+                           // display: false,
+                           position: 'bottom',
+                           fullSize: true,
+                           labels: {
+                              // generateLabels: function()
+                              color: '#225',
+                              boxWidth: 23,
+                              textAlign: 'left',
+                              padding: 20,
+                              useBorderRadius: true,
+                              borderRadius: 6,
+                              font: {
+                                 size: legendSize,
+                                 weight: 500,
+                                 family: "'Inter', 'sans-serif'",
+                              }
+                           }
+                        }
+                     }
+                  },
+                  // plugins: [htmlLegendPlugin]
                }
             );
          })();
@@ -126,7 +178,7 @@ class ChartPage {
 
 
    #setupChartPageLinks(app) {
-      // document.getElementById('switch-icon-tap-area').addEventListener('click', () => ???????); // CALLS SWITCH FUNCTION
+      document.getElementById('switch-icon-tap-area').addEventListener('click', () => this.#switchChart(app)); // CALLS SWITCH FUNCTION
       document.getElementById('clock-icon-tap-area').addEventListener('click', () => app.modal.startModal('time')); // OPEN MODAL
       document.getElementById('flows-icon-tap-area').addEventListener('click', () => app.router.navigate('flowPage'));
       document.getElementById('logout-icon-tap-area').addEventListener('click', () => app.router.navigate('loggedoutHP', ['page--landing']));
