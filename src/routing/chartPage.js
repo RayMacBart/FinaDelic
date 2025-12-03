@@ -5,6 +5,29 @@ Chart.register(Colors, Legend, LineController, LineElement, PointElement, Catego
 
 class ChartPage {
 
+   legendSize;
+   getLegendPluginObj(legendSize) {
+      return {
+         // display: false,
+         position: 'bottom',
+         fullSize: true,
+         labels: {
+            // generateLabels: function()
+            color: '#225',
+            boxWidth: 23,
+            textAlign: 'left',
+            padding: 20,
+            useBorderRadius: true,
+            borderRadius: 6,
+            font: {
+               size: legendSize,
+               weight: 500,
+               family: "'Inter', 'sans-serif'",
+            }
+         }
+      }
+                     }
+
    constructor(dummyData, modal, chart) {
       this.dummyData = dummyData;
       this.chart = chart;
@@ -30,7 +53,22 @@ class ChartPage {
          amountSets.push(
             {
                label: bag,
-               data: dataObj[bag].map(row => row.amount)
+               data: dataObj[bag].map(row => row.amount),
+               borderColor: [
+                        "#dd3333",
+                        "#3333dd",
+                        "#eedd00",
+                        "#119911",
+                        "#bb44bb",
+                        "#00bbbb",
+                        "#ee9900",
+                        "#999999",
+                        "#aa7744",
+                        "#555555",
+                        "#ff8888",
+                        "#cccccc",
+                        "#111111"
+                     ],
             }
          )
       }
@@ -47,11 +85,10 @@ class ChartPage {
    #renderChart() {
       let lineDataObj;
       const pageWrap = document.querySelector('.view-wrapper');
-      let legendSize;
       if (pageWrap.getBoundingClientRect().width < 500) {
-         legendSize = 16;
+         this.legendSize = 16;
       } else {
-         legendSize = 21;
+         this.legendSize = 21;
       }
       if (this.chart.type === 'line') {
          document.querySelector('.chart-container').classList.add('line-chart-box');
@@ -68,7 +105,7 @@ class ChartPage {
             lineWidth = 4;
          }
 
-         (async function() {
+         (async function(getLegendPluginObj, legendSize) {
             new Chart(
                document.getElementById('chart'),
                {
@@ -79,22 +116,50 @@ class ChartPage {
                   },
                   options: {
                      pointStyle: false,
-                     borderWidth: lineWidth
-                  }
+                     borderWidth: lineWidth,
+                     maintainAspectRatio: false,
+                     layout: {
+                        autoPadding: false,
+                        // padding: {top: 10},
+                     },
+                     scales: {
+                        y: {
+                           ticks: {
+                              color: '#1A1A4A',
+                              font: {
+                                 size: 15
+                              }
+                           }
+                        },
+                        x: {
+                           ticks: {
+                              color: '#1A1A4A',
+                              font: {
+                                 size: 15
+                              }
+                           }
+                        }
+                     },
+                     plugins: {
+                        // htmlLegend: {containerID: 'legends'},
+                        legend: getLegendPluginObj(legendSize)
+                     }
+                  },
+                  // plugins: [htmlLegendPlugin]
                }
             );
-         })();
+         })(this.getLegendPluginObj, this.legendSize);
 
-         
+
       } else if (this.chart.type === 'pie') {
          document.querySelector('.chart-container').classList.add('pie-chart-box');
          const pieDataArr = this.dataPrep.preparePieChartData();
          if (pieDataArr.length < 4) {
             document.querySelector('.pie-chart-box').style.height = '16rem';
          } else {
-            document.querySelector('.pie-chart-box').style.minHeight = String(5.5*pieDataArr.length)+'rem';
+            document.querySelector('.pie-chart-box').style.minHeight = String(5.1*pieDataArr.length)+'rem';
          }
-         (async function() {
+         (async function(getLegendPluginObj, legendSize) {
             new Chart(
                document.getElementById('chart'),
                {
@@ -127,40 +192,18 @@ class ChartPage {
                      maintainAspectRatio: false,
                      borderWidth: 0,
                      layout: {
-                        autoPadding: false
-                        // padding: {
-                        //    bottom: 200
-                        // },
+                        autoPadding: false,
+                        // padding: {top: 10},
                      },
                      plugins: {
-                        // htmlLegend: {
-                        //    containerID: 'legends'
-                        // },
-                        legend: {
-                           // display: false,
-                           position: 'bottom',
-                           fullSize: true,
-                           labels: {
-                              // generateLabels: function()
-                              color: '#225',
-                              boxWidth: 23,
-                              textAlign: 'left',
-                              padding: 20,
-                              useBorderRadius: true,
-                              borderRadius: 6,
-                              font: {
-                                 size: legendSize,
-                                 weight: 500,
-                                 family: "'Inter', 'sans-serif'",
-                              }
-                           }
-                        }
+                        // htmlLegend: {containerID: 'legends'},
+                        legend: getLegendPluginObj(legendSize)
                      }
                   },
                   // plugins: [htmlLegendPlugin]
                }
             );
-         })();
+         })(this.getLegendPluginObj, this.legendSize);
       }
    
 

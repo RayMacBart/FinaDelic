@@ -5,7 +5,8 @@ class Infos {
       'invalidTimespan': 'The specified start date is later than the end date. Hence the end date was automatically set to be equal to the start date.',
       'added2chart': 'The current bag was added to the chart.',
       'removedFromChart': 'The current bag was removed from the chart!',
-      'flowNotInPeriod': "The date of the affected flow is not within the selected time period - hence it doesn't appear!"
+      'flowNotInPeriod': "The date of the affected flow is not within the selected time period - hence it doesn't appear!",
+      // 'noSpecialChars': 'Beside normal letters, digits and spaces, only "?", "!", ",", ".", "/", "(" and ")" are allowed!'
       }
    }
    

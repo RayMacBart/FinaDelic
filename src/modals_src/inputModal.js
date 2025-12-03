@@ -1,6 +1,10 @@
+// import { showInfo } from '../infos.js';
+
+
 class InputModal {
 
    boundInputWatcher;
+   whiteListRegex = /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890äöüÄÖÜß ?!,.-/()]/;
 
    constructor(modalsInstance) {
       this.modIns = modalsInstance;
@@ -119,11 +123,18 @@ class InputModal {
          }
       }
       if (this.modIns.currentModalType === 'flow-amount') {
-         if (event.target.value.toString().includes('e')) {
+         if (String(event.target.value).includes('e')) {
             event.target.value = event.target.value.toString().replace('e', '');
          }
          if (event.target.value.includes('-')) {
             event.target.value = event.target.value.replace('-', '');
+         }
+      } else if (['flow-desc', 'bag-rename', 'bag-create'].includes(this.modIns.currentModalType)) {
+         for (const char of event.target.value.toString()) {
+            if (!(char.match(this.whiteListRegex))) {
+               // showInfo('noSpecialChars');
+               event.target.value = event.target.value.toString().replace(char, '');
+         }
          }
       }
    }
