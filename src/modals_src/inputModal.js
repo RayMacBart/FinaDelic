@@ -105,7 +105,7 @@ class InputModal {
          this.modIns.elements['submit-button'].disabled = false;
       }
       this.modIns.elements['submit-button'].removeEventListener('click', this.modIns.boundSubmitFunction);
-      if (event.target.value) {
+      if ((this.modIns.currentModalType === 'flow-amount' && event.target.value) || event.target.value.toString().length >= 3) {
          this.modIns.elements['submit-button'].disabled = false;
          this.modIns.elements['submit-button'].classList.remove('modal__button--disabled');
          if (!this.modIns.elements['submit-button'].classList.contains('modal__button--positive')) {
@@ -113,7 +113,7 @@ class InputModal {
          }
          this.modIns.elements['submit-button'].addEventListener('click', this.modIns.boundSubmitFunction, {once: true});
       } else {
-         if (this.modIns.currentModalType !== 'flow-amount' || 
+         if ((this.modIns.currentModalType !== 'flow-amount' && event.target.value.toString().length < 3) || 
             (!document.getElementById('amount-predecimal').value && !document.getElementById('amount-decimal').value)) {
             this.modIns.elements['submit-button'].disabled = true;
             if (this.modIns.elements['submit-button'].classList.contains('modal__button--positive')) {

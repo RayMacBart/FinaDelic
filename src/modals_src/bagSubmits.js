@@ -1,11 +1,15 @@
+import { showInfo } from '../infos.js';
 import SubmitUtils from './submitUtils.js';
+
 
 
 class BagSubmits {
 
+
    currelems;
    bagPath;
-   
+
+
    constructor(dummyData) {
       this.dummyData = dummyData;
       this.utils = new SubmitUtils(this.dummyData);
@@ -14,11 +18,16 @@ class BagSubmits {
 
    bagCreate() {
       const newBagName = this.currelems['input'].value;
-      this.dummyData.getData()['nestedBags'][newBagName] = {
-         'amount': 0,
-         'nestedBags': {},
-         'transactions': {}
-      };
+      const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
+      if (!duplicateDetected) {
+         this.dummyData.getData()['nestedBags'][newBagName] = {
+            'amount': 0,
+            'nestedBags': {},
+            'transactions': {}
+         };
+      } else {
+         showInfo('duplicate', 'warning');
+      }
    }
 
 
@@ -27,12 +36,17 @@ class BagSubmits {
       const newBagName = this.currelems['input'].value;
       const bagArray = this.bagPath.split('/');
       const currentBagName = bagArray.pop();
-      const parentObj = this.utils.getParentObj(currentBagName);
-      parentObj[newBagName] = {...parentObj[currentBagName]};
-      delete parentObj[currentBagName];
-      this.dummyData.changeCurrentBagProp(newBagName);
-      this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
-   }
+      const duplicateDetected = this.utils.check4Duplicate(newBagName, bagArray.join('/'));
+      if (!duplicateDetected) {
+         const parentObj = this.utils.getParentObj(currentBagName);
+         parentObj[newBagName] = {...parentObj[currentBagName]};
+         delete parentObj[currentBagName];
+         this.dummyData.changeCurrentBagProp(newBagName);
+         this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
+      } else {
+         showInfo('duplicate', 'warning');
+      }
+   } 
 
 
    bagErase() {
@@ -45,11 +59,9 @@ class BagSubmits {
       document.querySelector('.menu--account-remove').dataset.removalHappened = true;
    }
 
-   transferBag(destinationBag=null) {
+   transferBag(currentBagName, destinationBag=null) {
       this.utils.bagPath = this.bagPath;
       const currentBagObj = this.dummyData.getData();
-      const pathArray = this.bagPath.split('/');
-      const currentBagName = pathArray[pathArray.length-1];
       const parentObj = this.utils.getParentObj(currentBagName, true);
       const destObj = destinationBag ? destinationBag : parentObj;
       if (destinationBag) {  // move
@@ -69,7 +81,9 @@ class BagSubmits {
 
 
    bagDisband() {
-      this.transferBag();
+      const pathArray = this.bagPath.split('/');
+      const currentBagName = pathArray[pathArray.length-1];
+      this.transferBag(currentBagName);
       document.querySelector('.menu--account-remove').dataset.removalHappened = true;
       this.utils.checkAndAdjustChart(null, true);
    }
@@ -78,8 +92,15 @@ class BagSubmits {
    bagMove() {
       const selection = document.getElementById('modal-select').value;
       const choosenObj = this.utils.getBagObjByPath(selection);
-      this.transferBag(choosenObj);
-      this.utils.checkAndAdjustChart();
+      const pathArray = this.bagPath.split('/');
+      const currentBagName = pathArray.pop();
+      const duplicateDetected = this.utils.check4Duplicate(currentBagName, selection);
+      if (!duplicateDetected) {
+         this.transferBag(currentBagName, choosenObj);
+         this.utils.checkAndAdjustChart();
+      } else {
+         showInfo('duplicate', 'warning');
+      }
    }
 }
 

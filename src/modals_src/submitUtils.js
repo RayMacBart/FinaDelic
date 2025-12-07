@@ -1,3 +1,4 @@
+import { showInfo } from "../infos.js";
 import ChartAdjuster from "./chartAdjuster.js";
 
 
@@ -9,6 +10,19 @@ class SubmitUtils {
       this.dummyData = dummyData;
       this.CA = new ChartAdjuster(dummyData);
    }
+
+   
+   check4Duplicate(newBagName, path=this.bagPath) {
+      const bagObj = this.getBagObjByPath(path);
+      let duplicateDetected = false;
+      for (const nestedBag in bagObj['nestedBags']) {
+         if (nestedBag.trim().toUpperCase() === newBagName.trim().toUpperCase()) {
+            duplicateDetected = true;
+         }
+      }
+      return duplicateDetected;
+   }
+
 
    getParentObj(currentBagName, fullObject=false) {
       const pathArray = this.bagPath.split('/');
@@ -138,7 +152,7 @@ class SubmitUtils {
    }
 
    
-   extractFlowIDs(usedIDs, focussedObj) {  // recursive
+   extractFlowIDs(usedIDs, focussedObj) {   // recursive
       for (const flowID in focussedObj['transactions']) {
          usedIDs.push(flowID);
       }
@@ -166,7 +180,6 @@ class SubmitUtils {
 
    checkAndAdjustChart(defaultAffectedBag=null, bagRemoval=false, renameInfo=null) {
       const affectedChartBags = this.CA.getAffectedChartBags(defaultAffectedBag, bagRemoval, renameInfo);
-      // console.log('affectedChartBags:', affectedChartBags);
       this.CA.refreshAffectedCharts(affectedChartBags);
    }
 }

@@ -6,7 +6,8 @@ class Infos {
       'added2chart': 'The current bag was added to the chart.',
       'removedFromChart': 'The current bag was removed from the chart!',
       'flowNotInPeriod': "The date of the affected flow is not within the selected time period - hence it doesn't appear!",
-      // 'noSpecialChars': 'Beside normal letters, digits and spaces, only "?", "!", ",", ".", "/", "(" and ")" are allowed!'
+      'duplicate': "ERROR: Name already exists in this box! (process cancelled)"
+      // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
    
