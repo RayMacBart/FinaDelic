@@ -6,6 +6,7 @@ class Router {
    constructor(app, defaultPage) {
       this.app = app;
       window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
+         console.log('e.state:', e.state);
                                               if (e.state.page === 'loggedoutHP' || e.state.page === 'loggedinHP') {
                                                  extraClassesWanted.push('page--landing');
                                                  }

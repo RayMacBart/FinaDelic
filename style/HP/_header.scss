@@ -17,6 +17,12 @@
          padding-bottom: 1.7rem;
       }
    }
+   &--login {
+      padding-bottom: 2rem;
+      @media (min-width: 450px) {
+         padding-bottom: 2.4rem;
+      }
+   }
 }
 
 

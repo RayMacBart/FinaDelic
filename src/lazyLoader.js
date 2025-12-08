@@ -1,9 +1,11 @@
 class LazyLoader {
 
+
    constructor() {
       this.parser = new DOMParser();
    }
    
+
    importSVG = async(svgFilename, wrapperCSSclass, ownCSSclasses) => {  // (?)[../docs/methodAsProperty.txt]
       const res = await fetch(`./assets/${svgFilename}.svg`);
       const svgText = await res.text();
@@ -16,6 +18,7 @@ class LazyLoader {
       logoBox.appendChild(clonedSVG);
       return clonedSVG;
    }
+
 
    hoverPicLoader(e, hover=true) {
       const imgEl = e.target.previousElementSibling;

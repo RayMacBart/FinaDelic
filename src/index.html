@@ -99,8 +99,54 @@
 
 
 <template id="loginPage">
-   <h1>LOGIN PAGE</h1>
-   <div class="footer-margin"></div>
+   <div class="loginPage-BG">
+      <nav class="loginBackButton-container">
+         <div class="loginBackButton"></div>
+      </nav>
+      <div class="margin-container">
+         <header class="header header--login">
+            <div class="heroLogoBox heroLogoBox--login"></div>
+         </header>
+         <form class="form form--sign-in" action="get">
+            <div class="input-wrap">
+               <label class="loginput-label" for="signin-email">e-mail</label>
+               <input class="loginput" id="signin-email" type="email" name="email" required>
+            </div>
+            <div class="input-wrap">
+               <label class="loginput-label" for="signin-password">password</label>
+               <input class="loginput" id="signin-password" name="password" type="password" required>
+            </div>
+            <button class="login-button" type="submit" id="sign-in-submit-button">SIGN IN</button>
+         </form>
+         <p class="new-ask">New to FinaDelic?<br>
+         If yes, please...</p>
+         <form class="form form--sign-up" action="get">
+            <h2 class="signup-header">SIGN UP</h2>
+            <div class="input-wrap">
+               <label class="loginput-label" for="signup-email">e-mail</label>
+               <input class="loginput" id="signup-email" name="email" type="email" required>
+            </div>
+            <div class="input-wrap">
+               <label class="loginput-label" for="signup-password">password</label>
+               <input class="loginput" id="signup-password" type="password" required>
+            </div>
+            <div class="input-wrap">
+               <label class="loginput-label" for="signup-repeat">repeat</label>
+               <input class="loginput" id="signup-repeat" name="password" type="password" required>
+            </div>
+            <div class="input-wrap">
+               <input class="check" id="terms-check" type="checkbox" required>
+               <label class="logincheck-label" for="terms-check">I agree with the &nbsp;<a href="#page" id="inline-terms-link">Terms & Conditions</a></label>
+            </div>
+            <div class="input-wrap">
+               <input class="check" id="privacy-check" type="checkbox"  required>
+               <label class="logincheck-label" for="privacy-check">I read and understood the &nbsp;<a href="#page" id="inline-privacy-link">Privacy Policy</a></label>
+            </div>
+            <button class="login-button" type="submit" id="sign-up-submit-button">CONFIRM</button>
+         </form>
+      </div>
+   </div>
+   <div class="footer-margin" id="login-footer-margin"></div>
 </template>
 
 
