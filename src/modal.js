@@ -119,7 +119,7 @@ class Modal {
 
 
    getAdjustedInnerText(elemName) {
-      const bagtype = this.direction === 'IN' ? 'POCKET' : 'DRAIN';
+      const bagtype = this.direction === 'IN' ? 'INBOX' : 'OUTBOX';
       const flowtype = this.direction === 'IN' ? 'GAIN' : 'LOSS';
       let innerText = this.modalContents[this.currentModalType][elemName];
       if (typeof innerText === 'string') {

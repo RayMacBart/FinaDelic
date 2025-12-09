@@ -71,7 +71,7 @@ class Toolbar {
       const captionEl = document.querySelector('.toolbar-caption');
       if (captionEl) {
          if (bartype === 'account') {
-            const bagDir = this.direction === 'IN' ? 'Pocket:' : 'Drain:';
+            const bagDir = this.direction === 'IN' ? 'INBOX:' : 'OUTBOX:';
             if (this.currentBagName === 'IN' || this.currentBagName === 'OUT') {
                captionEl.firstElementChild.style.display = 'none';
                captionEl.lastElementChild.innerText = `${this.currentBagName}`;
@@ -176,9 +176,9 @@ class Toolbar {
          const dynamicWordList = this.toolbarElement.querySelectorAll('span');
          dynamicWordList.forEach((wordElem) => {
             if (wordElem.classList.contains('bagname--uppercase')) {
-               wordElem.innerText = this.direction === 'IN' ? 'POCKET' : 'DRAIN';
+               wordElem.innerText = this.direction === 'IN' ? 'INBOX' : 'OUTBOX';
             } else if (wordElem.classList.contains('bagname--lowercase')) {
-               wordElem.innerText = this.direction === 'IN' ? 'pocket' : 'drain';
+               wordElem.innerText = this.direction === 'IN' ? 'inbox' : 'outbox';
             } else if (wordElem.classList.contains('flowname')) {
                wordElem.innerText = this.direction === 'IN' ? 'GAIN' : 'LOSS';
             }
