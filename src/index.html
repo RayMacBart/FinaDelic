@@ -116,6 +116,7 @@
                <label class="loginput-label" for="signin-password">password</label>
                <input class="loginput" id="signin-password" name="password" type="password" required>
             </div>
+            <a id="forgotPWlink" href="#page">forgot password?</a>
             <button class="login-button" type="submit" id="sign-in-submit-button">SIGN IN</button>
          </form>
          <p class="new-ask">New to FinaDelic?<br>
@@ -457,6 +458,20 @@
          <input type="submit" class="modal modal__button modal__button--positive" />
          <button type="submit" class="modal modal__button modal__button--positive datesubmit">OK</button>
          <button class="modal modal__button modal__button--negative cancelButton"></button>
+      </div>
+   </form>
+</dialog>
+
+
+<dialog id="reset-modal">
+   <form method="dialog" class="modal-form">
+      <p class="modal modal--reset modal__text">For a new password, you have to verify your email address by clicking on a link inside an email which we would send you.<br></p>
+      <label for="reset-modal-input" class="modal modal--reset modal__input-label">Please enter your email:</label>
+      <input type="text" id="reset-modal-input" class="modal modal--reset modal__input" name="modal-input" />
+      <p class="modal modal--reset modal__text">Are you sure you want to proceed?</p>
+      <div class="modal-button-wrapper modal-button-wrapper--reset">
+         <input id="resetSubmitButton" type="submit" value='YES' class="modal modal--reset modal__button modal__button--positive" />
+         <button class="modal modal--reset modal__button modal__button--negative cancelButton">NO</button>
       </div>
    </form>
 </dialog>

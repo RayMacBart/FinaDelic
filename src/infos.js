@@ -17,7 +17,8 @@ class Infos {
       'password': "Your password does not meet the following requirements:\n",
       'badChars': 'Your password contains special characters which are not allowed. \nPlease only use one of the following characters: \n § @ . # $ ! % * ? & ',
       'checkBoxes': 'You must agree to the Terms & Conditions and confirm the Privacy Policy to continue.',
-      'taken': 'This email address is already registered!'
+      'taken': 'This email address is already registered!',
+      'emailSent': 'We sent you an verification email.\nPlease check your mailbox.'
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }

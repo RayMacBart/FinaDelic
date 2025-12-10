@@ -143,8 +143,14 @@ dialog {
       @media (max-width: 390px) {
       margin-left: 0.25rem;
       margin-right: 0.25rem;
+      }
    }
+   &--reset {
+      display: block;
+      max-width: 16rem;
+      text-wrap: wrap;
    }
+   
 }
 
 .modal-select-defaulttext {
@@ -212,6 +218,9 @@ dialog {
 .modal-button-wrapper {
    width: fit-content;
    margin: 0 auto;
+   &--reset {
+      display: flex;
+   }
 }
 
 #amount-predecimal {
