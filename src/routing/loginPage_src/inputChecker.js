@@ -10,7 +10,7 @@ class InputChecker {
    lowerRX = /(?=.*[a-z])[A-Za-z\d§@.#$!%*?&]/;
    upperRX = /(?=.*[A-Z])[A-Za-z\d§@.#$!%*?&]/
    min1digitRX = /(?=.*\d)[A-Za-z\d§@.#$!%*?&]/;
-   min1specialRX = /(?=.*[@.#$!%*?&])[A-Za-z\d§@.#$!%*?&]/;
+   min1specialRX = /(?=.*[§@.#$!%*?&])[A-Za-z\d§@.#$!%*?&]/;
 
 
    #handleEmptyCreds(val1, val2) {

@@ -47,9 +47,6 @@ class Infos {
          box.classList.add('infobox--neutral');
          text.classList.add('infotext--neutral');
       }
-
-      // console.log('textlength:', text.innerText.length);
-      
       setTimeout(() => {
          viewWrapper.removeChild(box);
       }, text.innerText.length*40);
