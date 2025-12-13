@@ -1,0 +1,74 @@
+.compPage {
+   color: rgb(0, 0, 35);
+   margin: auto;
+   font-family: 'Commissioner', sans-serif;
+   &__background {
+      background-image: url('./assets/FinaDelic Logo Background.svg');
+      background-size: contain;
+      background-repeat: none;
+      width: 20rem;
+      height: 12rem;
+      left: calc(50dvw - 10rem);
+      top: calc(50dvh - 6rem);
+      position: fixed;
+      opacity: 0.33;
+      z-index: 0;
+      @media (max-height: 500px) {
+         position: fixed;
+         top: calc(100dvh - 15rem);
+      }
+      @media (max-height: 399px) {
+         position: fixed;
+         top: calc(100dvh - 12rem);
+      }
+      @media (max-height: 359px) {
+         position: fixed;
+         top: calc(100dvh - 10rem);
+      }
+   }
+   &__header-container {
+      background-color: #FBF9F9;
+      width: fit-content;
+      border: 0.1rem solid #6B4747;
+      border-radius: 0.6rem;
+      padding: 0.7rem 1.3rem;
+      text-align: center;
+      font-size: 1.7rem;
+      letter-spacing: 0.06rem;
+      box-shadow: 0 0.09rem 0.343rem rgba(41, 44, 61, 0.3), 0 0 0.685rem rgba(107, 71, 71, 0.5) inset;
+   }
+   &__appname {
+      color: #273AB0;
+      font-weight: 500;
+   }
+   &__header {
+      color: #2E1F1F;
+      font-weight: 500;
+   }
+   &__artwrap {
+      width: 19.5rem;
+   }
+   &__title {
+      width: fit-content;
+      font-size: 1.45rem;
+      font-weight: 500;
+      margin: 2.5rem auto 0.6rem auto;
+      text-decoration: underline;
+   }
+   &__paragraph {
+      font-size: 1.1rem;
+   }
+   &__address-title {
+      font-size: 1.2rem;
+      font-weight: 550;
+      text-decoration: underline;
+      margin-top: 4rem;
+      margin-bottom: 0.4rem;
+   }
+   &__address {
+      font-size: 1.2rem;
+      font-weight: 420;
+      font-style: normal;
+      text-align: center;
+   }
+}

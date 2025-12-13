@@ -1,12 +1,7 @@
 class PrivacyPage {
 
-   #setupPrivacyPageLinks(app) {
-
-   }
-
    setup(app) {
-      console.log('setup PrivacyPage!');
-      this.#setupPrivacyPageLinks(app);
+      document.querySelector('.loginBackButton').addEventListener('click', () => history.back());
    }
 }
 

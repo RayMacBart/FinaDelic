@@ -347,21 +347,79 @@
 
 
 <template id="terms">
-   <h1>TERMS & CONDITIONS</h1>
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Terms & Conditions</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Legal Responsibility</h2>
+         <p class="compPage compPage__paragraph">Note, that FinaDelic is not responsible for any actions done by users that intend to use this app as a tool for law compliance purposes in any states.
+As law dictates anyway, FinaDelic also wants to emphasize that it is forbidden to use this app for any illegal activities.
+FinaDelic is not responsible for any criminal activities in which criminal actors involve this app as a tool.</p>
+      </article>
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Commercial Use</h2>
+         <p class="compPage compPage__paragraph">Users are not allowed to sell or to lease out this app and it’s specific functionalities as a whole (or use it in any other profitable, commercial way).
+Note though, that it is allowed to use charts as they are presented within this app for representational purposes in commercial contexts by those users who created these charts by themselves or who got the permission to do so by the user who created the specific used charts.</p>
+      </article>
+   </div>
    <div class="footer-margin"></div>
 </template>
 
 
 
 <template id="legal">
-   <h1>LEGAL NOTICE</h1>
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Legal Notice</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <h3 class="compPage compPage__address-title">FinaDelic is owned by:</h3>
+      <address class="compPage compPage__address">
+         Mag. Reinhard Höbart<br>
+         Kaiser-Ebersdorfer-Straße 87<br>
+         1110 Vienna<br>
+         Austria<br>
+         e-mail: reinhard.hoebart@gmx.at<br>
+         tel: +43 664 975 04 14
+      </address>
+   </div>
    <div class="footer-margin"></div>
 </template>
 
 
 
 <template id="privacy">
-   <h1>PRIVACY POLICY</h1>
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Privacy Policy</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Data Compliance</h2>
+         <p class="compPage compPage__paragraph">FinaDelic is obliged to protect the user’s app data as good as possible from loss and from being accessed by any other third parties, doing this by using widely acknowledged technical tools which serve this purposes.<br>
+Also, FinaDelic itself must not use the user’s data for any other purpose than to provide the app’s functionalities to the user and obliges itself to prevent the user’s data from being viewed by any human being as long as automated processing of the user’s data is sufficient to serve the above mentioned purpose.</p>
+      </article>
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Economic Responsibility</h2>
+         <p class="compPage compPage__paragraph">FinaDelic is not responsible for any financial losses users and related companies make by using this app, even if it is caused by malfunctions of this app which led to data loss or data corruption.<br>
+FinaDelic therefore recommends to use backups for any financial data, to not use this app as the only source of truth and to not let every economic decision depend on it.<br>
+The user is solely responsible for the security and compliance of his financial accounting, and not FinaDelic.</p>
+      </article>
+   </div>
    <div class="footer-margin"></div>
 </template>
 
@@ -469,6 +527,7 @@
       <label for="reset-modal-input" class="modal modal--reset modal__input-label">Please enter your email:</label>
       <input type="text" id="reset-modal-input" class="modal modal--reset modal__input" name="modal-input" />
       <p class="modal modal--reset modal__text">Are you sure you want to proceed?</p>
+      <p class="modal modal--reset" id="invalMailWarn">This e-mail address is invalid!</p>
       <div class="modal-button-wrapper modal-button-wrapper--reset">
          <input id="resetSubmitButton" type="submit" value='YES' class="modal modal--reset modal__button modal__button--positive" />
          <button class="modal modal--reset modal__button modal__button--negative cancelButton">NO</button>

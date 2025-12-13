@@ -23,28 +23,22 @@
 
 .loginBackButton {
    width: 3rem;
-   background: rgb(13, 26, 115);
    background-image: url('./assets/loginBackButton.svg');
    height: 4rem;
    background-size: contain;
    background-repeat: none;
-   background-position: 0.2rem 0.2rem;
-   padding-top: 0.45rem;
-   padding-left: 0.4rem;
    z-index: 10;
-   border: 0.0625rem solid rgba(13, 26, 115, 0.3);
-   border-radius: 1rem;
    position: absolute;
    right: 0.7rem;
    top: 0.5rem;
    animation-name: hovershrink;
-   animation-duration: 0.3s;
+   animation-duration: 0.225s;
    @media (min-width: 576px) {
       right: 3rem;
       top: 1.5rem;
       &:hover {
          animation-name: hovergrow;
-         animation-duration: 0.2s;
+         animation-duration: 0.15s;
          animation-fill-mode: forwards;
          cursor: pointer;
          @keyframes hovergrow {

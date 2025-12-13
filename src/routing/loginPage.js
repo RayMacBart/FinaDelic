@@ -36,17 +36,23 @@ class LoginPage {
       const mailInput = event.target.form[0].value;
       const isValidEmail = this.inputChecker.emailRX.test(mailInput);
       if (isValidEmail) {
-         // POST REQUEST WITH MAILINPUT TO BACKEND - WHICH THEN SHOULD SEND THE EMAIL.
+
+         // POST REQUEST WITH MAILINPUT TO BACKEND -
+         // IF EMAIL IS FOUND AT BACKEND - THEN SEND THE EMAIL.
+         // ELSE: CONSIDER CREATING ANOTHER SHOWINFO-BOX: EMAIL NOT FOUND!
+         
          this.resetModal.close();
          showInfo('emailSent');
       } else {
-         showInfo('invalidEmail', 'warning');
+         document.getElementById('invalMailWarn').style.display = 'block';
       }
    }
 
    #openResetModal(event) {
       event.preventDefault();
       this.resetModal.showModal();
+      document.getElementById('invalMailWarn').style.display = 'none';
+      document.getElementById('reset-modal-input').value = '';
       document.getElementById('resetSubmitButton').addEventListener('click', this.#submitReset.bind(this));
    }
 

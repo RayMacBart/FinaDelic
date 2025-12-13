@@ -249,3 +249,17 @@ dialog {
    font-size: 1.8rem;
    margin-top: -0.3rem;
 }
+
+
+#reset-modal {
+   margin: 6rem auto;
+   @media (max-height: 680px) {
+      margin: 1.5rem auto;
+   }
+   @media (max-height: 460px) {
+      margin: 1rem auto;
+   }
+   @media (max-height: 370px) {
+      margin: 0.5rem auto;
+   }
+}
