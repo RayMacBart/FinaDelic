@@ -7,8 +7,9 @@
     "build": "webpack --config webpack.config.js --mode development",
     "build:prod": "webpack --config webpack.config.prod.js --mode production",
     "sass": "sass ./style/main.scss ./dist/main.css --watch",
-    "sass:prod": "sass ./style/main.scss ./dist/main.css --style=compressed",
-    "serve": "webpack-dev-server --hot"
+    "sass:prod": "sass ./style/main.scss ./public/wholeApp/main.css --style=compressed",
+    "serve": "webpack-dev-server --hot",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -33,8 +34,10 @@
     "html-webpack-plugin": "^5.6.4",
     "image-minimizer-webpack-plugin": "^4.1.4",
     "imagemin": "^9.0.1",
-    "imagemin-jpegtran": "^5.0.2",
-    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-jpegtran": "^8.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "nodemon": "^3.1.11",
+    "purgecss": "^7.0.2",
     "sass": "^1.90.0",
     "vscl": "^2.3.1",
     "webpack": "^5.101.0",
@@ -42,8 +45,12 @@
     "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
+    "body-parser": "^2.2.2",
     "chart.js": "^4.5.1",
     "core-js": "^3.45.0",
+    "express": "^5.2.1",
+    "mongodb": "^7.0.0",
+    "mongoose": "^9.1.3",
     "regenerator-runtime": "^0.14.1"
   }
 }

@@ -158,7 +158,7 @@ dialog {
    text-indent: 4rem;
 }
 
-.modal__select, ::picker(select) {
+.modal__select, #{'::picker(select)'} {
    appearance: base-select;
 }
 
@@ -166,14 +166,14 @@ dialog {
    background-color: #f2f3f8;
    font-family: 'Inter', sans-serif;
    text-indent: 2.3rem;
-   &::picker-icon {
+   &#{'::picker-icon'} {
       color: #676987;
       position: relative;
       left: 0.9rem;
    }
 }
 
-::picker(select) {
+#{'::picker(select)'} {
    text-indent: 0;
    opacity: 0;
    transition: all 0.4s;
@@ -194,7 +194,7 @@ dialog {
 
 
 @starting-style {
-  ::picker(select):popover-open {
+  #{'::picker(select):popover-open'} {
     opacity: 0;
   }
 }

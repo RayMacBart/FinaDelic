@@ -9,8 +9,8 @@ module.exports = {
    entry: "./src/index.js",
    output: {
       filename: "bundle.js",
-      path: path.resolve(__dirname, "dist"),
-      publicPath: "src/",
+      path: path.resolve(__dirname, "public", "wholeApp"),
+      publicPath: "/",
    },
    module: {
       rules: [

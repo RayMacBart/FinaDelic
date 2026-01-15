@@ -13,7 +13,7 @@ class Router {
                                                  }
                                               this.navigate(window.location.pathname.slice(1), extraClassesWanted, true);
                                               });
-      const defaultPage = 'loggedinHP';
+      const defaultPage = 'loggedoutHP';
       if (frontpath === '/') {
          frontpath = '/' + defaultPage;
          // implement somehow, that '/' leads to loggedoutHP, and only to loggedinHP if session is active!
@@ -70,7 +70,7 @@ class Router {
       scrollTo(0, 0);
    }
 
-   navigate = async(pageid='loggedinHP', wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
+   navigate = async(pageid='loggedoutHP', wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
       this.#transit(pageid, wantedPageClasses);
       if (!(pageid in this.pages)) {
          const Module = await import(`./routing/${pageid}.js`);

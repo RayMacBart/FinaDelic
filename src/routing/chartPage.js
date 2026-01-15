@@ -221,6 +221,7 @@ class ChartPage {
 
 
    #setupChartPageLinks(app) {
+      document.querySelector('.logo--nav').addEventListener('click', () => app.router.navigate('loggedinHP', ['page--landing']));
       document.getElementById('switch-icon-tap-area').addEventListener('click', () => this.#switchChart(app)); // CALLS SWITCH FUNCTION
       document.getElementById('clock-icon-tap-area').addEventListener('click', () => app.modal.startModal('time')); // OPEN MODAL
       document.getElementById('flows-icon-tap-area').addEventListener('click', () => app.router.navigate('flowPage'));
