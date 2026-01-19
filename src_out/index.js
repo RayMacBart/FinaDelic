@@ -17,7 +17,6 @@ class App {
       iconTapArea.addEventListener('mouseover', this.lazyLoader.hoverPicLoader);
       iconTapArea.addEventListener('mouseleave', e => this.lazyLoader.hoverPicLoader(e, false));
    }
-
 }
 
 

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="author" content="Reinhard Höbart"/>
+   <meta name="copyright" content="Reinhard Höbart 2025"/>
+   <meta name="description" content="FinaDelic - personal finance manager. Easy to understand and super customizable. Design your own, best possible overview - and master your money like the pros!"/>
+   <meta http-equiv="cache-control" content="no-cache"/>   <!-- could make sense if caching is self handled within PWA or HTML is changed very frequently -->
+   <title>FinaDelic</title>
+   <script type="module" src="./bundle_in.js" defer></script>
+   <link rel="icon" type="image/svg+xml" href="./assets/FinaDelic Logo Hero.svg">
+   <link rel="stylesheet" href="./main_in.css">
+</head>
+
+<body>
+   <div class="view-wrapper">
+      <div class="page"></div>
+      <footer class="footer">
+         <div class="margin-container">
+            <div class="footer__content-flexwrap">
+               <div class="footerLogoBox"></div>
+               <menu class="footer__menu">
+                  <li class="footer-link"><a href="#page">Terms &amp; Conditions</a></li>
+                  <li class="footer-link"><a href="#page">Privacy Policy</a></li>
+                  <li class="footer-link"><a href="#page">Legal Notice</a></li>
+               </menu>
+            </div>
+         </div>
+      </footer>
+   </div>
+</body>
+
+
+<template id="loggedinHP">
+   <nav class="nav nav--HP">
+      <hgroup class="workspace-info workspace-info--loggedin-HP">
+         <h4 class="workspace-info workspace-info__pre-username-text">SIGNED IN AS: &nbsp;</h4> 
+         <h4 class="workspace-info workspace-info__username" id="username"> RayMacBart</h4>
+      </hgroup>
+      <div class="icon-container">
+         <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+         <div class="icon-tap-area icon-tap-area--loggedinHP" id="logout-icon-tap-area"></div>
+      </div>
+   </nav>
+   <div class="margin-container">
+      <header class="header header--loggedin">
+         <div class="heroLogoBox heroLogoBox--loggedin-HP"></div>
+         <a href="#page" id="backlink">GO BACK TO APPLICATION</a>
+         <hgroup class="hero">
+            <picture class="hero__pic_container">
+               <div class="hero__pic"></div>
+               <source class="hero__pic--desktop" media="(min-width:992px)" srcset="assets/moneyplant_desktop.jpg" type="image/jpeg">
+               <img class="hero__pic__img-layer" src="assets/empty.png" alt="plant prospering in money">
+               <div class="hero__pic--desktop__overlay"></div>
+            </picture>
+            <h1 class="hero__title">Insight &nbsp;&nbsp;&nbsp;<br> through &nbsp;<br>adaptability</h1>
+         </hgroup>
+         <h2 class="undertitle">Organize your financials <em style="font-style: italic">your</em> way.<br>
+                                         <strong style="font-weight: 420;">FinaDelic</strong> emphasizes <strong>flexibility</strong>,<br class="undertitle__mobile-linebreak">
+                                         delivering<br class="undertitle__desktop-linebreak"> <em>individual</em> insights - 
+                                         <br class="undertitle__mobile-linebreak">giving you the cutting edge!</h2>
+      </header>
+      <main>
+         <section class="feature-presentation">
+            <svg class="graphic graphic--bag"><use href="assets/bg_bag.svg#bg-bag"></use></svg>
+            <svg class="graphic graphic--fire"><use href="assets/bg_fire.svg#bg-fire"></use></svg>
+            <svg class="graphic graphic--chart"><use href="assets/bg_chart.svg#bg-chart"></use></svg>   <!-- TODO: check dynamic svg use integration, check pos rel/abs, check pseudo-elem bulletpoints (dt) -->
+            <svg class="graphic graphic--clock"><use href="assets/bg_clock.svg#bg-clock"></use></svg>
+            <svg class="graphic graphic--flows"><use href="assets/bg_flows.svg#bg-flows"></use></svg>
+            <dl class="desc-list">
+               <dt class="desc-list__title">IN & OUT accounts</dt>
+               <dd class="desc-list__description">Define, group and nest 'Boxes' as you like to keep the perfect overview!</dd>
+               <dt class="desc-list__title">Customizable Charts</dt>
+               <dd class="desc-list__description">Add any in & out Boxes to build up your personal charts for any time period!</dd>  <!-- and store them for later use -->
+               <dt class="desc-list__title">Flow Entries Made Easy</dt>
+               <dd class="desc-list__description">Note your financial transactions as 'Flows' fast and uncomplicated everyday!</dd>
+            </dl>
+         </section>
+         <button class="button button--enter" type="button">GO BACK</button>
+      </main>
+   </div>
+   <div class="footer-margin"></div>
+</template>
+
+
+<template id="flowPage">
+   <nav class="nav nav--workpage">
+      <img class="logo logo--nav" src="./assets/FinaDelic Logo Nav.svg" data-icon-desc="FinaDelic Logo" alt="FinaDelic Logo" />
+      <div class="icon-container">
+         <img class="icon icon--uparrow" src="./assets/icons/uparrow_disabled.svg" data-icon-desc="uparrow" alt="up arrow icon" />
+         <div class="icon-tap-area icon-tap-area--disabled" data-status="disabled"  id="uparrow-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--clock" src="./assets/icons/clock.svg" data-icon-desc="clock" alt="clock icon" />
+         <div class="icon-tap-area" id="clock-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--chart" src="./assets/icons/chart.svg" data-icon-desc="chart" alt="chart icon" />
+         <div class="icon-tap-area" id="chart-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+         <div class="icon-tap-area" id="logout-icon-tap-area"></div>
+      </div>
+   </nav>
+   <dl class="workspace-info">
+      <dt class="workspace-info workspace-info__pre-username-text">WORKSPACE&nbsp; OF </dt> 
+      <dd class="workspace-info workspace-info__username" id="username"> RayMacBart</dd>
+      <div class="workspace-info__space"></div> 
+      <div class="workspace-info--desc">
+         <dt class="workspace-info workspace-info__desc-title">SELECTED&nbsp; TIME: &nbsp;</dt> 
+         <dd class="workspace-info workspace-info__value">
+            <time id="time-start"></time> &nbsp;- &nbsp;<time id="time-end"></time>
+         </dd>
+      </div>
+   </dl>
+   <div class="margin-container">
+      <section id="flowpage-top">
+         <div class="buzzer-container">
+            <div class="buzzer-wrap">
+               <button class="buzzer buzzer--in">IN</button><br>
+               <div class="in-total-wrap">
+                  <span class="positive" id="in-total"></span><abbr title="EURO" class="currency"> &euro;</abbr>
+               </div>
+            </div>
+            <div class="buzzer-wrap">
+               <button class="buzzer buzzer--out">OUT</button><br>
+               <div class="out-total-wrap">
+                  <span class="negative" id="out-total"></span><abbr title="EURO" class="currency"> &euro;</abbr>
+               </div>
+            </div>
+         </div>
+         <div class="workspace-info--desc">
+            <h4 class="workspace-info workspace-info__desc-title">TOTAL &nbsp;BALANCE:&nbsp;&nbsp; </h4> 
+            <p class="workspace-info workspace-info__value" id="total-balance">
+               <span class="positive"></span><abbr title="EURO" class="currency"> &euro;</abbr>
+            </p>
+         </div>
+      </section>
+      <section id="flowpage-bag">
+         <header class="flowBagHeader">
+            <div class="flowBagTitleBG"></div>
+            <h2 class="flowBagTitle">Title which is longer</h2>
+            <div class="workspace-info--desc" id="bag-total">
+               <h4 class="workspace-info workspace-info__desc-title">TOTAL: &nbsp;</h4> 
+               <p class="workspace-info workspace-info__value">
+                  <span class="positive"></span><abbr title="EURO" class="currency"> &euro;</abbr>
+               </p>
+            </div>
+         </header>
+         <menu class="baglist"></menu>
+      </section>
+   </div>
+   <section class="flowlist-container-BG">
+      <div class="margin-container">
+         <hgroup class="flowlist-titles">
+            <h3>Date</h3><h3>Description</h3><h3>Amount</h3>
+         </hgroup>
+         <menu class="flowlist"></menu>
+      </div>
+   </section>
+   <div class="footer-margin"></div>
+</template>
+
+<template class="bag">
+   <li class="bagItem">
+      <div class="account-leftwrap">
+         <img class="account-badge" src="./assets/bagheader.svg" alt="account badge">
+         <div class="account-sepline"></div>
+         <h3 class="bagTitle"></h3>
+      </div>
+      <p class="account-balance">
+         <span class="positive account-amount"></span><abbr title="EURO" class="currency"> &euro;</abbr>
+      </p>
+   </li>
+</template>
+
+<template class="flow">
+   <li class="flowItem flowItem--in flowItem--unchoosen">
+      <time class="flow-date"></time>
+      <p class="flow-description"></p>
+      <p class="flow-balance">
+         <span class="positive flow-amount"></span><abbr title="EURO" class="currency"> &euro;</abbr>
+      </p>
+   </li>
+</template>
+
+
+<template id="chartPage">
+   <nav class="nav nav--workpage">
+      <img class="logo logo--nav" src="./assets/FinaDelic Logo Nav.svg" data-icon-desc="FinaDelic Logo" alt="FinaDelic Logo" />
+      <div class="icon-container">
+         <img class="icon icon--switch" src="./assets/icons/switch.svg" data-icon-desc="switch" alt="switch icon" />
+         <div class="icon-tap-area" id="switch-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--clock" src="./assets/icons/clock.svg" data-icon-desc="clock" alt="clock icon" />
+         <div class="icon-tap-area" id="clock-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--flows" src="./assets/icons/flows.svg" data-icon-desc="flows" alt="flows icon" />
+         <div class="icon-tap-area" id="flows-icon-tap-area"></div>
+      </div>
+      <div class="icon-container">
+         <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+         <div class="icon-tap-area" id="logout-icon-tap-area"></div>
+      </div>
+   </nav>
+   <dl class="workspace-info">
+      <dt class="workspace-info workspace-info__pre-username-text">WORKSPACE&nbsp; OF </dt> 
+      <dd class="workspace-info workspace-info__username" id="username"> RayMacBart</dd>
+      <div class="workspace-info__space"></div> 
+      <div class="workspace-info--desc">
+         <dt class="workspace-info workspace-info__desc-title">SELECTED&nbsp; TIME: &nbsp;</dt> 
+         <dd class="workspace-info workspace-info__value">
+            <time id="time-start-chart"></time> &nbsp;- &nbsp;<time id="time-end-chart"></time>
+         </dd>
+      </div>
+   </dl>
+   <div class="chart-container">
+      <canvas id="chart"></canvas>
+   </div>
+   <div id="legends"></div>
+   <div class="footer-margin"></div>
+</template>
+
+
+
+<template id="terms">
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Terms & Conditions</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Legal Responsibility</h2>
+         <p class="compPage compPage__paragraph">Note, that FinaDelic is not responsible for any actions done by users that intend to use this app as a tool for law compliance purposes in any states.
+As law dictates anyway, FinaDelic also wants to emphasize that it is forbidden to use this app for any illegal activities.
+FinaDelic is not responsible for any criminal activities in which criminal actors involve this app as a tool.</p>
+      </article>
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Commercial Use</h2>
+         <p class="compPage compPage__paragraph">Users are not allowed to sell or to lease out this app and it’s specific functionalities as a whole (or use it in any other profitable, commercial way).
+Note though, that it is allowed to use charts as they are presented within this app for representational purposes in commercial contexts by those users who created these charts by themselves or who got the permission to do so by the user who created the specific used charts.</p>
+      </article>
+   </div>
+   <div class="footer-margin"></div>
+</template>
+
+
+
+<template id="legal">
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Legal Notice</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <h3 class="compPage compPage__address-title">FinaDelic is owned by:</h3>
+      <address class="compPage compPage__address">
+         Mag. Reinhard Höbart<br>
+         Kaiser-Ebersdorfer-Straße 87<br>
+         1110 Vienna<br>
+         Austria<br>
+         e-mail: reinhard.hoebart@gmx.at<br>
+         tel: +43 664 975 04 14
+      </address>
+   </div>
+   <div class="footer-margin"></div>
+</template>
+
+
+
+<template id="privacy">
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Privacy Policy</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Data Compliance</h2>
+         <p class="compPage compPage__paragraph">FinaDelic is obliged to protect the user’s app data as good as possible from loss and from being accessed by any other third parties, doing this by using widely acknowledged technical tools which serve this purposes.<br>
+Also, FinaDelic itself must not use the user’s data for any other purpose than to provide the app’s functionalities to the user and obliges itself to prevent the user’s data from being viewed by any human being as long as automated processing of the user’s data is sufficient to serve the above mentioned purpose.</p>
+      </article>
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Economic Responsibility</h2>
+         <p class="compPage compPage__paragraph">FinaDelic is not responsible for any financial losses users and related companies make by using this app, even if it is caused by malfunctions of this app which led to data loss or data corruption.<br>
+FinaDelic therefore recommends to use backups for any financial data, to not use this app as the only source of truth and to not let every economic decision depend on it.<br>
+The user is solely responsible for the security and compliance of his financial accounting, and not FinaDelic.</p>
+      </article>
+   </div>
+   <div class="footer-margin"></div>
+</template>
+
+
+<template id="toolbar">
+   <div id="toolbar-wrapper">
+      <div class="toolbar-caption-wrapper">
+         <h4 class="toolbar-caption"><span></span>&nbsp;<em></em>&nbsp;</h4>
+      </div>
+      <menu class="menu menu--account">
+         <li><button class="tool-button">MODIFY</button></li>
+         <li><button class="tool-button"><p class="dynamicChartButtonText"></p></button></li>
+         <li><button class="tool-button">ADD<br><span class="bagname--uppercase">INBOX</span></button></li>
+         <li><button class="tool-button">ADD<br><span class="flowname">GAIN</span></button></li>
+      </menu>
+      <menu class="menu menu--account-modification">
+         <li><button class="tool-button"><img class="toolback" src="./assets/icons/toolback.svg" alt="back arrow" /></button></li>
+         <li><button class="tool-button">REMOVE</button></li>
+         <li><button class="tool-button">RENAME</button></li>
+         <li><button class="tool-button">MOVE</button></li>
+      </menu>
+      <menu class="menu menu--account-remove" data-removal-happened="false">
+         <li><button class="tool-button"><img class="toolback" src="./assets/icons/toolback.svg" alt="back arrow" /></button></li>
+         <li><button class="tool-button">ERASE</button></li>
+         <li>
+            <button class="tool-button">DISBAND</button>
+            <details>
+               <summary>INFO</summary>
+               "Erase" deletes this whole <span class="bagname--lowercase">inbox</span> including it's content, while
+               "Disband" also deletes this <span class="bagname--lowercase">inbox</span>
+               but moves it's content up to the parent <span class="bagname--lowercase">inbox</span>
+            </details>
+         </li>
+      </menu>
+      <menu class="menu menu--flow">
+         <li><button class="tool-button">DELETE</button></li>
+         <li><button class="tool-button">MOVE</button></li>
+         <li><button class="tool-button">CHANGE</button></li>
+      </menu>
+      <menu class="menu menu--flow-change">
+         <li><button class="tool-button"><img class="toolback" src="./assets/icons/toolback.svg" alt="back arrow" /></button></li>
+         <li><button class="tool-button">CHANGE<br>DATE</button></li>
+         <li><button class="tool-button">CHANGE<br>TEXT</button></li>
+         <li><button class="tool-button">CHANGE<br>AMOUNT</button></li>
+      </menu>
+      <!-- <menu class="menu menu--move">
+         <li><button class="tool-button"><img class="toolback" src="./assets/icons/toolback.svg" alt="back arrow" /></button></li>
+         <li><button class="tool-button">MOVE<br>UP</button></li>
+         <li><button class="tool-button">MOVE<br>INTO</button></li>
+      </menu> -->
+      <menu class="menu menu--chart">
+         <li><button class="tool-button">DELETE</button></li>
+         <li><button class="tool-button">SWITCH<br>TO <span class="chartname">LINE</span></button></li> <!-- dynamically alter to PIE-->
+         <li><button class="tool-button">SAVE<br>AS</button></li>
+         <li><button class="tool-button">SAVE</button></li>
+      </menu>
+   </div>
+</template>
+
+
+<dialog id="main-modal-element">
+   <form method="dialog" class="modal-form">
+      <p class="modal modal__text modal__text-1"></p>
+      <p class="modal modal__text modal__text-2"></p>
+      <p class="modal modal__text modal__text-3"></p>
+      <p class="modal modal__text modal__text-4"></p>
+      <p class="modal modal__questionmark">?</p>
+      <label for="modal-input" class="modal modal__input-label"></label>
+      <input type="text" id="modal-input" class="modal modal__input" name="modal-input" />
+      <div class="modal__start-date-wrapper">
+         <label for="modal-start-date" class="modal modal__start-date-label"></label>
+         <input type="date" id="modal-start-date" class="modal modal__start-date" name="modal-start-date"/>
+      </div>
+      <div class="modal__end-date-wrapper">
+         <label for="modal-end-date" class="modal modal__end-date-label"></label>
+         <input type="date" id="modal-end-date" class="modal modal__end-date" name="modal-end-date"/>
+      </div>
+      <label for="modal-select" class="modal modal__select-label"></label>
+      <select id="modal-select" class="modal modal__select" name="modal-select" dir="rtl">
+         <option value="" class="modal-select-defaulttext" disabled selected>
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- choose -- -->
+             -- choose --
+         </option>
+         <optgroup class="option-container"></optgroup>
+      </select>
+      <div class="modal modal__amount-input-wrapper">
+         <div class="modal modal__amount-sign"></div>
+         <input class="modal modal__input" id="amount-predecimal" type="number" min="0" placeholder="0" />
+         <span class="modal modal__amount-comma">,</span>
+         <input class="modal modal__input" id="amount-decimal" type="number" min="0" max="99" placeholder="00" />
+         <div class="modal modal__amount-currency"><abbr title="EURO" class="currency">&euro;</abbr></div>
+      </div>
+      <div class="modal-button-wrapper">
+         <input type="submit" class="modal modal__button modal__button--positive" />
+         <button type="submit" class="modal modal__button modal__button--positive datesubmit">OK</button>
+         <button class="modal modal__button modal__button--negative cancelButton"></button>
+      </div>
+   </form>
+</dialog>
+
+</html>

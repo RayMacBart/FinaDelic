@@ -4,13 +4,19 @@ const HtmlPlugin = require("html-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 
+const source = 'out';
+// const source = 'in';
+
+const destination = `dist_${source}`
+
 module.exports = {
    mode: "production",
-   entry: "./src/index.js",
+   entry: "./src_"+source+"/index.js",
    output: {
       filename: "bundle.js",
-      path: path.resolve(__dirname, "public", "wholeApp"),
+      path: path.resolve(__dirname, destination),
       publicPath: "/",
+      clean: true
    },
    module: {
       rules: [
@@ -31,8 +37,10 @@ module.exports = {
    plugins: [
       new CopyPlugin({
          patterns: [
-            { from: "assets", to: "assets" },
-            { from: "lib/fonts", to: "fonts" }
+            { from: path.resolve(__dirname, 'src_'+source, 'main.css'), to: "main.css" },
+            { from: path.resolve(__dirname, 'src_'+source, 'assets'), to: "assets" },
+            { from: path.resolve(__dirname, 'src_'+source, 'assets', 'icons'), to: "assets/icons" },
+            { from: "lib/fonts", to: "fonts" },
          ],
       }),
       new ImageMinimizerPlugin({
@@ -46,7 +54,7 @@ module.exports = {
          },
       }),
       new HtmlPlugin({
-               template: 'src/index.html'
+               template: 'src_'+source+'/index.html'
       }),
    ],
 };

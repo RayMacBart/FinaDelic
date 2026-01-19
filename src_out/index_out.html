@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="author" content="Reinhard Höbart"/>
+   <meta name="copyright" content="Reinhard Höbart 2025"/>
+   <meta name="description" content="FinaDelic - personal finance manager. Easy to understand and super customizable. Design your own, best possible overview - and master your money like the pros!"/>
+   <meta http-equiv="cache-control" content="no-cache"/>   <!-- could make sense if caching is self handled within PWA or HTML is changed very frequently -->
+   <title>FinaDelic</title>
+   <script type="module" src="./bundle_out.js" defer></script>
+   <link rel="icon" type="image/svg+xml" href="./assets/FinaDelic Logo Hero.svg">
+   <link rel="stylesheet" href="./main_out.css">
+</head>
+
+<body>
+   <div class="view-wrapper">
+      <div class="page"></div>
+      <footer class="footer">
+         <div class="margin-container">
+            <div class="footer__content-flexwrap">
+               <div class="footerLogoBox"></div>
+               <menu class="footer__menu">
+                  <li class="footer-link"><a href="#page">Terms &amp; Conditions</a></li>
+                  <li class="footer-link"><a href="#page">Privacy Policy</a></li>
+                  <li class="footer-link"><a href="#page">Legal Notice</a></li>
+               </menu>
+            </div>
+         </div>
+      </footer>
+   </div>
+</body>
+
+
+<template id="loggedoutHP">
+   <nav class="nav nav--HP nav--HP--loggedout">
+      <div class="icon-container">
+         <img class="icon icon--login" src="./assets/icons/login.svg" data-icon-desc="login" alt="login icon" />
+         <div class="icon-tap-area icon-tap-area--loggedoutHP" id="login-icon-tap-area"></div>
+      </div>
+   </nav>
+   <div class="margin-container">
+      <header class="header">
+         <div class="heroLogoBox"></div>
+         <hgroup class="hero">
+            <picture class="hero__pic_container">
+               <div class="hero__pic"></div>
+               <source class="hero__pic--desktop" media="(min-width:992px)" srcset="assets/moneyplant_desktop.jpg" type="image/jpeg">
+               <img class="hero__pic__img-layer" src="assets/empty.png" alt="plant prospering in money">
+               <div class="hero__pic--desktop__overlay"></div>
+            </picture>
+            <h1 class="hero__title">Insight &nbsp;&nbsp;&nbsp;<br> through &nbsp;<br>adaptability</h1>
+         </hgroup>
+         <h2 class="undertitle">Organize your financials <em style="font-style: italic">your</em> way.<br>
+                                         <strong style="font-weight: 420;">FinaDelic</strong> emphasizes <strong>flexibility</strong>,<br class="undertitle__mobile-linebreak">
+                                         delivering<br class="undertitle__desktop-linebreak"> <em>individual</em> insights - 
+                                         <br class="undertitle__mobile-linebreak">giving you the cutting edge!</h2>
+      </header>
+      <main>
+         <button class="button button--call2action" type="button">SIGN IN  /  SIGN UP</button>
+         <section class="feature-presentation">
+            <svg class="graphic graphic--bag"><use href="assets/bg_bag.svg#bg-bag"></use></svg>
+            <svg class="graphic graphic--fire"><use href="assets/bg_fire.svg#bg-fire"></use></svg>
+            <svg class="graphic graphic--chart"><use href="assets/bg_chart.svg#bg-chart"></use></svg>   <!-- TODO: check dynamic svg use integration, check pos rel/abs, check pseudo-elem bulletpoints (dt) -->
+            <svg class="graphic graphic--clock"><use href="assets/bg_clock.svg#bg-clock"></use></svg>
+            <svg class="graphic graphic--flows"><use href="assets/bg_flows.svg#bg-flows"></use></svg>
+            <dl class="desc-list">
+               <dt class="desc-list__title">IN & OUT accounts</dt>
+               <dd class="desc-list__description">Define, group and nest 'Boxes' as you like to keep the perfect overview!</dd>
+               <dt class="desc-list__title">Customizable Charts</dt>
+               <dd class="desc-list__description">Add any in & out Boxes to build up your personal charts for any time period!</dd>  <!-- and store them for later use -->
+               <dt class="desc-list__title">Flow Entries Made Easy</dt>
+               <dd class="desc-list__description">Note your financial transactions as 'Flows' fast and uncomplicated everyday!</dd>
+            </dl>
+         </section>
+         <button class="button button--enter" type="button">ENTER</button>
+      </main>
+   </div>
+   <div class="footer-margin"></div>
+</template>
+
+
+<template id="loginPage">
+   <div class="loginPage-BG">
+      <nav class="loginBackButton-container">
+         <div class="loginBackButton"></div>
+      </nav>
+      <div class="margin-container">
+         <header class="header header--login">
+            <div class="heroLogoBox heroLogoBox--login"></div>
+         </header>
+         <form class="form form--sign-in" action="get">
+            <div class="input-wrap">
+               <label class="loginput-label" for="signin-email">e-mail</label>
+               <input class="loginput" id="signin-email" type="email" name="email" required>
+            </div>
+            <div class="input-wrap">
+               <label class="loginput-label" for="signin-password">password</label>
+               <input class="loginput" id="signin-password" name="password" type="password" required>
+            </div>
+            <a id="forgotPWlink" href="#page">forgot password?</a>
+            <button class="login-button" type="submit" id="sign-in-submit-button">SIGN IN</button>
+         </form>
+         <p class="new-ask">New to FinaDelic?<br>
+         If yes, please...</p>
+         <form class="form form--sign-up" action="get">
+            <h2 class="signup-header">SIGN UP</h2>
+            <div class="input-wrap">
+               <label class="loginput-label" for="signup-email">e-mail</label>
+               <input class="loginput" id="signup-email" name="email" type="email" required>
+            </div>
+            <div class="input-wrap">
+               <label class="loginput-label" for="signup-password">password</label>
+               <input class="loginput" id="signup-password" type="password" required>
+            </div>
+            <div class="input-wrap">
+               <label class="loginput-label" for="signup-repeat">repeat</label>
+               <input class="loginput" id="signup-repeat" name="password" type="password" required>
+            </div>
+            <div class="input-wrap">
+               <input class="check" id="terms-check" type="checkbox" required>
+               <label class="logincheck-label" for="terms-check">I agree with the &nbsp;<a href="#page" id="inline-terms-link">Terms & Conditions</a></label>
+            </div>
+            <div class="input-wrap">
+               <input class="check" id="privacy-check" type="checkbox"  required>
+               <label class="logincheck-label" for="privacy-check">I read and understood the &nbsp;<a href="#page" id="inline-privacy-link">Privacy Policy</a></label>
+            </div>
+            <button class="login-button" type="submit" id="sign-up-submit-button">CONFIRM</button>
+         </form>
+      </div>
+   </div>
+   <div class="footer-margin" id="login-footer-margin"></div>
+</template>
+
+
+<template id="terms">
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Terms & Conditions</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Legal Responsibility</h2>
+         <p class="compPage compPage__paragraph">Note, that FinaDelic is not responsible for any actions done by users that intend to use this app as a tool for law compliance purposes in any states.
+As law dictates anyway, FinaDelic also wants to emphasize that it is forbidden to use this app for any illegal activities.
+FinaDelic is not responsible for any criminal activities in which criminal actors involve this app as a tool.</p>
+      </article>
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Commercial Use</h2>
+         <p class="compPage compPage__paragraph">Users are not allowed to sell or to lease out this app and it’s specific functionalities as a whole (or use it in any other profitable, commercial way).
+Note though, that it is allowed to use charts as they are presented within this app for representational purposes in commercial contexts by those users who created these charts by themselves or who got the permission to do so by the user who created the specific used charts.</p>
+      </article>
+   </div>
+   <div class="footer-margin"></div>
+</template>
+
+
+<template id="legal">
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Legal Notice</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <h3 class="compPage compPage__address-title">FinaDelic is owned by:</h3>
+      <address class="compPage compPage__address">
+         Mag. Reinhard Höbart<br>
+         Kaiser-Ebersdorfer-Straße 87<br>
+         1110 Vienna<br>
+         Austria<br>
+         e-mail: reinhard.hoebart@gmx.at<br>
+         tel: +43 664 975 04 14
+      </address>
+   </div>
+   <div class="footer-margin"></div>
+</template>
+
+
+<template id="privacy">
+   <nav class="loginBackButton-container">
+      <div class="loginBackButton"></div>
+   </nav>
+   <div class="compPage compPage__header-container">
+      <h1 class="compPage compPage__appname">FINADELIC</h1>
+      <h1 class="compPage compPage__header">Privacy Policy</h1>
+   </div>
+   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Data Compliance</h2>
+         <p class="compPage compPage__paragraph">FinaDelic is obliged to protect the user’s app data as good as possible from loss and from being accessed by any other third parties, doing this by using widely acknowledged technical tools which serve this purposes.<br>
+Also, FinaDelic itself must not use the user’s data for any other purpose than to provide the app’s functionalities to the user and obliges itself to prevent the user’s data from being viewed by any human being as long as automated processing of the user’s data is sufficient to serve the above mentioned purpose.</p>
+      </article>
+      <article class="compPage compPage__artwrap">
+         <h2 class="compPage compPage__title">Economic Responsibility</h2>
+         <p class="compPage compPage__paragraph">FinaDelic is not responsible for any financial losses users and related companies make by using this app, even if it is caused by malfunctions of this app which led to data loss or data corruption.<br>
+FinaDelic therefore recommends to use backups for any financial data, to not use this app as the only source of truth and to not let every economic decision depend on it.<br>
+The user is solely responsible for the security and compliance of his financial accounting, and not FinaDelic.</p>
+      </article>
+   </div>
+   <div class="footer-margin"></div>
+</template>
+
+
+<dialog id="reset-modal">
+   <form method="dialog" class="modal-form">
+      <p class="modal modal--reset modal__text">For a new password, you have to verify your email address by clicking on a link inside an email which we would send you.<br></p>
+      <label for="reset-modal-input" class="modal modal--reset modal__input-label">Please enter your email:</label>
+      <input type="text" id="reset-modal-input" class="modal modal--reset modal__input" name="modal-input" />
+      <p class="modal modal--reset modal__text">Are you sure you want to proceed?</p>
+      <p class="modal modal--reset" id="invalMailWarn">This e-mail address is invalid!</p>
+      <div class="modal-button-wrapper modal-button-wrapper--reset">
+         <input id="resetSubmitButton" type="submit" value='YES' class="modal modal--reset modal__button modal__button--positive" />
+         <button class="modal modal--reset modal__button modal__button--negative cancelButton">NO</button>
+      </div>
+   </form>
+</dialog>
+
+</html>

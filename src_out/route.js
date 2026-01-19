@@ -8,40 +8,20 @@ class Router {
       this.app = app;
       window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
          console.log('e.state:', e.state);
-                                              if (e.state.page === 'loggedoutHP' || e.state.page === 'loggedinHP') {
+                                              if (e.state.page === 'loggedoutHP') {
                                                  extraClassesWanted.push('page--landing');
                                                  }
                                               this.navigate(window.location.pathname.slice(1), extraClassesWanted, true);
                                               });
-      const defaultPage = 'loggedoutHP';
+
       if (frontpath === '/') {
-         frontpath = '/' + defaultPage;
-         // implement somehow, that '/' leads to loggedoutHP, and only to loggedinHP if session is active!
-      }
-      if (['/loggedoutHP', '/loggedinHP', '/loginPage', '/flowPage', '/chartPage', '/legal', '/terms', '/privacy'].includes(frontpath)) {
-         // REPLACE '/loggedoutHP' & '/loggedinHP' with '/', when above is implemented!
-         if (['/loggedoutHP', '/loggedinHP', '/loginPage'].includes(frontpath)) {
-            // REPLACE '/loggedoutHP' & '/loggedinHP' with '/', when above is implemented!
-            // REDIRECT LOGINPAGE TO LOGGEDINHP, if session is running!
-            // For this redirection, create routepath-variable, replace frontpath.slice(1) below.
-            this.navigate(frontpath.slice(1), ['page--landing']);                                                              
-         } else if (['/flowPage', '/chartPage'].includes(frontpath)) {
-            this.navigate('flowPage');    
-            // HERE, REDIRECT CHARTPAGE TO FLOWPAGE 
-         } else { // legal, privacy & terms                                                   
-            this.navigate(defaultPage);
-            // HERE, REDIRECT all of them to loggedoutHP, or to loggedinHP if the session is running.
-         }
+         this.navigate('loggedoutHP', ['page--landing']); 
       } else {
-         alert('404 - Page Not Found!');
-         // IMPLEMENT 404 page!
+         this.navigate(frontpath.slice(1));
       }
    }
 
-   // --> IN THE BACKEND, LOGGEDINHP, LOGGEDOUTHP, LOGINPAGE, FLOWPAGE AND 404PAGE HAVE TO BE SINGLE FAST-FETCH READY!
-
-// 'loggedoutHP', ['page--landing'] | 'loginPage' | 'loggedinHP', ['page--landing'] |
-// 'flowPage' | 'chartPage' | 'terms' | 'privacy' | 'legal'
+// 'loggedoutHP', ['page--landing'] | 'loginPage' | 'terms' | 'privacy' | 'legal'
 
 
    #updatePageClasses(wanted, current) {
@@ -70,7 +50,7 @@ class Router {
       scrollTo(0, 0);
    }
 
-   navigate = async(pageid='loggedoutHP', wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
+   navigate = async(pageid, wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
       this.#transit(pageid, wantedPageClasses);
       if (!(pageid in this.pages)) {
          const Module = await import(`./routing/${pageid}.js`);
@@ -78,7 +58,12 @@ class Router {
          this.pages[pageid] = newInst;
       }
       if (!popstate) {
-         history.pushState({page: `${pageid}`}, "", `/${pageid}`)
+         if (pageid === 'loggedoutHP') {
+            history.pushState({page: `${pageid}`}, "", '/');
+         }
+         else {
+            history.pushState({page: `${pageid}`}, "", `/${pageid}`);
+         }
       }
       this.pages[pageid].setup(this.app);
    }

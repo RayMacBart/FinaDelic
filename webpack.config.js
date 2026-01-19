@@ -4,43 +4,52 @@ const HtmlPlugin = require("html-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const webpack = require("webpack");
 
+// const source = 'out';
+const source = 'in';
+
+// const destination = `dist_${source}`;
+const destination = 'public';
+
 module.exports = {
    mode: "development",
-   entry: "./src_out/index.js",
+   entry: "./src_"+source+"/index.js",
    output: {
-      filename: "bundle.js",
-      path: path.resolve(__dirname, "dist"),
-      publicPath: "/",
-      clean: true,
+      filename: `bundle_${source}.js`,
+      path: path.resolve(__dirname, destination),
+      publicPath: '/',
+      // clean: true,
    },
    devServer: {
       static: {
-         directory: path.join(__dirname, 'dist'),
+         directory: path.join(__dirname, destination),
       },
       compress: true,
       port: 8080,
       devMiddleware: {
          index: true,
          mimeTypes: { phtml: 'text/html' },
-         publicPath: '/dist',
+         publicPath: '/',
          serverSideRender: true,
          writeToDisk: true,
       },
       historyApiFallback: true,
    },
-   devtool: "eval-cheap-module-source-map",
+   // devtool: "eval-cheap-module-source-map",
+   devtool: false,
    plugins: [
-      new CopyPlugin({
-         patterns: [
-            { from: "assets", to: "assets" },
-            { from: "assets/icons", to: "assets/icons" },
-            { from: "lib/fonts", to: "fonts" }
-         ],
-      }),
-      new HtmlPlugin({
-         template: 'src/index.html',
-         inject: false,
-      }),
+      // new CopyPlugin({
+      //    patterns: [
+      //       // { from: path.resolve(__dirname, 'src_'+source, 'assets'), to: "assets" },
+      //       // { from: path.resolve(__dirname, 'src_'+source, 'assets', 'icons'), to: "assets/icons" },
+      //       // { from: "lib/fonts", to: "fonts" },
+      //       // { from: path.resolve(__dirname, 'src_'+source, 'main.css'), to: `main_${source}.css` },
+      //       // { from: path.resolve(__dirname, 'src_'+source, 'main.css'), to: `main.css` },
+      //    ],
+      // }),
+      // new HtmlPlugin({
+      //    template: 'src_'+source+`/index_${source}.html`,
+      //    inject: false,
+      // }),
       new webpack.HotModuleReplacementPlugin({}),
       new ImageMinimizerPlugin({
          minimizer: {

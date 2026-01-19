@@ -29,7 +29,7 @@
 *, *::before, *::after {
   box-sizing: border-box;
 }
-footer
+
 * {
   margin: 0;
   padding: 0;
@@ -81,7 +81,7 @@ body {
   }
 }
 
- menu {
+ol, menu, ul {
   list-style: none;
 }
 
@@ -130,9 +130,8 @@ input[type=number] {
   flex-grow: 1;
   background: #F7F8FD;
 }
-
 .page--landing {
-   background: linear-gradient(180deg, rgba(13, 26, 115, 0.50) 0%, rgba(213, 218, 246, 0.20) 11%, #F7F8FD 100%), #F7F8FD;
+  background: linear-gradient(180deg, rgba(13, 26, 115, 0.5) 0%, rgba(213, 218, 246, 0.2) 11%, #F7F8FD 100%), #F7F8FD;
 }
 
 .margin-container {
@@ -183,42 +182,11 @@ input[type=number] {
 }
 
 .footer__content-flexwrap {
-  /* width: 70dvw; */
   height: 10rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-/* @media (max-width: 1200px) {
-  .footer__content-flexwrap {
-    width: 75dvh;
-  }
-}
-@media (max-width: 992px) {
-  .footer__content-flexwrap {
-    width: 80dvh;
-  }
-}
-@media (max-width: 768px) {
-  .footer__content-flexwrap {
-    width: 85dvh;
-  }
-}
-@media (max-width: 576px) {
-  .footer__content-flexwrap {
-    width: 90dvh;
-  }
-}
-@media (max-width: 432px) {
-  .footer__content-flexwrap {
-    width: 95dvh;
-  }
-}
-@media (max-width: 360px) {
-  .footer__content-flexwrap {
-    width: 98dvh;
-  }
-} */
 
 .footer__menu {
   display: flex;
@@ -303,10 +271,23 @@ input[type=number] {
     object-position: 2rem 0;
   }
 }
+.nav--workpage {
+  background-color: #FBFCFD;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-bottom: 1px solid rgb(160, 160, 230);
+  box-shadow: 0.17rem -0.04rem 0.1rem rgba(0, 0, 139, 0.2) inset;
+}
 
 .footer-margin {
   height: 6rem;
   background: #F7F8FD;
+}
+.footer-margin--flowlist {
+  background-color: #CDD2F4;
+  box-shadow: 0 2rem 2rem #CDD2F4;
 }
 
 .header {
@@ -327,6 +308,7 @@ input[type=number] {
     gap: 3rem;
   }
 }
+
 .header--login {
   padding-bottom: 2rem;
 }
@@ -596,14 +578,16 @@ input[type=number] {
   width: 100%;
   font-size: 1.2rem;
   text-wrap: nowrap;
-  font-weight: 600;
-  display: list-item;
-  margin-bottom: 0.5rem;
 }
 @media (min-width: 350px) {
   .desc-list__title {
     font-size: 1.35rem;
   }
+}
+.desc-list__title {
+  font-weight: 600;
+  display: list-item;
+  margin-bottom: 0.5rem;
 }
 .desc-list__description {
   min-width: 15rem;
@@ -762,39 +746,6 @@ input[type=number] {
   }
 }
 
-.infobox {
-   display: inline-block;
-   position: fixed;
-   width: 18rem;
-   height: fit-content;
-   top: calc(50dvh - 5rem);
-   left: calc(50dvw - 9rem);
-   padding: 0.5rem 1rem;
-   border-radius: 0.4rem;
-   z-index: 2;
-}
-.infobox--warning {
-   background-color: rgb(250, 255, 210);
-   border: 0.1rem solid rgb(168, 50, 0);
-   box-shadow: 0 0 0.3rem rgba(9, 0, 48, 0.3), 0 0 0.4rem rgba(226, 68, 0, 0.2) inset;
-}
-.infobox--neutral {
-   background-color: rgb(233, 255, 246);
-   border: 0.1rem solid rgb(63, 94, 116);
-   box-shadow: 0 0 0.3rem rgba(9, 0, 48, 0.3), 0 0 0.4rem rgba(7, 23, 171, 0.2) inset;
-}
-
-.infotext {
-   font-weight: 500;
-   margin: 0;
-   &--warning {
-      color: rgb(60, 0, 0);
-   }
-   &--neutral {
-      color: rgb(0, 20, 60);
-   }
-}
-
 .loginPage-BG {
   min-height: 80dvh;
   background: linear-gradient(180deg, rgba(13, 26, 115, 0.5) 0%, rgba(213, 218, 246, 0.2) 40%, #F7F8FD 100%), #F7F8FD;
@@ -843,34 +794,39 @@ input[type=number] {
     animation-fill-mode: forwards;
     cursor: pointer;
   }
-  @keyframes hovergrow {
-    0% {
-      width: 3rem;
-      height: 4rem;
-      right: 3rem;
-      top: 1.5rem;
-    }
-    100% {
-      width: 3.3rem;
-      height: 4.4rem;
-      right: 2.85rem;
-      top: 1.3rem;
-    }
-  }
-  @keyframes hovershrink {
-    0% {
-      width: 3.3rem;
-      height: 4.4rem;
-      right: 2.85rem;
-      top: 1.3rem;
-    }
-    100% {
-      width: 3rem;
-      height: 4rem;
-      right: 3rem;
-      top: 1.5rem;
-    }
-  }
+}
+@keyframes hovergrow {
+   0% {
+   width: 3rem;
+   height: 4rem;
+   right: 3rem;
+   top: 1.5rem;
+   }
+   100% {
+   width: 3.3rem;
+   height: 4.4rem;
+   right: 2.85rem;
+   top: 1.3rem;
+   }
+}
+@keyframes hovershrink {
+   0% {
+   width: 3.3rem;
+   height: 4.4rem;
+   right: 2.85rem;
+   top: 1.3rem;
+   }
+   100% {
+   width: 3rem;
+   height: 4rem;
+   right: 3rem;
+   top: 1.5rem;
+   }
+}
+
+
+.test-highmaker {
+  height: 20rem;
 }
 
 .form {
@@ -1099,6 +1055,19 @@ a#forgotPWlink {
 #backlink:hover, #backlink:active {
   color: #17aca4;
 }
+
+.logo--hero {
+  display: block;
+  width: 14rem;
+  height: 5.2rem;
+  padding-left: 1rem;
+  margin: auto;
+}
+.logo--footer {
+  display: inline-block;
+  width: 12rem;
+  height: 4.6rem;
+}
 .logo--nav {
   width: 7rem;
   height: 2.6rem;
@@ -1161,28 +1130,12 @@ a#forgotPWlink {
     left: -1.65rem;
   }
 }
-.icon--logout, .icon--uparrow {
-  width: 5.7rem;
-  top: -0.65rem;
-  left: -1.3rem;
-}
-@media (min-width: 992px) {
-  .icon--logout, .icon--uparrow {
-    top: -0.96rem;
-    left: -1.65rem;
-  }
-}
 
 .icon-tap-area {
   overflow: visible;
   position: absolute;
   background-color: #FBFCFD;
   cursor: pointer;
-  opacity: 0%;
-  width: 3.2rem;
-  height: 3.2rem;
-  animation-name: unhovershade;
-  animation-duration: 0.25s;
 }
 .icon-tap-area--loggedoutHP {
   background: linear-gradient(0deg, rgb(181, 186, 214) 0%, rgb(141, 149, 190) 100%);
@@ -1197,11 +1150,21 @@ a#forgotPWlink {
     background: linear-gradient(0deg, rgb(173, 178, 210) 0%, rgb(144, 151, 190) 100%);
   }
 }
+
+.icon-tap-area {
+  opacity: 0%;
+  width: 3.2rem;
+  height: 3.2rem;
+}
 @media (min-width: 992px) {
   .icon-tap-area {
     width: 2.5rem;
     height: 2.5rem;
   }
+}
+.icon-tap-area {
+  animation-name: unhovershade;
+  animation-duration: 0.25s;
 }
 @keyframes unhovershade {
   0% {
@@ -1282,11 +1245,21 @@ dialog::backdrop {
 .modal__questionmark {
   font-size: 1.5625rem;
 }
-.modal__input-label {
+.modal__input-label, .modal__start-date-label, .modal__end-date-label {
   font-size: 1.375rem;
   margin-bottom: 0.5rem;
 }
-.modal__input {
+.modal__start-date-wrapper, .modal__end-date-wrapper {
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 1.6rem;
+}
+.modal__select-label {
+  font-size: 1.375rem;
+  margin-bottom: 0.5rem;
+}
+.modal__input, .modal__select, .modal__start-date, .modal__end-date {
   width: 12rem;
   color: #232B5C;
   border: 0.1rem solid #273AB0;
@@ -1296,12 +1269,45 @@ dialog::backdrop {
   text-align: start;
   padding: 0.1rem 0.3rem;
 }
-.modal__input:focus {
+.modal__input:focus, .modal__select:focus, .modal__start-date:focus, .modal__end-date:focus {
   outline: 0.05rem solid #273AB0;
   box-shadow: 0 0 0.5rem #828CC9;
 }
 .modal__input > option, .modal__select > option, .modal__start-date > option, .modal__end-date > option {
   text-align: center;
+}
+.modal__start-date::selection, .modal__end-date::selection {
+  appearance: none;
+  background: yellow;
+}
+.modal__amount-input-wrapper {
+  display: none;
+  height: 1.63rem;
+  align-items: stretch;
+  gap: 0.05rem;
+}
+.modal__amount-sign, .modal__amount-currency {
+  padding: auto;
+  margin: 0 0.3rem;
+  text-shadow: none;
+  width: 2rem;
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-width: 0.15rem;
+  border-color: #D27E7E;
+  border-style: solid;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 0.3175rem rgba(39, 58, 176, 0.5) inset, 0.08rem 0.08rem 0.159rem rgba(31, 36, 71, 0.25);
+  background-color: #E6E9F9;
+  display: inline-block;
+}
+.modal__amount-sign {
+  color: #B20000;
+  font-weight: 800;
+}
+.modal__amount-currency {
+  border-color: #585f92;
 }
 .modal__button {
   border: 0.2rem solid #2039DF;
@@ -1334,6 +1340,11 @@ dialog::backdrop {
   text-shadow: none;
   font-weight: 700;
 }
+.modal__button--disabled {
+  border-color: #6d7298;
+  color: #6d7298;
+  background-color: #a8add0;
+}
 @media (max-width: 390px) {
   .modal__button {
     margin-left: 0.25rem;
@@ -1345,6 +1356,65 @@ dialog::backdrop {
   max-width: 16rem;
   text-wrap: wrap;
 }
+
+.modal-select-defaulttext {
+  display: none;
+  text-indent: 4rem;
+}
+
+.modal__select, ::picker(select) {
+  appearance: base-select;
+}
+
+.modal__select {
+  background-color: #f2f3f8;
+  font-family: "Inter", sans-serif;
+  text-indent: 2.3rem;
+}
+.modal__select::picker-icon {
+  color: #676987;
+  position: relative;
+  left: 0.9rem;
+}
+
+::picker(select) {
+  text-indent: 0;
+  opacity: 0;
+  transition: all 0.4s;
+  max-width: 16rem;
+  top: calc(anchor(bottom) + 0.07rem);
+  left: calc(anchor(left));
+  background-color: #e9eaf4;
+  max-height: 7rem;
+  box-sizing: content-box;
+  border: 0.15rem solid #575c8e;
+  box-shadow: 0 0 0.6rem rgb(130, 131, 162) inset;
+  border-radius: 0.6rem;
+}
+::picker(select):popover-open {
+  opacity: 1;
+}
+
+@starting-style {
+  ::picker(select):popover-open {
+    opacity: 0;
+  }
+}
+.modal-select-option {
+  font-family: "Inter", sans-serif;
+  color: rgb(38, 45, 59);
+  font-weight: 430;
+}
+.modal-select-option:hover {
+  background-color: #4f5275;
+  color: #f2f3f8;
+}
+.modal-select-option:checked {
+  color: rgb(0, 77, 0);
+  outline: 0.05rem dashed rgb(186, 198, 186);
+  background-color: #e8ece8;
+}
+
 .modal-button-wrapper {
   width: fit-content;
   margin: 0 auto;
@@ -1352,6 +1422,7 @@ dialog::backdrop {
 .modal-button-wrapper--reset {
   display: flex;
 }
+
 #reset-modal {
   margin: 6rem auto;
 }
@@ -1369,6 +1440,39 @@ dialog::backdrop {
   #reset-modal {
     margin: 0.5rem auto;
   }
+}
+
+.infobox {
+  display: inline-block;
+  position: fixed;
+  width: 18rem;
+  height: fit-content;
+  top: calc(50dvh - 5rem);
+  left: calc(50dvw - 9rem);
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  z-index: 2;
+}
+.infobox--warning {
+  background-color: rgb(250, 255, 210);
+  border: 0.1rem solid rgb(168, 50, 0);
+  box-shadow: 0 0 0.3rem rgba(9, 0, 48, 0.3), 0 0 0.4rem rgba(226, 68, 0, 0.2) inset;
+}
+.infobox--neutral {
+  background-color: rgb(233, 255, 246);
+  border: 0.1rem solid rgb(63, 94, 116);
+  box-shadow: 0 0 0.3rem rgba(9, 0, 48, 0.3), 0 0 0.4rem rgba(7, 23, 171, 0.2) inset;
+}
+
+.infotext {
+  font-weight: 500;
+  margin: 0;
+}
+.infotext--warning {
+  color: rgb(60, 0, 0);
+}
+.infotext--neutral {
+  color: rgb(0, 20, 60);
 }
 
 .compPage {
@@ -1451,3 +1555,5 @@ dialog::backdrop {
   font-style: normal;
   text-align: center;
 }
+
+/*# sourceMappingURL=main.css.map */
