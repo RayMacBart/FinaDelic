@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 class LoggedinHP {
    #setupLoggedinHPLinks(app) {
       // document.getElementById('logout-icon-tap-area').addEventListener('click', () => app.router.navigate('loggedoutHP', ['page--landing']));
-      document.getElementById('logout-icon-tap-area').addEventListener('click', () => window.location.href = '/');
+      document.getElementById('logout-icon-tap-area').addEventListener('click', () => window.location.href = '/out');
       document.querySelector('a').addEventListener('click', (e) => {e.preventDefault(); app.router.navigate('flowPage');});
       document.querySelector('.button--enter').addEventListener('click', () => app.router.navigate('flowPage'));
    }

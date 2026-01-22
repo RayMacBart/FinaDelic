@@ -6,18 +6,33 @@ class Router {
    constructor(app) {
       let frontpath = window.location.pathname;
       this.app = app;
-      window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
-         console.log('e.state:', e.state);
-                                              if (e.state.page === 'loggedoutHP') {
-                                                 extraClassesWanted.push('page--landing');
-                                                 }
-                                              this.navigate(window.location.pathname.slice(1), extraClassesWanted, true);
-                                              });
+      window.addEventListener('popstate', (e) => {
+                                             const extraClassesWanted = [];
+                                             let appPath = window.location.pathname;
+                                             if (appPath === '/') {
+                                                appPath = '/loggedoutHP';
+                                             } else if (appPath === '/login') {
+                                                appPath = '/loginPage';
+                                             }
+                                             if (e.state.page === 'loggedoutHP') {
+                                                extraClassesWanted.push('page--landing');
+                                             }
+                                             this.navigate(appPath.slice(1), extraClassesWanted, true);
+                                             // this.navigate(e.state.page, extraClassesWanted, true);
+                                             });
 
-      if (frontpath === '/') {
+      if (frontpath === '/' || frontpath === '/out') {
          this.navigate('loggedoutHP', ['page--landing']); 
       } else {
-         this.navigate(frontpath.slice(1));
+         let wantedpage;
+         const routeinfoEl = document.getElementById('routeinfo');
+         if (routeinfoEl) {
+            wantedpage = routeinfoEl.textContent;
+            routeinfoEl.remove();
+         } else {
+            wantedpage = frontpath;
+         }
+         this.navigate(wantedpage.slice(1));
       }
    }
 
@@ -57,14 +72,15 @@ class Router {
          const newInst = new Module.default(this.app.dummyData, this.app.modal, this.app.chart);
          this.pages[pageid] = newInst;
       }
-      if (!popstate) {
-         if (pageid === 'loggedoutHP') {
-            history.pushState({page: `${pageid}`}, "", '/');
-         }
-         else {
-            history.pushState({page: `${pageid}`}, "", `/${pageid}`);
-         }
+      const urlname = pageid === 'loginPage' ? 'login' : pageid;
+      // if (!popstate) {
+      if (pageid === 'loggedoutHP') {
+         history.pushState({page: `${pageid}`}, "", '/');
       }
+      else {
+         history.pushState({page: `${pageid}`}, "", `/${urlname}`);
+      }
+      // }
       this.pages[pageid].setup(this.app);
    }
 }

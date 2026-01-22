@@ -240,7 +240,7 @@ class ChartPage {
       document.getElementById('switch-icon-tap-area').addEventListener('click', () => this.#switchChart(app)); // CALLS SWITCH FUNCTION
       document.getElementById('clock-icon-tap-area').addEventListener('click', () => app.modal.startModal('time')); // OPEN MODAL
       document.getElementById('flows-icon-tap-area').addEventListener('click', () => app.router.navigate('flowPage'));
-      document.getElementById('logout-icon-tap-area').addEventListener('click', () => app.router.navigate('loggedoutHP', ['page--landing']));
+      document.getElementById('logout-icon-tap-area').addEventListener('click', () => window.location.href = '/out');
    }
 
    setup(app) {

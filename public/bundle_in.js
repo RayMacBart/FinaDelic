@@ -2158,18 +2158,40 @@ class Router {
    constructor(app) {
       let frontpath = window.location.pathname;
       this.app = app;
-      window.addEventListener('popstate', (e) => {const extraClassesWanted = [];
-         console.log('e.state:', e.state);
-                                              if (e.state.page === 'loggedinHP') {
-                                                 extraClassesWanted.push('page--landing');
-                                                 }
+      window.addEventListener('popstate', (e) => {
+                                             const extraClassesWanted = [];
+                                             // let appPath = window.location.pathname;
+                                             // console.log('window.location.pathname:', window.location.pathname);
+                                             // console.log('document.pathname:', document.pathname);
+                                             // if (appPath === '/') {
+                                             //    appPath = '/loggedinHP';
+                                             // } else if (appPath === '/workspace') {
+                                             //    console.log('heeeeeere');
+                                             //    appPath = '/flowPage';
+                                             // } else if (appPath === '/chart') {
+                                             //    appPath = '/chartPage';
+                                             // }
+                                             // console.log('appPath:', appPath);
+                                             // console.log('e.state.page:', e.state.page);
+                                             if (e.state.page === 'loggedinHP') {
+                                                extraClassesWanted.push('page--landing');
+                                             }
                                              //  this.navigate(window.location.pathname.slice(1), extraClassesWanted, true);
                                               this.navigate(e.state.page, extraClassesWanted, true);
-                                              });
+                                             // this.navigate(appPath.slice(1), extraClassesWanted, true);
+                                             });
       if (frontpath === '/in/' || frontpath === '/') {
          this.navigate('loggedinHP', ['page--landing']); 
       } else {
-         this.navigate(frontpath.slice(1));
+         let wantedpage;
+         const routeinfoEl = document.getElementById('routeinfo');
+         if (routeinfoEl) {
+            wantedpage = routeinfoEl.textContent;
+            routeinfoEl.remove();
+         } else {
+            wantedpage = frontpath;
+         }
+         this.navigate(wantedpage.slice(1));
       }
    }
 
@@ -2204,18 +2226,23 @@ class Router {
 
    navigate = async(pageid, wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
       this.#transit(pageid, wantedPageClasses);
+      
       if (!(pageid in this.pages)) {
          const Module = await __webpack_require__("./src_in/routing lazy recursive ^\\.\\/.*\\.js$")(`./${pageid}.js`);
          const newInst = new Module.default(this.app.dummyData, this.app.modal, this.app.chart);
          this.pages[pageid] = newInst;
       }
+      let urlname = pageid;
+      if (['flowPage', 'chartPage'].includes(urlname)) {
+         urlname = urlname === 'flowPage' ? 'workspace' : 'chart';
+      }
       // if (!popstate) {
-         if (pageid === 'loggedinHP') {
-            history.pushState({page: `${pageid}`}, "", '/');
-         }
-         else {
-            history.pushState({page: `${pageid}`}, "", `/${pageid}`);
-         }
+      if (pageid === 'loggedinHP') {
+         history.pushState({page: `${pageid}`}, "", '/');
+      }
+      else {
+         history.pushState({page: `${pageid}`}, "", `/${urlname}`);
+      }
       // }
       this.pages[pageid].setup(this.app);
    }
@@ -2445,7 +2472,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("676e31b28c2d0eedd383")
+/******/ 		__webpack_require__.h = () => ("5570fe06573684c58efe")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
