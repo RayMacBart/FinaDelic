@@ -1,3 +1,4 @@
+const Mongoose = require('mongoose');
 const path = require('path');
 const rootDir = require('./util/rootpath');
 const express = require('express');
@@ -24,7 +25,12 @@ app.use((req, res, next) => {
 app.use(router);
 
 app.use((req, res) => {
-   res.status(404).send(`<body><br><h1>404</h1><br><br><h2>SORRY,<br> BUT THE PAGE<br><br>${req.path.toUpperCase()}<br><br>CAN'T BE FOUND!</h2></body>`, (err) => console.log(err));
+   res.status(404).sendFile(path.join(rootDir, '404.html'), (err) => console.log(err));
 });
 
-app.listen(3000);
+const connectMongoose = async (app) => {
+   await Mongoose.connect('mongodb+srv://RayMacBart:<password>@firstcluster.fmfvjxl.mongodb.net/FinaDelic?appName=FirstCluster');
+   app.listen(3000);
+}
+
+connectMongoose(app);

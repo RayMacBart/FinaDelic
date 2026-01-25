@@ -5,6 +5,14 @@ const router = express.Router();
 const GenPages = require('./controller/generalPages');
 const Login = require('./controller/login');
 
+const Mongoose = require('mongoose');
+
+const testSchema = Mongoose.Schema({
+   testProp: String
+});
+
+const TestModel = Mongoose.model('test', testSchema);
+
 
 
 router.get('/in', (req, res) => {
@@ -24,6 +32,13 @@ router.get('/out', (req, res) => {
 
 
 router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login'], GenPages.getPage);
+
+router.get('/DBtest', async (req, res) => {
+   const newDoc = new TestModel({ testProp: 'testValue2' });
+   await newDoc.save();
+   console.log('should have saved test in DB!');
+   res.send('saved!');
+});
 
 router.get('/', GenPages.getRootPage);
 
