@@ -1,6 +1,6 @@
 const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
-const Model = Mongoose.Model;
+const Model = Mongoose.model;
 
 const userSchema = new Schema({
    email: {
@@ -11,23 +11,23 @@ const userSchema = new Schema({
       type: String,
       required: true
    },
-   data: {
-      type: Schema.Types.ObjectId,
-      ref: 'data'
-   },
-   timeconfig: {
-      type: {
-         startdate: {
-            type: Date,
-            required: true
-         },
-         enddate: {
-            type: Date,
-            required: true
-         },    // !!!! Change this! Because Mongoose only treats required as a schema option when it appears next to a type key!
-      },
-      required: true
-   }
+   // data: {
+   //    type: Schema.Types.ObjectId,
+   //    ref: 'data'
+   // },
+   // timeconfig: {
+   //    type: {  // Mongoose only treats required as a schema option when it appears next to a type key!
+   //       startdate: {
+   //          type: Date,
+   //          required: true
+   //       },
+   //       enddate: {
+   //          type: Date,
+   //          required: true
+   //       },    
+   //    },
+   //    required: true
+   // }
 });
 
 const dataSchema = new Schema({
@@ -76,17 +76,7 @@ const flowSchema = new Schema({
 });
 
 
-exports.Bag = Model('bag', bagSchema);
-exports.Flow = Model('flow', flowSchema);
-
-
-      //    [ {
-      //       type: Schema.Types.ObjectId,
-      //       ref: 'bag'
-      //    } ]
-      // ,
-      // transactions: 
-      //    [ {
-      //       type: Schema.Types.ObjectId,
-      //       ref: 'flow'
-      //    } ]
+exports.Users = Model('user', userSchema);
+exports.Datas = Model('data', dataSchema);
+exports.Bags = Model('bag', bagSchema);
+exports.Flows = Model('flow', flowSchema);

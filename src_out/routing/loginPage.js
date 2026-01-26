@@ -1,4 +1,5 @@
 import InputChecker from "./loginPage_src/inputChecker.js";
+import SIA from "./loginPage_src/serverInteraction.js";
 import { showInfo } from "../infos.js";
 
 
@@ -15,18 +16,20 @@ class LoginPage {
       event.preventDefault();
       const valid = this.inputChecker.checkSignIn(event);
       if (valid) {
+         SIA.execSignIn(event);
          console.log('sending2backend...');
          // async BACKEND SEND AND REACT UPON RESPONSE (e.g. app.router.navigate('flowPage') or showInfo('invalidLogin', 'warning')) LOGIC HERE
       }
    }
 
+   
 
    #signUp(event) {
       event.preventDefault();
       const valid = this.inputChecker.checkSignUp(event);
       if (valid) {
+         SIA.execSignUp(event);
          console.log('sending2backend...');  
-         // async BACKEND SEND AND REACT UPON RESPONSE (e.g. app.router.navigate('flowPage') or showInfo('taken'))) LOGIC HERE
       }
    }
 

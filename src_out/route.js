@@ -1,3 +1,5 @@
+import { showInfo } from "./infos.js";
+
 
 class Router {
 
@@ -24,15 +26,20 @@ class Router {
       if (frontpath === '/' || frontpath === '/out') {
          this.navigate('loggedoutHP', ['page--landing']); 
       } else {
-         let wantedpage;
+         let wantedpage = frontpath;
+         // let warningTitle;
          const routeinfoEl = document.getElementById('routeinfo');
          if (routeinfoEl) {
-            wantedpage = routeinfoEl.textContent;
-            routeinfoEl.remove();
-         } else {
-            wantedpage = frontpath;
+            wantedpage = routeinfoEl.textContent
+            // .split('§')[0];
+            // warningTitle = routeinfoEl.textContent.split('§')[1];
          }
+         routeinfoEl.remove();
          this.navigate(wantedpage.slice(1));
+         // if (warningTitle) {
+         //    console.log('warningTitle:', warningTitle);
+         //    showInfo(warningTitle);
+         // }
       }
    }
 

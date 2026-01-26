@@ -18,7 +18,9 @@ class Infos {
       'badChars': 'Your password contains special characters which are not allowed. \nPlease only use one of the following characters: \n § @ . # $ ! % * ? & ',
       'checkBoxes': 'You must agree to the Terms & Conditions and confirm the Privacy Policy to continue.',
       'taken': 'This email address is already registered!',
-      'emailSent': 'We sent you an verification email.\nPlease check your mailbox.'
+      'invalidPW': 'Invalid Password!\nTry a stronger one.',
+      'emailSent': 'We sent you an verification email.\nPlease check your mailbox.',
+      'failedSignin': 'Invalid email or password!'
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
@@ -49,7 +51,7 @@ class Infos {
       }
       setTimeout(() => {
          viewWrapper.removeChild(box);
-      }, text.innerText.length*40);
+      }, text.innerText.length*60);
    }
 }
 
