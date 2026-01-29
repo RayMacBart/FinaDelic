@@ -20,17 +20,23 @@ class Infos {
       'taken': 'This email address is already registered!',
       'invalidPW': 'Invalid Password!\nTry a stronger one.',
       'emailSent': 'We sent you an verification email.\nPlease check your mailbox.',
-      'failedSignin': 'Invalid email or password!'
+      'failedSignin': 'Invalid email or password!',
+      'ValErr1': 'Invalid input in the field: ',
+      'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field.",
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
    
 
-   showInfo(infoTitle, infoType='neutral', listing=null) {
+   showInfo(infoTitle, infoType='neutral', listing=null, field='') {
       const box = document.createElement('div');
       const text = document.createElement('p');
       box.appendChild(text);
-      text.innerText = this.infoTexts[infoTitle];
+      if (infoTitle === 'ValErr' && field) {
+         text.innerText = this.infoTexts['ValErr1']+'\n\n   '+field+'\n\n'+this.infoTexts['ValErr2'];
+      } else {
+         text.innerText = this.infoTexts[infoTitle];
+      }
       if (listing) {
          let newText = text.innerText;
          for (const item of listing) {
@@ -51,7 +57,7 @@ class Infos {
       }
       setTimeout(() => {
          viewWrapper.removeChild(box);
-      }, text.innerText.length*60);
+      }, text.innerText.length*55);
    }
 }
 

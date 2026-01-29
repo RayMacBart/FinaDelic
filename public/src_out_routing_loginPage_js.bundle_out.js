@@ -42,7 +42,8 @@ class LoginPage {
 
    #signUp(event) {
       event.preventDefault();
-      const valid = this.inputChecker.checkSignUp(event);
+      // const valid = this.inputChecker.checkSignUp(event);
+      const valid = true;
       if (valid) {
          _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__["default"].execSignUp(event);
          console.log('sending2backend...');  
@@ -121,13 +122,13 @@ __webpack_require__.r(__webpack_exports__);
 class InputChecker {
 
    emailRX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-   passwordRX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[§@.#$!%*?&])[A-Za-z\d§@.#$!%*?&]{8,}$/
-   allowedCharRX = /^[A-Za-z\d§@.#$!%*?&]{1,}$/;
-   min8RX = /^[A-Za-z\d§@.#$!%*?&]{8,}$/;
-   lowerRX = /(?=.*[a-z])[A-Za-z\d§@.#$!%*?&]/;
-   upperRX = /(?=.*[A-Z])[A-Za-z\d§@.#$!%*?&]/
-   min1digitRX = /(?=.*\d)[A-Za-z\d§@.#$!%*?&]/;
-   min1specialRX = /(?=.*[§@.#$!%*?&])[A-Za-z\d§@.#$!%*?&]/;
+   passwordRX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[§@.#$€!%*?&])[A-Za-z\d§@.#$€!%*?&]{8,}$/
+   allowedCharRX = /^[A-Za-z\d§@.#$€!%*?&]{1,}$/;
+   min8RX = /^[A-Za-z\d§@.#$€!%*?&]{8,}$/;
+   lowerRX = /(?=.*[a-z])[A-Za-z\d§@.#$€!%*?&]/;
+   upperRX = /(?=.*[A-Z])[A-Za-z\d§@.#$€!%*?&]/
+   min1digitRX = /(?=.*\d)[A-Za-z\d§@.#$€!%*?&]/;
+   min1specialRX = /(?=.*[§@.#$€!%*?&])[A-Za-z\d§@.#$€!%*?&]/;
 
 
    #handleEmptyCreds(val1, val2) {
@@ -283,6 +284,10 @@ class SIA {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidPW', 'warning');
       } else if (status === 400) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('repeatMismatch', 'warning');
+      } else if (status === 422) {
+         const body = await response.json();
+         console.log('VALIDATION ERROR MESSAGE:\n', body.msg);
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('ValErr', 'warning', null, body.path);
       } else if (status === 303) {
          window.location.href = '/';
       }

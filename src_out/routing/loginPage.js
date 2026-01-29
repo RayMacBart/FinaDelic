@@ -26,7 +26,8 @@ class LoginPage {
 
    #signUp(event) {
       event.preventDefault();
-      const valid = this.inputChecker.checkSignUp(event);
+      // const valid = this.inputChecker.checkSignUp(event);
+      const valid = true;
       if (valid) {
          SIA.execSignUp(event);
          console.log('sending2backend...');  

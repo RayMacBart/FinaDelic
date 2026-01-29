@@ -18,13 +18,13 @@ __webpack_require__.r(__webpack_exports__);
 class InputChecker {
 
    emailRX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-   passwordRX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[§@.#$!%*?&])[A-Za-z\d§@.#$!%*?&]{8,}$/
-   allowedCharRX = /^[A-Za-z\d§@.#$!%*?&]{1,}$/;
-   min8RX = /^[A-Za-z\d§@.#$!%*?&]{8,}$/;
-   lowerRX = /(?=.*[a-z])[A-Za-z\d§@.#$!%*?&]/;
-   upperRX = /(?=.*[A-Z])[A-Za-z\d§@.#$!%*?&]/
-   min1digitRX = /(?=.*\d)[A-Za-z\d§@.#$!%*?&]/;
-   min1specialRX = /(?=.*[§@.#$!%*?&])[A-Za-z\d§@.#$!%*?&]/;
+   passwordRX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[§@.#$€!%*?&])[A-Za-z\d§@.#$€!%*?&]{8,}$/
+   allowedCharRX = /^[A-Za-z\d§@.#$€!%*?&]{1,}$/;
+   min8RX = /^[A-Za-z\d§@.#$€!%*?&]{8,}$/;
+   lowerRX = /(?=.*[a-z])[A-Za-z\d§@.#$€!%*?&]/;
+   upperRX = /(?=.*[A-Z])[A-Za-z\d§@.#$€!%*?&]/
+   min1digitRX = /(?=.*\d)[A-Za-z\d§@.#$€!%*?&]/;
+   min1specialRX = /(?=.*[§@.#$€!%*?&])[A-Za-z\d§@.#$€!%*?&]/;
 
 
    #handleEmptyCreds(val1, val2) {

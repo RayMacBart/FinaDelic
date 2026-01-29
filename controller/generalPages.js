@@ -1,11 +1,11 @@
 const fs = require('fs').promises;
 const path = require('path');
 const rootDir = require('../util/rootpath.js');
-const checkAuth = require('./checkAuth.js');
+const authStatus = require('../util/authStatus.js');
 
 
 const checkProperHP = (req) => {
-      const authenticated = checkAuth(req);
+      const authenticated = authStatus.check(req);  // replace with real auth check
       if (authenticated) {
          return [path.join(rootDir, 'public', 'index_in.html'), 'in'];
       } else {

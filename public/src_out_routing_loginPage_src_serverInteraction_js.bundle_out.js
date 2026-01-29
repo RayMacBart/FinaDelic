@@ -51,6 +51,10 @@ class SIA {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidPW', 'warning');
       } else if (status === 400) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('repeatMismatch', 'warning');
+      } else if (status === 422) {
+         const body = await response.json();
+         console.log('VALIDATION ERROR MESSAGE:\n', body.msg);
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('ValErr', 'warning', null, body.path);
       } else if (status === 303) {
          window.location.href = '/';
       }

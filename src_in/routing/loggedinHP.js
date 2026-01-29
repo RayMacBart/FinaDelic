@@ -2,7 +2,7 @@
 class LoggedinHP {
    #setupLoggedinHPLinks(app) {
       // document.getElementById('logout-icon-tap-area').addEventListener('click', () => app.router.navigate('loggedoutHP', ['page--landing']));
-      document.getElementById('logout-icon-tap-area').addEventListener('click', () => window.location.href = '/out');
+      document.getElementById('logout-icon-tap-area').addEventListener('click', () => window.location.href = '/logout');
       document.querySelector('a').addEventListener('click', (e) => {e.preventDefault(); app.router.navigate('flowPage');});
       document.querySelector('.button--enter').addEventListener('click', () => app.router.navigate('flowPage'));
    }

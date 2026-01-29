@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Mongoose = require('mongoose');
 const path = require('path');
 const rootDir = require('./util/rootpath');
@@ -29,8 +30,9 @@ app.use((req, res) => {
 });
 
 const connectMongoose = async (app) => {
-   await Mongoose.connect('mongodb+srv://RayMacBart:<password>@firstcluster.fmfvjxl.mongodb.net/FinaDelic?appName=FirstCluster');
+   await Mongoose.connect(process.env.MONGODB_URI);
    app.listen(3000);
 }
 
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
 connectMongoose(app);

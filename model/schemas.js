@@ -11,37 +11,38 @@ const userSchema = new Schema({
       type: String,
       required: true
    },
-   // data: {
-   //    type: Schema.Types.ObjectId,
-   //    ref: 'data'
-   // },
-   // timeconfig: {
-   //    type: {  // Mongoose only treats required as a schema option when it appears next to a type key!
-   //       startdate: {
-   //          type: Date,
-   //          required: true
-   //       },
-   //       enddate: {
-   //          type: Date,
-   //          required: true
-   //       },    
-   //    },
-   //    required: true
-   // }
+   data: {
+      type: Schema.Types.ObjectId,
+      ref: 'data'
+   },
+   timeconfig: {
+      type: {  // Mongoose only treats required as a schema option when it appears next to a type key!
+         startdate: {
+            type: Date,
+            required: true
+         },
+         enddate: {
+            type: Date,
+            required: true
+         },    
+      },
+      required: true
+   }
 });
 
 const dataSchema = new Schema({
-   data: {
-      IN: {
-         type: Schema.Types.ObjectId,
-         ref: 'bag'
-      },
-      OUT: {
-         type: Schema.Types.ObjectId,
-         ref: 'bag'
-      }
-   }
+   IN: {
+      type: Schema.Types.ObjectId,
+      ref: 'bag',
+      required: true
+   },
+   OUT: {
+      type: Schema.Types.ObjectId,
+      ref: 'bag',
+      required: true
+   },
 });
+
 
 const bagSchema = new Schema({
    nestedBags: 
@@ -55,6 +56,7 @@ const bagSchema = new Schema({
             ref: 'flow',  
          } ]
 });
+
 
 const flowSchema = new Schema({
    date: {

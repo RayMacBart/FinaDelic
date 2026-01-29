@@ -37,6 +37,10 @@ class SIA {
          showInfo('invalidPW', 'warning');
       } else if (status === 400) {
          showInfo('repeatMismatch', 'warning');
+      } else if (status === 422) {
+         const body = await response.json();
+         console.log('VALIDATION ERROR MESSAGE:\n', body.msg);
+         showInfo('ValErr', 'warning', null, body.path);
       } else if (status === 303) {
          window.location.href = '/';
       }

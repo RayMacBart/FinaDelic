@@ -1,11 +1,12 @@
-const rootDir = require('./util/rootpath');
-const path = require('path');
 const express = require('express');
+const Mongoose = require('mongoose');
+const { body } = require('express-validator');
+const path = require('path');
+const rootDir = require('./util/rootpath');
 const router = express.Router();
 const GenPages = require('./controller/generalPages');
-const Login = require('./controller/login');
+const User = require('./model/User');
 
-const Mongoose = require('mongoose');
 
 const testSchema = Mongoose.Schema({
    testProp: String
@@ -42,9 +43,18 @@ router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login'], G
 
 router.get('/', GenPages.getRootPage);
 
-router.post('/signup', Login.signUp);
+router.post('/signup',     // implement ERROR-MESSAGES!
+               body('email').trim().isEmail().normalizeEmail().escape().withMessage('Invalid Email!'),
+               body('password').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape().withMessage('Validation Error: The entered password is too weak!'),
+               body('repeat').trim(),
+               User.signUp);
 
-router.post('/signin', Login.signIn);
+router.post('/signin',
+               body('email').trim().isEmail().normalizeEmail().escape().withMessage('Invalid Email!'),
+               body('password').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape().withMessage('Invalid Password: Too weak!'),
+               User.signIn);
+
+router.get('/logout', User.logout);
 
 
 

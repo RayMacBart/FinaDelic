@@ -705,17 +705,23 @@ class Infos {
       'badChars': 'Your password contains special characters which are not allowed. \nPlease only use one of the following characters: \n § @ . # $ ! % * ? & ',
       'checkBoxes': 'You must agree to the Terms & Conditions and confirm the Privacy Policy to continue.',
       'taken': 'This email address is already registered!',
-      'emailSent': 'We sent you an verification email.\nPlease check your mailbox.'
+      'emailSent': 'We sent you an verification email.\nPlease check your mailbox.',
+      'ValErr1': 'Invalid input in the field: ',
+      'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field.",
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
    
 
-   showInfo(infoTitle, infoType='neutral', listing=null) {
+   showInfo(infoTitle, infoType='neutral', listing=null, field='') {
       const box = document.createElement('div');
       const text = document.createElement('p');
       box.appendChild(text);
-      text.innerText = this.infoTexts[infoTitle];
+      if (infoTitle === 'ValidationError' && field) {
+         text.innerText = this.infoTexts['ValErr1']+field+this.infoTexts['ValErr2'];
+      } else {
+         text.innerText = this.infoTexts[infoTitle];
+      }
       if (listing) {
          let newText = text.innerText;
          for (const item of listing) {
@@ -2472,7 +2478,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("5570fe06573684c58efe")
+/******/ 		__webpack_require__.h = () => ("494dcd02b8b02ca9d5d2")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
