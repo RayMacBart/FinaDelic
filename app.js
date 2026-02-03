@@ -23,6 +23,7 @@ app.use((req, res, next) => {
    next();
 });
 
+
 app.use(router);
 
 app.use((req, res) => {
@@ -34,5 +35,4 @@ const connectMongoose = async (app) => {
    app.listen(3000);
 }
 
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
 connectMongoose(app);

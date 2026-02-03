@@ -21,6 +21,10 @@ class Infos {
       'emailSent': 'We sent you an verification email.\nPlease check your mailbox.',
       'ValErr1': 'Invalid input in the field: ',
       'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field.",
+      'DataStore1': 'ATTENTION!\nfailed to synchronize the ',
+      'DataStore2': ' with the server database!',
+      'invalidData1': 'WARNING!\n\nThe server received invalid data during following process:\n\n',
+      'invalidData2': "\n\nHence it didn't update the database accordingly!"
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
@@ -30,8 +34,14 @@ class Infos {
       const box = document.createElement('div');
       const text = document.createElement('p');
       box.appendChild(text);
-      if (infoTitle === 'ValidationError' && field) {
-         text.innerText = this.infoTexts['ValErr1']+field+this.infoTexts['ValErr2'];
+      if (field) {
+         if (infoTitle === 'ValidationError') {
+            text.innerText = this.infoTexts['ValErr1']+field+this.infoTexts['ValErr2'];
+         } else if (infoTitle === 'dataStorageError') {
+            text.innerText = this.infoTexts['DataStore1']+field+this.infoTexts['DataStore2'];
+         } else if (infoTitle === 'invalidData') {
+            text.innerText = this.infoTexts['invalidData1']+field+this.infoTexts['invalidData2'];
+         }
       } else {
          text.innerText = this.infoTexts[infoTitle];
       }
@@ -53,9 +63,10 @@ class Infos {
          box.classList.add('infobox--neutral');
          text.classList.add('infotext--neutral');
       }
+      const duranceValue = text.innerText.length <= 43 ? 60 : 40
       setTimeout(() => {
          viewWrapper.removeChild(box);
-      }, text.innerText.length*55);
+      }, text.innerText.length*duranceValue);
    }
 }
 

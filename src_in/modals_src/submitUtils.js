@@ -6,9 +6,9 @@ class SubmitUtils {
 
    bagPath;
    
-   constructor(dummyData) {
-      this.dummyData = dummyData;
-      this.CA = new ChartAdjuster(dummyData);
+   constructor(appData) {
+      this.appData = appData;
+      this.CA = new ChartAdjuster(appData);
    }
 
    
@@ -28,9 +28,9 @@ class SubmitUtils {
       const pathArray = this.bagPath.split('/');
       let focussedObj;
       if ((pathArray.length === 2) && (fullObject)) {
-         focussedObj = this.dummyData.data[pathArray[0]];
+         focussedObj = this.appData.data[pathArray[0]];
       } else {
-         focussedObj = this.dummyData.data[pathArray[0]]['nestedBags'];
+         focussedObj = this.appData.data[pathArray[0]]['nestedBags'];
          for (const bag of pathArray) {
             if ((bag === 'IN' || bag === 'OUT')) {
                continue;
@@ -65,7 +65,7 @@ class SubmitUtils {
    }
 
    
-   getBagObjByPath(bagPath, obj=this.dummyData.data[bagPath.split('/')[0]]) {  // recursive
+   getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
       if (bagPath.includes('/')) {
          const pathArray = bagPath.split('/');
          pathArray.shift();
@@ -97,12 +97,13 @@ class SubmitUtils {
 
 
    retrieveDateSpanFromDOM() {
+      console.log('in retrieveDataSpanFromDOM.');
       let formatStartStr;
       let formatEndStr;
-      if (window.location.href.split('/').pop() === 'flowPage') {
+      if (window.location.href.split('/').pop() === 'workspace') {
          formatStartStr = this.formatDateStr(document.getElementById('time-start').innerText);
          formatEndStr = this.formatDateStr(document.getElementById('time-end').innerText);
-      } else if (window.location.href.split('/').pop() === 'chartPage') {
+      } else if (window.location.href.split('/').pop() === 'chart') {
          formatStartStr = this.formatDateStr(document.getElementById('time-start-chart').innerText);
          formatEndStr = this.formatDateStr(document.getElementById('time-end-chart').innerText);
       }
@@ -114,7 +115,7 @@ class SubmitUtils {
 
    recalcBagAmounts(bagPathArray, bagObj=null, timespan=null) {   // recursive
       if (!bagObj) {
-         let focussedObj = this.dummyData.data[bagPathArray[0]];
+         let focussedObj = this.appData.data[bagPathArray[0]];
          for (const bag of bagPathArray) {
             if (bag !== 'IN' && bag !== 'OUT' && Object.keys(focussedObj['nestedBags']).length) {
                focussedObj = focussedObj['nestedBags'][bag];
@@ -166,8 +167,8 @@ class SubmitUtils {
 
    createNewFlowID() {
       const usedIDs = [];
-      for (const dirName in this.dummyData.data) {
-         this.extractFlowIDs(usedIDs, this.dummyData.data[dirName]);
+      for (const dirName in this.appData.data) {
+         this.extractFlowIDs(usedIDs, this.appData.data[dirName]);
       }
       for (let i = 0; i <= Math.max(...usedIDs); i++) {
          if (!usedIDs.includes(`${i}`)) {

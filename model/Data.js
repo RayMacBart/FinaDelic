@@ -1,20 +1,23 @@
-const userCollection = require('./schemas').Users;
-const dataCollection = require('./schemas').Datas;
-const Bag = require('./Bag');
+const userCol = require('./schemas').Users;
+const dataCol = require('./schemas').Datas;
+const BAG = require('./Bag');
 const { Users } = require('./schemas');
 
 class Data {
 
-   static async create() {
-      const inBag = await Bag.create;
-      const outBag = await Bag.create;
-      const newDataDoc = new dataCollection({IN: inBag, OUT: outBag});
+   async createData() {
+      const inBag = await BAG.createBag();
+      const outBag = await BAG.createBag();
+      const newDataDoc = await dataCol.create({IN: inBag, OUT: outBag});
       return newDataDoc;
    }
 
-   static async getData(userId) {
-      const userDoc = Users.find({_id: userId}).populate(data);
+   async getData(userId) {
+      // return await Users.findById(userId).populate(data);  // USE THIS LATER!
+      return await Users.find({email: userId}).populate(data);  // DELETE THIS LATER!
    }
 }
 
-module.exports = Data;
+const data = new Data();
+
+module.exports = data;

@@ -1,5 +1,6 @@
 import { showInfo } from '../infos.js';
 import SubmitUtils from './submitUtils.js';
+import BDP from '../backendDataCommunication/bagDataPoster.js';
 
 
 
@@ -10,9 +11,9 @@ class BagSubmits {
    bagPath;
 
 
-   constructor(dummyData) {
-      this.dummyData = dummyData;
-      this.utils = new SubmitUtils(this.dummyData);
+   constructor(appData) {
+      this.appData = appData;
+      this.utils = new SubmitUtils(this.appData);
    }  
 
 
@@ -20,11 +21,12 @@ class BagSubmits {
       const newBagName = this.currelems['input'].value;
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
-         this.dummyData.getData()['nestedBags'][newBagName] = {
+         this.appData.getData()['nestedBags'][newBagName] = {
             'amount': 0,
             'nestedBags': {},
             'transactions': {}
          };
+         BDP.createBag(this.bagPath, newBagName);
       } else {
          showInfo('duplicate', 'warning');
       }
@@ -41,7 +43,8 @@ class BagSubmits {
          const parentObj = this.utils.getParentObj(currentBagName);
          parentObj[newBagName] = {...parentObj[currentBagName]};
          delete parentObj[currentBagName];
-         this.dummyData.changeCurrentBagProp(newBagName);
+         this.appData.changeCurrentBagProp(newBagName);
+         BDP.renameBag(this.bagPath, newBagName);
          this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
       } else {
          showInfo('duplicate', 'warning');
@@ -54,14 +57,15 @@ class BagSubmits {
       const currentBagName = this.bagPath.split('/').pop();
       const parentObj = this.utils.getParentObj(currentBagName);
       delete parentObj[currentBagName];
-      this.dummyData.changeCurrentBagProp();
+      this.appData.changeCurrentBagProp();
+      BDP.bagErase(this.bagPath);
       this.utils.checkAndAdjustChart();
       document.querySelector('.menu--account-remove').dataset.removalHappened = true;
    }
 
    transferBag(currentBagName, destinationBag=null) {
       this.utils.bagPath = this.bagPath;
-      const currentBagObj = this.dummyData.getData();
+      const currentBagObj = this.appData.getData();
       const parentObj = this.utils.getParentObj(currentBagName, true);
       const destObj = destinationBag ? destinationBag : parentObj;
       if (destinationBag) {  // move
@@ -76,7 +80,7 @@ class BagSubmits {
       }
       destObj['amount'] += currentBagObj['amount'];
       delete parentObj['nestedBags'][currentBagName];
-      this.dummyData.changeCurrentBagProp();
+      this.appData.changeCurrentBagProp();
    }
 
 
@@ -84,6 +88,7 @@ class BagSubmits {
       const pathArray = this.bagPath.split('/');
       const currentBagName = pathArray[pathArray.length-1];
       this.transferBag(currentBagName);
+      BDP.bagDisband(this.bagPath);
       document.querySelector('.menu--account-remove').dataset.removalHappened = true;
       this.utils.checkAndAdjustChart(null, true);
    }
@@ -97,6 +102,7 @@ class BagSubmits {
       const duplicateDetected = this.utils.check4Duplicate(currentBagName, selection);
       if (!duplicateDetected) {
          this.transferBag(currentBagName, choosenObj);
+         BDP.bagMove(this.bagPath, selection);
          this.utils.checkAndAdjustChart();
       } else {
          showInfo('duplicate', 'warning');

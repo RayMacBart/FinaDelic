@@ -77,7 +77,7 @@ class Router {
       
       if (!(pageid in this.pages)) {
          const Module = await import(`./routing/${pageid}.js`);
-         const newInst = new Module.default(this.app.dummyData, this.app.modal, this.app.chart);
+         const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
          this.pages[pageid] = newInst;
       }
       let urlname = pageid;

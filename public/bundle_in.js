@@ -1,35 +1,10 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src_in/chart.js":
-/*!*************************!*\
-  !*** ./src_in/chart.js ***!
-  \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-class Chart {
-
-   type = 'line';
-   bags = {};  // keys: paths, values: objects of (ALL! also nested) flows with dates as keys and amounts as values!
-
-   constructor(dummyData) {
-      this.dummyData = dummyData;
-   }
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Chart);
-
-/***/ }),
-
-/***/ "./src_in/dummyData.js":
-/*!*****************************!*\
-  !*** ./src_in/dummyData.js ***!
-  \*****************************/
+/***/ "./src_in/appData.js":
+/*!***************************!*\
+  !*** ./src_in/appData.js ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -41,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class DummyData {
+class AppData {
 
    constructor(timespan) {
       this.revisitFlag = Symbol('revisitFlag');
@@ -55,393 +30,42 @@ class DummyData {
 
    data = {
       "IN": {
-         "nestedBags": {
-            "official": {
-               "nestedBags": {
-                  "teaching": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "31": {
-                           "date": "29.10.2025",
-                           "desc": "forte",
-                           "amount": 4068.74,
-                           "currency": "EUR"
-                        },
-                        "67": {
-                           "date": "06.11.2025",
-                           "desc": "VHS",
-                           "amount": 2760.33,
-                           "currency": "EUR"
-                        },
-                        "2": {
-                           "date": "07.12.2025",
-                           "desc": "VHS",
-                           "amount": 2408.2,
-                           "currency": "EUR"
-                        }
-                     }
-                  },
-                  "gigs": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "97": {
-                           "date": "06.11.2024",
-                           "desc": "wimberger",
-                           "amount": 177.5,
-                           "currency": "EUR"
-                        },
-                        "88": {
-                           "date": "26.05.2025",
-                           "desc": "Grüne Grätzlfest",
-                           "amount": 225,
-                           "currency": "EUR"
-                        },
-                        "40": {
-                           "date": "30.08.2025",
-                           "desc": "Schwechater Stadtfest",
-                           "amount": 150,
-                           "currency": "EUR"
-                        },
-                     }
-                  },
-               },
-               "transactions": {
-                  "32": {
-                     "date": "24.04.2025",
-                     "desc": "tax return",
-                     "amount": 5854.89,
-                     "currency": "EUR"
-                  },
-                  "635": {
-                     "date": "30.06.2025",
-                     "desc": "small company job",
-                     "amount": 9856.3,
-                     "currency": "EUR"
-                  },
-                  "4": {
-                     "date": "11.12.2025",
-                     "desc": "AKM",
-                     "amount": 3500,
-                     "currency": "EUR"
-                  }
-               }
-            },
-            "inofficial": {
-               "nestedBags": {
-                  "teaching": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "111": {
-                           "date": "13.12.2024",
-                           "desc": "Mayers",
-                           "amount": 80,
-                           "currency": "EUR"
-                        },
-                        "345": {
-                           "date": "25.02.2025",
-                           "desc": "Zöhling",
-                           "amount": 70,
-                           "currency": "EUR"
-                        },
-                        "19": {
-                           "date": "04.03.2025",
-                           "desc": "Stella",
-                           "amount": 50,
-                           "currency": "EUR"
-                        },
-                        "1": {
-                           "date": "14.05.2025",
-                           "desc": "Henry",
-                           "amount": 50,
-                           "currency": "EUR"
-                        },
-                        "61": {
-                           "date": "21.05.2025",
-                           "desc": "Berger",
-                           "amount": 50,
-                           "currency": "EUR"
-                        },
-                        "182": {
-                           "date": "22.11.2025",
-                           "desc": "Jan",
-                           "amount": 40,
-                           "currency": "EUR"
-                        },
-                        "77": {
-                           "date": "03.12.2025",
-                           "desc": "Teckentrups",
-                           "amount": 50,
-                           "currency": "EUR"
-                        },
-                     }
-                  },
-                  "gigs": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "297": {
-                           "date": "19.10.2024",
-                           "desc": "Susi Louisi",
-                           "amount": 72,
-                           "currency": "EUR"
-                        },
-                        "13": {
-                           "date": "20.04.2025",
-                           "desc": "DBT Amadeus",
-                           "amount": 60,
-                           "currency": "EUR"
-                        },
-                        "40": {
-                           "date": "29.09.2025",
-                           "desc": "KUG Leos",
-                           "amount": 220,
-                           "currency": "EUR"
-                        },
-                     }
-                  },
-               },
-               "transactions": {
-                  "28": {
-                     "date": "17.09.2025",
-                     "desc": "birthday present",
-                     "amount": 1000,
-                     "currency": "EUR"
-                  },
-                  "7": {
-                     "date": "24.12.2025",
-                     "desc": "christmas present",
-                     "amount": 300,
-                     "currency": "EUR"
-                  },
-               }
-            },
-         },
+         "nestedBags": {},
          "transactions": {}
-      },
-
-
-
-
+            },
       "OUT": {
-         "nestedBags": {
-            "official": {
-               "nestedBags": {
-                  "music equipment": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "22": {
-                           "date": "11.02.2025",
-                           "desc": "Stimmgerät @ Thomann",
-                           "amount": -16.9,
-                           "currency": "EUR"
-                        },
-                        "100": {
-                           "date": "08.06.2025",
-                           "desc": "Hughes & Kettner Verstärker Reparatur @ Sinnl & Hanten",
-                           "amount": -420.9,
-                           "currency": "EUR"
-                        },
-                        "2": {
-                           "date": "07.12.2025",
-                           "desc": "Plektren, Gitarrensaiten und Distortion Pedal @ Klangfarbe",
-                           "amount": -5.19,
-                           "currency": "EUR"
-                        }
-                     }
-                  }
-               },
-               "transactions": {
-                  "46": {
-                     "date": "01.04.2025",
-                     "desc": "SVS",
-                     "amount": -412.81,
-                     "currency": "EUR"
-                  },
-                  "541": {
-                     "date": "30.06.2025",
-                     "desc": "Kirchenbeitrag",
-                     "amount": -31.42,
-                     "currency": "EUR"
-                  },
-               }
+         "nestedBags": {},
+         "transactions": {}
             },
-            "inofficial": {
-               "nestedBags": {
-                  "Supermarkt": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "203": {
-                           "date": "18.05.2025",
-                           "desc": "Hofer",
-                           "amount": -78.98,
-                           "currency": "EUR"
-                        },
-                        "345": {
-                           "date": "31.03.2025",
-                           "desc": "Billa",
-                           "amount": -70,
-                           "currency": "EUR"
-                        },
-                        "19": {
-                           "date": "10.11.2024",
-                           "desc": "Spar",
-                           "amount": -111.42,
-                           "currency": "EUR"
-                        },
-                     }
-                  },
-                  "Miete": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "414": {
-                           "date": "02.10.2025",
-                           "desc": "Miete",
-                           "amount": -650,
-                           "currency": "EUR"
-                        },
-                        "13": {
-                           "date": "01.11.2025",
-                           "desc": "Miete",
-                           "amount": -650,
-                           "currency": "EUR"
-                        },
-                        "40": {
-                           "date": "03.12.2025",
-                           "desc": "Miete",
-                           "amount": -650,
-                           "currency": "EUR"
-                        },
-                     }
-                  },
-                  "Essen gehen": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "414": {
-                           "date": "17.09.2024",
-                           "desc": "Watertuin",
-                           "amount": -52.4,
-                           "currency": "EUR"
-                        },
-                        "13": {
-                           "date": "09.07.2025",
-                           "desc": "Wokhaus",
-                           "amount": -43.78,
-                           "currency": "EUR"
-                        },
-                        "131": {
-                           "date": "30.09.2025",
-                           "desc": "Kebap @ Simmering",
-                           "amount": -4.5,
-                           "currency": "EUR"
-                        },
-                     }
-                  },
-                  "Einrichtungen": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "999": {
-                           "date": "27.08.2025",
-                           "desc": "Willhaben Sitzbank und Schuhkasten @ Graz",
-                           "amount": -260,
-                           "currency": "EUR"
-                        },
-                        "123": {
-                           "date": "19.09.2025",
-                           "desc": "Kastengriffe @ Ikea",
-                           "amount": -45.95,
-                           "currency": "EUR"
-                        }
-                     }
-                  },
-                  "Internet": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "70": {
-                           "date": "13.10.2025",
-                           "desc": "A1 Internet Monatsgebühren",
-                           "amount": -32,
-                           "currency": "EUR"
-                        },
-                        "400": {
-                           "date": "13.11.2025",
-                           "desc": "A1 Internet Monatsgebühren",
-                           "amount": -32,
-                           "currency": "EUR"
-                        }
-                     }
-                  },
-                  "Handytarif": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "951": {
-                           "date": "12.11.2025",
-                           "desc": "Spusu",
-                           "amount": -7.8,
-                           "currency": "EUR"
-                        },
-                        "763": {
-                           "date": "12.12.2025",
-                           "desc": "Spusu",
-                           "amount": -7.8,
-                           "currency": "EUR"
-                        }
-                     }
-                  },
-                  "Auto": {
-                     "nestedBags": {},
-                     "transactions": {
-                        "479": {
-                           "date": "15.11.2024",
-                           "desc": "Tanken",
-                           "amount": -76.5,
-                           "currency": "EUR"
-                        },
-                        "763": {
-                           "date": "13.01.2025",
-                           "desc": "Öamtc Mitgliedschaft",
-                           "amount": -121.9,
-                           "currency": "EUR"
-                        },
-                        "170": {
-                           "date": "17.09.2025",
-                           "desc": "Reparatur, Pickerl und Service: Bremsklötze vorne, Bremsleitungen hinten und Ölschaden",
-                           "amount": -1800,
-                           "currency": "EUR"
-                        },
-                        "178": {
-                           "date": "23.09.2025",
-                           "desc": "Versicherung",
-                           "amount": -812.72,
-                           "currency": "EUR"
-                        }
-                     }
-                  }
-               },
-               "transactions": {
-                  "28": {
-                     "date": "21.02.2025",
-                     "desc": "Robi Geschenk: Schallplatten von Red Hot Chili Peppers",
-                     "amount": -59.9,
-                     "currency": "EUR"
-                  },
-                  "7": {
-                     "date": "11.06.2025",
-                     "desc": "Bankgebühr",
-                     "amount": -21.7,
-                     "currency": "EUR"
-                  },
-               }
-            },
-         },
-         "transactions": {
-            "666": {
-               "date": "13.10.2025",
-               "desc": "Geldbörserl verloren",
-               "amount": -34,
-               "currency": "EUR"
-            },
-         }
-      }
    }
+
+
+
+//   EXAMPLE DATA STRUCTURE:
+
+//    "official": {
+//       "nestedBags": {
+//          "music equipment": {
+//             "nestedBags": {},
+//             "transactions": {
+//                "22": {
+//                   "date": "11.02.2025",
+//                   "desc": "Stimmgerät @ Thomann",
+//                   "amount": -16.9,
+//                   "currency": "EUR"
+//                },
+//             }
+//          }
+//       },
+//       "transactions": {
+//          "46": {
+//             "date": "01.04.2025",
+//             "desc": "SVS",
+//             "amount": -412.81,
+//             "currency": "EUR"
+//          },
+//       },
+//    }
 
 
    getDeepestPaths() {
@@ -570,7 +194,219 @@ class DummyData {
 }
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DummyData);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AppData);
+
+/***/ }),
+
+/***/ "./src_in/backendDataCommunication/bagDataPoster.js":
+/*!**********************************************************!*\
+  !*** ./src_in/backendDataCommunication/bagDataPoster.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
+
+
+class BagDataPoster {
+
+   async #sendBagAction(packet, route, errName) {
+      const response = await fetch(route, {method: 'POST',
+                                          headers: {
+                                             'Content-Type': 'application/json'
+                                             },
+                                           body: JSON.stringify(packet)
+      });
+      if (response.status === 422) {
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidData', 'warning', null, errName);
+      }
+      if (response.status === 507) {
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, errName);
+      }
+   }
+
+   createBag(path, name) {
+      const packet = { path: path,
+                       name: name
+      };
+      this.#sendBagAction(packet, '/createBag', 'box creation');
+   }
+
+   renameBag(path, newBagName) {
+      const packet = { path: path,
+                       newBagName: newBagName
+       };
+      this.#sendBagAction(packet, '/renameBag', 'box renaming');
+   }
+
+   bagErase(path) {
+      const packet = { path: path };
+      this.#sendBagAction(packet, '/eraseBag', 'box deletion');
+   }
+   
+   bagDisband(path) {
+      const packet = { path: path };
+      this.#sendBagAction(packet, '/disbandBag', 'disband of the box');
+   }
+
+   bagMove(fromPath, toPath) {
+      const packet = { fromPath: fromPath,
+                       toPath: toPath
+       };
+      this.#sendBagAction(packet, '/moveBag', 'box movement');
+   }
+}
+
+const bagDataPoster = new BagDataPoster();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (bagDataPoster);
+
+/***/ }),
+
+/***/ "./src_in/backendDataCommunication/flowDataPoster.js":
+/*!***********************************************************!*\
+  !*** ./src_in/backendDataCommunication/flowDataPoster.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class FlowDataPoster {
+
+   async #sendFlowAction(packet, route, errName) {
+      const response = await fetch(route, {method: 'POST',
+                                          headers: {
+                                             'Content-Type': 'application/json'
+                                             },
+                                           body: JSON.stringify(packet)
+      });
+      if (response.status === 422) {
+         showInfo('invalidData', 'warning', null, errName);
+      }
+      if (response.status === 507) {
+         showInfo('dataStorageError', 'warning', null, errName);
+      }
+   }
+
+   createFlow(path, flowId, flowObj) {
+      const packet = { path: path,
+                       flowId: flowId,
+                       date: flowObj.date,
+                       desc: flowObj.desc,
+                       amount: flowObj.amount,
+                       currency: flowObj.currency
+                     };
+      this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction');
+   }
+
+   changeAmount(flowId, amount) {
+      const packet = { flowId: flowId,
+                       amount: amount
+                     };
+      this.#sendFlowAction(packet, '/changeFlowAmount', 'amount modification');
+   }
+
+   changeDesc(flowId, text) {
+      const packet = { flowId: flowId,
+                       text: text
+                     };
+      this.#sendFlowAction(packet, '/changeFlowText', 'modification of the transaction description');
+   }
+
+   changeDate(flowId, isoDate) {
+      const packet = { flowId: flowId,
+                       isoDate: isoDate
+                     };
+      this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification');
+   }
+
+   deleteFlow(flowId) {
+      const packet = { flowId: flowId };
+      this.#sendFlowAction(packet, '/deleteFlow', 'deletion of the transaction');
+   }
+
+   moveFlow(flowId, targetBagPath) {
+      const packet = { flowId: flowId,
+                       targetBagPath: targetBagPath
+                     };
+      this.#sendFlowAction(packet, '/moveFlow', 'flow movement');
+   }
+
+
+}
+
+const flowDataPoster = new FlowDataPoster();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (flowDataPoster);
+
+/***/ }),
+
+/***/ "./src_in/backendDataCommunication/timeDataPoster.js":
+/*!***********************************************************!*\
+  !*** ./src_in/backendDataCommunication/timeDataPoster.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class TimeDataPoster {
+
+   async storeTimeSpan(start, end) {
+      const packet = { start: start, end: end };
+      const response = await fetch('/setTime', {method: 'POST',
+                                               headers: {
+                                                  'Content-Type': 'application/json'
+                                                   },
+                                                body: JSON.stringify(packet)
+                                                }
+                                   );
+      if (response.status === 422) {
+         showInfo('invalidData', 'warning', null, errName);
+      }
+      if (response.status === 507) {
+         showInfo('dataStorageError', 'warning', null, errName);
+      }
+   }
+}
+
+const timeDataPoster = new TimeDataPoster();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (timeDataPoster);
+
+/***/ }),
+
+/***/ "./src_in/chart.js":
+/*!*************************!*\
+  !*** ./src_in/chart.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class Chart {
+
+   type = 'line';
+   bags = {};  // keys: paths, values: objects of (ALL! also nested) flows with dates as keys and amounts as values!
+
+   constructor(appData) {
+      this.appData = appData;
+   }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Chart);
 
 /***/ }),
 
@@ -626,7 +462,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _route_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route.js */ "./src_in/route.js");
 /* harmony import */ var _lazyLoader_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lazyLoader.js */ "./src_in/lazyLoader.js");
 /* harmony import */ var _timespan_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./timespan.js */ "./src_in/timespan.js");
-/* harmony import */ var _dummyData_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dummyData.js */ "./src_in/dummyData.js");
+/* harmony import */ var _appData_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./appData.js */ "./src_in/appData.js");
 /* harmony import */ var _chart_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./chart.js */ "./src_in/chart.js");
 /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal.js */ "./src_in/modal.js");
 /* harmony import */ var _modalContents_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modalContents.js */ "./src_in/modalContents.js");
@@ -644,9 +480,9 @@ class App {
    constructor() {
       console.log('FULL RELOAD!');
       this.timespan = new _timespan_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
-      this.dummyData = new _dummyData_js__WEBPACK_IMPORTED_MODULE_4__["default"](this.timespan);
-      this.modal = new _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"](this.dummyData, _modalContents_js__WEBPACK_IMPORTED_MODULE_7__.modalContents);
-      this.chart = new _chart_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.dummyData);
+      this.appData = new _appData_js__WEBPACK_IMPORTED_MODULE_4__["default"](this.timespan);
+      this.modal = new _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"](this.appData, _modalContents_js__WEBPACK_IMPORTED_MODULE_7__.modalContents);
+      this.chart = new _chart_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.appData);
       this.router = new _route_js__WEBPACK_IMPORTED_MODULE_1__["default"](this);
       this.lazyLoader = new _lazyLoader_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
       new _footer_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.router.navigate, this.lazyLoader.importSVG);
@@ -708,6 +544,10 @@ class Infos {
       'emailSent': 'We sent you an verification email.\nPlease check your mailbox.',
       'ValErr1': 'Invalid input in the field: ',
       'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field.",
+      'DataStore1': 'ATTENTION!\nfailed to synchronize the ',
+      'DataStore2': ' with the server database!',
+      'invalidData1': 'WARNING!\n\nThe server received invalid data during following process:\n\n',
+      'invalidData2': "\n\nHence it didn't update the database accordingly!"
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
@@ -717,8 +557,14 @@ class Infos {
       const box = document.createElement('div');
       const text = document.createElement('p');
       box.appendChild(text);
-      if (infoTitle === 'ValidationError' && field) {
-         text.innerText = this.infoTexts['ValErr1']+field+this.infoTexts['ValErr2'];
+      if (field) {
+         if (infoTitle === 'ValidationError') {
+            text.innerText = this.infoTexts['ValErr1']+field+this.infoTexts['ValErr2'];
+         } else if (infoTitle === 'dataStorageError') {
+            text.innerText = this.infoTexts['DataStore1']+field+this.infoTexts['DataStore2'];
+         } else if (infoTitle === 'invalidData') {
+            text.innerText = this.infoTexts['invalidData1']+field+this.infoTexts['invalidData2'];
+         }
       } else {
          text.innerText = this.infoTexts[infoTitle];
       }
@@ -740,9 +586,10 @@ class Infos {
          box.classList.add('infobox--neutral');
          text.classList.add('infotext--neutral');
       }
+      const duranceValue = text.innerText.length <= 43 ? 60 : 40
       setTimeout(() => {
          viewWrapper.removeChild(box);
-      }, text.innerText.length*40);
+      }, text.innerText.length*duranceValue);
    }
 }
 
@@ -836,8 +683,8 @@ class Modal {
    currentModalType;
    isModalSeries;
 
-   constructor(dummyData, modalContents) {
-      this.dummyData = dummyData;
+   constructor(appData, modalContents) {
+      this.appData = appData;
       this.modalContents = modalContents;
       this.dialog = document.getElementById('main-modal-element');
       this.elements = {
@@ -864,19 +711,19 @@ class Modal {
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new _modals_src_inputModal_js__WEBPACK_IMPORTED_MODULE_0__["default"](this);
       this.selectModal = new _modals_src_selectModal_js__WEBPACK_IMPORTED_MODULE_1__["default"](this);
-      this.modSub = new _modals_src_modalSubmitAllocator_js__WEBPACK_IMPORTED_MODULE_2__["default"](this.dummyData);
+      this.modSub = new _modals_src_modalSubmitAllocator_js__WEBPACK_IMPORTED_MODULE_2__["default"](this.appData);
       this.dialog.addEventListener('keydown', (e) => {if (e.key === 'Escape') {document.dispatchEvent(this.reloadEvent);}});
    }
 
 
    startModal(modalType, isModalSeries=false) {
-      this.direction = this.dummyData.getBagPath().split('/')[0];
+      this.direction = this.appData.getBagPath().split('/')[0];
       this.currentModalType = modalType;
       this.isModalSeries = isModalSeries;
       this.runModal();
       this.dialog.showModal();
    }
-'time'
+
 
    finishModal() {
       if (this.smallInputLabelModalTypes.includes(this.currentModalType)) {   
@@ -931,7 +778,7 @@ class Modal {
       if (['flow-date', 'flow-desc', 'flow-amount'].includes(this.currentModalType) && !this.isModalSeries) {
          flowchange = true;
       }
-      this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), flowchange, this.reloadEvent);
+      this.modSub.prepare(currentElems, this.currentModalType, this.appData.getBagPath(), flowchange, this.reloadEvent);
       this.modSub.allocateAndSubmit(this.currentModalType);
       this.finishModal();
       if (this.currentModalType === 'flow-amount' && this.isModalSeries) {
@@ -948,7 +795,7 @@ class Modal {
       let innerText = this.modalContents[this.currentModalType][elemName];
       if (typeof innerText === 'string') {
          if (innerText.includes('BAGNAME')) {
-            innerText = innerText.replace('BAGNAME', '"'+this.dummyData.getBagPath().split('/').pop().toUpperCase()+'"');
+            innerText = innerText.replace('BAGNAME', '"'+this.appData.getBagPath().split('/').pop().toUpperCase()+'"');
          }
          if (innerText.includes('BAG')) {
             innerText = innerText.replace('BAG', bagtype);
@@ -998,7 +845,7 @@ class Modal {
          this.selectModal.setup(false);
       } else {
          if (this.currentModalType === 'bag-disband') {
-            const pathArray = this.dummyData.getBagPath().split('/');
+            const pathArray = this.appData.getBagPath().split('/');
             const parentBagName = pathArray[pathArray.length-2];
             document.querySelector('.modal__text-4').innerText = parentBagName.toUpperCase();
          }
@@ -1148,6 +995,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
 /* harmony import */ var _submitUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./submitUtils.js */ "./src_in/modals_src/submitUtils.js");
+/* harmony import */ var _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../backendDataCommunication/bagDataPoster.js */ "./src_in/backendDataCommunication/bagDataPoster.js");
+
 
 
 
@@ -1160,9 +1009,9 @@ class BagSubmits {
    bagPath;
 
 
-   constructor(dummyData) {
-      this.dummyData = dummyData;
-      this.utils = new _submitUtils_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.dummyData);
+   constructor(appData) {
+      this.appData = appData;
+      this.utils = new _submitUtils_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.appData);
    }  
 
 
@@ -1170,11 +1019,12 @@ class BagSubmits {
       const newBagName = this.currelems['input'].value;
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
-         this.dummyData.getData()['nestedBags'][newBagName] = {
+         this.appData.getData()['nestedBags'][newBagName] = {
             'amount': 0,
             'nestedBags': {},
             'transactions': {}
          };
+         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createBag(this.bagPath, newBagName);
       } else {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
       }
@@ -1191,7 +1041,8 @@ class BagSubmits {
          const parentObj = this.utils.getParentObj(currentBagName);
          parentObj[newBagName] = {...parentObj[currentBagName]};
          delete parentObj[currentBagName];
-         this.dummyData.changeCurrentBagProp(newBagName);
+         this.appData.changeCurrentBagProp(newBagName);
+         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].renameBag(this.bagPath, newBagName);
          this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
       } else {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
@@ -1204,14 +1055,15 @@ class BagSubmits {
       const currentBagName = this.bagPath.split('/').pop();
       const parentObj = this.utils.getParentObj(currentBagName);
       delete parentObj[currentBagName];
-      this.dummyData.changeCurrentBagProp();
+      this.appData.changeCurrentBagProp();
+      _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagErase(this.bagPath);
       this.utils.checkAndAdjustChart();
       document.querySelector('.menu--account-remove').dataset.removalHappened = true;
    }
 
    transferBag(currentBagName, destinationBag=null) {
       this.utils.bagPath = this.bagPath;
-      const currentBagObj = this.dummyData.getData();
+      const currentBagObj = this.appData.getData();
       const parentObj = this.utils.getParentObj(currentBagName, true);
       const destObj = destinationBag ? destinationBag : parentObj;
       if (destinationBag) {  // move
@@ -1226,7 +1078,7 @@ class BagSubmits {
       }
       destObj['amount'] += currentBagObj['amount'];
       delete parentObj['nestedBags'][currentBagName];
-      this.dummyData.changeCurrentBagProp();
+      this.appData.changeCurrentBagProp();
    }
 
 
@@ -1234,6 +1086,7 @@ class BagSubmits {
       const pathArray = this.bagPath.split('/');
       const currentBagName = pathArray[pathArray.length-1];
       this.transferBag(currentBagName);
+      _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagDisband(this.bagPath);
       document.querySelector('.menu--account-remove').dataset.removalHappened = true;
       this.utils.checkAndAdjustChart(null, true);
    }
@@ -1247,6 +1100,7 @@ class BagSubmits {
       const duplicateDetected = this.utils.check4Duplicate(currentBagName, selection);
       if (!duplicateDetected) {
          this.transferBag(currentBagName, choosenObj);
+         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagMove(this.bagPath, selection);
          this.utils.checkAndAdjustChart();
       } else {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
@@ -1276,13 +1130,13 @@ __webpack_require__.r(__webpack_exports__);
 
 class ChartAdjuster {
 
-   constructor(dummyData) {
-      this.dummyData = dummyData;
+   constructor(appData) {
+      this.appData = appData;
       this.chartops = new _chartOps_js__WEBPACK_IMPORTED_MODULE_1__["default"];
    }
 
 
-   getBagObjByPath(bagPath, obj=this.dummyData.data[bagPath.split('/')[0]]) {  // recursive
+   getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
       if (bagPath.includes('/')) {
          const pathArray = bagPath.split('/');
          pathArray.shift();
@@ -1306,18 +1160,18 @@ class ChartAdjuster {
             curBagAmountAtChart += _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags[bag][keydate];
          }
          let bagObj;
-         if ((bag.split('/').length === this.dummyData.getBagPath().split('/').length + 1) && bagRemoval) {
+         if ((bag.split('/').length === this.appData.getBagPath().split('/').length + 1) && bagRemoval) {
             delete _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags[bag];
             continue;
          } else {
             bagObj = this.getBagObjByPath(bag);
          }
-         const curBagDummyDataFlows = this.chartops.getNestedFlows(bag.split('/'), bagObj);
-         let curBagAmountAtDummyData = 0;
-         for (const flowObj of curBagDummyDataFlows) {
-            curBagAmountAtDummyData += flowObj.amount;
+         const curBagAppDataFlows = this.chartops.getNestedFlows(bag.split('/'), bagObj);
+         let curBagAmountAtAppData = 0;
+         for (const flowObj of curBagAppDataFlows) {
+            curBagAmountAtAppData += flowObj.amount;
          }
-         if ((curBagAmountAtChart !== curBagAmountAtDummyData) && (!(affectedChartBags.includes(bag)))) {
+         if ((curBagAmountAtChart !== curBagAmountAtAppData) && (!(affectedChartBags.includes(bag)))) {
             affectedChartBags.push(bag);
          }
       }
@@ -1329,7 +1183,7 @@ class ChartAdjuster {
       for (const bag in _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags) {
          if (affChartBags.includes(bag)) {
             delete _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags[bag];
-            this.chartops.add2chart(bag, this.dummyData.data[bag.split('/')[0]]);
+            this.chartops.add2chart(bag, this.appData.data[bag.split('/')[0]]);
          }
       }
    }
@@ -1359,8 +1213,8 @@ class ChartOps {
 
    bagPath;
 
-   constructor(dummyData) {
-      this.dummyData = dummyData;
+   constructor(appData) {
+      this.appData = appData;
    }
 
 
@@ -1379,7 +1233,7 @@ class ChartOps {
    }
 
 
-   getBagObjByPath(bagPath, obj=this.dummyData.data[bagPath.split('/')[0]]) {  // recursive
+   getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
       if (bagPath.includes('/')) {
          const pathArray = bagPath.split('/');
          pathArray.shift();
@@ -1393,8 +1247,8 @@ class ChartOps {
 
    add2chart(broughtBagPath=null, broughtData=null) {
       const bagPath2Use = broughtBagPath ? broughtBagPath : this.bagPath;
-      const dummyData2Use = broughtData ? broughtData : this.dummyData.data[bagPath2Use.split('/')[0]];
-      const bagObj = this.getBagObjByPath(bagPath2Use, dummyData2Use);
+      const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
+      const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
       const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
       const data = {};
       for (const obj of nestedFlows) {
@@ -1412,7 +1266,7 @@ class ChartOps {
 
 
 
-      // chart.bags[this.bagPath] = this.dummyData.data['nestedBags'];  // dummyCode --> recursive bag collector wanted!
+      // chart.bags[this.bagPath] = this.appData.data['nestedBags'];  // appCode --> recursive bag collector wanted!
       // app.chart.bags must contain all nested bags (recursive)
       // when creating line charts, the choosen timespan must be splitted into smaller timespans (around 7-15 would be good).
       // The program has to decide, how to split, depending on the choosen timespan's length
@@ -1445,6 +1299,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _submitUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./submitUtils.js */ "./src_in/modals_src/submitUtils.js");
 /* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
+/* harmony import */ var _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../backendDataCommunication/flowDataPoster.js */ "./src_in/backendDataCommunication/flowDataPoster.js");
+
 
 
 
@@ -1459,8 +1315,8 @@ class FlowSubmits {
    flowchange;
 
 
-   constructor(dummyData) {
-      this.utils = new _submitUtils_js__WEBPACK_IMPORTED_MODULE_0__["default"](dummyData);
+   constructor(appData) {
+      this.utils = new _submitUtils_js__WEBPACK_IMPORTED_MODULE_0__["default"](appData);
    }
 
 
@@ -1471,6 +1327,7 @@ class FlowSubmits {
       if (this.flowchange) {
          const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
          currentBagObj['transactions'][this.flowID]['amount'] = amount;
+         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeAmount(this.flowID, amount);
          this.utils.recalcBagAmounts(this.bagPath.split('/'));
          this.utils.checkAndAdjustChart();
       } else {
@@ -1482,7 +1339,9 @@ class FlowSubmits {
    flowDesc() {
       if (this.flowchange) {
          const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-         currentBagObj['transactions'][this.flowID]['desc'] = this.currelems['input'].value;
+         const newText = this.currelems['input'].value;
+         currentBagObj['transactions'][this.flowID]['desc'] = newText;
+         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeDesc(this.flowID, newText);
       } else {
          this.cachedDesc = this.currelems['input'].value;
       }
@@ -1495,13 +1354,16 @@ class FlowSubmits {
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
       if (this.flowchange) {
          currentBagObj['transactions'][this.flowID]['date'] = flowDate;
+         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeDate(this.flowID, this.currelems['input'].value);
          this.utils.checkAndAdjustChart(this.bagPath);
       } else {
-         currentBagObj['transactions'][this.utils.createNewFlowID()] = {
+         const newFlowId = this.utils.createNewFlowID();
+         currentBagObj['transactions'][newFlowId] = {
                               "date": flowDate,
                               "desc": this.cachedDesc,
                               "amount": this.cachedAmount,
                               "currency": "EUR"};
+         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createFlow(this.bagPath, newFlowId, currentBagObj['transactions'][newFlowId]);
          this.utils.checkAndAdjustChart();
                            }
       const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
@@ -1516,6 +1378,7 @@ class FlowSubmits {
    flowDelete() {
       const bagObj = this.utils.getBagObjByPath(this.bagPath);
       delete bagObj['transactions'][this.flowID];
+      _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].deleteFlow(this.flowID);
       this.utils.checkAndAdjustChart();
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
@@ -1527,6 +1390,7 @@ class FlowSubmits {
       const choosenObj = this.utils.getBagObjByPath(selection);
       choosenObj['transactions'][this.flowID] = bagObj['transactions'][this.flowID];
       delete bagObj['transactions'][this.flowID];
+      _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].moveFlow(this.flowID, selection);
       this.utils.checkAndAdjustChart();
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
       this.utils.recalcBagAmounts(selection.split('/'));
@@ -1739,11 +1603,11 @@ __webpack_require__.r(__webpack_exports__);
 
 class ModalSubmitAllocator {
 
-   constructor(dummyData) {
-      this.bagSubmits = new _bagSubmits_js__WEBPACK_IMPORTED_MODULE_0__["default"](dummyData);
-      this.flowSubmits = new _flowSubmits_js__WEBPACK_IMPORTED_MODULE_1__["default"](dummyData);
-      this.timeSet = new _timeSet_js__WEBPACK_IMPORTED_MODULE_2__["default"](dummyData);
-      this.chartOps = new _chartOps_js__WEBPACK_IMPORTED_MODULE_3__["default"](dummyData);
+   constructor(appData) {
+      this.bagSubmits = new _bagSubmits_js__WEBPACK_IMPORTED_MODULE_0__["default"](appData);
+      this.flowSubmits = new _flowSubmits_js__WEBPACK_IMPORTED_MODULE_1__["default"](appData);
+      this.timeSet = new _timeSet_js__WEBPACK_IMPORTED_MODULE_2__["default"](appData);
+      this.chartOps = new _chartOps_js__WEBPACK_IMPORTED_MODULE_3__["default"](appData);
    }
 
    prepare(currelems, modType, bagPath, flowchange, reloadEvent) {
@@ -1824,7 +1688,7 @@ class SelectModal {
 
    constructor(modalsInstance) {
       this.modIns = modalsInstance;
-      this.utils = new _submitUtils_js__WEBPACK_IMPORTED_MODULE_0__["default"](modalsInstance.dummyData);
+      this.utils = new _submitUtils_js__WEBPACK_IMPORTED_MODULE_0__["default"](modalsInstance.appData);
       this.boundRecognizeSelection = this.recognizeSelection.bind(this);
    }
 
@@ -1851,10 +1715,10 @@ class SelectModal {
 
 
    renderSelect(isBagMove) {
-      const currentBagPath = this.modIns.dummyData.getBagPath();
+      const currentBagPath = this.modIns.appData.getBagPath();
       this.utils.bagPath = currentBagPath;
       const direction = currentBagPath.split('/')[0];
-      const bagObjects = this.utils.getAll1DirBagObjects(this.modIns.dummyData.data[direction], direction);
+      const bagObjects = this.utils.getAll1DirBagObjects(this.modIns.appData.data[direction], direction);
       if (isBagMove) {
          this.filterOutBadDestinations(bagObjects, currentBagPath);
       } else {
@@ -1908,9 +1772,9 @@ class SubmitUtils {
 
    bagPath;
    
-   constructor(dummyData) {
-      this.dummyData = dummyData;
-      this.CA = new _chartAdjuster_js__WEBPACK_IMPORTED_MODULE_1__["default"](dummyData);
+   constructor(appData) {
+      this.appData = appData;
+      this.CA = new _chartAdjuster_js__WEBPACK_IMPORTED_MODULE_1__["default"](appData);
    }
 
    
@@ -1930,9 +1794,9 @@ class SubmitUtils {
       const pathArray = this.bagPath.split('/');
       let focussedObj;
       if ((pathArray.length === 2) && (fullObject)) {
-         focussedObj = this.dummyData.data[pathArray[0]];
+         focussedObj = this.appData.data[pathArray[0]];
       } else {
-         focussedObj = this.dummyData.data[pathArray[0]]['nestedBags'];
+         focussedObj = this.appData.data[pathArray[0]]['nestedBags'];
          for (const bag of pathArray) {
             if ((bag === 'IN' || bag === 'OUT')) {
                continue;
@@ -1967,7 +1831,7 @@ class SubmitUtils {
    }
 
    
-   getBagObjByPath(bagPath, obj=this.dummyData.data[bagPath.split('/')[0]]) {  // recursive
+   getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
       if (bagPath.includes('/')) {
          const pathArray = bagPath.split('/');
          pathArray.shift();
@@ -1999,12 +1863,13 @@ class SubmitUtils {
 
 
    retrieveDateSpanFromDOM() {
+      console.log('in retrieveDataSpanFromDOM.');
       let formatStartStr;
       let formatEndStr;
-      if (window.location.href.split('/').pop() === 'flowPage') {
+      if (window.location.href.split('/').pop() === 'workspace') {
          formatStartStr = this.formatDateStr(document.getElementById('time-start').innerText);
          formatEndStr = this.formatDateStr(document.getElementById('time-end').innerText);
-      } else if (window.location.href.split('/').pop() === 'chartPage') {
+      } else if (window.location.href.split('/').pop() === 'chart') {
          formatStartStr = this.formatDateStr(document.getElementById('time-start-chart').innerText);
          formatEndStr = this.formatDateStr(document.getElementById('time-end-chart').innerText);
       }
@@ -2016,7 +1881,7 @@ class SubmitUtils {
 
    recalcBagAmounts(bagPathArray, bagObj=null, timespan=null) {   // recursive
       if (!bagObj) {
-         let focussedObj = this.dummyData.data[bagPathArray[0]];
+         let focussedObj = this.appData.data[bagPathArray[0]];
          for (const bag of bagPathArray) {
             if (bag !== 'IN' && bag !== 'OUT' && Object.keys(focussedObj['nestedBags']).length) {
                focussedObj = focussedObj['nestedBags'][bag];
@@ -2068,8 +1933,8 @@ class SubmitUtils {
 
    createNewFlowID() {
       const usedIDs = [];
-      for (const dirName in this.dummyData.data) {
-         this.extractFlowIDs(usedIDs, this.dummyData.data[dirName]);
+      for (const dirName in this.appData.data) {
+         this.extractFlowIDs(usedIDs, this.appData.data[dirName]);
       }
       for (let i = 0; i <= Math.max(...usedIDs); i++) {
          if (!usedIDs.includes(`${i}`)) {
@@ -2104,8 +1969,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../index.js */ "./src_in/index.js");
-/* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
+/* harmony import */ var _backendDataCommunication_timeDataPoster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../backendDataCommunication/timeDataPoster.js */ "./src_in/backendDataCommunication/timeDataPoster.js");
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../index.js */ "./src_in/index.js");
+/* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
+
 
 
 
@@ -2115,27 +1982,28 @@ class TimeSet {
    currelems;
    reloadEvent;
 
-   constructor(dummyData) {
-      this.dummyData = dummyData;
+   constructor(appData) {
+      this.appData = appData;
    }
 
 
    setTime() {
       const startDateStr = (this.currelems['start-date'].value);
       const endDateStr = (this.currelems['end-date'].value);
-      _index_js__WEBPACK_IMPORTED_MODULE_0__.timespan.start = new Date(startDateStr);
-      _index_js__WEBPACK_IMPORTED_MODULE_0__.timespan.end = new Date(endDateStr);
-      if (_index_js__WEBPACK_IMPORTED_MODULE_0__.timespan.start > _index_js__WEBPACK_IMPORTED_MODULE_0__.timespan.end) {
-         _index_js__WEBPACK_IMPORTED_MODULE_0__.timespan.end = new Date(startDateStr);
-         (0,_infos_js__WEBPACK_IMPORTED_MODULE_1__.showInfo)('invalidTimespan', 'warning');
+      _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.start = new Date(startDateStr);
+      _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.end = new Date(endDateStr);
+      if (_index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.start > _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.end) {
+         _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.end = new Date(startDateStr);
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_2__.showInfo)('invalidTimespan', 'warning');
       }
-      this.dummyData.setBagAmounts(_index_js__WEBPACK_IMPORTED_MODULE_0__.timespan);
+      _backendDataCommunication_timeDataPoster_js__WEBPACK_IMPORTED_MODULE_0__["default"].storeTimeSpan(_index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.start, _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.end);
+      this.appData.setBagAmounts(_index_js__WEBPACK_IMPORTED_MODULE_1__.timespan);
       const currentPage = window.location.href.split('/').pop();
-      if (currentPage === 'chartPage') {
-         _index_js__WEBPACK_IMPORTED_MODULE_0__.router.navigate('chartPage');
+      if (currentPage === 'chart') {
+         _index_js__WEBPACK_IMPORTED_MODULE_1__.router.navigate('chartPage');
       } 
-      else if (currentPage === 'flowPage') {
-         _index_js__WEBPACK_IMPORTED_MODULE_0__.router.navigate('flowPage');
+      else if (currentPage === 'workspace') {
+         _index_js__WEBPACK_IMPORTED_MODULE_1__.router.navigate('flowPage');
       }
    }
 }
@@ -2235,7 +2103,7 @@ class Router {
       
       if (!(pageid in this.pages)) {
          const Module = await __webpack_require__("./src_in/routing lazy recursive ^\\.\\/.*\\.js$")(`./${pageid}.js`);
-         const newInst = new Module.default(this.app.dummyData, this.app.modal, this.app.chart);
+         const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
          this.pages[pageid] = newInst;
       }
       let urlname = pageid;
@@ -2478,7 +2346,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("494dcd02b8b02ca9d5d2")
+/******/ 		__webpack_require__.h = () => ("b2ae0797efbc2ca5b4ff")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

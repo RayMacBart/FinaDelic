@@ -1,10 +1,12 @@
-const flowCollection = require('./schemas').Flows;
+const flowCol = require('./schemas').Flows;
 
 class Flow {
 
-   static async create() {
+   static async createFlow() {
 
    }
 }
 
-module.exports = Flow;
+const flow = new Flow();
+
+module.exports = flow;

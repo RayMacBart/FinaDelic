@@ -3,8 +3,8 @@ import PeriodAggregator from "./PeriodAggregator.js";
 
 class dataPreparator {
 
-   constructor(dummyData, chart) {
-      this.utils = new SubmitUtils(dummyData);
+   constructor(appData, chart) {
+      this.utils = new SubmitUtils(appData);
       this.PA = new PeriodAggregator(chart);
       this.chart = chart;
    }

@@ -2,7 +2,7 @@ import Footer from "./footer.js";
 import Router from "./route.js";
 import LazyLoader from "./lazyLoader.js";
 import TimeSpan from "./timespan.js";
-import DummyData from "./dummyData.js";
+import AppData from "./appData.js";
 import Chart from "./chart.js";
 import Modal from "./modal.js";
 import { modalContents } from "./modalContents.js";
@@ -12,9 +12,9 @@ class App {
    constructor() {
       console.log('FULL RELOAD!');
       this.timespan = new TimeSpan();
-      this.dummyData = new DummyData(this.timespan);
-      this.modal = new Modal(this.dummyData, modalContents);
-      this.chart = new Chart(this.dummyData);
+      this.appData = new AppData(this.timespan);
+      this.modal = new Modal(this.appData, modalContents);
+      this.chart = new Chart(this.appData);
       this.router = new Router(this);
       this.lazyLoader = new LazyLoader();
       new Footer(this.router.navigate, this.lazyLoader.importSVG);

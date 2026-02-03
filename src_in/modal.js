@@ -12,8 +12,8 @@ class Modal {
    currentModalType;
    isModalSeries;
 
-   constructor(dummyData, modalContents) {
-      this.dummyData = dummyData;
+   constructor(appData, modalContents) {
+      this.appData = appData;
       this.modalContents = modalContents;
       this.dialog = document.getElementById('main-modal-element');
       this.elements = {
@@ -40,19 +40,19 @@ class Modal {
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new InputModal(this);
       this.selectModal = new SelectModal(this);
-      this.modSub = new ModalSubmitAllocator(this.dummyData);
+      this.modSub = new ModalSubmitAllocator(this.appData);
       this.dialog.addEventListener('keydown', (e) => {if (e.key === 'Escape') {document.dispatchEvent(this.reloadEvent);}});
    }
 
 
    startModal(modalType, isModalSeries=false) {
-      this.direction = this.dummyData.getBagPath().split('/')[0];
+      this.direction = this.appData.getBagPath().split('/')[0];
       this.currentModalType = modalType;
       this.isModalSeries = isModalSeries;
       this.runModal();
       this.dialog.showModal();
    }
-'time'
+
 
    finishModal() {
       if (this.smallInputLabelModalTypes.includes(this.currentModalType)) {   
@@ -107,7 +107,7 @@ class Modal {
       if (['flow-date', 'flow-desc', 'flow-amount'].includes(this.currentModalType) && !this.isModalSeries) {
          flowchange = true;
       }
-      this.modSub.prepare(currentElems, this.currentModalType, this.dummyData.getBagPath(), flowchange, this.reloadEvent);
+      this.modSub.prepare(currentElems, this.currentModalType, this.appData.getBagPath(), flowchange, this.reloadEvent);
       this.modSub.allocateAndSubmit(this.currentModalType);
       this.finishModal();
       if (this.currentModalType === 'flow-amount' && this.isModalSeries) {
@@ -124,7 +124,7 @@ class Modal {
       let innerText = this.modalContents[this.currentModalType][elemName];
       if (typeof innerText === 'string') {
          if (innerText.includes('BAGNAME')) {
-            innerText = innerText.replace('BAGNAME', '"'+this.dummyData.getBagPath().split('/').pop().toUpperCase()+'"');
+            innerText = innerText.replace('BAGNAME', '"'+this.appData.getBagPath().split('/').pop().toUpperCase()+'"');
          }
          if (innerText.includes('BAG')) {
             innerText = innerText.replace('BAG', bagtype);
@@ -174,7 +174,7 @@ class Modal {
          this.selectModal.setup(false);
       } else {
          if (this.currentModalType === 'bag-disband') {
-            const pathArray = this.dummyData.getBagPath().split('/');
+            const pathArray = this.appData.getBagPath().split('/');
             const parentBagName = pathArray[pathArray.length-2];
             document.querySelector('.modal__text-4').innerText = parentBagName.toUpperCase();
          }

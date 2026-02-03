@@ -18,8 +18,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class dataPreparator {
 
-   constructor(dummyData, chart) {
-      this.utils = new _modals_src_submitUtils__WEBPACK_IMPORTED_MODULE_0__["default"](dummyData);
+   constructor(appData, chart) {
+      this.utils = new _modals_src_submitUtils__WEBPACK_IMPORTED_MODULE_0__["default"](appData);
       this.PA = new _PeriodAggregator_js__WEBPACK_IMPORTED_MODULE_1__["default"](chart);
       this.chart = chart;
    }

@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// for now, DummyData is used instead of fetching bag related folder and transaction content from backend API!
+// for now, AppData is used instead of fetching bag related folder and transaction content from backend API!
 
 
 class FlowPage {
@@ -30,11 +30,11 @@ class FlowPage {
    timespan;
    lastFlowCount;
 
-   constructor(dummyData, modal, chart) {
+   constructor(appData, modal, chart) {
       this.surface = new _flowPage_src_flowPageSurface_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
-      this.dummyData = dummyData;
+      this.appData = appData;
       this.reloadEvent = new Event('bagReload');  // (?)[../../docs/customEventToolbarTrigger.txt]
-      this.toolbar = new _toolbar_js__WEBPACK_IMPORTED_MODULE_4__["default"](dummyData, this.reloadEvent, modal, chart);
+      this.toolbar = new _toolbar_js__WEBPACK_IMPORTED_MODULE_4__["default"](appData, this.reloadEvent, modal, chart);
       this.baglist = new _flowPage_src_baglist_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
       this.flowlist = new _flowPage_src_flowlist_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
       this.eventHandler = new _flowPage_src_flowPageEventHandler_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
@@ -44,21 +44,21 @@ class FlowPage {
 
    #renderFlowPage(bagName, stepUp=false, toolbarReset=false) {
       // console.log('render');
-      this.dummyData.setCurrentBag(bagName, stepUp);
-      const bagData = this.dummyData.getData();
-      const bagPath = this.dummyData.getBagPath();
+      this.appData.setCurrentBag(bagName, stepUp);
+      const bagData = this.appData.getData();
+      const bagPath = this.appData.getBagPath();
       
       const cachedFlowId = this.eventHandler.choosenFlowID;
       this.surface.clear(this.eventHandler);
       
-      this.surface.setupProperSurface(bagData, bagPath, (bagName === this.dummyData.revisitFlag), this.timespan);
+      this.surface.setupProperSurface(bagData, bagPath, (bagName === this.appData.revisitFlag), this.timespan);
       
       this.baglist.render(bagData, bagPath);
       this.flowlist.render(bagData, this.timespan);
 
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
 
-         // if (bagName === this.dummyData.revisitFlag) {
+         // if (bagName === this.appData.revisitFlag) {
          if (!(document.getElementById('flowpage-bag').querySelector('#toolbar-wrapper'))) {
             this.toolbar.setupBar();
          }
@@ -79,7 +79,7 @@ class FlowPage {
          if (this.toolbar.boundRefreshHandler) {
             document.removeEventListener('bagReload', this.toolbar.boundRefreshHandler);
          }
-         this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.dummyData.revisitFlag);
+         this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.appData.revisitFlag);
          document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
          
          if (document.querySelector('.dynamicChartButtonText')) {
@@ -150,7 +150,7 @@ class FlowPage {
       if (!this.timespan) {
          this.timespan = app.timespan;
       }
-      this.#renderFlowPage(this.dummyData.revisitFlag);
+      this.#renderFlowPage(this.appData.revisitFlag);
       this.#setupFlowPageLinks(app);
       app.makeIconHoverEffect('uparrow');
       app.makeIconHoverEffect('clock');

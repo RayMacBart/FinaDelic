@@ -312,7 +312,7 @@ class Router {
       this.#transit(pageid, wantedPageClasses);
       if (!(pageid in this.pages)) {
          const Module = await __webpack_require__("./src_out/routing lazy recursive ^\\.\\/.*\\.js$")(`./${pageid}.js`);
-         const newInst = new Module.default(this.app.dummyData, this.app.modal, this.app.chart);
+         const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
          this.pages[pageid] = newInst;
       }
       const urlname = pageid === 'loginPage' ? 'login' : pageid;
@@ -486,7 +486,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("895d2eb74c84b65cad15")
+/******/ 		__webpack_require__.h = () => ("7a2e8b30bd76b1ba13af")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

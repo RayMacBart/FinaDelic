@@ -15,8 +15,8 @@ class ToolbarEventHandler {
    boundChangeTextHandler;
    boundChangeAmountHandler;
 
-   constructor(dummyData, reloadEvent, modal) {
-      this.dummyData = dummyData;
+   constructor(appData, reloadEvent, modal) {
+      this.appData = appData;
       this.reloadEvent = reloadEvent;
       this.modal = modal;
       this.modal.reloadEvent = reloadEvent;

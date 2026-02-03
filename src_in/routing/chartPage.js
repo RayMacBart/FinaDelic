@@ -28,10 +28,10 @@ class ChartPage {
       }
                      }
 
-   constructor(dummyData, modal, chart) {
-      this.dummyData = dummyData;
+   constructor(appData, modal, chart) {
+      this.appData = appData;
       this.chart = chart;
-      this.dataPrep = new dataPreparator(dummyData, chart);
+      this.dataPrep = new dataPreparator(appData, chart);
    }
 
 

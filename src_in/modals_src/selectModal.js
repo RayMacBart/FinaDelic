@@ -4,7 +4,7 @@ class SelectModal {
 
    constructor(modalsInstance) {
       this.modIns = modalsInstance;
-      this.utils = new SubmitUtils(modalsInstance.dummyData);
+      this.utils = new SubmitUtils(modalsInstance.appData);
       this.boundRecognizeSelection = this.recognizeSelection.bind(this);
    }
 
@@ -31,10 +31,10 @@ class SelectModal {
 
 
    renderSelect(isBagMove) {
-      const currentBagPath = this.modIns.dummyData.getBagPath();
+      const currentBagPath = this.modIns.appData.getBagPath();
       this.utils.bagPath = currentBagPath;
       const direction = currentBagPath.split('/')[0];
-      const bagObjects = this.utils.getAll1DirBagObjects(this.modIns.dummyData.data[direction], direction);
+      const bagObjects = this.utils.getAll1DirBagObjects(this.modIns.appData.data[direction], direction);
       if (isBagMove) {
          this.filterOutBadDestinations(bagObjects, currentBagPath);
       } else {

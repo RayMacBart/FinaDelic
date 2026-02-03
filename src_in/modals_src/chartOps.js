@@ -5,8 +5,8 @@ class ChartOps {
 
    bagPath;
 
-   constructor(dummyData) {
-      this.dummyData = dummyData;
+   constructor(appData) {
+      this.appData = appData;
    }
 
 
@@ -25,7 +25,7 @@ class ChartOps {
    }
 
 
-   getBagObjByPath(bagPath, obj=this.dummyData.data[bagPath.split('/')[0]]) {  // recursive
+   getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
       if (bagPath.includes('/')) {
          const pathArray = bagPath.split('/');
          pathArray.shift();
@@ -39,8 +39,8 @@ class ChartOps {
 
    add2chart(broughtBagPath=null, broughtData=null) {
       const bagPath2Use = broughtBagPath ? broughtBagPath : this.bagPath;
-      const dummyData2Use = broughtData ? broughtData : this.dummyData.data[bagPath2Use.split('/')[0]];
-      const bagObj = this.getBagObjByPath(bagPath2Use, dummyData2Use);
+      const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
+      const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
       const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
       const data = {};
       for (const obj of nestedFlows) {
@@ -58,7 +58,7 @@ class ChartOps {
 
 
 
-      // chart.bags[this.bagPath] = this.dummyData.data['nestedBags'];  // dummyCode --> recursive bag collector wanted!
+      // chart.bags[this.bagPath] = this.appData.data['nestedBags'];  // appCode --> recursive bag collector wanted!
       // app.chart.bags must contain all nested bags (recursive)
       // when creating line charts, the choosen timespan must be splitted into smaller timespans (around 7-15 would be good).
       // The program has to decide, how to split, depending on the choosen timespan's length

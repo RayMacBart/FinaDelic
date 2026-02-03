@@ -6,11 +6,11 @@ import ChartOps from "./chartOps.js";
 
 class ModalSubmitAllocator {
 
-   constructor(dummyData) {
-      this.bagSubmits = new BagSubmits(dummyData);
-      this.flowSubmits = new FlowSubmits(dummyData);
-      this.timeSet = new TimeSet(dummyData);
-      this.chartOps = new ChartOps(dummyData);
+   constructor(appData) {
+      this.bagSubmits = new BagSubmits(appData);
+      this.flowSubmits = new FlowSubmits(appData);
+      this.timeSet = new TimeSet(appData);
+      this.chartOps = new ChartOps(appData);
    }
 
    prepare(currelems, modType, bagPath, flowchange, reloadEvent) {

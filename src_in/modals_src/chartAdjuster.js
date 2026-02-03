@@ -3,13 +3,13 @@ import ChartOps from './chartOps.js';
 
 class ChartAdjuster {
 
-   constructor(dummyData) {
-      this.dummyData = dummyData;
+   constructor(appData) {
+      this.appData = appData;
       this.chartops = new ChartOps;
    }
 
 
-   getBagObjByPath(bagPath, obj=this.dummyData.data[bagPath.split('/')[0]]) {  // recursive
+   getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
       if (bagPath.includes('/')) {
          const pathArray = bagPath.split('/');
          pathArray.shift();
@@ -33,18 +33,18 @@ class ChartAdjuster {
             curBagAmountAtChart += chart.bags[bag][keydate];
          }
          let bagObj;
-         if ((bag.split('/').length === this.dummyData.getBagPath().split('/').length + 1) && bagRemoval) {
+         if ((bag.split('/').length === this.appData.getBagPath().split('/').length + 1) && bagRemoval) {
             delete chart.bags[bag];
             continue;
          } else {
             bagObj = this.getBagObjByPath(bag);
          }
-         const curBagDummyDataFlows = this.chartops.getNestedFlows(bag.split('/'), bagObj);
-         let curBagAmountAtDummyData = 0;
-         for (const flowObj of curBagDummyDataFlows) {
-            curBagAmountAtDummyData += flowObj.amount;
+         const curBagAppDataFlows = this.chartops.getNestedFlows(bag.split('/'), bagObj);
+         let curBagAmountAtAppData = 0;
+         for (const flowObj of curBagAppDataFlows) {
+            curBagAmountAtAppData += flowObj.amount;
          }
-         if ((curBagAmountAtChart !== curBagAmountAtDummyData) && (!(affectedChartBags.includes(bag)))) {
+         if ((curBagAmountAtChart !== curBagAmountAtAppData) && (!(affectedChartBags.includes(bag)))) {
             affectedChartBags.push(bag);
          }
       }
@@ -56,7 +56,7 @@ class ChartAdjuster {
       for (const bag in chart.bags) {
          if (affChartBags.includes(bag)) {
             delete chart.bags[bag];
-            this.chartops.add2chart(bag, this.dummyData.data[bag.split('/')[0]]);
+            this.chartops.add2chart(bag, this.appData.data[bag.split('/')[0]]);
          }
       }
    }

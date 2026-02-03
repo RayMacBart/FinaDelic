@@ -43,10 +43,10 @@ class ChartPage {
       }
                      }
 
-   constructor(dummyData, modal, chart) {
-      this.dummyData = dummyData;
+   constructor(appData, modal, chart) {
+      this.appData = appData;
       this.chart = chart;
-      this.dataPrep = new _chartPage_src_dataPreparator_js__WEBPACK_IMPORTED_MODULE_0__["default"](dummyData, chart);
+      this.dataPrep = new _chartPage_src_dataPreparator_js__WEBPACK_IMPORTED_MODULE_0__["default"](appData, chart);
    }
 
 
@@ -278,8 +278,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class dataPreparator {
 
-   constructor(dummyData, chart) {
-      this.utils = new _modals_src_submitUtils__WEBPACK_IMPORTED_MODULE_0__["default"](dummyData);
+   constructor(appData, chart) {
+      this.utils = new _modals_src_submitUtils__WEBPACK_IMPORTED_MODULE_0__["default"](appData);
       this.PA = new _PeriodAggregator_js__WEBPACK_IMPORTED_MODULE_1__["default"](chart);
       this.chart = chart;
    }

@@ -28,8 +28,8 @@ class ToolbarEventHandler {
    boundChangeTextHandler;
    boundChangeAmountHandler;
 
-   constructor(dummyData, reloadEvent, modal) {
-      this.dummyData = dummyData;
+   constructor(appData, reloadEvent, modal) {
+      this.appData = appData;
       this.reloadEvent = reloadEvent;
       this.modal = modal;
       this.modal.reloadEvent = reloadEvent;
@@ -137,8 +137,8 @@ class Toolbar {
    currentBagName;
    TEH;
 
-   constructor(dummyData, reloadEvent, modal, chart) {
-      this.TEH = new _flowPage_src_toolbarEventHandler_js__WEBPACK_IMPORTED_MODULE_0__["default"](dummyData, reloadEvent, modal);
+   constructor(appData, reloadEvent, modal, chart) {
+      this.TEH = new _flowPage_src_toolbarEventHandler_js__WEBPACK_IMPORTED_MODULE_0__["default"](appData, reloadEvent, modal);
       this.boundModifyHandler = this.modifyHandler.bind(this);
       this.TEH.boundAdd2chartHandler = this.TEH.add2chartHandler.bind(this.TEH);
       this.TEH.boundRemoveFromChartHandler = this.TEH.removeFromChartHandler.bind(this.TEH);
@@ -233,7 +233,7 @@ class Toolbar {
          } else {
             buttons[0].style.display = 'none';
          }
-         if (this.TEH.dummyData.getBagPath() in this.chartBags) {
+         if (this.TEH.appData.getBagPath() in this.chartBags) {
             buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {once: true});
          } else {
             buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});  // (warning)[../../docs/onceListenerWarning.txt]

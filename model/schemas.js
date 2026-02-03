@@ -45,20 +45,31 @@ const dataSchema = new Schema({
 
 
 const bagSchema = new Schema({
+   // name: {
+   //    type: String,
+   //    required: true
+   // },
    nestedBags: 
-         [ {
+      [ {
+         name: String,
+         bag: {
             type: Schema.Types.ObjectId,
             ref: 'bag'
-         } ],
+         }
+      } ],
    transactions: 
-         [ {
-            type: Schema.Types.ObjectId,
-            ref: 'flow',  
-         } ]
+      [ {
+         type: Schema.Types.ObjectId,
+         ref: 'flow',  
+      } ]
 });
 
 
 const flowSchema = new Schema({
+   frontId: {
+      type: Number,
+      required: true
+   },
    date: {
       type: Date,
       required: true
