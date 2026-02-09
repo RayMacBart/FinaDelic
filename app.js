@@ -1,18 +1,38 @@
 require('dotenv').config();
 const Mongoose = require('mongoose');
 const path = require('path');
-const rootDir = require('./util/rootpath');
 const express = require('express');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const session = require('express-session');
+const MongoStore = require('connect-mongo').default;
+const rootDir = require('./util/rootpath');
 const router = require('./routes');
+
+// const SessionConnection = connectMongoDBSession(session);
+// const sessionCollection = new SessionConnection({uri: process.env.MONGODB_URI, collection: 'usersessions'});
 
 const app = express();
 
 // app.use(bodyParser.urlencoded({extended: false}));  // Maybe will be used by login form submission?
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(rootDir, 'public')));
+app.use(session({
+               secret: process.env.SESSION_SECRET,
+               resave: false,
+               saveUninitialized: false,
+               rolling: true,
+               store: MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: 'usersessions'}),
+               cookie: {
+                  path: '/',
+                  httpOnly: true,
+                  maxAge: 600000,  // 10min
+                  sameSite: 'lax'
+               }
+   }));
 
+app.use(express.static(path.join(rootDir, 'public')));
+   
 
 // app.options('*', (req, res) => { res.sendStatus(204); });  // needed when using custom headers!
 

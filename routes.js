@@ -25,14 +25,14 @@ router.post('/signup',     // implement ERROR-MESSAGES!
                body('email').trim().isEmail().normalizeEmail().escape().withMessage('Invalid Email!'),
                body('password').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape().withMessage('Validation Error: The entered password is too weak!'),
                body('repeat').trim(),
-               UserCTRL.signUp);
+               UserCTRL.postSignUp);
 
 router.post('/signin',
                body('email').trim().isEmail().normalizeEmail().escape().withMessage('Invalid Email!'),
                body('password').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape().withMessage('Invalid Password: Too weak!'),
-               UserCTRL.signIn);
+               UserCTRL.postSignIn);
 
-router.get('/logout', UserCTRL.logout);
+router.get('/logout', UserCTRL.getLogout);
 
 router.post('/createBag', BagCTRL.postCreateBag);
 

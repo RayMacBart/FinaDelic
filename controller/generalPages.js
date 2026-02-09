@@ -1,12 +1,12 @@
 const fs = require('fs').promises;
 const path = require('path');
 const rootDir = require('../util/rootpath.js');
-const authStatus = require('../util/authStatus.js');
+// const authStatus = require('../util/authStatus.js');
 
 
 const checkProperHP = (req) => {
-      const authenticated = authStatus.check(req);  // replace with real auth check
-      if (authenticated) {
+      // const authenticated = authStatus.check(req);  // replace with real auth check
+      if (req.session.isLoggedIn) {
          return [path.join(rootDir, 'public', 'index_in.html'), 'in'];
       } else {
          return [path.join(rootDir, 'public', 'index_out.html'), 'out'];
@@ -50,7 +50,11 @@ class GeneralPages {
 
    static getRootPage(req, res) {
       const authResultArray = checkProperHP(req);
-      res.sendFile(authResultArray[0], (err) => console.log(err));
+      if (authResultArray[1] === 'out') {
+         res.sendFile(authResultArray[0], (err) => console.log(err));
+      } else {
+         // access user data via req.session.userId, extract email first part, inject it (like above)
+      }
    }
 }
 

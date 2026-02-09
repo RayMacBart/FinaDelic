@@ -2,16 +2,21 @@ const { validationResult } = require('express-validator');
 const argon2 = require('argon2');
 const User = require('../model/User');
 const userCol = require('../model/schemas').Users;
-const authStatus = require('../util/authStatus');
+// const authStatus = require('../util/authStatus');
 
 
-exports.signIn = async (req, res) => {
+exports.postSignIn = async (req, res) => {
    const user = await userCol.findOne({email: req.body.email});
    if (user) {
       const isRightPW = await argon2.verify(user.pwhash, req.body.password);
       if (isRightPW) {
-         // CREATE SESSION COOKIE / AUTHENTICATE
-         authStatus.login();
+         // console.log('HERE!', req.session);
+         // authStatus.login();
+         req.session.userId = user._id;
+         req.session.isLoggedIn = true;
+         console.log('user._id:', user._id);
+         // res.status(303).redirect('/');
+         // res.redirect('/');
          res.status(303).send();
       } else {
          res.status(403).send();
@@ -22,7 +27,7 @@ exports.signIn = async (req, res) => {
 }
 
 
-exports.signUp = async (req, res) => {
+exports.postSignUp = async (req, res) => {
    const user = await userCol.findOne({email: req.body.email});
    if (user) {
       res.status(409).send();
@@ -37,7 +42,9 @@ exports.signUp = async (req, res) => {
          const PWmatch = (req.body.password === req.body.repeat);
          if (PWmatch) {
             const newUser = await User.create(req.body.email, req.body.password);
-            authStatus.login();
+            // authStatus.login();
+            req.session.userId = newUser._id;
+            req.session.isLoggedIn = true;
             res.status(303).send();
          } else {
             res.status(400).send();
@@ -49,7 +56,13 @@ exports.signUp = async (req, res) => {
 }
 
 
-exports.logout = async (req, res) => {
-   authStatus.logout();
-   res.status(303).redirect('/');
+exports.getLogout = async (req, res) => {
+   // authStatus.logout();
+   req.session.destroy(error => {
+      if (error) {
+         console.log(error);
+         return res.status(503).send('Failed to finish Session:', error);
+      }
+   });
+   res.redirect('/');
 }
