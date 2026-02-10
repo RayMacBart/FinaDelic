@@ -10,7 +10,7 @@ const rootDir = require('./util/rootpath');
 const router = require('./routes');
 
 // const SessionConnection = connectMongoDBSession(session);
-// const sessionCollection = new SessionConnection({uri: process.env.MONGODB_URI, collection: 'usersessions'});
+// const sessionCollection = new SessionConnection({uri: process.env.MONGODB_URI, collection: 'sessions'});
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use(session({
                resave: false,
                saveUninitialized: false,
                rolling: true,
-               store: MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: 'usersessions'}),
+               store: MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: 'sessions'}),
                cookie: {
                   path: '/',
                   httpOnly: true,

@@ -1,61 +1,35 @@
-const fs = require('fs').promises;
-const path = require('path');
-const rootDir = require('../util/rootpath.js');
-// const authStatus = require('../util/authStatus.js');
-
-
-const checkProperHP = (req) => {
-      // const authenticated = authStatus.check(req);  // replace with real auth check
-      if (req.session.isLoggedIn) {
-         return [path.join(rootDir, 'public', 'index_in.html'), 'in'];
-      } else {
-         return [path.join(rootDir, 'public', 'index_out.html'), 'out'];
-      }
-   }
-
-
-const getAdjustedRouteName = (reqPath) => {
-   let routename = reqPath;
-   if (['/workspace', '/login', '/chart'].includes(routename)) {
-      if (routename === '/workspace') {
-         routename = '/flowPage';
-      } else if (routename === '/chart') {
-         routename = '/chartPage';
-      } else {
-         routename = '/loginPage';
-      }
-   }
-   return routename;
-}
+const Util = require('./ctrlUtils');
 
 
 class GeneralPages {
 
-   static async getPage(req, res) {
-      const [htmlPath, authState] = checkProperHP(req);
+   async getPage(req, res) {
+      const [htmlPath, authState] = await Util.checkProperHP(req);
       if (authState === 'in' && req.path === '/login') {
          res.redirect('/');
-      } else if ((authState === 'out') && (['/workspace', '/chart'].includes(req.path))) {
-         res.redirect('/login');
+      } else if (['/workspace', '/chart'].includes(req.path)) {
+         if (authState === 'out') {
+            res.redirect('/login');
+         } else {
+            const html = await Util.getInjectedHTML(req, htmlPath, true);
+            res.set({'Content-Type': 'text/html'});
+            res.send(html);
+         }
+      }
+   }
+
+   async getRootPage(req, res) {
+      const [htmlPath, authState] = await Util.checkProperHP(req);
+      if (authState === 'out') {
+         res.sendFile(htmlPath, (err) => console.log(err));
       } else {
-         let html = await fs.readFile(htmlPath, (err) => console.log(err));
-         html = html.toString();
-         const routename = getAdjustedRouteName(req.path);
-         const injection = `<script id="routeinfo" type="text/plain">${routename}</script>`;
-         html = html.replace('</html>', `${injection}</html>`);
+         const html = await Util.getInjectedHTML(req, htmlPath);
          res.set({'Content-Type': 'text/html'});
          res.send(html);
       }
    }
-
-   static getRootPage(req, res) {
-      const authResultArray = checkProperHP(req);
-      if (authResultArray[1] === 'out') {
-         res.sendFile(authResultArray[0], (err) => console.log(err));
-      } else {
-         // access user data via req.session.userId, extract email first part, inject it (like above)
-      }
-   }
 }
 
-module.exports = GeneralPages;
+const genPages = new GeneralPages();
+
+module.exports = genPages;

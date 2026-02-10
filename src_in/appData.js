@@ -7,6 +7,10 @@ class AppData {
       this.revisitFlag = Symbol('revisitFlag');
       this.utils = new SubmitUtils(this);
       this.setBagAmounts(timespan);
+      if (document.getElementById('username-info')) {
+         this.username = document.getElementById('username-info').textContent;
+      }
+      console.log('username:', this.username);
    }
 
 

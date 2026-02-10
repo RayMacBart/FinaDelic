@@ -1,11 +1,11 @@
 "use strict";
 (globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_in_routing_flowPage_src_flowPageEventHandler_js"],{
 
-/***/ "./src_in/routing/flowPage_src/flowPageEventHandler.js":
+/***/ "./src_in/routing/flowPage_src/flowPageEventHandler.js"
 /*!*************************************************************!*\
   !*** ./src_in/routing/flowPage_src/flowPageEventHandler.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -80,6 +80,6 @@ class EventHandler {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventHandler);
 
-/***/ })
+/***/ }
 
 }]);

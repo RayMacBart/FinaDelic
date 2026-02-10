@@ -1,11 +1,11 @@
 "use strict";
 (globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_in_routing_flowPage_js"],{
 
-/***/ "./src_in/routing/flowPage.js":
+/***/ "./src_in/routing/flowPage.js"
 /*!************************************!*\
   !*** ./src_in/routing/flowPage.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -152,6 +152,7 @@ class FlowPage {
       }
       this.#renderFlowPage(this.appData.revisitFlag);
       this.#setupFlowPageLinks(app);
+      document.getElementById('username-workspace').innerText = app.appData.username;
       app.makeIconHoverEffect('uparrow');
       app.makeIconHoverEffect('clock');
       app.makeIconHoverEffect('chart');
@@ -161,13 +162,13 @@ class FlowPage {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlowPage);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/routing/flowPage_src/baglist.js":
+/***/ "./src_in/routing/flowPage_src/baglist.js"
 /*!************************************************!*\
   !*** ./src_in/routing/flowPage_src/baglist.js ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -221,13 +222,13 @@ class BagList {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BagList);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/routing/flowPage_src/chronoOrder.js":
+/***/ "./src_in/routing/flowPage_src/chronoOrder.js"
 /*!****************************************************!*\
   !*** ./src_in/routing/flowPage_src/chronoOrder.js ***!
   \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -260,13 +261,13 @@ function chronoInsertFlow(orderedTimes, ID, startIDX, endIDX, dateObj) {  // rec
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (chronoInsertFlow);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/routing/flowPage_src/flowPageEventHandler.js":
+/***/ "./src_in/routing/flowPage_src/flowPageEventHandler.js"
 /*!*************************************************************!*\
   !*** ./src_in/routing/flowPage_src/flowPageEventHandler.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -341,13 +342,13 @@ class EventHandler {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventHandler);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/routing/flowPage_src/flowPageSurface.js":
+/***/ "./src_in/routing/flowPage_src/flowPageSurface.js"
 /*!********************************************************!*\
   !*** ./src_in/routing/flowPage_src/flowPageSurface.js ***!
   \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -451,13 +452,13 @@ class FlowbagSurface {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlowbagSurface);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/routing/flowPage_src/flowlist.js":
+/***/ "./src_in/routing/flowPage_src/flowlist.js"
 /*!*************************************************!*\
   !*** ./src_in/routing/flowPage_src/flowlist.js ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -545,13 +546,13 @@ class FlowList {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlowList);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/routing/flowPage_src/renderAmount.js":
+/***/ "./src_in/routing/flowPage_src/renderAmount.js"
 /*!*****************************************************!*\
   !*** ./src_in/routing/flowPage_src/renderAmount.js ***!
   \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -572,6 +573,6 @@ function renderAmount(amount, amountEl) {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderAmount);
 
-/***/ })
+/***/ }
 
 }]);

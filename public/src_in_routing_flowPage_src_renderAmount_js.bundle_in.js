@@ -1,11 +1,11 @@
 "use strict";
 (globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_in_routing_flowPage_src_renderAmount_js"],{
 
-/***/ "./src_in/routing/flowPage_src/renderAmount.js":
+/***/ "./src_in/routing/flowPage_src/renderAmount.js"
 /*!*****************************************************!*\
   !*** ./src_in/routing/flowPage_src/renderAmount.js ***!
   \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -26,6 +26,6 @@ function renderAmount(amount, amountEl) {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderAmount);
 
-/***/ })
+/***/ }
 
 }]);

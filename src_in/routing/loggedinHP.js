@@ -9,6 +9,7 @@ class LoggedinHP {
    
    async setup(app) {
       this.#setupLoggedinHPLinks(app);
+      document.getElementById('username').innerText = app.appData.username;
       await app.lazyLoader.importSVG('FinaDelic Logo Hero', 'heroLogoBox', ['logo', 'logo--hero']);
       app.makeIconHoverEffect('logout');
    }

@@ -235,6 +235,7 @@ class ChartPage {
       this.#setTimeHeader(app.timespan);
       this.#renderChart();
       this.#setupChartPageLinks(app);
+      document.getElementById('username-chart').innerText = app.appData.username;
       app.makeIconHoverEffect('switch');
       app.makeIconHoverEffect('clock');
       app.makeIconHoverEffect('flows');

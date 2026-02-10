@@ -1,11 +1,11 @@
 "use strict";
 (globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_in_routing_chartPage_js"],{
 
-/***/ "./src_in/routing/chartPage.js":
+/***/ "./src_in/routing/chartPage.js"
 /*!*************************************!*\
   !*** ./src_in/routing/chartPage.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -250,6 +250,7 @@ class ChartPage {
       this.#setTimeHeader(app.timespan);
       this.#renderChart();
       this.#setupChartPageLinks(app);
+      document.getElementById('username-chart').innerText = app.appData.username;
       app.makeIconHoverEffect('switch');
       app.makeIconHoverEffect('clock');
       app.makeIconHoverEffect('flows');
@@ -259,13 +260,13 @@ class ChartPage {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChartPage);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/routing/chartPage_src/dataPreparator.js":
+/***/ "./src_in/routing/chartPage_src/dataPreparator.js"
 /*!********************************************************!*\
   !*** ./src_in/routing/chartPage_src/dataPreparator.js ***!
   \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -391,6 +392,6 @@ class dataPreparator {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dataPreparator);
 
 
-/***/ })
+/***/ }
 
 }]);

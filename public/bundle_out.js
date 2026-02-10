@@ -1,11 +1,11 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src_out/footer.js":
+/***/ "./src_out/footer.js"
 /*!***************************!*\
   !*** ./src_out/footer.js ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -34,13 +34,13 @@ class Footer {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_out/index.js":
+/***/ "./src_out/index.js"
 /*!**************************!*\
   !*** ./src_out/index.js ***!
   \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -84,13 +84,13 @@ const chart = app.chart;
 
                                             
 
-/***/ }),
+/***/ },
 
-/***/ "./src_out/infos.js":
+/***/ "./src_out/infos.js"
 /*!**************************!*\
   !*** ./src_out/infos.js ***!
   \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -165,13 +165,13 @@ const showInfo = infos.showInfo.bind(infos);
 
 
 
-/***/ }),
+/***/ },
 
-/***/ "./src_out/lazyLoader.js":
+/***/ "./src_out/lazyLoader.js"
 /*!*******************************!*\
   !*** ./src_out/lazyLoader.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -220,13 +220,13 @@ class LazyLoader {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LazyLoader);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_out/route.js":
+/***/ "./src_out/route.js"
 /*!**************************!*\
   !*** ./src_out/route.js ***!
   \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -311,7 +311,7 @@ class Router {
    navigate = async(pageid, wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
       this.#transit(pageid, wantedPageClasses);
       if (!(pageid in this.pages)) {
-         const Module = await __webpack_require__("./src_out/routing lazy recursive ^\\.\\/.*\\.js$")(`./${pageid}.js`);
+         const Module = await __webpack_require__("./src_out/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default")(`./${pageid}.js`);
          const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
          this.pages[pageid] = newInst;
       }
@@ -331,63 +331,75 @@ class Router {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Router);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_out/routing lazy recursive ^\\.\\/.*\\.js$":
-/*!*************************************************************!*\
-  !*** ./src_out/routing/ lazy ^\.\/.*\.js$ namespace object ***!
-  \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./src_out/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default"
+/*!****************************************************************************************!*\
+  !*** ./src_out/routing/ lazy ^\.\/.*\.js$ referencedExports: default namespace object ***!
+  \****************************************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var map = {
 	"./legal.js": [
 		"./src_out/routing/legal.js",
-		"src_out_routing_legal_js"
+		[
+			"src_out_routing_legal_js"
+		]
 	],
 	"./loggedoutHP.js": [
 		"./src_out/routing/loggedoutHP.js",
-		"src_out_routing_loggedoutHP_js"
+		[
+			"src_out_routing_loggedoutHP_js"
+		]
 	],
 	"./loginPage.js": [
 		"./src_out/routing/loginPage.js",
-		"src_out_routing_loginPage_js"
+		[
+			"src_out_routing_loginPage_js"
+		]
 	],
 	"./loginPage_src/inputChecker.js": [
 		"./src_out/routing/loginPage_src/inputChecker.js",
-		"src_out_routing_loginPage_src_inputChecker_js"
+		[
+			"src_out_routing_loginPage_src_inputChecker_js"
+		]
 	],
 	"./loginPage_src/serverInteraction.js": [
 		"./src_out/routing/loginPage_src/serverInteraction.js",
-		"src_out_routing_loginPage_src_serverInteraction_js"
+		[
+			"src_out_routing_loginPage_src_serverInteraction_js"
+		]
 	],
 	"./privacy.js": [
 		"./src_out/routing/privacy.js",
-		"src_out_routing_privacy_js"
+		[
+			"src_out_routing_privacy_js"
+		]
 	],
 	"./terms.js": [
 		"./src_out/routing/terms.js",
-		"src_out_routing_terms_js"
+		[
+			"src_out_routing_terms_js"
+		]
 	]
 };
 function webpackAsyncContext(req) {
 	if(!__webpack_require__.o(map, req)) {
 		return Promise.resolve().then(() => {
-			var e = new Error("Cannot find module '" + req + "'");
-			e.code = 'MODULE_NOT_FOUND';
-			throw e;
-		});
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+});
 	}
 
 	var ids = map[req], id = ids[0];
-	return __webpack_require__.e(ids[1]).then(() => {
-		return __webpack_require__(id);
-	});
+	return __webpack_require__.e(ids[1][0]).then(() => (__webpack_require__(id)));
 }
 webpackAsyncContext.keys = () => (Object.keys(map));
-webpackAsyncContext.id = "./src_out/routing lazy recursive ^\\.\\/.*\\.js$";
+webpackAsyncContext.id = "./src_out/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default";
 module.exports = webpackAsyncContext;
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
@@ -401,6 +413,12 @@ module.exports = webpackAsyncContext;
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			if (cachedModule.error !== undefined) throw cachedModule.error;
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -486,7 +504,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("7a2e8b30bd76b1ba13af")
+/******/ 		__webpack_require__.h = () => ("d4ff8a50568b131a2d9e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -514,7 +532,6 @@ module.exports = webpackAsyncContext;
 /******/ 				script = document.createElement('script');
 /******/ 		
 /******/ 				script.charset = 'utf-8';
-/******/ 				script.timeout = 120;
 /******/ 				if (__webpack_require__.nc) {
 /******/ 					script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 				}
@@ -822,7 +839,8 @@ module.exports = webpackAsyncContext;
 /******/ 									update.m,
 /******/ 									promises,
 /******/ 									currentUpdateApplyHandlers,
-/******/ 									updatedModules
+/******/ 									updatedModules,
+/******/ 									update.css
 /******/ 								);
 /******/ 								return promises;
 /******/ 							}, [])

@@ -134,6 +134,7 @@ class FlowPage {
       }
       this.#renderFlowPage(this.appData.revisitFlag);
       this.#setupFlowPageLinks(app);
+      document.getElementById('username-workspace').innerText = app.appData.username;
       app.makeIconHoverEffect('uparrow');
       app.makeIconHoverEffect('clock');
       app.makeIconHoverEffect('chart');

@@ -1,11 +1,11 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src_in/appData.js":
+/***/ "./src_in/appData.js"
 /*!***************************!*\
   !*** ./src_in/appData.js ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -22,6 +22,10 @@ class AppData {
       this.revisitFlag = Symbol('revisitFlag');
       this.utils = new _modals_src_submitUtils_js__WEBPACK_IMPORTED_MODULE_0__["default"](this);
       this.setBagAmounts(timespan);
+      if (document.getElementById('username-info')) {
+         this.username = document.getElementById('username-info').textContent;
+      }
+      console.log('username:', this.username);
    }
 
 
@@ -196,13 +200,13 @@ class AppData {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AppData);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/backendDataCommunication/bagDataPoster.js":
+/***/ "./src_in/backendDataCommunication/bagDataPoster.js"
 /*!**********************************************************!*\
   !*** ./src_in/backendDataCommunication/bagDataPoster.js ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -265,13 +269,13 @@ const bagDataPoster = new BagDataPoster();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (bagDataPoster);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/backendDataCommunication/flowDataPoster.js":
+/***/ "./src_in/backendDataCommunication/flowDataPoster.js"
 /*!***********************************************************!*\
   !*** ./src_in/backendDataCommunication/flowDataPoster.js ***!
   \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -346,13 +350,13 @@ const flowDataPoster = new FlowDataPoster();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (flowDataPoster);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/backendDataCommunication/timeDataPoster.js":
+/***/ "./src_in/backendDataCommunication/timeDataPoster.js"
 /*!***********************************************************!*\
   !*** ./src_in/backendDataCommunication/timeDataPoster.js ***!
   \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -383,13 +387,13 @@ const timeDataPoster = new TimeDataPoster();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (timeDataPoster);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/chart.js":
+/***/ "./src_in/chart.js"
 /*!*************************!*\
   !*** ./src_in/chart.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -408,13 +412,13 @@ class Chart {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Chart);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/footer.js":
+/***/ "./src_in/footer.js"
 /*!**************************!*\
   !*** ./src_in/footer.js ***!
   \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -443,13 +447,13 @@ class Footer {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/index.js":
+/***/ "./src_in/index.js"
 /*!*************************!*\
   !*** ./src_in/index.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -508,13 +512,13 @@ const chart = app.chart;
 
                                             
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/infos.js":
+/***/ "./src_in/infos.js"
 /*!*************************!*\
   !*** ./src_in/infos.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -598,13 +602,13 @@ const showInfo = infos.showInfo.bind(infos);
 
 
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/lazyLoader.js":
+/***/ "./src_in/lazyLoader.js"
 /*!******************************!*\
   !*** ./src_in/lazyLoader.js ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -653,13 +657,13 @@ class LazyLoader {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LazyLoader);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modal.js":
+/***/ "./src_in/modal.js"
 /*!*************************!*\
   !*** ./src_in/modal.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -868,13 +872,13 @@ class Modal {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modal);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modalContents.js":
+/***/ "./src_in/modalContents.js"
 /*!*********************************!*\
   !*** ./src_in/modalContents.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -980,13 +984,13 @@ const modalContents = {
 
    
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/bagSubmits.js":
+/***/ "./src_in/modals_src/bagSubmits.js"
 /*!*****************************************!*\
   !*** ./src_in/modals_src/bagSubmits.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1110,13 +1114,13 @@ class BagSubmits {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BagSubmits);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/chartAdjuster.js":
+/***/ "./src_in/modals_src/chartAdjuster.js"
 /*!********************************************!*\
   !*** ./src_in/modals_src/chartAdjuster.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1191,13 +1195,13 @@ class ChartAdjuster {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChartAdjuster);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/chartOps.js":
+/***/ "./src_in/modals_src/chartOps.js"
 /*!***************************************!*\
   !*** ./src_in/modals_src/chartOps.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1284,13 +1288,13 @@ class ChartOps {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChartOps);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/flowSubmits.js":
+/***/ "./src_in/modals_src/flowSubmits.js"
 /*!******************************************!*\
   !*** ./src_in/modals_src/flowSubmits.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1399,13 +1403,13 @@ class FlowSubmits {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlowSubmits);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/inputModal.js":
+/***/ "./src_in/modals_src/inputModal.js"
 /*!*****************************************!*\
   !*** ./src_in/modals_src/inputModal.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1578,13 +1582,13 @@ class InputModal {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InputModal);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/modalSubmitAllocator.js":
+/***/ "./src_in/modals_src/modalSubmitAllocator.js"
 /*!***************************************************!*\
   !*** ./src_in/modals_src/modalSubmitAllocator.js ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1668,13 +1672,13 @@ class ModalSubmitAllocator {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalSubmitAllocator);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/selectModal.js":
+/***/ "./src_in/modals_src/selectModal.js"
 /*!******************************************!*\
   !*** ./src_in/modals_src/selectModal.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1749,13 +1753,13 @@ class SelectModal {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SelectModal);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/submitUtils.js":
+/***/ "./src_in/modals_src/submitUtils.js"
 /*!******************************************!*\
   !*** ./src_in/modals_src/submitUtils.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1956,13 +1960,13 @@ class SubmitUtils {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SubmitUtils);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/modals_src/timeSet.js":
+/***/ "./src_in/modals_src/timeSet.js"
 /*!**************************************!*\
   !*** ./src_in/modals_src/timeSet.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -2011,13 +2015,13 @@ class TimeSet {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TimeSet);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/route.js":
+/***/ "./src_in/route.js"
 /*!*************************!*\
   !*** ./src_in/route.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -2102,7 +2106,7 @@ class Router {
       this.#transit(pageid, wantedPageClasses);
       
       if (!(pageid in this.pages)) {
-         const Module = await __webpack_require__("./src_in/routing lazy recursive ^\\.\\/.*\\.js$")(`./${pageid}.js`);
+         const Module = await __webpack_require__("./src_in/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default")(`./${pageid}.js`);
          const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
          this.pages[pageid] = newInst;
       }
@@ -2125,113 +2129,145 @@ class Router {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Router);
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/routing lazy recursive ^\\.\\/.*\\.js$":
-/*!************************************************************!*\
-  !*** ./src_in/routing/ lazy ^\.\/.*\.js$ namespace object ***!
-  \************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./src_in/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default"
+/*!***************************************************************************************!*\
+  !*** ./src_in/routing/ lazy ^\.\/.*\.js$ referencedExports: default namespace object ***!
+  \***************************************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var map = {
 	"./chartPage.js": [
 		"./src_in/routing/chartPage.js",
-		"vendors-node_modules_chart_js_dist_chart_js",
-		"src_in_routing_chartPage_src_PeriodAggregator_js",
-		"src_in_routing_chartPage_js"
+		[
+			"vendors-node_modules_chart_js_dist_chart_js",
+			"src_in_routing_chartPage_src_PeriodAggregator_js",
+			"src_in_routing_chartPage_js"
+		]
 	],
 	"./chartPage_src/AggregationUtils.js": [
 		"./src_in/routing/chartPage_src/AggregationUtils.js",
-		"src_in_routing_chartPage_src_AggregationUtils_js"
+		[
+			"src_in_routing_chartPage_src_AggregationUtils_js"
+		]
 	],
 	"./chartPage_src/PeriodAggregator.js": [
 		"./src_in/routing/chartPage_src/PeriodAggregator.js",
-		"src_in_routing_chartPage_src_PeriodAggregator_js"
+		[
+			"src_in_routing_chartPage_src_PeriodAggregator_js"
+		]
 	],
 	"./chartPage_src/dataPreparator.js": [
 		"./src_in/routing/chartPage_src/dataPreparator.js",
-		"src_in_routing_chartPage_src_PeriodAggregator_js",
-		"src_in_routing_chartPage_src_dataPreparator_js"
+		[
+			"src_in_routing_chartPage_src_PeriodAggregator_js",
+			"src_in_routing_chartPage_src_dataPreparator_js"
+		]
 	],
 	"./flowPage.js": [
 		"./src_in/routing/flowPage.js",
-		"src_in_routing_toolbar_js",
-		"src_in_routing_flowPage_js"
+		[
+			"src_in_routing_toolbar_js",
+			"src_in_routing_flowPage_js"
+		]
 	],
 	"./flowPage_src/baglist.js": [
 		"./src_in/routing/flowPage_src/baglist.js",
-		"src_in_routing_flowPage_src_baglist_js"
+		[
+			"src_in_routing_flowPage_src_baglist_js"
+		]
 	],
 	"./flowPage_src/chronoOrder.js": [
 		"./src_in/routing/flowPage_src/chronoOrder.js",
-		"src_in_routing_flowPage_src_chronoOrder_js"
+		[
+			"src_in_routing_flowPage_src_chronoOrder_js"
+		]
 	],
 	"./flowPage_src/flowPageEventHandler.js": [
 		"./src_in/routing/flowPage_src/flowPageEventHandler.js",
-		"src_in_routing_flowPage_src_flowPageEventHandler_js"
+		[
+			"src_in_routing_flowPage_src_flowPageEventHandler_js"
+		]
 	],
 	"./flowPage_src/flowPageSurface.js": [
 		"./src_in/routing/flowPage_src/flowPageSurface.js",
-		"src_in_routing_flowPage_src_flowPageSurface_js"
+		[
+			"src_in_routing_flowPage_src_flowPageSurface_js"
+		]
 	],
 	"./flowPage_src/flowlist.js": [
 		"./src_in/routing/flowPage_src/flowlist.js",
-		"src_in_routing_flowPage_src_flowlist_js"
+		[
+			"src_in_routing_flowPage_src_flowlist_js"
+		]
 	],
 	"./flowPage_src/renderAmount.js": [
 		"./src_in/routing/flowPage_src/renderAmount.js",
-		"src_in_routing_flowPage_src_renderAmount_js"
+		[
+			"src_in_routing_flowPage_src_renderAmount_js"
+		]
 	],
 	"./flowPage_src/toolbarEventHandler.js": [
 		"./src_in/routing/flowPage_src/toolbarEventHandler.js",
-		"src_in_routing_flowPage_src_toolbarEventHandler_js"
+		[
+			"src_in_routing_flowPage_src_toolbarEventHandler_js"
+		]
 	],
 	"./legal.js": [
 		"./src_in/routing/legal.js",
-		"src_in_routing_legal_js"
+		[
+			"src_in_routing_legal_js"
+		]
 	],
 	"./loggedinHP.js": [
 		"./src_in/routing/loggedinHP.js",
-		"src_in_routing_loggedinHP_js"
+		[
+			"src_in_routing_loggedinHP_js"
+		]
 	],
 	"./privacy.js": [
 		"./src_in/routing/privacy.js",
-		"src_in_routing_privacy_js"
+		[
+			"src_in_routing_privacy_js"
+		]
 	],
 	"./terms.js": [
 		"./src_in/routing/terms.js",
-		"src_in_routing_terms_js"
+		[
+			"src_in_routing_terms_js"
+		]
 	],
 	"./toolbar.js": [
 		"./src_in/routing/toolbar.js",
-		"src_in_routing_toolbar_js"
+		[
+			"src_in_routing_toolbar_js"
+		]
 	]
 };
 function webpackAsyncContext(req) {
 	if(!__webpack_require__.o(map, req)) {
 		return Promise.resolve().then(() => {
-			var e = new Error("Cannot find module '" + req + "'");
-			e.code = 'MODULE_NOT_FOUND';
-			throw e;
-		});
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+});
 	}
 
 	var ids = map[req], id = ids[0];
-	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(() => {
-		return __webpack_require__(id);
-	});
+	return Promise.all(ids[1].map(__webpack_require__.e)).then(() => (__webpack_require__(id)));
 }
 webpackAsyncContext.keys = () => (Object.keys(map));
-webpackAsyncContext.id = "./src_in/routing lazy recursive ^\\.\\/.*\\.js$";
+webpackAsyncContext.id = "./src_in/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default";
 module.exports = webpackAsyncContext;
 
-/***/ }),
+/***/ },
 
-/***/ "./src_in/timespan.js":
+/***/ "./src_in/timespan.js"
 /*!****************************!*\
   !*** ./src_in/timespan.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -2247,7 +2283,7 @@ class TimeSpan {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TimeSpan);
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
@@ -2261,6 +2297,12 @@ class TimeSpan {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			if (cachedModule.error !== undefined) throw cachedModule.error;
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -2346,7 +2388,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("b2ae0797efbc2ca5b4ff")
+/******/ 		__webpack_require__.h = () => ("6b90770c1226c8efb099")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -2374,7 +2416,6 @@ class TimeSpan {
 /******/ 				script = document.createElement('script');
 /******/ 		
 /******/ 				script.charset = 'utf-8';
-/******/ 				script.timeout = 120;
 /******/ 				if (__webpack_require__.nc) {
 /******/ 					script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 				}
@@ -2682,7 +2723,8 @@ class TimeSpan {
 /******/ 									update.m,
 /******/ 									promises,
 /******/ 									currentUpdateApplyHandlers,
-/******/ 									updatedModules
+/******/ 									updatedModules,
+/******/ 									update.css
 /******/ 								);
 /******/ 								return promises;
 /******/ 							}, [])

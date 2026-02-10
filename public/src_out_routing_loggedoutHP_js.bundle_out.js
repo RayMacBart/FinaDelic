@@ -1,11 +1,11 @@
 "use strict";
 (globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_out_routing_loggedoutHP_js"],{
 
-/***/ "./src_out/routing/loggedoutHP.js":
+/***/ "./src_out/routing/loggedoutHP.js"
 /*!****************************************!*\
   !*** ./src_out/routing/loggedoutHP.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -29,6 +29,6 @@ class LoggedoutHP {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoggedoutHP);
 
-/***/ })
+/***/ }
 
 }]);

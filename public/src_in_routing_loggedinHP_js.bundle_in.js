@@ -1,11 +1,11 @@
 "use strict";
 (globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_in_routing_loggedinHP_js"],{
 
-/***/ "./src_in/routing/loggedinHP.js":
+/***/ "./src_in/routing/loggedinHP.js"
 /*!**************************************!*\
   !*** ./src_in/routing/loggedinHP.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -22,6 +22,7 @@ class LoggedinHP {
    
    async setup(app) {
       this.#setupLoggedinHPLinks(app);
+      document.getElementById('username').innerText = app.appData.username;
       await app.lazyLoader.importSVG('FinaDelic Logo Hero', 'heroLogoBox', ['logo', 'logo--hero']);
       app.makeIconHoverEffect('logout');
    }
@@ -32,6 +33,6 @@ const page = new LoggedinHP();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoggedinHP);
 
-/***/ })
+/***/ }
 
 }]);

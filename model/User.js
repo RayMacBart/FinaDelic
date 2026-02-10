@@ -7,7 +7,6 @@ class User {
 
    static async create(email, password) {
       const pwhash = await argon2.hash(password);
-      // IMPLEMENT LOGIC TO AUTHENTICATE USER AND CREATE SESSION COOKIE ETC. HERE!
       const data = await Data.createData();
       const now = new Date();
       const startdate = (now.getFullYear()-1)+'-01-01';

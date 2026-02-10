@@ -1,11 +1,11 @@
 "use strict";
 (globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_in_routing_chartPage_src_AggregationUtils_js"],{
 
-/***/ "./src_in/routing/chartPage_src/AggregationUtils.js":
+/***/ "./src_in/routing/chartPage_src/AggregationUtils.js"
 /*!**********************************************************!*\
   !*** ./src_in/routing/chartPage_src/AggregationUtils.js ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -117,6 +117,6 @@ class AggregationUtils {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AggregationUtils);
 
-/***/ })
+/***/ }
 
 }]);
