@@ -1,6 +1,6 @@
 import renderAmount from './renderAmount.js';
 
-class FlowbagSurface {
+class FlowPageSurface {
 
    clear(eventHandler) {
       const baglist = document.querySelector('.baglist');
@@ -93,4 +93,4 @@ class FlowbagSurface {
    }
 }
 
-export default FlowbagSurface;
+export default FlowPageSurface;

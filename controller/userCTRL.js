@@ -9,6 +9,11 @@ exports.postSignIn = async (req, res) => {
    if (user) {
       const isRightPW = await argon2.verify(user.pwhash, req.body.password);
       if (isRightPW) {
+         const errors = validationResult(req);
+         if (!errors.isEmpty()) {
+            res.status(422).send(errors.array()[0]);
+            return;
+         }
          req.session.userId = user._id;
          req.session.isLoggedIn = true;
          res.status(303).send();

@@ -1,3 +1,5 @@
+const path = require('path');
+const rootDir = require('../util/rootpath');
 const Util = require('./ctrlUtils');
 
 
@@ -6,15 +8,13 @@ class GeneralPages {
    async getPage(req, res) {
       const [htmlPath, authState] = await Util.checkProperHP(req);
       if (authState === 'in' && req.path === '/login') {
-         res.redirect('/');
-      } else if (['/workspace', '/chart'].includes(req.path)) {
-         if (authState === 'out') {
-            res.redirect('/login');
-         } else {
-            const html = await Util.getInjectedHTML(req, htmlPath, true);
-            res.set({'Content-Type': 'text/html'});
-            res.send(html);
-         }
+         return res.redirect('/');
+      } else if (['/workspace', '/chart'].includes(req.path) && (authState === 'out')) {
+         return res.redirect('/login');
+      } else {
+         const html = await Util.getInjectedHTML(req, htmlPath, true);
+         res.set({'Content-Type': 'text/html'});
+         return res.send(html);
       }
    }
 

@@ -17,12 +17,14 @@ const app = express();
 // app.use(bodyParser.urlencoded({extended: false}));  // Maybe will be used by login form submission?
 app.use(bodyParser.json());
 
+const sessionStore = MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: 'sessions'});
+
 app.use(session({
                secret: process.env.SESSION_SECRET,
                resave: false,
                saveUninitialized: false,
                rolling: true,
-               store: MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: 'sessions'}),
+               store: sessionStore,
                cookie: {
                   path: '/',
                   httpOnly: true,

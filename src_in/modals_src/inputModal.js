@@ -122,6 +122,9 @@ class InputModal {
             this.modIns.elements['submit-button'].classList.add('modal__button--disabled');
          }
       }
+      if (event.target.value.toString().length > 25) {
+         event.target.value = event.target.value.slice(0, 25);
+      }
       if (this.modIns.currentModalType === 'flow-amount') {
          if (String(event.target.value).includes('e')) {
             event.target.value = event.target.value.toString().replace('e', '');
@@ -129,6 +132,9 @@ class InputModal {
          if (event.target.value.includes('-')) {
             event.target.value = event.target.value.replace('-', '');
          }
+         if (event.target.value.toString().length > 11) {
+            event.target.value = event.target.value.slice(0, 11);
+      }
       } else if (['flow-desc', 'bag-rename', 'bag-create'].includes(this.modIns.currentModalType)) {
          for (const char of event.target.value.toString()) {
             if (!(char.match(this.whiteListRegex))) {

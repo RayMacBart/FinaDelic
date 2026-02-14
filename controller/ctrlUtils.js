@@ -38,9 +38,11 @@ injectHtml = async (html, injectionId, injectionValue) => {
 exports.getInjectedHTML = async (req, htmlPath, withRoute=false) => {
    let html = await fs.readFile(htmlPath, (err) => console.log(err));
    html = html.toString();
-   const userEmailDoc = await userCol.findById(req.session.userId).select('_id email');
-   const username = userEmailDoc.email.split('@')[0];
-   html = await injectHtml(html, 'username-info', username);
+   if (req.session.isLoggedIn) {
+      const userEmailDoc = await userCol.findById(req.session.userId).select('_id email');
+      const username = userEmailDoc.email.split('@')[0];
+      html = await injectHtml(html, 'username-info', username);
+   }
    if (withRoute) {
       const routename = await getAdjustedRouteName(req.path);
       html = await injectHtml(html, 'routeinfo', routename);

@@ -8,6 +8,9 @@ const GenPages = require('./controller/generalPages');
 const UserCTRL = require('./controller/userCTRL');
 const BagCTRL = require('./controller/bagCTRL');
 const FlowCTRL = require('./controller/flowCTRL');
+const DataCTRL = require('./controller/dataCTRL');
+const TimeCTRL = require('./controller/timeCTRL');
+const CusVal = require('./customValidators');
 
 
 const testSchema = Mongoose.Schema({
@@ -34,7 +37,15 @@ router.post('/signin',
 
 router.get('/logout', UserCTRL.getLogout);
 
-router.post('/createBag', BagCTRL.postCreateBag);
+router.get('/userdata', DataCTRL.getUserData);
+
+router.get('/time', TimeCTRL.getTime);
+
+router.post('/createBag',
+               // body().isJSON().withMessage('Invalid JSON!'),
+               // body('name').trim().custom(nameValue => CusVal.checkText(nameValue)).escape().withMessage('Failed Bag (=IN/OUT-Box) - Name Validation'),
+               body('name').trim().isLength({min: 3, max: 25}).isWhitelisted('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890äöüÄÖÜß ?!,.-/()').escape().withMessage('invalid Box name!'),
+               BagCTRL.postCreateBag);   // advanced idea: check path against paths actually stored in the DB if it exists there.
 
 
 

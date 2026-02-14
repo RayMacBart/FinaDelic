@@ -1,4 +1,4 @@
-import FlowpageSurface from "./flowPage_src/flowPageSurface.js";
+import FlowPageSurface from "./flowPage_src/flowPageSurface.js";
 import BagList from "./flowPage_src/baglist.js";
 import FlowList from "./flowPage_src/flowlist.js";
 import EventHandler from "./flowPage_src/flowPageEventHandler.js";
@@ -13,7 +13,7 @@ class FlowPage {
    lastFlowCount;
 
    constructor(appData, modal, chart) {
-      this.surface = new FlowpageSurface();
+      this.surface = new FlowPageSurface();
       this.appData = appData;
       this.reloadEvent = new Event('bagReload');  // (?)[../../docs/customEventToolbarTrigger.txt]
       this.toolbar = new Toolbar(appData, this.reloadEvent, modal, chart);
@@ -26,6 +26,7 @@ class FlowPage {
 
    #renderFlowPage(bagName, stepUp=false, toolbarReset=false) {
       // console.log('render');
+
       this.appData.setCurrentBag(bagName, stepUp);
       const bagData = this.appData.getData();
       const bagPath = this.appData.getBagPath();

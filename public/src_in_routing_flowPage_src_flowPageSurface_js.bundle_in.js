@@ -14,7 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _renderAmount_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderAmount.js */ "./src_in/routing/flowPage_src/renderAmount.js");
 
 
-class FlowbagSurface {
+class FlowPageSurface {
 
    clear(eventHandler) {
       const baglist = document.querySelector('.baglist');
@@ -107,7 +107,7 @@ class FlowbagSurface {
    }
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlowbagSurface);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlowPageSurface);
 
 /***/ },
 

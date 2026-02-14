@@ -16,7 +16,7 @@ const userSchema = new Schema({
       ref: 'data'
    },
    timeconfig: {
-      type: {  // Mongoose only treats required as a schema option when it appears next to a type key!
+      type: {  // Mongoose only treats 'required' as a schema option when it appears next to a type key!
          startdate: {
             type: Date,
             required: true
@@ -45,10 +45,6 @@ const dataSchema = new Schema({
 
 
 const bagSchema = new Schema({
-   // name: {
-   //    type: String,
-   //    required: true
-   // },
    nestedBags: 
       [ {
          name: String,

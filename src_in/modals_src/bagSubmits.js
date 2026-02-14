@@ -21,12 +21,27 @@ class BagSubmits {
       const newBagName = this.currelems['input'].value;
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
-         this.appData.getData()['nestedBags'][newBagName] = {
-            'amount': 0,
-            'nestedBags': {},
-            'transactions': {}
-         };
-         BDP.createBag(this.bagPath, newBagName);
+         const execBagCreation = (bagName) => {
+            this.appData.getData()['nestedBags'][bagName] = {
+               'amount': 0,
+               'nestedBags': {},
+               'transactions': {}
+            };
+         }
+         BDP.createBag(this.bagPath, newBagName, execBagCreation);
+         // Because arrow-functions always remember the surrounding 'this' where they were defined,
+         // no matter where they are called later, it works equivalent to the following:
+
+         // function execBagCreation(bagName) {
+         //    this.appData.getData()['nestedBags'][bagName] = {
+         //       'amount': 0,
+         //       'nestedBags': {},
+         //       'transactions': {}
+         //    };
+         // }
+         // const boundExecBagCreation = execBagCreation.bind(this, newBagName);
+         // BDP.createBag(this.bagPath, newBagName, boundExecBagCreation);
+         
       } else {
          showInfo('duplicate', 'warning');
       }

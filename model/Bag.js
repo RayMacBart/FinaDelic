@@ -8,7 +8,6 @@ class Bag {
    async getBagDocFromPath(userId, path) {
       const pathArray = (path).split('/');
       const dataDoc = await Data.getData(userId);
-      // const dataDoc = await dataCol.findOne().populate(pathArray[0]);
       const popDataDoc = await dataDoc.populate(pathArray[0]);
       let bagDoc = popDataDoc[pathArray[0]];
       const cutPathArray = pathArray.slice(1);

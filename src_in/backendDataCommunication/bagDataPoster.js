@@ -2,7 +2,12 @@ import { showInfo } from '../infos.js';
 
 class BagDataPoster {
 
-   async #sendBagAction(packet, route, errName) {
+   async logErrorMsg(response) {
+      const answer = await response.json();
+      console.error(answer.msg);
+   }
+
+   async #sendBagAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
                                              'Content-Type': 'application/json'
@@ -11,17 +16,20 @@ class BagDataPoster {
       });
       if (response.status === 422) {
          showInfo('invalidData', 'warning', null, errName);
-      }
-      if (response.status === 507) {
+         this.logErrorMsg(response);
+      } else if (response.status === 507) {
          showInfo('dataStorageError', 'warning', null, errName);
+         this.logErrorMsg(response);
+      } else if (response.status === 201) {
+         clientExecFunc();
       }
    }
 
-   createBag(path, name) {
+   createBag(path, name, clientExecFunc) {
       const packet = { path: path,
                        name: name
       };
-      this.#sendBagAction(packet, '/createBag', 'box creation');
+      this.#sendBagAction(packet, '/createBag', 'box creation', clientExecFunc);
    }
 
    renameBag(path, newBagName) {

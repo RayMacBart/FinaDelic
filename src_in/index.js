@@ -11,8 +11,14 @@ import { modalContents } from "./modalContents.js";
 class App {
    constructor() {
       console.log('FULL RELOAD!');
-      this.timespan = new TimeSpan();
-      this.appData = new AppData(this.timespan);
+      this.timespan = new TimeSpan(this);
+   }
+
+   setAppData() {   // called in TimeSpan.fetchTime!
+      this.appData = new AppData(this);
+   }
+
+   continueConstruction() {   // called in AppData.fetchUserData!
       this.modal = new Modal(this.appData, modalContents);
       this.chart = new Chart(this.appData);
       this.router = new Router(this);

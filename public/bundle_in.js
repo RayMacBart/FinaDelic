@@ -18,29 +18,24 @@ __webpack_require__.r(__webpack_exports__);
 
 class AppData {
 
-   constructor(timespan) {
+   constructor(app) {
       this.revisitFlag = Symbol('revisitFlag');
       this.utils = new _modals_src_submitUtils_js__WEBPACK_IMPORTED_MODULE_0__["default"](this);
-      this.setBagAmounts(timespan);
       if (document.getElementById('username-info')) {
          this.username = document.getElementById('username-info').textContent;
       }
-      console.log('username:', this.username);
+      this.fetchUserData(app);
    }
 
 
    #currentBag = ''
    
 
-   data = {
-      "IN": {
-         "nestedBags": {},
-         "transactions": {}
-            },
-      "OUT": {
-         "nestedBags": {},
-         "transactions": {}
-            },
+   async fetchUserData(app) {
+      const response = await fetch('/userdata');
+      this.data = await response.json();
+      this.setBagAmounts(app.timespan);
+      app.continueConstruction();
    }
 
 
@@ -218,7 +213,12 @@ __webpack_require__.r(__webpack_exports__);
 
 class BagDataPoster {
 
-   async #sendBagAction(packet, route, errName) {
+   async logErrorMsg(response) {
+      const answer = await response.json();
+      console.error(answer.msg);
+   }
+
+   async #sendBagAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
                                              'Content-Type': 'application/json'
@@ -227,17 +227,20 @@ class BagDataPoster {
       });
       if (response.status === 422) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidData', 'warning', null, errName);
-      }
-      if (response.status === 507) {
+         this.logErrorMsg(response);
+      } else if (response.status === 507) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, errName);
+         this.logErrorMsg(response);
+      } else if (response.status === 201) {
+         clientExecFunc();
       }
    }
 
-   createBag(path, name) {
+   createBag(path, name, clientExecFunc) {
       const packet = { path: path,
                        name: name
       };
-      this.#sendBagAction(packet, '/createBag', 'box creation');
+      this.#sendBagAction(packet, '/createBag', 'box creation', clientExecFunc);
    }
 
    renameBag(path, newBagName) {
@@ -483,8 +486,14 @@ __webpack_require__.r(__webpack_exports__);
 class App {
    constructor() {
       console.log('FULL RELOAD!');
-      this.timespan = new _timespan_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
-      this.appData = new _appData_js__WEBPACK_IMPORTED_MODULE_4__["default"](this.timespan);
+      this.timespan = new _timespan_js__WEBPACK_IMPORTED_MODULE_3__["default"](this);
+   }
+
+   setAppData() {   // called in TimeSpan.fetchTime!
+      this.appData = new _appData_js__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+   }
+
+   continueConstruction() {   // called in AppData.fetchUserData!
       this.modal = new _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"](this.appData, _modalContents_js__WEBPACK_IMPORTED_MODULE_7__.modalContents);
       this.chart = new _chart_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.appData);
       this.router = new _route_js__WEBPACK_IMPORTED_MODULE_1__["default"](this);
@@ -1023,12 +1032,27 @@ class BagSubmits {
       const newBagName = this.currelems['input'].value;
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
-         this.appData.getData()['nestedBags'][newBagName] = {
-            'amount': 0,
-            'nestedBags': {},
-            'transactions': {}
-         };
-         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createBag(this.bagPath, newBagName);
+         const execBagCreation = (bagName) => {
+            this.appData.getData()['nestedBags'][bagName] = {
+               'amount': 0,
+               'nestedBags': {},
+               'transactions': {}
+            };
+         }
+         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createBag(this.bagPath, newBagName, execBagCreation);
+         // Because arrow-functions always remember the surrounding 'this' where they were defined,
+         // no matter where they are called later, it works equivalent to the following:
+
+         // function execBagCreation(bagName) {
+         //    this.appData.getData()['nestedBags'][bagName] = {
+         //       'amount': 0,
+         //       'nestedBags': {},
+         //       'transactions': {}
+         //    };
+         // }
+         // const boundExecBagCreation = execBagCreation.bind(this, newBagName);
+         // BDP.createBag(this.bagPath, newBagName, boundExecBagCreation);
+         
       } else {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
       }
@@ -1540,6 +1564,9 @@ class InputModal {
             this.modIns.elements['submit-button'].classList.add('modal__button--disabled');
          }
       }
+      if (event.target.value.toString().length > 25) {
+         event.target.value = event.target.value.slice(0, 25);
+      }
       if (this.modIns.currentModalType === 'flow-amount') {
          if (String(event.target.value).includes('e')) {
             event.target.value = event.target.value.toString().replace('e', '');
@@ -1547,6 +1574,9 @@ class InputModal {
          if (event.target.value.includes('-')) {
             event.target.value = event.target.value.replace('-', '');
          }
+         if (event.target.value.toString().length > 11) {
+            event.target.value = event.target.value.slice(0, 11);
+      }
       } else if (['flow-desc', 'bag-rename', 'bag-create'].includes(this.modIns.currentModalType)) {
          for (const char of event.target.value.toString()) {
             if (!(char.match(this.whiteListRegex))) {
@@ -2275,9 +2305,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class TimeSpan {
-   constructor () {
-      this.end = new Date();
-      this.start = new Date(this.end.getFullYear(), 0, 1);
+   constructor (app) {
+      this.fetchTime(app);
+   }
+
+   async fetchTime(app) {
+      const response = await fetch('/time');
+      const timeObj = await response.json();
+      this.end = new Date(timeObj.enddate.split('T')[0]);
+      this.start = new Date(timeObj.startdate.split('T')[0]);
+      app.setAppData();
    }
 }
 
@@ -2388,7 +2425,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("6b90770c1226c8efb099")
+/******/ 		__webpack_require__.h = () => ("2fbecb7cb5ea8deaf77e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

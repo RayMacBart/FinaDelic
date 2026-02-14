@@ -3,29 +3,24 @@ import SubmitUtils from './modals_src/submitUtils.js';
 
 class AppData {
 
-   constructor(timespan) {
+   constructor(app) {
       this.revisitFlag = Symbol('revisitFlag');
       this.utils = new SubmitUtils(this);
-      this.setBagAmounts(timespan);
       if (document.getElementById('username-info')) {
          this.username = document.getElementById('username-info').textContent;
       }
-      console.log('username:', this.username);
+      this.fetchUserData(app);
    }
 
 
    #currentBag = ''
    
 
-   data = {
-      "IN": {
-         "nestedBags": {},
-         "transactions": {}
-            },
-      "OUT": {
-         "nestedBags": {},
-         "transactions": {}
-            },
+   async fetchUserData(app) {
+      const response = await fetch('/userdata');
+      this.data = await response.json();
+      this.setBagAmounts(app.timespan);
+      app.continueConstruction();
    }
 
 
