@@ -50,26 +50,31 @@ class FlowSubmits {
       const flowDateArray = (this.currelems['input'].value).split('-');
       const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
+      const afterFunc = () => {
+         const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
+         const flowDateObj = new Date(this.currelems['input'].value);
+         if (!((flowDateObj >= startDateObj) && (flowDateObj <= endDateObj))) {
+            showInfo('flowNotInPeriod', 'warning');
+         }
+         this.utils.recalcBagAmounts(this.bagPath.split('/'));
+      }
       if (this.flowchange) {
          currentBagObj['transactions'][this.flowID]['date'] = flowDate;
          FDP.changeDate(this.flowID, this.currelems['input'].value);
          this.utils.checkAndAdjustChart(this.bagPath);
       } else {
          const newFlowId = this.utils.createNewFlowID();
-         currentBagObj['transactions'][newFlowId] = {
-                              "date": flowDate,
-                              "desc": this.cachedDesc,
-                              "amount": this.cachedAmount,
-                              "currency": "EUR"};
-         FDP.createFlow(this.bagPath, newFlowId, currentBagObj['transactions'][newFlowId]);
-         this.utils.checkAndAdjustChart();
-                           }
-      const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
-      const flowDateObj = new Date(this.currelems['input'].value);
-      if (!((flowDateObj >= startDateObj) && (flowDateObj <= endDateObj))) {
-         showInfo('flowNotInPeriod', 'warning');
+         const flowBody = {"date": flowDate,
+                           "desc": this.cachedDesc,
+                           "amount": this.cachedAmount,
+                           "currency": "EUR"};
+         const execFlowCreation = (id, flowBody) => {
+            currentBagObj['transactions'][id] = flowBody;
+            this.utils.checkAndAdjustChart();
+            afterFunc();
+         }
+         FDP.createFlow(this.bagPath, newFlowId, flowBody, execFlowCreation);
       }
-      this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
 
 

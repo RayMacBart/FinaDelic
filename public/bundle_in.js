@@ -232,7 +232,7 @@ class BagDataPoster {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, errName);
          this.logErrorMsg(response);
       } else if (response.status === 201) {
-         clientExecFunc();
+         clientExecFunc(packet.name);
       }
    }
 
@@ -287,7 +287,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class FlowDataPoster {
 
-   async #sendFlowAction(packet, route, errName) {
+   async #sendFlowAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
                                              'Content-Type': 'application/json'
@@ -296,13 +296,14 @@ class FlowDataPoster {
       });
       if (response.status === 422) {
          showInfo('invalidData', 'warning', null, errName);
-      }
-      if (response.status === 507) {
+      } else if (response.status === 507) {
          showInfo('dataStorageError', 'warning', null, errName);
+      } else if (response.status === 201) {
+         clientExecFunc(packet.flowId, {date: packet.date, desc: packet.desc, amount: packet.amount, currency: packet.currency});
       }
    }
 
-   createFlow(path, flowId, flowObj) {
+   createFlow(path, flowId, flowObj, clientExecFunc) {
       const packet = { path: path,
                        flowId: flowId,
                        date: flowObj.date,
@@ -310,7 +311,7 @@ class FlowDataPoster {
                        amount: flowObj.amount,
                        currency: flowObj.currency
                      };
-      this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction');
+      this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction', clientExecFunc);
    }
 
    changeAmount(flowId, amount) {
@@ -1033,6 +1034,7 @@ class BagSubmits {
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
          const execBagCreation = (bagName) => {
+            console.log('appData.getData():', this.appData.getData());
             this.appData.getData()['nestedBags'][bagName] = {
                'amount': 0,
                'nestedBags': {},
@@ -1380,26 +1382,31 @@ class FlowSubmits {
       const flowDateArray = (this.currelems['input'].value).split('-');
       const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
+      const afterFunc = () => {
+         const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
+         const flowDateObj = new Date(this.currelems['input'].value);
+         if (!((flowDateObj >= startDateObj) && (flowDateObj <= endDateObj))) {
+            (0,_infos_js__WEBPACK_IMPORTED_MODULE_1__.showInfo)('flowNotInPeriod', 'warning');
+         }
+         this.utils.recalcBagAmounts(this.bagPath.split('/'));
+      }
       if (this.flowchange) {
          currentBagObj['transactions'][this.flowID]['date'] = flowDate;
          _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeDate(this.flowID, this.currelems['input'].value);
          this.utils.checkAndAdjustChart(this.bagPath);
       } else {
          const newFlowId = this.utils.createNewFlowID();
-         currentBagObj['transactions'][newFlowId] = {
-                              "date": flowDate,
-                              "desc": this.cachedDesc,
-                              "amount": this.cachedAmount,
-                              "currency": "EUR"};
-         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createFlow(this.bagPath, newFlowId, currentBagObj['transactions'][newFlowId]);
-         this.utils.checkAndAdjustChart();
-                           }
-      const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
-      const flowDateObj = new Date(this.currelems['input'].value);
-      if (!((flowDateObj >= startDateObj) && (flowDateObj <= endDateObj))) {
-         (0,_infos_js__WEBPACK_IMPORTED_MODULE_1__.showInfo)('flowNotInPeriod', 'warning');
+         const flowBody = {"date": flowDate,
+                           "desc": this.cachedDesc,
+                           "amount": this.cachedAmount,
+                           "currency": "EUR"};
+         const execFlowCreation = (id, flowBody) => {
+            currentBagObj['transactions'][id] = flowBody;
+            this.utils.checkAndAdjustChart();
+            afterFunc();
+         }
+         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createFlow(this.bagPath, newFlowId, flowBody, execFlowCreation);
       }
-      this.utils.recalcBagAmounts(this.bagPath.split('/'));
    }
 
 
@@ -1565,7 +1572,13 @@ class InputModal {
          }
       }
       if (event.target.value.toString().length > 25) {
-         event.target.value = event.target.value.slice(0, 25);
+         if (!this.modIns.currentModalType === 'flow-desc') {
+            event.target.value = event.target.value.slice(0, 25);
+         } else {
+            if (event.target.value.toString().length > 50) {
+               event.target.value = event.target.value.slice(0, 50);
+            }
+         }
       }
       if (this.modIns.currentModalType === 'flow-amount') {
          if (String(event.target.value).includes('e')) {
@@ -2425,7 +2438,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("2fbecb7cb5ea8deaf77e")
+/******/ 		__webpack_require__.h = () => ("40ae789d38e003d50860")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

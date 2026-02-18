@@ -7,7 +7,7 @@ const { Users } = require('./schemas');
 exports.createData = async () => {
    const inBag = await BAG.createBag();
    const outBag = await BAG.createBag();
-   const newDataDoc = await dataCol.create({IN: inBag, OUT: outBag});
+   const newDataDoc = await dataCol.create({IN: inBag._id, OUT: outBag._id});
    return newDataDoc;
 }
 

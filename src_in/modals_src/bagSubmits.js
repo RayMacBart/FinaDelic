@@ -22,6 +22,7 @@ class BagSubmits {
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
          const execBagCreation = (bagName) => {
+            console.log('appData.getData():', this.appData.getData());
             this.appData.getData()['nestedBags'][bagName] = {
                'amount': 0,
                'nestedBags': {},

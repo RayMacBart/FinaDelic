@@ -1,11 +1,8 @@
-const { validationResult } = require('express-validator');
+const checkAndHandleValError = require('../util/valErrorCheck');
 const BAG = require('../model/Bag');
 
 exports.postCreateBag = async (req, res) => {
-   const errors = validationResult(req);
-   if (!errors.isEmpty()) {
-      console.log('error:', errors.array()[0]);
-      res.status(422).send(errors.array()[0]);
+   if (checkAndHandleValError(req, res)) { // the function will also run!
       return;
    }
    const bagDoc = await BAG.getBagDocFromPath(req.session.userId, req.body.path);

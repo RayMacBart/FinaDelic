@@ -21,7 +21,7 @@ class BagDataPoster {
          showInfo('dataStorageError', 'warning', null, errName);
          this.logErrorMsg(response);
       } else if (response.status === 201) {
-         clientExecFunc();
+         clientExecFunc(packet.name);
       }
    }
 

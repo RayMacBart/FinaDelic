@@ -11,14 +11,13 @@ class User {
       const now = new Date();
       const startdate = (now.getFullYear()-1)+'-01-01';
       const enddate = now.toISOString().split('T')[0];
-      const newUserDoc = new userCol({email: email,
+      return await userCol.create({email: email,
                                              pwhash: pwhash,
                                              data: data,
                                              timeconfig: { 
                                                 startdate: startdate,
                                                 enddate: enddate
                                              }});
-      return await newUserDoc.save();
    }
 }
 

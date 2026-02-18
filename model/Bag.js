@@ -23,7 +23,7 @@ class Bag {
    }
 
    async createBag() {
-      return bagCol.create({nestedBags: [], transactions: []});
+      return await bagCol.create({nestedBags: [], transactions: []});
              // This ^^ is the Mongoose method for commented out code below!
       /*
       const newBagDoc = new bagCol({nestedBags: [], transactions: []});

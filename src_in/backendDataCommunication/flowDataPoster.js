@@ -1,6 +1,6 @@
 class FlowDataPoster {
 
-   async #sendFlowAction(packet, route, errName) {
+   async #sendFlowAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
                                              'Content-Type': 'application/json'
@@ -9,13 +9,14 @@ class FlowDataPoster {
       });
       if (response.status === 422) {
          showInfo('invalidData', 'warning', null, errName);
-      }
-      if (response.status === 507) {
+      } else if (response.status === 507) {
          showInfo('dataStorageError', 'warning', null, errName);
+      } else if (response.status === 201) {
+         clientExecFunc(packet.flowId, {date: packet.date, desc: packet.desc, amount: packet.amount, currency: packet.currency});
       }
    }
 
-   createFlow(path, flowId, flowObj) {
+   createFlow(path, flowId, flowObj, clientExecFunc) {
       const packet = { path: path,
                        flowId: flowId,
                        date: flowObj.date,
@@ -23,7 +24,7 @@ class FlowDataPoster {
                        amount: flowObj.amount,
                        currency: flowObj.currency
                      };
-      this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction');
+      this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction', clientExecFunc);
    }
 
    changeAmount(flowId, amount) {

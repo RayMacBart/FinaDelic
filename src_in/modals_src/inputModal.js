@@ -123,7 +123,13 @@ class InputModal {
          }
       }
       if (event.target.value.toString().length > 25) {
-         event.target.value = event.target.value.slice(0, 25);
+         if (!this.modIns.currentModalType === 'flow-desc') {
+            event.target.value = event.target.value.slice(0, 25);
+         } else {
+            if (event.target.value.toString().length > 50) {
+               event.target.value = event.target.value.slice(0, 50);
+            }
+         }
       }
       if (this.modIns.currentModalType === 'flow-amount') {
          if (String(event.target.value).includes('e')) {
