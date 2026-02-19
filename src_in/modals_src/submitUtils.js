@@ -170,12 +170,15 @@ class SubmitUtils {
       for (const dirName in this.appData.data) {
          this.extractFlowIDs(usedIDs, this.appData.data[dirName]);
       }
-      for (let i = 0; i <= Math.max(...usedIDs); i++) {
-         if (!usedIDs.includes(`${i}`)) {
-            return i;
+      if (usedIDs.length) {
+         for (let i = 0; i <= Math.max(...usedIDs); i++) {
+            if (!usedIDs.includes(`${i}`)) {
+               return i;
+            }
          }
+         return Math.max(...usedIDs)+1;
       }
-      return Math.max(...usedIDs)+1;
+      return 0;
    }
 
 

@@ -20,9 +20,11 @@ class ModalSubmitAllocator {
       } else if (modType.split('-')[0] === 'bag') {
          this.bagSubmits.currelems = currelems;
          this.bagSubmits.bagPath = bagPath;
+         this.bagSubmits.reloadEvent = reloadEvent;
       } else if (modType.split('-')[0] === 'flow') {
          this.flowSubmits.currelems = currelems;
          this.flowSubmits.bagPath = bagPath;
+         this.flowSubmits.reloadEvent = reloadEvent;
          if (['flow-delete', 'flow-move'].includes(modType)) {
             this.flowSubmits.flowID = document.querySelector('.flowItem--choosen').dataset.flowId;
          }

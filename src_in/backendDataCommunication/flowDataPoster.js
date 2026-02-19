@@ -1,3 +1,5 @@
+import { showInfo } from '../infos.js';
+
 class FlowDataPoster {
 
    async #sendFlowAction(packet, route, errName, clientExecFunc) {

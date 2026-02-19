@@ -25,9 +25,9 @@ router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login'], G
 
 router.get('/', GenPages.getRootPage);   // 'get' (& all method-named) look for exact route name - only 'use' for match of beginning!
 
-router.post('/signup',     // implement ERROR-MESSAGES!
-               body('email').trim().isEmail().normalizeEmail().escape().withMessage('Invalid Email!'),
-               body('password').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape().withMessage('Validation Error: The entered password is too weak!'),
+router.post('/signup',
+               body('email', 'Invalid Email!').trim().isEmail().normalizeEmail().escape(),
+               body('password', 'The entered password is too weak!').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape(),
                body('repeat').trim(),
                UserCTRL.postSignUp);
 
@@ -43,18 +43,19 @@ router.get('/userdata', DataCTRL.getUserData);
 router.get('/time', TimeCTRL.getTime);
 
 router.post('/createBag',
-               body('path').trim().isLength({min: 2, max: 25}).isWhitelisted(whiteListChars).escape().custom(CusVal.checkPath).withMessage('invalid Path!'),
-               body('name').trim().isLength({min: 3, max: 25}).isWhitelisted(whiteListChars).escape().withMessage('invalid Box name!'),
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
+               body('name', 'invalid Box name length!').trim().isLength({min: 3, max: 25}).isWhitelisted(whiteListChars).withMessage('bag name has invalid chars!').escape(),
+               body('name', 'bag name collision: bag already exists @ destination!').custom(CusVal.checkBagNameUniqueness),
                // check, if no name duplicate in path exists!
                checkExact(),
                BagCTRL.postCreateBag
             );
 
-router.post('createFlow',
-               body('path').trim().isLength({min: 2, max: 25}).isWhitelisted(whiteListChars).escape().custom(CusVal.checkPath).withMessage('invalid Path!'),
-               body('frontId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
+router.post('/createFlow',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
                body('date').trim().isDate().withMessage('invalid transaction date!'),
-               body('desc').trim().isWhitelisted(whiteListChars).isLength({min: 3, max: 50}).withMessage('invalid transaction description!'),
+               body('desc', 'invalid chars in flow desc!').trim().isWhitelisted(whiteListChars).isLength({min: 3, max: 50}).withMessage('invalid length of flow desc'),
                body('amount').trim().isDecimal({force_decimal: true, decimal_digits: 2}).withMessage('invalid transaction amount!'),
                body('currency').trim().equals('EUR').withMessage('invalid transaction currency!'),
                checkExact(),

@@ -285,6 +285,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
+
+
 class FlowDataPoster {
 
    async #sendFlowAction(packet, route, errName, clientExecFunc) {
@@ -295,9 +298,9 @@ class FlowDataPoster {
                                            body: JSON.stringify(packet)
       });
       if (response.status === 422) {
-         showInfo('invalidData', 'warning', null, errName);
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidData', 'warning', null, errName);
       } else if (response.status === 507) {
-         showInfo('dataStorageError', 'warning', null, errName);
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, errName);
       } else if (response.status === 201) {
          clientExecFunc(packet.flowId, {date: packet.date, desc: packet.desc, amount: packet.amount, currency: packet.currency});
       }
@@ -1021,6 +1024,7 @@ class BagSubmits {
 
    currelems;
    bagPath;
+   reloadEvent;
 
 
    constructor(appData) {
@@ -1040,6 +1044,7 @@ class BagSubmits {
                'nestedBags': {},
                'transactions': {}
             };
+            document.dispatchEvent(this.reloadEvent);
          }
          _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createBag(this.bagPath, newBagName, execBagCreation);
          // Because arrow-functions always remember the surrounding 'this' where they were defined,
@@ -1343,6 +1348,7 @@ class FlowSubmits {
    cachedAmount;
    cachedDesc;
    flowchange;
+   reloadEvent;
 
 
    constructor(appData) {
@@ -1389,6 +1395,7 @@ class FlowSubmits {
             (0,_infos_js__WEBPACK_IMPORTED_MODULE_1__.showInfo)('flowNotInPeriod', 'warning');
          }
          this.utils.recalcBagAmounts(this.bagPath.split('/'));
+         document.dispatchEvent(this.reloadEvent);
       }
       if (this.flowchange) {
          currentBagObj['transactions'][this.flowID]['date'] = flowDate;
@@ -1396,11 +1403,12 @@ class FlowSubmits {
          this.utils.checkAndAdjustChart(this.bagPath);
       } else {
          const newFlowId = this.utils.createNewFlowID();
-         const flowBody = {"date": flowDate,
-                           "desc": this.cachedDesc,
-                           "amount": this.cachedAmount,
-                           "currency": "EUR"};
+         const flowBody = {"date": this.currelems['input'].value,
+            "desc": this.cachedDesc,
+            "amount": this.cachedAmount.toFixed(2),
+            "currency": "EUR"};
          const execFlowCreation = (id, flowBody) => {
+            flowBody.date = flowDate;
             currentBagObj['transactions'][id] = flowBody;
             this.utils.checkAndAdjustChart();
             afterFunc();
@@ -1664,9 +1672,11 @@ class ModalSubmitAllocator {
       } else if (modType.split('-')[0] === 'bag') {
          this.bagSubmits.currelems = currelems;
          this.bagSubmits.bagPath = bagPath;
+         this.bagSubmits.reloadEvent = reloadEvent;
       } else if (modType.split('-')[0] === 'flow') {
          this.flowSubmits.currelems = currelems;
          this.flowSubmits.bagPath = bagPath;
+         this.flowSubmits.reloadEvent = reloadEvent;
          if (['flow-delete', 'flow-move'].includes(modType)) {
             this.flowSubmits.flowID = document.querySelector('.flowItem--choosen').dataset.flowId;
          }
@@ -1983,12 +1993,15 @@ class SubmitUtils {
       for (const dirName in this.appData.data) {
          this.extractFlowIDs(usedIDs, this.appData.data[dirName]);
       }
-      for (let i = 0; i <= Math.max(...usedIDs); i++) {
-         if (!usedIDs.includes(`${i}`)) {
-            return i;
+      if (usedIDs.length) {
+         for (let i = 0; i <= Math.max(...usedIDs); i++) {
+            if (!usedIDs.includes(`${i}`)) {
+               return i;
+            }
          }
+         return Math.max(...usedIDs)+1;
       }
-      return Math.max(...usedIDs)+1;
+      return 0;
    }
 
 
@@ -2438,7 +2451,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("40ae789d38e003d50860")
+/******/ 		__webpack_require__.h = () => ("e8a45717c70f58c48b1b")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

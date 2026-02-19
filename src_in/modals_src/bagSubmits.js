@@ -9,6 +9,7 @@ class BagSubmits {
 
    currelems;
    bagPath;
+   reloadEvent;
 
 
    constructor(appData) {
@@ -28,6 +29,7 @@ class BagSubmits {
                'nestedBags': {},
                'transactions': {}
             };
+            document.dispatchEvent(this.reloadEvent);
          }
          BDP.createBag(this.bagPath, newBagName, execBagCreation);
          // Because arrow-functions always remember the surrounding 'this' where they were defined,

@@ -11,6 +11,7 @@ class FlowSubmits {
    cachedAmount;
    cachedDesc;
    flowchange;
+   reloadEvent;
 
 
    constructor(appData) {
@@ -57,6 +58,7 @@ class FlowSubmits {
             showInfo('flowNotInPeriod', 'warning');
          }
          this.utils.recalcBagAmounts(this.bagPath.split('/'));
+         document.dispatchEvent(this.reloadEvent);
       }
       if (this.flowchange) {
          currentBagObj['transactions'][this.flowID]['date'] = flowDate;
@@ -64,11 +66,12 @@ class FlowSubmits {
          this.utils.checkAndAdjustChart(this.bagPath);
       } else {
          const newFlowId = this.utils.createNewFlowID();
-         const flowBody = {"date": flowDate,
-                           "desc": this.cachedDesc,
-                           "amount": this.cachedAmount,
-                           "currency": "EUR"};
+         const flowBody = {"date": this.currelems['input'].value,
+            "desc": this.cachedDesc,
+            "amount": this.cachedAmount.toFixed(2),
+            "currency": "EUR"};
          const execFlowCreation = (id, flowBody) => {
+            flowBody.date = flowDate;
             currentBagObj['transactions'][id] = flowBody;
             this.utils.checkAndAdjustChart();
             afterFunc();

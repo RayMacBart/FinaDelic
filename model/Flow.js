@@ -2,7 +2,7 @@ const flowCol = require('./schemas').Flows;
 
 class Flow {
 
-   static async createFlow(bagDoc, flowObj) {
+   async createFlow(bagDoc, flowObj) {
       const newFlowDoc = await flowCol.create({frontId: flowObj.flowId,
                                    date: flowObj.date,
                                    desc: flowObj.desc,
