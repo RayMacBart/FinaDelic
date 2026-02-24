@@ -135,7 +135,7 @@ class SubmitUtils {
             let startDateObj;
             let endDateObj;
             [startDateObj, endDateObj] = timespan ? [timespan.start, timespan.end] : this.retrieveDateSpanFromDOM();
-            
+
             if ((startDateObj.getTime() <= transDateObj.getTime()) && (endDateObj.getTime()+86399999 > transDateObj.getTime() )) {
                flowIDs.push(flowID);
             }

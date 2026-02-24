@@ -34,9 +34,7 @@ class AppData {
    async fetchUserData(app) {
       const response = await fetch('/userdata');
       this.data = await response.json();
-      console.log('fetched Data before bagAmounts set:', this.data);
       this.setBagAmounts(app.timespan);
-      console.log('fetched Data after bagAmounts set:', this.data);
       app.continueConstruction();
    }
 
@@ -1397,13 +1395,13 @@ class FlowSubmits {
 
 
    flowDate() {
-      const flowDateArray = (this.currelems['input'].value).split('-');
+      const flowDateISOString = this.currelems['input'].value;
+      const flowDateArray = (flowDateISOString).split('-');
       const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-      const afterFunc = (flowBodyDate) => {
+      const afterFunc = () => {
          const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
-         const flowDateObj = new Date(flowBodyDate);
-         console.log('flowDateObj:', flowDateObj);
+         const flowDateObj = new Date(flowDateISOString);
          if (!((flowDateObj >= startDateObj) && (flowDateObj <= endDateObj))) {
             (0,_infos_js__WEBPACK_IMPORTED_MODULE_1__.showInfo)('flowNotInPeriod', 'warning');
          }
@@ -1425,7 +1423,7 @@ class FlowSubmits {
             flowBody.date = flowDate;
             currentBagObj['transactions'][id] = flowBody;
             this.utils.checkAndAdjustChart();
-            afterFunc(flowBody.date);
+            afterFunc();
          }
          _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createFlow(this.bagPath, newFlowId, flowBody, execFlowCreation);
       }
@@ -1972,7 +1970,7 @@ class SubmitUtils {
             let startDateObj;
             let endDateObj;
             [startDateObj, endDateObj] = timespan ? [timespan.start, timespan.end] : this.retrieveDateSpanFromDOM();
-            
+
             if ((startDateObj.getTime() <= transDateObj.getTime()) && (endDateObj.getTime()+86399999 > transDateObj.getTime() )) {
                flowIDs.push(flowID);
             }
@@ -2464,7 +2462,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("e4c0adad479fd57c0275")
+/******/ 		__webpack_require__.h = () => ("845b274a5564523e9cf7")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

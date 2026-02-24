@@ -21,8 +21,11 @@ exports.getData = async (userId) => {
 const fillUp = async (popBagDoc) => {
    const bagObj = {'nestedBags': {}, 'transactions': {}};
    for (const transaction of popBagDoc.transactions) {
+      const dateString = transaction.date.toISOString().split('T')[0];
+      const dateArray = dateString.split('-');
+      const preppedDate = dateArray[2]+'.'+dateArray[1]+'.'+dateArray[0];
       bagObj.transactions[transaction.frontId] = {
-                                                date: transaction.date,
+                                                date: preppedDate,
                                                 desc: transaction.desc,
                                                 amount: transaction.amount,
                                                 currency: transaction.currency
