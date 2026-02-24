@@ -17,7 +17,6 @@ class LoginPage {
       const valid = this.inputChecker.checkSignIn(event);
       if (valid) {
          SIA.execSignIn(event);
-         console.log('sending2backend...');
          // async BACKEND SEND AND REACT UPON RESPONSE (e.g. app.router.navigate('flowPage') or showInfo('invalidLogin', 'warning')) LOGIC HERE
       }
    }
@@ -29,8 +28,7 @@ class LoginPage {
       // const valid = this.inputChecker.checkSignUp(event);
       const valid = true;
       if (valid) {
-         SIA.execSignUp(event);
-         console.log('sending2backend...');  
+         SIA.execSignUp(event);  
       }
    }
 

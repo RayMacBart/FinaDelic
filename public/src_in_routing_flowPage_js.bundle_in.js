@@ -43,7 +43,6 @@ class FlowPage {
 
 
    #renderFlowPage(bagName, stepUp=false, toolbarReset=false) {
-      // console.log('render');
 
       this.appData.setCurrentBag(bagName, stepUp);
       const bagData = this.appData.getData();
@@ -207,7 +206,7 @@ class BagList {
             bagItem.id = bagPath + '/' + nestedBag;
             bagItem.querySelector('.bagTitle').innerText = nestedBag.toUpperCase();
             const amountEl = bagItem.querySelector('.account-amount');
-            const amount = parseFloat(bagData['nestedBags'][nestedBag]['amount']);
+            const amount = Number(bagData['nestedBags'][nestedBag]['amount']);
             this.doStyle2DirAdjust(amount, amountEl, bagItem);
             (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(amount, amountEl);
             bagList.appendChild(bagItem);
@@ -329,7 +328,7 @@ class EventHandler {
             }
          } 
       } else {
-         console.log('WARNING: TRIED TO ADD FLOW EVENTLISTENER TO NON EXISTING ELEMENT!');
+         console.warn('WARNING: TRIED TO ADD FLOW EVENTLISTENER TO NON EXISTING ELEMENT!');
       }
    }
 
@@ -384,7 +383,7 @@ class FlowPageSurface {
       (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(bagData.OUT.amount, document.getElementById('out-total'));
       const totalBalanceEl = document.querySelector('#total-balance > span');
       (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(bagData.IN.amount+bagData.OUT.amount, totalBalanceEl);
-      if (parseFloat(totalBalanceEl.innerText) < 0) {
+      if (Number(totalBalanceEl.innerText) < 0) {
          totalBalanceEl.classList.remove('positive');
          if (!(totalBalanceEl.classList.contains('negative'))) {
             totalBalanceEl.classList.add('negative');
@@ -532,7 +531,7 @@ class FlowList {
             flowItem.dataset.flowId = orderedFlow[0];
             flowItem.querySelector('.flow-date').innerText = bagData['transactions'][orderedFlow[0]]['date'];
             flowItem.querySelector('.flow-description').innerText = bagData['transactions'][orderedFlow[0]]['desc'];
-            const amount = bagData['transactions'][orderedFlow[0]]['amount'];
+            const amount = Number(bagData['transactions'][orderedFlow[0]]['amount']);
             const amountEl = flowItem.querySelector('.flow-amount');
             this.doStyle2DirAdjust(amount, amountEl);
             (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(amount, amountEl);

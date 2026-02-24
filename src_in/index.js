@@ -8,20 +8,33 @@ import Modal from "./modal.js";
 import { modalContents } from "./modalContents.js";
 
 
+let timespan;
+let router;
+let chart;
+
+
+const populateExportVariables = (app) => {
+   timespan = app.timespan;
+   router = app.router;
+   chart = app.chart;
+}
+
+
 class App {
    constructor() {
       console.log('FULL RELOAD!');
       this.timespan = new TimeSpan(this);
    }
-
+   
    setAppData() {   // called in TimeSpan.fetchTime!
       this.appData = new AppData(this);
    }
-
+   
    continueConstruction() {   // called in AppData.fetchUserData!
       this.modal = new Modal(this.appData, modalContents);
       this.chart = new Chart(this.appData);
       this.router = new Router(this);
+      populateExportVariables(this);
       this.lazyLoader = new LazyLoader();
       new Footer(this.router.navigate, this.lazyLoader.importSVG);
    }
@@ -38,9 +51,7 @@ class App {
 
 const app = new App();
 
-const timespan = app.timespan;
-const router = app.router;
-const chart = app.chart;
+
 export { timespan, router, chart };
                            
 

@@ -39,8 +39,10 @@ const fillUp = async (popBagDoc) => {
 
 exports.prepareData = async (dataDoc) => {
    const popDataDoc = await dataDoc.populate('IN OUT');
-   const popInBagDoc = await popDataDoc.IN.populate('nestedBags.bag transactions');
-   const popOutBagDoc = await popDataDoc.OUT.populate('nestedBags.bag transactions');
+   const popInDataDoc = await popDataDoc.populate('IN.nestedBags.bag IN.transactions');
+   const popOutDataDoc = await popDataDoc.populate('OUT.nestedBags.bag OUT.transactions');
+   const popInBagDoc = popInDataDoc.IN;
+   const popOutBagDoc = popOutDataDoc.OUT;
    const inBagObj = await fillUp(popInBagDoc);
    const outBagObj = await fillUp(popOutBagDoc);
    return { IN: inBagObj, OUT: outBagObj };

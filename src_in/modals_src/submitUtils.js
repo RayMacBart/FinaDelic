@@ -97,7 +97,6 @@ class SubmitUtils {
 
 
    retrieveDateSpanFromDOM() {
-      console.log('in retrieveDataSpanFromDOM.');
       let formatStartStr;
       let formatEndStr;
       if (window.location.href.split('/').pop() === 'workspace') {
@@ -126,7 +125,7 @@ class SubmitUtils {
       let bagSum = 0;
       if (Object.keys(bagObj['nestedBags']).length) {
          for (const nestedBag in bagObj['nestedBags']) {
-            bagSum += bagObj['nestedBags'][nestedBag]['amount'];
+            bagSum += Number(bagObj['nestedBags'][nestedBag]['amount']);
          }
       }
       const flowIDs = [];
@@ -142,7 +141,7 @@ class SubmitUtils {
             }
          }
          for (const flowID of flowIDs) {
-            bagSum += bagObj['transactions'][flowID]['amount'];
+            bagSum += Number(bagObj['transactions'][flowID]['amount']);
          }
       }
       bagObj.amount = bagSum;

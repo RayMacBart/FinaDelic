@@ -43,7 +43,7 @@ class BagList {
             bagItem.id = bagPath + '/' + nestedBag;
             bagItem.querySelector('.bagTitle').innerText = nestedBag.toUpperCase();
             const amountEl = bagItem.querySelector('.account-amount');
-            const amount = parseFloat(bagData['nestedBags'][nestedBag]['amount']);
+            const amount = Number(bagData['nestedBags'][nestedBag]['amount']);
             this.doStyle2DirAdjust(amount, amountEl, bagItem);
             (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(amount, amountEl);
             bagList.appendChild(bagItem);

@@ -76,7 +76,6 @@ function assertPW(PW) {
 
 function checkPW(event) {
    event.preventDefault();
-   console.log('X');
    let valid = false;
    if ((!(event.target.form[0].value)) || (!(event.target.form[1].value))) {
       handleEmptyCreds(event.target.form[0].value, event.target.form[1].value);

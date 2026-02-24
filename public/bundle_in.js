@@ -34,7 +34,9 @@ class AppData {
    async fetchUserData(app) {
       const response = await fetch('/userdata');
       this.data = await response.json();
+      console.log('fetched Data before bagAmounts set:', this.data);
       this.setBagAmounts(app.timespan);
+      console.log('fetched Data after bagAmounts set:', this.data);
       app.continueConstruction();
    }
 
@@ -487,20 +489,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+let timespan;
+let router;
+let chart;
+
+
+const populateExportVariables = (app) => {
+   timespan = app.timespan;
+   router = app.router;
+   chart = app.chart;
+}
+
+
 class App {
    constructor() {
       console.log('FULL RELOAD!');
       this.timespan = new _timespan_js__WEBPACK_IMPORTED_MODULE_3__["default"](this);
    }
-
+   
    setAppData() {   // called in TimeSpan.fetchTime!
       this.appData = new _appData_js__WEBPACK_IMPORTED_MODULE_4__["default"](this);
    }
-
+   
    continueConstruction() {   // called in AppData.fetchUserData!
       this.modal = new _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"](this.appData, _modalContents_js__WEBPACK_IMPORTED_MODULE_7__.modalContents);
       this.chart = new _chart_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.appData);
       this.router = new _route_js__WEBPACK_IMPORTED_MODULE_1__["default"](this);
+      populateExportVariables(this);
       this.lazyLoader = new _lazyLoader_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
       new _footer_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.router.navigate, this.lazyLoader.importSVG);
    }
@@ -517,9 +532,7 @@ class App {
 
 const app = new App();
 
-const timespan = app.timespan;
-const router = app.router;
-const chart = app.chart;
+
 
                            
 
@@ -1038,7 +1051,6 @@ class BagSubmits {
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
          const execBagCreation = (bagName) => {
-            console.log('appData.getData():', this.appData.getData());
             this.appData.getData()['nestedBags'][bagName] = {
                'amount': 0,
                'nestedBags': {},
@@ -1388,9 +1400,10 @@ class FlowSubmits {
       const flowDateArray = (this.currelems['input'].value).split('-');
       const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-      const afterFunc = () => {
+      const afterFunc = (flowBodyDate) => {
          const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
-         const flowDateObj = new Date(this.currelems['input'].value);
+         const flowDateObj = new Date(flowBodyDate);
+         console.log('flowDateObj:', flowDateObj);
          if (!((flowDateObj >= startDateObj) && (flowDateObj <= endDateObj))) {
             (0,_infos_js__WEBPACK_IMPORTED_MODULE_1__.showInfo)('flowNotInPeriod', 'warning');
          }
@@ -1407,11 +1420,12 @@ class FlowSubmits {
             "desc": this.cachedDesc,
             "amount": this.cachedAmount.toFixed(2),
             "currency": "EUR"};
+         
          const execFlowCreation = (id, flowBody) => {
             flowBody.date = flowDate;
             currentBagObj['transactions'][id] = flowBody;
             this.utils.checkAndAdjustChart();
-            afterFunc();
+            afterFunc(flowBody.date);
          }
          _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createFlow(this.bagPath, newFlowId, flowBody, execFlowCreation);
       }
@@ -1920,7 +1934,6 @@ class SubmitUtils {
 
 
    retrieveDateSpanFromDOM() {
-      console.log('in retrieveDataSpanFromDOM.');
       let formatStartStr;
       let formatEndStr;
       if (window.location.href.split('/').pop() === 'workspace') {
@@ -1949,7 +1962,7 @@ class SubmitUtils {
       let bagSum = 0;
       if (Object.keys(bagObj['nestedBags']).length) {
          for (const nestedBag in bagObj['nestedBags']) {
-            bagSum += bagObj['nestedBags'][nestedBag]['amount'];
+            bagSum += Number(bagObj['nestedBags'][nestedBag]['amount']);
          }
       }
       const flowIDs = [];
@@ -1965,7 +1978,7 @@ class SubmitUtils {
             }
          }
          for (const flowID of flowIDs) {
-            bagSum += bagObj['transactions'][flowID]['amount'];
+            bagSum += Number(bagObj['transactions'][flowID]['amount']);
          }
       }
       bagObj.amount = bagSum;
@@ -2451,7 +2464,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("e8a45717c70f58c48b1b")
+/******/ 		__webpack_require__.h = () => ("e4c0adad479fd57c0275")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

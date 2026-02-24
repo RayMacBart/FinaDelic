@@ -33,7 +33,6 @@ class LoginPage {
       const valid = this.inputChecker.checkSignIn(event);
       if (valid) {
          _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__["default"].execSignIn(event);
-         console.log('sending2backend...');
          // async BACKEND SEND AND REACT UPON RESPONSE (e.g. app.router.navigate('flowPage') or showInfo('invalidLogin', 'warning')) LOGIC HERE
       }
    }
@@ -45,8 +44,7 @@ class LoginPage {
       // const valid = this.inputChecker.checkSignUp(event);
       const valid = true;
       if (valid) {
-         _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__["default"].execSignUp(event);
-         console.log('sending2backend...');  
+         _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__["default"].execSignUp(event);  
       }
    }
 
@@ -280,13 +278,11 @@ class SIA {
       } else if (status === 409) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('taken');
       } else if (status === 406) {
-         console.log('HARAEER');
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidPW', 'warning');
       } else if (status === 400) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('repeatMismatch', 'warning');
       } else if (status === 422) {
          const body = await response.json();
-         console.log('VALIDATION ERROR MESSAGE:\n', body.msg);
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('ValErr', 'warning', null, body.path);
       } else if (status === 303) {
          window.location.href = '/';

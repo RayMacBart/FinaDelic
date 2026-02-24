@@ -40,7 +40,7 @@ class FlowPageSurface {
       (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(bagData.OUT.amount, document.getElementById('out-total'));
       const totalBalanceEl = document.querySelector('#total-balance > span');
       (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(bagData.IN.amount+bagData.OUT.amount, totalBalanceEl);
-      if (parseFloat(totalBalanceEl.innerText) < 0) {
+      if (Number(totalBalanceEl.innerText) < 0) {
          totalBalanceEl.classList.remove('positive');
          if (!(totalBalanceEl.classList.contains('negative'))) {
             totalBalanceEl.classList.add('negative');

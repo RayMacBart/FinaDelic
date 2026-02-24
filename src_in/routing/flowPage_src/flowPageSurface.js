@@ -26,7 +26,7 @@ class FlowPageSurface {
       renderAmount(bagData.OUT.amount, document.getElementById('out-total'));
       const totalBalanceEl = document.querySelector('#total-balance > span');
       renderAmount(bagData.IN.amount+bagData.OUT.amount, totalBalanceEl);
-      if (parseFloat(totalBalanceEl.innerText) < 0) {
+      if (Number(totalBalanceEl.innerText) < 0) {
          totalBalanceEl.classList.remove('positive');
          if (!(totalBalanceEl.classList.contains('negative'))) {
             totalBalanceEl.classList.add('negative');

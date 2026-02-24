@@ -66,7 +66,7 @@ class EventHandler {
             }
          } 
       } else {
-         console.log('WARNING: TRIED TO ADD FLOW EVENTLISTENER TO NON EXISTING ELEMENT!');
+         console.warn('WARNING: TRIED TO ADD FLOW EVENTLISTENER TO NON EXISTING ELEMENT!');
       }
    }
 

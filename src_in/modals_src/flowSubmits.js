@@ -51,9 +51,10 @@ class FlowSubmits {
       const flowDateArray = (this.currelems['input'].value).split('-');
       const flowDate = flowDateArray[2]+'.'+flowDateArray[1]+'.'+flowDateArray[0];
       const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-      const afterFunc = () => {
+      const afterFunc = (flowBodyDate) => {
          const [startDateObj, endDateObj] = this.utils.retrieveDateSpanFromDOM();
-         const flowDateObj = new Date(this.currelems['input'].value);
+         const flowDateObj = new Date(flowBodyDate);
+         console.log('flowDateObj:', flowDateObj);
          if (!((flowDateObj >= startDateObj) && (flowDateObj <= endDateObj))) {
             showInfo('flowNotInPeriod', 'warning');
          }
@@ -70,11 +71,12 @@ class FlowSubmits {
             "desc": this.cachedDesc,
             "amount": this.cachedAmount.toFixed(2),
             "currency": "EUR"};
+         
          const execFlowCreation = (id, flowBody) => {
             flowBody.date = flowDate;
             currentBagObj['transactions'][id] = flowBody;
             this.utils.checkAndAdjustChart();
-            afterFunc();
+            afterFunc(flowBody.date);
          }
          FDP.createFlow(this.bagPath, newFlowId, flowBody, execFlowCreation);
       }

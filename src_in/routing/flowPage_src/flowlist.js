@@ -63,7 +63,7 @@ class FlowList {
             flowItem.dataset.flowId = orderedFlow[0];
             flowItem.querySelector('.flow-date').innerText = bagData['transactions'][orderedFlow[0]]['date'];
             flowItem.querySelector('.flow-description').innerText = bagData['transactions'][orderedFlow[0]]['desc'];
-            const amount = bagData['transactions'][orderedFlow[0]]['amount'];
+            const amount = Number(bagData['transactions'][orderedFlow[0]]['amount']);
             const amountEl = flowItem.querySelector('.flow-amount');
             this.doStyle2DirAdjust(amount, amountEl);
             renderAmount(amount, amountEl);

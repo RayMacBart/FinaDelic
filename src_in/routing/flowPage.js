@@ -25,7 +25,6 @@ class FlowPage {
 
 
    #renderFlowPage(bagName, stepUp=false, toolbarReset=false) {
-      // console.log('render');
 
       this.appData.setCurrentBag(bagName, stepUp);
       const bagData = this.appData.getData();

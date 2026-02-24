@@ -10,6 +10,7 @@ class Flow {
                                    currency: flowObj.currency
                                  });
       bagDoc.transactions.push(newFlowDoc._id);
+      await bagDoc.save();
    }
 }
 

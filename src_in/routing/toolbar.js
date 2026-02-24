@@ -91,7 +91,7 @@ class Toolbar {
             captionEl.firstElementChild.innerText = 'Change Flow:'
          }
       } else {
-         console.log('toolbar-caption element doesn\'t exist!');
+         console.warn('toolbar-caption element doesn\'t exist!');
       }
    }
 

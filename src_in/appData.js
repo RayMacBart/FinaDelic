@@ -19,7 +19,9 @@ class AppData {
    async fetchUserData(app) {
       const response = await fetch('/userdata');
       this.data = await response.json();
+      console.log('fetched Data before bagAmounts set:', this.data);
       this.setBagAmounts(app.timespan);
+      console.log('fetched Data after bagAmounts set:', this.data);
       app.continueConstruction();
    }
 
