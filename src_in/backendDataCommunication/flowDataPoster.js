@@ -29,18 +29,20 @@ class FlowDataPoster {
       this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction', clientExecFunc);
    }
 
-   changeAmount(flowId, amount, clientExecFunc) {
-      const packet = { flowId: flowId,
-                       amount: amount
+   changeAmount(path, flowId, amount, clientExecFunc) {
+      const packet = { path: path,
+                       flowId: flowId,
+                       amount: amount.toFixed(2)
                      };
       this.#sendFlowAction(packet, '/changeFlowAmount', 'amount modification', clientExecFunc);
    }
 
-   changeDesc(flowId, text, clientExecFunc) {
-      const packet = { flowId: flowId,
-                       text: text
+   changeDesc(path, flowId, text, clientExecFunc) {
+      const packet = { path: path,
+                       flowId: flowId,
+                       desc: text
                      };
-      this.#sendFlowAction(packet, '/changeFlowText', 'modification of the transaction description', clientExecFunc);
+      this.#sendFlowAction(packet, '/changeFlowDesc', 'modification of the transaction description', clientExecFunc);
    }
 
    changeDate(path, flowId, isoDate, clientExecFunc) {
@@ -52,14 +54,17 @@ class FlowDataPoster {
       this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification', clientExecFunc);
    }
 
-   deleteFlow(flowId, clientExecFunc) {
-      const packet = { flowId: flowId };
+   deleteFlow(path, flowId, clientExecFunc) {
+      const packet = { path: path,
+                       flowId: flowId
+                     };
       this.#sendFlowAction(packet, '/deleteFlow', 'deletion of the transaction', clientExecFunc);
    }
 
-   moveFlow(flowId, targetBagPath, clientExecFunc) {
-      const packet = { flowId: flowId,
-                       targetBagPath: targetBagPath
+   moveFlow(originPath, flowId, targetPath, clientExecFunc) {
+      const packet = { originPath: originPath,
+                       flowId: flowId,
+                       targetPath: targetPath
                      };
       this.#sendFlowAction(packet, '/moveFlow', 'flow movement', clientExecFunc);
    }

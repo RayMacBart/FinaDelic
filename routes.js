@@ -57,6 +57,24 @@ router.post('/createFlow',
 )
 
 
+router.post('/changeFlowAmount',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
+               body('amount').trim().isDecimal({force_decimal: true, decimal_digits: 2}).withMessage('invalid transaction amount!'),
+               checkExact(),
+               FlowCTRL.postChangeAmount
+)
+
+
+router.post('/changeFlowDesc',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
+               body('desc', 'invalid chars in flow desc!').trim().isWhitelisted(whiteListChars).isLength({min: 3, max: 50}).withMessage('invalid length of flow desc'),
+               checkExact(),
+               FlowCTRL.postChangeDesc
+)
+
+
 router.post('/changeFlowDate',
                body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
@@ -64,6 +82,25 @@ router.post('/changeFlowDate',
                checkExact(),
                FlowCTRL.postChangeDate
 )
+
+
+router.post('/deleteFlow',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
+               checkExact(),
+               FlowCTRL.postDeleteFlow
+)
+
+
+router.post('/moveFlow',
+               body('originPath', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
+               body('targetPath', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               checkExact(),
+               FlowCTRL.postMoveFlow
+)
+
+
 
 
 module.exports = router;

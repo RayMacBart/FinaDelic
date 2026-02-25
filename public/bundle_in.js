@@ -317,18 +317,20 @@ class FlowDataPoster {
       this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction', clientExecFunc);
    }
 
-   changeAmount(flowId, amount, clientExecFunc) {
-      const packet = { flowId: flowId,
-                       amount: amount
+   changeAmount(path, flowId, amount, clientExecFunc) {
+      const packet = { path: path,
+                       flowId: flowId,
+                       amount: amount.toFixed(2)
                      };
       this.#sendFlowAction(packet, '/changeFlowAmount', 'amount modification', clientExecFunc);
    }
 
-   changeDesc(flowId, text, clientExecFunc) {
-      const packet = { flowId: flowId,
-                       text: text
+   changeDesc(path, flowId, text, clientExecFunc) {
+      const packet = { path: path,
+                       flowId: flowId,
+                       desc: text
                      };
-      this.#sendFlowAction(packet, '/changeFlowText', 'modification of the transaction description', clientExecFunc);
+      this.#sendFlowAction(packet, '/changeFlowDesc', 'modification of the transaction description', clientExecFunc);
    }
 
    changeDate(path, flowId, isoDate, clientExecFunc) {
@@ -340,14 +342,17 @@ class FlowDataPoster {
       this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification', clientExecFunc);
    }
 
-   deleteFlow(flowId, clientExecFunc) {
-      const packet = { flowId: flowId };
+   deleteFlow(path, flowId, clientExecFunc) {
+      const packet = { path: path,
+                       flowId: flowId
+                     };
       this.#sendFlowAction(packet, '/deleteFlow', 'deletion of the transaction', clientExecFunc);
    }
 
-   moveFlow(flowId, targetBagPath, clientExecFunc) {
-      const packet = { flowId: flowId,
-                       targetBagPath: targetBagPath
+   moveFlow(originPath, flowId, targetPath, clientExecFunc) {
+      const packet = { originPath: originPath,
+                       flowId: flowId,
+                       targetPath: targetPath
                      };
       this.#sendFlowAction(packet, '/moveFlow', 'flow movement', clientExecFunc);
    }
@@ -1373,11 +1378,14 @@ class FlowSubmits {
       let dec = document.getElementById('amount-decimal').value ? document.getElementById('amount-decimal').value : 0;
       const amount = this.bagPath.split('/')[0] === 'IN' ? Number(predec+'.'+dec) : Number(predec+'.'+dec) * (-1);
       if (this.flowchange) {
-         const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-         currentBagObj['transactions'][this.flowID]['amount'] = amount;
-         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeAmount(this.flowID, amount);
-         this.utils.recalcBagAmounts(this.bagPath.split('/'));
-         this.utils.checkAndAdjustChart();
+         const execAmountChange = () => {
+            const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
+            currentBagObj['transactions'][this.flowID]['amount'] = amount;
+            this.utils.recalcBagAmounts(this.bagPath.split('/'));
+            this.utils.checkAndAdjustChart();
+            document.dispatchEvent(this.reloadEvent);
+         }
+         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeAmount(this.bagPath, this.flowID, amount, execAmountChange);
       } else {
          this.cachedAmount = amount;
       }
@@ -1385,13 +1393,16 @@ class FlowSubmits {
 
 
    flowDesc() {
+      const newText = this.currelems['input'].value;
       if (this.flowchange) {
-         const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
-         const newText = this.currelems['input'].value;
-         currentBagObj['transactions'][this.flowID]['desc'] = newText;
-         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeDesc(this.flowID, newText);
+         const execDescChange = () => {
+            const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
+            currentBagObj['transactions'][this.flowID]['desc'] = newText;
+            document.dispatchEvent(this.reloadEvent);
+         }
+         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeDesc(this.bagPath, this.flowID, newText, execDescChange);
       } else {
-         this.cachedDesc = this.currelems['input'].value;
+         this.cachedDesc = newText;
       }
    }
 
@@ -1436,24 +1447,30 @@ class FlowSubmits {
 
 
    flowDelete() {
-      const bagObj = this.utils.getBagObjByPath(this.bagPath);
-      delete bagObj['transactions'][this.flowID];
-      _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].deleteFlow(this.flowID);
-      this.utils.checkAndAdjustChart();
-      this.utils.recalcBagAmounts(this.bagPath.split('/'));
+      const execFlowDeletion = () => {
+         const bagObj = this.utils.getBagObjByPath(this.bagPath);
+         delete bagObj['transactions'][this.flowID];
+         this.utils.checkAndAdjustChart();
+         this.utils.recalcBagAmounts(this.bagPath.split('/'));
+         document.dispatchEvent(this.reloadEvent);
+      }
+      _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].deleteFlow(this.bagPath, this.flowID, execFlowDeletion);
    }
 
 
    flowMove() {
-      const bagObj = this.utils.getBagObjByPath(this.bagPath);
       const selection = document.getElementById('modal-select').value;
-      const choosenObj = this.utils.getBagObjByPath(selection);
-      choosenObj['transactions'][this.flowID] = bagObj['transactions'][this.flowID];
-      delete bagObj['transactions'][this.flowID];
-      _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].moveFlow(this.flowID, selection);
-      this.utils.checkAndAdjustChart();
-      this.utils.recalcBagAmounts(this.bagPath.split('/'));
-      this.utils.recalcBagAmounts(selection.split('/'));
+      const execFlowMove = () => {
+         const bagObj = this.utils.getBagObjByPath(this.bagPath);
+         const choosenObj = this.utils.getBagObjByPath(selection);
+         choosenObj['transactions'][this.flowID] = bagObj['transactions'][this.flowID];
+         delete bagObj['transactions'][this.flowID];
+         this.utils.checkAndAdjustChart();
+         this.utils.recalcBagAmounts(this.bagPath.split('/'));
+         this.utils.recalcBagAmounts(selection.split('/'));
+         document.dispatchEvent(this.reloadEvent);
+      }
+      _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].moveFlow(this.bagPath, this.flowID, selection, execFlowMove);
    }
 }
 
@@ -2467,7 +2484,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("675623d0304c70656aa5")
+/******/ 		__webpack_require__.h = () => ("0a7c886c3f3fbac9b392")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
