@@ -12,6 +12,14 @@ class Flow {
       bagDoc.transactions.push(newFlowDoc._id);
       await bagDoc.save();
    }
+
+
+   async changeDate(bagDoc, { flowId, isoDate }) {
+      const bagPopDoc = await bagDoc.populate('transactions');
+      const flowDoc = bagPopDoc.transactions.find(flowItem => flowItem.frontId == flowId);
+      flowDoc.date = isoDate;  // auto cast to Date Object
+      await flowDoc.save();
+   }
 }
 
 const flow = new Flow();

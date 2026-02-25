@@ -302,7 +302,7 @@ class FlowDataPoster {
       } else if (response.status === 507) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, errName);
       } else if (response.status === 201) {
-         clientExecFunc(packet.flowId, {date: packet.date, desc: packet.desc, amount: packet.amount, currency: packet.currency});
+         clientExecFunc();
       }
    }
 
@@ -317,37 +317,39 @@ class FlowDataPoster {
       this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction', clientExecFunc);
    }
 
-   changeAmount(flowId, amount) {
+   changeAmount(flowId, amount, clientExecFunc) {
       const packet = { flowId: flowId,
                        amount: amount
                      };
-      this.#sendFlowAction(packet, '/changeFlowAmount', 'amount modification');
+      this.#sendFlowAction(packet, '/changeFlowAmount', 'amount modification', clientExecFunc);
    }
 
-   changeDesc(flowId, text) {
+   changeDesc(flowId, text, clientExecFunc) {
       const packet = { flowId: flowId,
                        text: text
                      };
-      this.#sendFlowAction(packet, '/changeFlowText', 'modification of the transaction description');
+      this.#sendFlowAction(packet, '/changeFlowText', 'modification of the transaction description', clientExecFunc);
    }
 
-   changeDate(flowId, isoDate) {
-      const packet = { flowId: flowId,
+   changeDate(path, flowId, isoDate, clientExecFunc) {
+      const packet = { path: path,
+                       flowId: flowId,
                        isoDate: isoDate
                      };
-      this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification');
+      console.log('packet:', packet);
+      this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification', clientExecFunc);
    }
 
-   deleteFlow(flowId) {
+   deleteFlow(flowId, clientExecFunc) {
       const packet = { flowId: flowId };
-      this.#sendFlowAction(packet, '/deleteFlow', 'deletion of the transaction');
+      this.#sendFlowAction(packet, '/deleteFlow', 'deletion of the transaction', clientExecFunc);
    }
 
-   moveFlow(flowId, targetBagPath) {
+   moveFlow(flowId, targetBagPath, clientExecFunc) {
       const packet = { flowId: flowId,
                        targetBagPath: targetBagPath
                      };
-      this.#sendFlowAction(packet, '/moveFlow', 'flow movement');
+      this.#sendFlowAction(packet, '/moveFlow', 'flow movement', clientExecFunc);
    }
 
 
@@ -1409,19 +1411,22 @@ class FlowSubmits {
          document.dispatchEvent(this.reloadEvent);
       }
       if (this.flowchange) {
-         currentBagObj['transactions'][this.flowID]['date'] = flowDate;
-         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeDate(this.flowID, this.currelems['input'].value);
-         this.utils.checkAndAdjustChart(this.bagPath);
+         const execDateChange = () => {
+            currentBagObj['transactions'][this.flowID]['date'] = flowDate;
+            this.utils.checkAndAdjustChart(this.bagPath);
+            afterFunc();
+         }
+         _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeDate(this.bagPath, this.flowID, this.currelems['input'].value, execDateChange);
       } else {
          const newFlowId = this.utils.createNewFlowID();
-         const flowBody = {"date": this.currelems['input'].value,
+         const flowBody = {"date": flowDateISOString,
             "desc": this.cachedDesc,
             "amount": this.cachedAmount.toFixed(2),
             "currency": "EUR"};
          
-         const execFlowCreation = (id, flowBody) => {
+         const execFlowCreation = () => {
             flowBody.date = flowDate;
-            currentBagObj['transactions'][id] = flowBody;
+            currentBagObj['transactions'][newFlowId] = flowBody;
             this.utils.checkAndAdjustChart();
             afterFunc();
          }
@@ -2462,7 +2467,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("845b274a5564523e9cf7")
+/******/ 		__webpack_require__.h = () => ("675623d0304c70656aa5")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

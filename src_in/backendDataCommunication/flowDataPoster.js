@@ -14,7 +14,7 @@ class FlowDataPoster {
       } else if (response.status === 507) {
          showInfo('dataStorageError', 'warning', null, errName);
       } else if (response.status === 201) {
-         clientExecFunc(packet.flowId, {date: packet.date, desc: packet.desc, amount: packet.amount, currency: packet.currency});
+         clientExecFunc();
       }
    }
 
@@ -29,37 +29,39 @@ class FlowDataPoster {
       this.#sendFlowAction(packet, '/createFlow', 'creation of the transaction', clientExecFunc);
    }
 
-   changeAmount(flowId, amount) {
+   changeAmount(flowId, amount, clientExecFunc) {
       const packet = { flowId: flowId,
                        amount: amount
                      };
-      this.#sendFlowAction(packet, '/changeFlowAmount', 'amount modification');
+      this.#sendFlowAction(packet, '/changeFlowAmount', 'amount modification', clientExecFunc);
    }
 
-   changeDesc(flowId, text) {
+   changeDesc(flowId, text, clientExecFunc) {
       const packet = { flowId: flowId,
                        text: text
                      };
-      this.#sendFlowAction(packet, '/changeFlowText', 'modification of the transaction description');
+      this.#sendFlowAction(packet, '/changeFlowText', 'modification of the transaction description', clientExecFunc);
    }
 
-   changeDate(flowId, isoDate) {
-      const packet = { flowId: flowId,
+   changeDate(path, flowId, isoDate, clientExecFunc) {
+      const packet = { path: path,
+                       flowId: flowId,
                        isoDate: isoDate
                      };
-      this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification');
+      console.log('packet:', packet);
+      this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification', clientExecFunc);
    }
 
-   deleteFlow(flowId) {
+   deleteFlow(flowId, clientExecFunc) {
       const packet = { flowId: flowId };
-      this.#sendFlowAction(packet, '/deleteFlow', 'deletion of the transaction');
+      this.#sendFlowAction(packet, '/deleteFlow', 'deletion of the transaction', clientExecFunc);
    }
 
-   moveFlow(flowId, targetBagPath) {
+   moveFlow(flowId, targetBagPath, clientExecFunc) {
       const packet = { flowId: flowId,
                        targetBagPath: targetBagPath
                      };
-      this.#sendFlowAction(packet, '/moveFlow', 'flow movement');
+      this.#sendFlowAction(packet, '/moveFlow', 'flow movement', clientExecFunc);
    }
 
 

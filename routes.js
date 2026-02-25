@@ -14,12 +14,6 @@ const CusVal = require('./customValidators');
 
 const whiteListChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890äöüÄÖÜß ?!,.-/()';
 
-const testSchema = Mongoose.Schema({
-   testProp: String
-});
-
-const TestModel = Mongoose.model('test', testSchema);
-
 
 router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login'], GenPages.getPage);
 
@@ -62,6 +56,14 @@ router.post('/createFlow',
                FlowCTRL.postCreateFlow
 )
 
+
+router.post('/changeFlowDate',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
+               body('isoDate').trim().isDate().withMessage('invalid transaction date!'),
+               checkExact(),
+               FlowCTRL.postChangeDate
+)
 
 
 module.exports = router;

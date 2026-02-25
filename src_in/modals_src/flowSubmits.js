@@ -62,19 +62,22 @@ class FlowSubmits {
          document.dispatchEvent(this.reloadEvent);
       }
       if (this.flowchange) {
-         currentBagObj['transactions'][this.flowID]['date'] = flowDate;
-         FDP.changeDate(this.flowID, this.currelems['input'].value);
-         this.utils.checkAndAdjustChart(this.bagPath);
+         const execDateChange = () => {
+            currentBagObj['transactions'][this.flowID]['date'] = flowDate;
+            this.utils.checkAndAdjustChart(this.bagPath);
+            afterFunc();
+         }
+         FDP.changeDate(this.bagPath, this.flowID, this.currelems['input'].value, execDateChange);
       } else {
          const newFlowId = this.utils.createNewFlowID();
-         const flowBody = {"date": this.currelems['input'].value,
+         const flowBody = {"date": flowDateISOString,
             "desc": this.cachedDesc,
             "amount": this.cachedAmount.toFixed(2),
             "currency": "EUR"};
          
-         const execFlowCreation = (id, flowBody) => {
+         const execFlowCreation = () => {
             flowBody.date = flowDate;
-            currentBagObj['transactions'][id] = flowBody;
+            currentBagObj['transactions'][newFlowId] = flowBody;
             this.utils.checkAndAdjustChart();
             afterFunc();
          }
