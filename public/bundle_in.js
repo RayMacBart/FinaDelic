@@ -143,7 +143,7 @@ class AppData {
                   throw new Error(`Error: Can't find key "${bagName}" in ${this.#currentBag}!`);
                }
             } catch (e) {
-               console.log('End of nestedBags-chain reached.');
+               // console.log('End of nestedBags-chain reached.');
             }
          } else {
             if (!(bagName in this.data)) {
@@ -235,7 +235,6 @@ class BagDataPoster {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('nameCollisionError', 'warning', null, errName);
          this.logErrorMsg(response);
       }else if (response.status === 201) {
-         console.log('clientExecFunc:', clientExecFunc);
          clientExecFunc();
       }
    }
@@ -1160,14 +1159,17 @@ class BagSubmits {
 
    bagMove() {
       const selection = document.getElementById('modal-select').value;
-      const choosenObj = this.utils.getBagObjByPath(selection);
       const pathArray = this.bagPath.split('/');
       const currentBagName = pathArray.pop();
       const duplicateDetected = this.utils.check4Duplicate(currentBagName, selection);
       if (!duplicateDetected) {
-         this.transferBag(currentBagName, choosenObj);
-         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagMove(this.bagPath, selection);
-         this.utils.checkAndAdjustChart();
+         const execBagMove = () => {
+            const choosenObj = this.utils.getBagObjByPath(selection);
+            this.transferBag(currentBagName, choosenObj);
+            this.utils.checkAndAdjustChart();
+            document.dispatchEvent(this.reloadEvent);
+         }
+         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagMove(this.bagPath, selection, execBagMove);
       } else {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
       }
@@ -2498,7 +2500,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("8e7f2fe93e34a7e629f0")
+/******/ 		__webpack_require__.h = () => ("e8f08c8d69d17efc902e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

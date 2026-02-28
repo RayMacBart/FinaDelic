@@ -57,3 +57,24 @@ exports.postDisbandBag = async (req, res) => {
       res.status(201).send();
    }
 }
+
+
+exports.postMoveBag = async (req, res) => {
+   if (checkAndHandleValError(req, res)) { // the function will also run!
+      return;
+   }
+   const pathArray = req.body.fromPath.split('/');
+   const bagName = pathArray.pop();
+   const parentPath = pathArray.join('/');
+   const parentBagDoc = await BAG.getBagDocFromPath(req.session.userId, parentPath);
+   const destBagDoc = await BAG.getBagDocFromPath(req.session.userId, req.body.toPath);  // dest = destination
+   if (typeof parentBagDoc === 'string' || typeof destBagDoc === 'string') {
+      return res.status(404).json({ error: `The bag ${parentBagDoc} doesn't exist in the DB!`});
+   }
+   const nameCollisionDetected = await BAG.moveBag(parentBagDoc, destBagDoc, bagName);
+   if (nameCollisionDetected) {
+      res.status(409).send('Operation aborted due to box name collision!');
+   } else {
+      res.status(201).send();
+   }
+}

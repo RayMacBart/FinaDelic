@@ -119,14 +119,17 @@ class BagSubmits {
 
    bagMove() {
       const selection = document.getElementById('modal-select').value;
-      const choosenObj = this.utils.getBagObjByPath(selection);
       const pathArray = this.bagPath.split('/');
       const currentBagName = pathArray.pop();
       const duplicateDetected = this.utils.check4Duplicate(currentBagName, selection);
       if (!duplicateDetected) {
-         this.transferBag(currentBagName, choosenObj);
-         BDP.bagMove(this.bagPath, selection);
-         this.utils.checkAndAdjustChart();
+         const execBagMove = () => {
+            const choosenObj = this.utils.getBagObjByPath(selection);
+            this.transferBag(currentBagName, choosenObj);
+            this.utils.checkAndAdjustChart();
+            document.dispatchEvent(this.reloadEvent);
+         }
+         BDP.bagMove(this.bagPath, selection, execBagMove);
       } else {
          showInfo('duplicate', 'warning');
       }

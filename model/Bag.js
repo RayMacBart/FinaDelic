@@ -70,6 +70,22 @@ class Bag {
       await parentBagDoc.save();
       return false;
    }
+
+
+   async moveBag(parentBagDoc, destBagDoc, bagName) {
+      const parentBagPopDoc = await parentBagDoc.populate('nestedBags.bag');
+      const bagWrap = parentBagPopDoc.nestedBags.find(bagWrap => bagWrap.name === bagName);
+      const bagDoc = bagWrap.bag;
+      const nestedBagsSet = new Set(bagDoc.nestedBags.map(bagItem => bagItem.name));       // This leads to O(n*2) instead of O(n^2) by 2 Loops,
+      if (destBagDoc.nestedBags.some(bagItem => nestedBagsSet.has(bagItem.name))) {        // Because Set Creation = O(n) and Array.some() = O(n),
+         return true;                                                                      // BUT: Set.has() = O(1)  --> Set is a Hash Data Structure which
+      }                                                                                    // have O(1) read access (other than array value-based lookups!)
+      destBagDoc.nestedBags.push({name: bagName, bag: bagDoc._id});
+      parentBagDoc.nestedBags = parentBagDoc.nestedBags.filter(bagWrap => bagWrap.name !== bagName);
+      await destBagDoc.save();
+      await parentBagDoc.save();
+      return false;
+   }
 }
 
 const BAG = new Bag();

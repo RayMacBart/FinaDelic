@@ -128,7 +128,7 @@ class AppData {
                   throw new Error(`Error: Can't find key "${bagName}" in ${this.#currentBag}!`);
                }
             } catch (e) {
-               console.log('End of nestedBags-chain reached.');
+               // console.log('End of nestedBags-chain reached.');
             }
          } else {
             if (!(bagName in this.data)) {

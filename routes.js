@@ -61,6 +61,14 @@ router.post('/disbandBag',
 )
 
 
+router.post('/moveBag',
+               body('fromPath', 'invalid move FROM Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
+               body('toPath', 'invalid move TO Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
+               checkExact(),
+               BagCTRL.postMoveBag
+)
+
+
 router.post('/createFlow',
                body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
