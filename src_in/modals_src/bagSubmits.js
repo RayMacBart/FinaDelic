@@ -22,8 +22,8 @@ class BagSubmits {
       const newBagName = this.currelems['input'].value;
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
-         const execBagCreation = (bagName) => {
-            this.appData.getData()['nestedBags'][bagName] = {
+         const execBagCreation = () => {
+            this.appData.getData()['nestedBags'][newBagName] = {
                'amount': 0,
                'nestedBags': {},
                'transactions': {}
@@ -54,15 +54,18 @@ class BagSubmits {
       this.utils.bagPath = this.bagPath;
       const newBagName = this.currelems['input'].value;
       const bagArray = this.bagPath.split('/');
-      const currentBagName = bagArray.pop();
       const duplicateDetected = this.utils.check4Duplicate(newBagName, bagArray.join('/'));
       if (!duplicateDetected) {
-         const parentObj = this.utils.getParentObj(currentBagName);
-         parentObj[newBagName] = {...parentObj[currentBagName]};
-         delete parentObj[currentBagName];
-         this.appData.changeCurrentBagProp(newBagName);
-         BDP.renameBag(this.bagPath, newBagName);
-         this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
+         const execBagRename = () => {
+            const currentBagName = bagArray.pop();
+            const parentObj = this.utils.getParentObj(currentBagName);
+            parentObj[newBagName] = {...parentObj[currentBagName]};
+            delete parentObj[currentBagName];
+            this.appData.changeCurrentBagProp(newBagName);
+            this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
+            document.dispatchEvent(this.reloadEvent);
+         };
+         BDP.renameBag(this.bagPath, newBagName, execBagRename);
       } else {
          showInfo('duplicate', 'warning');
       }
@@ -102,12 +105,15 @@ class BagSubmits {
 
 
    bagDisband() {
-      const pathArray = this.bagPath.split('/');
-      const currentBagName = pathArray[pathArray.length-1];
-      this.transferBag(currentBagName);
-      BDP.bagDisband(this.bagPath);
-      document.querySelector('.menu--account-remove').dataset.removalHappened = true;
-      this.utils.checkAndAdjustChart(null, true);
+      const execBagDisband = () => {
+         const pathArray = this.bagPath.split('/');
+         const currentBagName = pathArray[pathArray.length-1];
+         this.transferBag(currentBagName);
+         document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+         this.utils.checkAndAdjustChart(null, true);
+         document.dispatchEvent(this.reloadEvent);
+      }
+      BDP.bagDisband(this.bagPath, execBagDisband);
    }
 
 

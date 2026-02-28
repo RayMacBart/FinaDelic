@@ -231,8 +231,12 @@ class BagDataPoster {
       } else if (response.status === 507) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, errName);
          this.logErrorMsg(response);
-      } else if (response.status === 201) {
-         clientExecFunc(packet.name);
+      } else if (response.status === 409) {
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('nameCollisionError', 'warning', null, errName);
+         this.logErrorMsg(response);
+      }else if (response.status === 201) {
+         console.log('clientExecFunc:', clientExecFunc);
+         clientExecFunc();
       }
    }
 
@@ -243,28 +247,28 @@ class BagDataPoster {
       this.#sendBagAction(packet, '/createBag', 'box creation', clientExecFunc);
    }
 
-   renameBag(path, newBagName) {
+   renameBag(path, newName, clientExecFunc) {
       const packet = { path: path,
-                       newBagName: newBagName
+                       newName: newName
        };
-      this.#sendBagAction(packet, '/renameBag', 'box renaming');
+      this.#sendBagAction(packet, '/renameBag', 'box renaming', clientExecFunc);
    }
 
-   bagErase(path) {
+   bagErase(path, clientExecFunc) {
       const packet = { path: path };
-      this.#sendBagAction(packet, '/eraseBag', 'box deletion');
+      this.#sendBagAction(packet, '/eraseBag', 'box deletion', clientExecFunc);
    }
    
-   bagDisband(path) {
+   bagDisband(path, clientExecFunc) {
       const packet = { path: path };
-      this.#sendBagAction(packet, '/disbandBag', 'disband of the box');
+      this.#sendBagAction(packet, '/disbandBag', 'disband of the box', clientExecFunc);
    }
 
-   bagMove(fromPath, toPath) {
+   bagMove(fromPath, toPath, clientExecFunc) {
       const packet = { fromPath: fromPath,
                        toPath: toPath
        };
-      this.#sendBagAction(packet, '/moveBag', 'box movement');
+      this.#sendBagAction(packet, '/moveBag', 'box movement', clientExecFunc);
    }
 }
 
@@ -582,7 +586,9 @@ class Infos {
       'DataStore1': 'ATTENTION!\nfailed to synchronize the ',
       'DataStore2': ' with the server database!',
       'invalidData1': 'WARNING!\n\nThe server received invalid data during following process:\n\n',
-      'invalidData2': "\n\nHence it didn't update the database accordingly!"
+      'invalidData2': "\n\nHence it didn't update the database accordingly!",
+      'nameCollisionError1': "During the following operation:\n\n",
+      'nameCollisionError2': "\n\n... a name collision occurred.\nThe boxname is already taken.\nPlease try another one."
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
@@ -599,6 +605,8 @@ class Infos {
             text.innerText = this.infoTexts['DataStore1']+field+this.infoTexts['DataStore2'];
          } else if (infoTitle === 'invalidData') {
             text.innerText = this.infoTexts['invalidData1']+field+this.infoTexts['invalidData2'];
+         } else if (infoTitle === 'nameCollisionError') {
+            text.innerText = this.infoTexts[infoTitle+'1']+field+this.infoTexts[infoTitle+'2'];
          }
       } else {
          text.innerText = this.infoTexts[infoTitle];
@@ -1055,8 +1063,8 @@ class BagSubmits {
       const newBagName = this.currelems['input'].value;
       const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
       if (!duplicateDetected) {
-         const execBagCreation = (bagName) => {
-            this.appData.getData()['nestedBags'][bagName] = {
+         const execBagCreation = () => {
+            this.appData.getData()['nestedBags'][newBagName] = {
                'amount': 0,
                'nestedBags': {},
                'transactions': {}
@@ -1087,15 +1095,18 @@ class BagSubmits {
       this.utils.bagPath = this.bagPath;
       const newBagName = this.currelems['input'].value;
       const bagArray = this.bagPath.split('/');
-      const currentBagName = bagArray.pop();
       const duplicateDetected = this.utils.check4Duplicate(newBagName, bagArray.join('/'));
       if (!duplicateDetected) {
-         const parentObj = this.utils.getParentObj(currentBagName);
-         parentObj[newBagName] = {...parentObj[currentBagName]};
-         delete parentObj[currentBagName];
-         this.appData.changeCurrentBagProp(newBagName);
-         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].renameBag(this.bagPath, newBagName);
-         this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
+         const execBagRename = () => {
+            const currentBagName = bagArray.pop();
+            const parentObj = this.utils.getParentObj(currentBagName);
+            parentObj[newBagName] = {...parentObj[currentBagName]};
+            delete parentObj[currentBagName];
+            this.appData.changeCurrentBagProp(newBagName);
+            this.utils.checkAndAdjustChart(null, false, {'old': this.bagPath, 'new': bagArray.join('/')+'/'+newBagName});
+            document.dispatchEvent(this.reloadEvent);
+         };
+         _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].renameBag(this.bagPath, newBagName, execBagRename);
       } else {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
       }
@@ -1135,12 +1146,15 @@ class BagSubmits {
 
 
    bagDisband() {
-      const pathArray = this.bagPath.split('/');
-      const currentBagName = pathArray[pathArray.length-1];
-      this.transferBag(currentBagName);
-      _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagDisband(this.bagPath);
-      document.querySelector('.menu--account-remove').dataset.removalHappened = true;
-      this.utils.checkAndAdjustChart(null, true);
+      const execBagDisband = () => {
+         const pathArray = this.bagPath.split('/');
+         const currentBagName = pathArray[pathArray.length-1];
+         this.transferBag(currentBagName);
+         document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+         this.utils.checkAndAdjustChart(null, true);
+         document.dispatchEvent(this.reloadEvent);
+      }
+      _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagDisband(this.bagPath, execBagDisband);
    }
 
 
@@ -2484,7 +2498,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("0a7c886c3f3fbac9b392")
+/******/ 		__webpack_require__.h = () => ("8e7f2fe93e34a7e629f0")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -28,26 +28,31 @@ class CustomValidator {
       }
    }
 
-   static async checkBagNameUniqueness(newName, { req } ) {
-      const userPopDoc = await UserCol.findById(req.session.userId).populate('data');
-      const dataDoc = userPopDoc.data;
-      const pathList = req.body.path.split('/');
-      const dir = pathList.shift();
-      const dataPopBag = await dataDoc.populate(dir);
-      let choosenBagDoc = dataPopBag[dir];
-      for (const bagName of pathList) {  // first item was already removed above via 'shift()'
-         const parentPopBagDoc = await choosenBagDoc.populate('nestedBags.bag');
-         const wrappingDoc = parentPopBagDoc.nestedBags.find(bagItem => bagItem.name === bagName);
-         choosenBagDoc = wrappingDoc.bag;
-      }
-      const sameNameFound = false;
-      for (const nestedBagWrap of choosenBagDoc.nestedBags) {
-         if (nestedBagWrap.name === newName) {
-            throw new Error(`Bag Name Collision: ${newName} already exists in ${req.body.path}!`);
-         }
-      }
-      return true;
-   }
+
+   // FOLLOWING CUSTOM VALIDATION METHOD WOULD WORK, BUT ISN'T AS EFFICIENT AS HANDLING NAME COLLISION WITHIN THE MODEL,
+   // WHERE THE TARGETED BAGDOC HAS TO BE TRAVERSED TO FOR OTHER OPERATIONS ANYWAY VIA 'BAG.getBagDocFromPath()' AND IS
+   // THEREFORE ALREADY AT HAND.
+
+   // static async checkBagNameUniqueness(newName, { req } ) {
+   //    const userPopDoc = await UserCol.findById(req.session.userId).populate('data');
+   //    const dataDoc = userPopDoc.data;
+   //    const pathList = req.body.path.split('/');
+   //    const dir = pathList.shift();
+   //    const dataPopBag = await dataDoc.populate(dir);
+   //    let choosenBagDoc = dataPopBag[dir];
+   //    for (const bagName of pathList) {  // first item was already removed above via 'shift()'
+   //       const parentPopBagDoc = await choosenBagDoc.populate('nestedBags.bag');
+   //       const wrappingDoc = parentPopBagDoc.nestedBags.find(bagItem => bagItem.name === bagName);
+   //       choosenBagDoc = wrappingDoc.bag;
+   //    }
+   //    const sameNameFound = false;
+   //    for (const nestedBagWrap of choosenBagDoc.nestedBags) {
+   //       if (nestedBagWrap.name.toUpperCase() === newName.toUpperCase()) {
+   //          throw new Error(`Bag Name Collision: ${newName} already exists in ${req.body.path}!`);
+   //       }
+   //    }
+   //    return true;
+   // }
 }
 
 module.exports = CustomValidator;

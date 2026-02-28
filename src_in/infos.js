@@ -24,7 +24,9 @@ class Infos {
       'DataStore1': 'ATTENTION!\nfailed to synchronize the ',
       'DataStore2': ' with the server database!',
       'invalidData1': 'WARNING!\n\nThe server received invalid data during following process:\n\n',
-      'invalidData2': "\n\nHence it didn't update the database accordingly!"
+      'invalidData2': "\n\nHence it didn't update the database accordingly!",
+      'nameCollisionError1': "During the following operation:\n\n",
+      'nameCollisionError2': "\n\n... a name collision occurred.\nThe boxname is already taken.\nPlease try another one."
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
@@ -41,6 +43,8 @@ class Infos {
             text.innerText = this.infoTexts['DataStore1']+field+this.infoTexts['DataStore2'];
          } else if (infoTitle === 'invalidData') {
             text.innerText = this.infoTexts['invalidData1']+field+this.infoTexts['invalidData2'];
+         } else if (infoTitle === 'nameCollisionError') {
+            text.innerText = this.infoTexts[infoTitle+'1']+field+this.infoTexts[infoTitle+'2'];
          }
       } else {
          text.innerText = this.infoTexts[infoTitle];

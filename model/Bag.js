@@ -32,10 +32,43 @@ class Bag {
       */
    }
 
+
    async createNestedBag(bagDoc, name) {
+      if (bagDoc.nestedBags.find(bagWrap => bagWrap.name.toUpperCase() == name.toUpperCase())) {
+         return false;
+      }
       const newBagDoc = await this.createBag();
       bagDoc.nestedBags.push({name, bag: newBagDoc._id});
       await bagDoc.save();
+      return true;
+   }
+
+
+   async renameBag(parentBagDoc, oldName, newName) {
+      if (parentBagDoc.nestedBags.find(bagWrap => bagWrap.name.toUpperCase() == newName.toUpperCase())) {
+         return true;
+      }
+      const bagWrap = parentBagDoc.nestedBags.find(bagWrap => bagWrap.name === oldName);
+      bagWrap.name = newName;
+      await parentBagDoc.save();
+      return false;
+   }
+
+
+   async disbandBag(parentBagDoc, oldBagName) {
+      const parentBagPopDoc = await parentBagDoc.populate('nestedBags.bag');
+      const oldBagWrap = parentBagPopDoc.nestedBags.find(bagWrap => bagWrap.name === oldBagName);
+      const oldBagDoc = oldBagWrap.bag;
+      const parentNestedBagsSet = new Set(parentBagDoc.nestedBags.map(bagItem => bagItem.name)); // This leads to O(n*2) instead of O(n^2) by 2 Loops,
+      if (oldBagDoc.nestedBags.some(oldBagItem => parentNestedBagsSet.has(oldBagItem.name))) {   // Because Set Creation = O(n) and Array.some() = O(n),
+         return true;                                                                            // BUT: Set.has() = O(1)  --> Set is a Hash Data Structure which
+      }                                                                                          // have O(1) read access (other than array value-based lookups!)
+      const cleanedNestedBags = parentBagDoc.nestedBags.filter(bagWrap => bagWrap.name !== oldBagName);
+      parentBagDoc.nestedBags = [...cleanedNestedBags, ...oldBagDoc.nestedBags];
+      parentBagDoc.transactions = [...parentBagDoc.transactions, ...oldBagDoc.transactions];
+      await bagCol.findByIdAndDelete(oldBagDoc._id);
+      await parentBagDoc.save();
+      return false;
    }
 }
 

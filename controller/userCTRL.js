@@ -55,11 +55,13 @@ exports.postSignUp = async (req, res) => {
 
 
 exports.getLogout = async (req, res) => {
+   req.session.isLoggedIn = false;
    req.session.destroy(error => {
       if (error) {
-         console.log(error);
+         console.log('FOLLOWING ERROR DURING SESSION ELIMINATION OCCURRED:\n', error);
          return res.status(503).send('Failed to finish Session:', error);
       }
    });
+
    res.redirect('/');
 }

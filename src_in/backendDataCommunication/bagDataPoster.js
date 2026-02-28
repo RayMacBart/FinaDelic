@@ -20,8 +20,12 @@ class BagDataPoster {
       } else if (response.status === 507) {
          showInfo('dataStorageError', 'warning', null, errName);
          this.logErrorMsg(response);
-      } else if (response.status === 201) {
-         clientExecFunc(packet.name);
+      } else if (response.status === 409) {
+         showInfo('nameCollisionError', 'warning', null, errName);
+         this.logErrorMsg(response);
+      }else if (response.status === 201) {
+         console.log('clientExecFunc:', clientExecFunc);
+         clientExecFunc();
       }
    }
 
@@ -32,28 +36,28 @@ class BagDataPoster {
       this.#sendBagAction(packet, '/createBag', 'box creation', clientExecFunc);
    }
 
-   renameBag(path, newBagName) {
+   renameBag(path, newName, clientExecFunc) {
       const packet = { path: path,
-                       newBagName: newBagName
+                       newName: newName
        };
-      this.#sendBagAction(packet, '/renameBag', 'box renaming');
+      this.#sendBagAction(packet, '/renameBag', 'box renaming', clientExecFunc);
    }
 
-   bagErase(path) {
+   bagErase(path, clientExecFunc) {
       const packet = { path: path };
-      this.#sendBagAction(packet, '/eraseBag', 'box deletion');
+      this.#sendBagAction(packet, '/eraseBag', 'box deletion', clientExecFunc);
    }
    
-   bagDisband(path) {
+   bagDisband(path, clientExecFunc) {
       const packet = { path: path };
-      this.#sendBagAction(packet, '/disbandBag', 'disband of the box');
+      this.#sendBagAction(packet, '/disbandBag', 'disband of the box', clientExecFunc);
    }
 
-   bagMove(fromPath, toPath) {
+   bagMove(fromPath, toPath, clientExecFunc) {
       const packet = { fromPath: fromPath,
                        toPath: toPath
        };
-      this.#sendBagAction(packet, '/moveBag', 'box movement');
+      this.#sendBagAction(packet, '/moveBag', 'box movement', clientExecFunc);
    }
 }
 

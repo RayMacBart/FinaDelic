@@ -39,14 +39,30 @@ router.get('/time', TimeCTRL.getTime);
 router.post('/createBag',
                body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('name', 'invalid Box name length!').trim().isLength({min: 3, max: 25}).isWhitelisted(whiteListChars).withMessage('bag name has invalid chars!').escape(),
-               body('name', 'bag name collision: bag already exists @ destination!').custom(CusVal.checkBagNameUniqueness),
-               // check, if no name duplicate in path exists!
+               // body('name', 'bag name collision: bag already exists @ destination!').custom(CusVal.checkBagNameUniqueness),
+               // this was taken out due to inefficiency (see @ customValidators.js)
                checkExact(),
                BagCTRL.postCreateBag
             );
 
+
+router.post('/renameBag',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
+               body('newName', 'invalid Box name length!').trim().isLength({min: 3, max: 25}).isWhitelisted(whiteListChars).withMessage('bag name has invalid chars!').escape(),
+               checkExact(),
+               BagCTRL.postRenameBag
+)
+
+
+router.post('/disbandBag',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
+               checkExact(),
+               BagCTRL.postDisbandBag
+)
+
+
 router.post('/createFlow',
-               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
                body('date').trim().isDate().withMessage('invalid transaction date!'),
                body('desc', 'invalid chars in flow desc!').trim().isWhitelisted(whiteListChars).isLength({min: 3, max: 50}).withMessage('invalid length of flow desc'),
@@ -58,7 +74,7 @@ router.post('/createFlow',
 
 
 router.post('/changeFlowAmount',
-               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
                body('amount').trim().isDecimal({force_decimal: true, decimal_digits: 2}).withMessage('invalid transaction amount!'),
                checkExact(),
@@ -67,7 +83,7 @@ router.post('/changeFlowAmount',
 
 
 router.post('/changeFlowDesc',
-               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
                body('desc', 'invalid chars in flow desc!').trim().isWhitelisted(whiteListChars).isLength({min: 3, max: 50}).withMessage('invalid length of flow desc'),
                checkExact(),
@@ -76,7 +92,7 @@ router.post('/changeFlowDesc',
 
 
 router.post('/changeFlowDate',
-               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
                body('isoDate').trim().isDate().withMessage('invalid transaction date!'),
                checkExact(),
@@ -85,7 +101,7 @@ router.post('/changeFlowDate',
 
 
 router.post('/deleteFlow',
-               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
                checkExact(),
                FlowCTRL.postDeleteFlow
@@ -93,9 +109,9 @@ router.post('/deleteFlow',
 
 
 router.post('/moveFlow',
-               body('originPath', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('originPath', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
-               body('targetPath', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath),
+               body('targetPath', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                checkExact(),
                FlowCTRL.postMoveFlow
 )
