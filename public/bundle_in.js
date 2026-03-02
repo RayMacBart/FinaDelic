@@ -234,7 +234,8 @@ class BagDataPoster {
       } else if (response.status === 409) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('nameCollisionError', 'warning', null, errName);
          this.logErrorMsg(response);
-      }else if (response.status === 201) {
+      } else if (response.status === 201) {
+         console.log('clientExecFunc:', clientExecFunc);
          clientExecFunc();
       }
    }
@@ -1113,14 +1114,17 @@ class BagSubmits {
 
 
    bagErase() {
-      this.utils.bagPath = this.bagPath;
-      const currentBagName = this.bagPath.split('/').pop();
-      const parentObj = this.utils.getParentObj(currentBagName);
-      delete parentObj[currentBagName];
-      this.appData.changeCurrentBagProp();
-      _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagErase(this.bagPath);
-      this.utils.checkAndAdjustChart();
-      document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+      const execBagErase = () => {
+         this.utils.bagPath = this.bagPath;
+         const currentBagName = this.bagPath.split('/').pop();
+         const parentObj = this.utils.getParentObj(currentBagName);
+         delete parentObj[currentBagName];
+         this.appData.changeCurrentBagProp();
+         this.utils.checkAndAdjustChart();
+         document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+         document.dispatchEvent(this.reloadEvent);
+      }
+      _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagErase(this.bagPath, execBagErase);
    }
 
    transferBag(currentBagName, destinationBag=null) {
@@ -1748,6 +1752,7 @@ class ModalSubmitAllocator {
          this.bagSubmits.bagRename();
       } else if (modType === 'bag-erase') {
          this.bagSubmits.bagErase();
+         console.log('IN SUB');
       } else if (modType === 'bag-disband') {
          this.bagSubmits.bagDisband();
       } else if (modType === 'bag-move') {
@@ -2500,7 +2505,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("e8f08c8d69d17efc902e")
+/******/ 		__webpack_require__.h = () => ("fe9824d8536cbc2f7b82")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

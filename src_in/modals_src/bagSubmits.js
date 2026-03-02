@@ -73,14 +73,17 @@ class BagSubmits {
 
 
    bagErase() {
-      this.utils.bagPath = this.bagPath;
-      const currentBagName = this.bagPath.split('/').pop();
-      const parentObj = this.utils.getParentObj(currentBagName);
-      delete parentObj[currentBagName];
-      this.appData.changeCurrentBagProp();
-      BDP.bagErase(this.bagPath);
-      this.utils.checkAndAdjustChart();
-      document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+      const execBagErase = () => {
+         this.utils.bagPath = this.bagPath;
+         const currentBagName = this.bagPath.split('/').pop();
+         const parentObj = this.utils.getParentObj(currentBagName);
+         delete parentObj[currentBagName];
+         this.appData.changeCurrentBagProp();
+         this.utils.checkAndAdjustChart();
+         document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+         document.dispatchEvent(this.reloadEvent);
+      }
+      BDP.bagErase(this.bagPath, execBagErase);
    }
 
    transferBag(currentBagName, destinationBag=null) {

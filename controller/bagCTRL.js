@@ -10,11 +10,11 @@ exports.postCreateBag = async (req, res) => {
    if (typeof bagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${bagDoc} doesn't exist in the DB!`});
    }
-   const result = await BAG.createNestedBag(bagDoc, req.body.name);
-   if (result) {
-      res.status(201).send();
-   } else {
+   const nameCollisionDetected = await BAG.createNestedBag(bagDoc, req.body.name);
+   if (nameCollisionDetected) {
       res.status(409).send('Operation aborted due to box name collision!');
+   } else {
+      res.status(201).send();
    }
 }
 
@@ -36,6 +36,19 @@ exports.postRenameBag = async (req, res) => {
    } else {
       res.status(201).send();
    }
+}
+
+
+exports.postEraseBag = async (req, res) => {
+   const pathArray = req.body.path.split('/');
+   const bagName = pathArray.pop();
+   const parentPath = pathArray.join('/');
+   const parentBagDoc = await BAG.getBagDocFromPath(req.session.userId, parentPath);
+   if (typeof parentBagDoc === 'string') {
+      return res.status(404).json({ error: `The bag ${parentBagDoc} doesn't exist in the DB!`});
+   }
+   await BAG.eraseBag(parentBagDoc, bagName);
+   res.status(201).send();
 }
 
 

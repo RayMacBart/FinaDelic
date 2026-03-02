@@ -54,6 +54,13 @@ router.post('/renameBag',
 )
 
 
+router.post('/eraseBag',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
+               checkExact(),
+               BagCTRL.postEraseBag
+)
+
+
 router.post('/disbandBag',
                body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                checkExact(),

@@ -56,6 +56,7 @@ exports.postSignUp = async (req, res) => {
 
 exports.getLogout = async (req, res) => {
    req.session.isLoggedIn = false;
+   res.clearCookie('connect.sid');
    req.session.destroy(error => {
       if (error) {
          console.log('FOLLOWING ERROR DURING SESSION ELIMINATION OCCURRED:\n', error);

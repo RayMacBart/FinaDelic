@@ -23,7 +23,8 @@ class BagDataPoster {
       } else if (response.status === 409) {
          showInfo('nameCollisionError', 'warning', null, errName);
          this.logErrorMsg(response);
-      }else if (response.status === 201) {
+      } else if (response.status === 201) {
+         console.log('clientExecFunc:', clientExecFunc);
          clientExecFunc();
       }
    }

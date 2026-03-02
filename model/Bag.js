@@ -1,5 +1,6 @@
 const bagCol = require('./schemas').Bags;
 const dataCol = require('./schemas').Datas;
+const flowCol = require('./schemas').Flows;
 const Data = require('./Data');
 // const Flow = require('./Flow');
 
@@ -35,12 +36,12 @@ class Bag {
 
    async createNestedBag(bagDoc, name) {
       if (bagDoc.nestedBags.find(bagWrap => bagWrap.name.toUpperCase() == name.toUpperCase())) {
-         return false;
+         return true;
       }
       const newBagDoc = await this.createBag();
       bagDoc.nestedBags.push({name, bag: newBagDoc._id});
       await bagDoc.save();
-      return true;
+      return false;
    }
 
 
@@ -52,6 +53,38 @@ class Bag {
       bagWrap.name = newName;
       await parentBagDoc.save();
       return false;
+   }
+
+
+   async eraseBag(parentBagDoc, bagName) {
+      const bagWrap = parentBagDoc.nestedBags.find(bagWrap => bagWrap.name === bagName);
+      const parentBagPopDoc = await parentBagDoc.populate('nestedBags.bag');
+      const bagDoc = bagWrap.bag;
+      const getToBeErasedIds = async (currentDoc) => {
+         let flowIdList = [];
+         for (const flow of currentDoc.transactions) {
+            flowIdList.push(flow._id);
+         }
+         let bagIdList = [currentDoc._id];
+         if (currentDoc.nestedBags) {
+            const currentBagPopDoc = await currentDoc.populate('nestedBags.bag');
+            for (const bagWrap of currentBagPopDoc.nestedBags) {
+               const { flowIds, bagIds } = await getToBeErasedIds(bagWrap.bag);
+               flowIdList = flowIdList.concat(flowIds);
+               bagIdList = bagIdList.concat(bagIds);
+            }
+         }
+         return {flowIds: flowIdList, bagIds: bagIdList};
+      }
+      const { flowIds, bagIds } = await getToBeErasedIds(bagDoc);
+      parentBagDoc.nestedBags = parentBagDoc.nestedBags.filter(bagWrap => bagWrap.name !== bagName);
+      for (const id of flowIds) {
+         await flowCol.findByIdAndDelete(id);
+      }
+      for (const id of bagIds) {
+         await bagCol.findByIdAndDelete(id);
+      }
+      await parentBagDoc.save();
    }
 
 
@@ -73,14 +106,11 @@ class Bag {
 
 
    async moveBag(parentBagDoc, destBagDoc, bagName) {
-      const parentBagPopDoc = await parentBagDoc.populate('nestedBags.bag');
-      const bagWrap = parentBagPopDoc.nestedBags.find(bagWrap => bagWrap.name === bagName);
-      const bagDoc = bagWrap.bag;
-      const nestedBagsSet = new Set(bagDoc.nestedBags.map(bagItem => bagItem.name));       // This leads to O(n*2) instead of O(n^2) by 2 Loops,
-      if (destBagDoc.nestedBags.some(bagItem => nestedBagsSet.has(bagItem.name))) {        // Because Set Creation = O(n) and Array.some() = O(n),
-         return true;                                                                      // BUT: Set.has() = O(1)  --> Set is a Hash Data Structure which
-      }                                                                                    // have O(1) read access (other than array value-based lookups!)
-      destBagDoc.nestedBags.push({name: bagName, bag: bagDoc._id});
+      const bagWrap = parentBagDoc.nestedBags.find(bagWrap => bagWrap.name === bagName);
+      if (destBagDoc.nestedBags.some(bagItem => bagItem.name.toUpperCase() == bagName.toUpperCase())) {        // Because Set Creation = O(n) and Array.some() = O(n),
+         return true;                                                                            // BUT: Set.has() = O(1)  --> Set is a Hash Data Structure which
+      }                                                                                          // have O(1) read access (other than array value-based lookups!)
+      destBagDoc.nestedBags.push({name: bagName, bag: bagWrap.bag});
       parentBagDoc.nestedBags = parentBagDoc.nestedBags.filter(bagWrap => bagWrap.name !== bagName);
       await destBagDoc.save();
       await parentBagDoc.save();
