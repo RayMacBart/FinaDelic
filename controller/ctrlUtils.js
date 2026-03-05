@@ -5,7 +5,7 @@ const userCol = require('../model/schemas').Users;
 
 
 
-getAdjustedRouteName = (reqPath) => {
+const getAdjustedRouteName = (reqPath) => {
    let routename = reqPath;
    if (['/workspace', '/login', '/chart'].includes(routename)) {
       if (routename === '/workspace') {
@@ -29,7 +29,7 @@ exports.checkProperHP = (req) => {
 }
 
 
-injectHtml = async (html, injectionId, injectionValue) => {
+const injectHtml = (html, injectionId, injectionValue) => {
    const injection = `<script id="${injectionId}" type="text/plain">${injectionValue}</script>`;
    return html.replace('</html>', `${injection}</html>`);
 }
@@ -41,11 +41,14 @@ exports.getInjectedHTML = async (req, htmlPath, withRoute=false) => {
    if (req.session.isLoggedIn) {
       const userEmailDoc = await userCol.findById(req.session.userId).select('_id email');
       const username = userEmailDoc.email.split('@')[0];
-      html = await injectHtml(html, 'username-info', username);
+      html = injectHtml(html, 'username-info', username);
    }
    if (withRoute) {
       const routename = await getAdjustedRouteName(req.path);
-      html = await injectHtml(html, 'routeinfo', routename);
+      html = injectHtml(html, 'routeinfo', routename);
+   }
+   if (req.session.isLoggedIn) {
+      html = html.replace('<title>', `<meta name="csrf-token" content="${req.csrfToken()}"/><title>`)
    }
    return html;
 }

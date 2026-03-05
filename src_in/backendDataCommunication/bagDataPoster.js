@@ -2,6 +2,10 @@ import { showInfo } from '../infos.js';
 
 class BagDataPoster {
 
+   constructor() {
+      this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+   }
+
    async logErrorMsg(response) {
       const answer = await response.json();
       console.error(answer.msg);
@@ -10,7 +14,8 @@ class BagDataPoster {
    async #sendBagAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
-                                             'Content-Type': 'application/json'
+                                             'Content-Type': 'application/json',
+                                             'CSRF-Token': this.CSRFToken
                                              },
                                            body: JSON.stringify(packet)
       });

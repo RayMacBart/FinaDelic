@@ -2,10 +2,16 @@ import { showInfo } from '../infos.js';
 
 class FlowDataPoster {
 
+
+   constructor() {
+      this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+   }
+
    async #sendFlowAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
-                                             'Content-Type': 'application/json'
+                                             'Content-Type': 'application/json',
+                                             'CSRF-Token': this.CSRFToken
                                              },
                                            body: JSON.stringify(packet)
       });

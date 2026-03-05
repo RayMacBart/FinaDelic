@@ -4,6 +4,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
+const helmet = require('helmet');
+const csurf = require('@dr.pogodin/csurf');
 const session = require('express-session');
 const MongoStore = require('connect-mongo').default;
 const rootDir = require('./util/rootpath');
@@ -12,26 +14,33 @@ const router = require('./routes');
 // const SessionConnection = connectMongoDBSession(session);
 // const sessionCollection = new SessionConnection({uri: process.env.MONGODB_URI, collection: 'sessions'});
 
+const csrfProtection = csurf({sameSite: 'lax'});
+
 const app = express();
+
+app.use(helmet());
+
 
 // app.use(bodyParser.urlencoded({extended: false}));  // Maybe will be used by login form submission?
 app.use(bodyParser.json());
 
 const sessionStore = MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: 'sessions'});
 
+
 app.use(session({
-               secret: process.env.SESSION_SECRET,
-               resave: false,
-               saveUninitialized: false,
-               rolling: true,
-               store: sessionStore,
-               cookie: {
-                  path: '/',
-                  httpOnly: true,
-                  maxAge: 600000,  // 10min
-                  sameSite: 'lax'
-               }
-   }));
+   secret: process.env.SESSION_SECRET,
+   resave: false,
+   saveUninitialized: false,
+   rolling: true,
+   store: sessionStore,
+   cookie: {
+      path: '/',
+      httpOnly: true,
+      maxAge: 600000,  // 10min
+      sameSite: 'lax'
+   }
+}));
+
 
 app.use(express.static(path.join(rootDir, 'public')));
    
@@ -42,6 +51,15 @@ app.use((req, res, next) => {
    res.set('Access-Control-Allow-Origin', '*');
    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
    res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+   next();
+});
+
+
+app.use((req, res, next) => {
+   console.log('req.path:', req.path);
+   if (req.path !== '/signin' && req.path !== '/signup') {
+      return csrfProtection(req, res, next);
+   }
    next();
 });
 

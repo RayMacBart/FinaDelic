@@ -213,6 +213,10 @@ __webpack_require__.r(__webpack_exports__);
 
 class BagDataPoster {
 
+   constructor() {
+      this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+   }
+
    async logErrorMsg(response) {
       const answer = await response.json();
       console.error(answer.msg);
@@ -221,7 +225,8 @@ class BagDataPoster {
    async #sendBagAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
-                                             'Content-Type': 'application/json'
+                                             'Content-Type': 'application/json',
+                                             'CSRF-Token': this.CSRFToken
                                              },
                                            body: JSON.stringify(packet)
       });
@@ -294,10 +299,16 @@ __webpack_require__.r(__webpack_exports__);
 
 class FlowDataPoster {
 
+
+   constructor() {
+      this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+   }
+
    async #sendFlowAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
-                                             'Content-Type': 'application/json'
+                                             'Content-Type': 'application/json',
+                                             'CSRF-Token': this.CSRFToken
                                              },
                                            body: JSON.stringify(packet)
       });
@@ -383,11 +394,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class TimeDataPoster {
 
+   constructor() {
+      this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+   }
+
    async storeTimeSpan(start, end) {
       const packet = { start: start, end: end };
       const response = await fetch('/setTime', {method: 'POST',
                                                headers: {
-                                                  'Content-Type': 'application/json'
+                                                  'Content-Type': 'application/json',
+                                                  'CSRF-Token': this.CSRFToken
                                                    },
                                                 body: JSON.stringify(packet)
                                                 }
@@ -2356,12 +2372,16 @@ var map = {
 	]
 };
 function webpackAsyncContext(req) {
-	if(!__webpack_require__.o(map, req)) {
-		return Promise.resolve().then(() => {
+	try {
+		if(!__webpack_require__.o(map, req)) {
+			return Promise.resolve().then(() => {
 	var e = new Error("Cannot find module '" + req + "'");
 	e.code = 'MODULE_NOT_FOUND';
 	throw e;
 });
+		}
+	} catch(err) {
+		return Promise.reject(err);
 	}
 
 	var ids = map[req], id = ids[0];
@@ -2415,12 +2435,6 @@ class TimeSpan {
 /******/ 			if (cachedModule.error !== undefined) throw cachedModule.error;
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -2432,6 +2446,12 @@ class TimeSpan {
 /******/ 		try {
 /******/ 			var execOptions = { id: moduleId, module: module, factory: __webpack_modules__[moduleId], require: __webpack_require__ };
 /******/ 			__webpack_require__.i.forEach(function(handler) { handler(execOptions); });
+/******/ 			if (!execOptions.factory) {
+/******/ 				delete __webpack_module_cache__[moduleId];
+/******/ 				var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 				e.code = 'MODULE_NOT_FOUND';
+/******/ 				throw e;
+/******/ 			}
 /******/ 			module = execOptions.module;
 /******/ 			execOptions.factory.call(module.exports, module, module.exports, execOptions.require);
 /******/ 		} catch(e) {
@@ -2505,7 +2525,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("fe9824d8536cbc2f7b82")
+/******/ 		__webpack_require__.h = () => ("c0e69e7db36737324ece")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
