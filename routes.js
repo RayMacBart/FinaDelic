@@ -36,6 +36,13 @@ router.get('/userdata', DataCTRL.getUserData);
 
 router.get('/time', TimeCTRL.getTime);
 
+router.post('/setTime',
+               body('start').trim().isDate().withMessage('invalid date input!'),
+               body('end').trim().isDate().withMessage('invalid date input!').custom(CusVal.checkTimeSpan).withMessage('Invalid time input: end date is lower than start date!'),
+               checkExact(),
+               TimeCTRL.setTime
+);
+
 router.post('/createBag',
                body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                body('name', 'invalid Box name length!').trim().isLength({min: 3, max: 25}).isWhitelisted(whiteListChars).withMessage('bag name has invalid chars!').escape(),
@@ -51,21 +58,21 @@ router.post('/renameBag',
                body('newName', 'invalid Box name length!').trim().isLength({min: 3, max: 25}).isWhitelisted(whiteListChars).withMessage('bag name has invalid chars!').escape(),
                checkExact(),
                BagCTRL.postRenameBag
-)
+);
 
 
 router.post('/eraseBag',
                body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                checkExact(),
                BagCTRL.postEraseBag
-)
+);
 
 
 router.post('/disbandBag',
                body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                checkExact(),
                BagCTRL.postDisbandBag
-)
+);
 
 
 router.post('/moveBag',
@@ -73,7 +80,7 @@ router.post('/moveBag',
                body('toPath', 'invalid move TO Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                checkExact(),
                BagCTRL.postMoveBag
-)
+);
 
 
 router.post('/createFlow',
@@ -85,7 +92,7 @@ router.post('/createFlow',
                body('currency').trim().equals('EUR').withMessage('invalid transaction currency!'),
                checkExact(),
                FlowCTRL.postCreateFlow
-)
+);
 
 
 router.post('/changeFlowAmount',
@@ -94,7 +101,7 @@ router.post('/changeFlowAmount',
                body('amount').trim().isDecimal({force_decimal: true, decimal_digits: 2}).withMessage('invalid transaction amount!'),
                checkExact(),
                FlowCTRL.postChangeAmount
-)
+);
 
 
 router.post('/changeFlowDesc',
@@ -103,7 +110,7 @@ router.post('/changeFlowDesc',
                body('desc', 'invalid chars in flow desc!').trim().isWhitelisted(whiteListChars).isLength({min: 3, max: 50}).withMessage('invalid length of flow desc'),
                checkExact(),
                FlowCTRL.postChangeDesc
-)
+);
 
 
 router.post('/changeFlowDate',
@@ -112,7 +119,7 @@ router.post('/changeFlowDate',
                body('isoDate').trim().isDate().withMessage('invalid transaction date!'),
                checkExact(),
                FlowCTRL.postChangeDate
-)
+);
 
 
 router.post('/deleteFlow',
@@ -120,7 +127,7 @@ router.post('/deleteFlow',
                body('flowId').trim().isInt({gt: -1, lt: 1000000}).withMessage('invalid tansaction ID!'),
                checkExact(),
                FlowCTRL.postDeleteFlow
-)
+);
 
 
 router.post('/moveFlow',
@@ -129,7 +136,7 @@ router.post('/moveFlow',
                body('targetPath', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
                checkExact(),
                FlowCTRL.postMoveFlow
-)
+);
 
 
 

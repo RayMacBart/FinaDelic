@@ -46,7 +46,6 @@ class ModalSubmitAllocator {
          this.bagSubmits.bagRename();
       } else if (modType === 'bag-erase') {
          this.bagSubmits.bagErase();
-         console.log('IN SUB');
       } else if (modType === 'bag-disband') {
          this.bagSubmits.bagDisband();
       } else if (modType === 'bag-move') {

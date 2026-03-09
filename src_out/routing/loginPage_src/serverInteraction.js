@@ -2,14 +2,12 @@ import { showInfo } from "../../infos.js";
 
 class SIA {
    static async execSignIn(event) {
-      const CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
       const response = await fetch('/signin', {
                                                 method: 'POST',
                                                 body: JSON.stringify({email: event.target.form[0].value,
                                                                       password: event.target.form[1].value}),
                                                 headers: {
                                                    'Content-Type': 'application/json',
-                                                   'CSRF-Token': CSRFToken
                                                 }
                                              });
       if (response.status === 403) {
@@ -20,7 +18,6 @@ class SIA {
    }
 
    static async execSignUp(event) {
-      const CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
       const response = await fetch('/signup', {
                                                 method: 'POST',
                                                 body: JSON.stringify({email: event.target.form[0].value,
@@ -28,7 +25,6 @@ class SIA {
                                                                       repeat: event.target.form[2].value}),
                                                 headers: {
                                                    'Content-Type': 'application/json',
-                                                   'CSRF-Token': CSRFToken
                                                 }
                                              });
       const status = response.status;

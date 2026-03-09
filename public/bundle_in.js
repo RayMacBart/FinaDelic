@@ -392,14 +392,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
+
+
 class TimeDataPoster {
 
    constructor() {
       this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
    }
 
-   async storeTimeSpan(start, end) {
-      const packet = { start: start, end: end };
+   async storeTimeSpan(ISOstart, ISOend, execTimeSet) {
+      const packet = { start: ISOstart, end: ISOend };
       const response = await fetch('/setTime', {method: 'POST',
                                                headers: {
                                                   'Content-Type': 'application/json',
@@ -409,10 +412,13 @@ class TimeDataPoster {
                                                 }
                                    );
       if (response.status === 422) {
-         showInfo('invalidData', 'warning', null, errName);
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidData', 'warning', null, "The input dates are not valid! (e.g. start date must be <= end date)");
       }
-      if (response.status === 507) {
-         showInfo('dataStorageError', 'warning', null, errName);
+      else if (response.status === 507) {
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, "Sorry!\nWhile storing the selected time, a server side error occured.");
+      }
+      else if (response.status === 201) {
+         execTimeSet()
       }
    }
 }
@@ -1616,10 +1622,10 @@ class InputModal {
             this.modIns.elements['input'].value = this.#formatDateStr(document.querySelector('.flowItem--choosen > .flow-date').innerText);
          }
       } else if (this.modIns.currentModalType === 'time') {
-         if (window.location.href.split('/').pop() === 'flowPage') {
+         if (window.location.href.split('/').pop() === 'workspace') {
             this.modIns.elements['start-date'].value = this.#formatDateStr(document.getElementById('time-start').innerText);
             this.modIns.elements['end-date'].value = this.#formatDateStr(document.getElementById('time-end').innerText);
-         } else if (window.location.href.split('/').pop() === 'chartPage') {
+         } else if (window.location.href.split('/').pop() === 'chart') {
             this.modIns.elements['start-date'].value = this.#formatDateStr(document.getElementById('time-start-chart').innerText);
             this.modIns.elements['end-date'].value = this.#formatDateStr(document.getElementById('time-end-chart').innerText);
          }
@@ -1768,7 +1774,6 @@ class ModalSubmitAllocator {
          this.bagSubmits.bagRename();
       } else if (modType === 'bag-erase') {
          this.bagSubmits.bagErase();
-         console.log('IN SUB');
       } else if (modType === 'bag-disband') {
          this.bagSubmits.bagDisband();
       } else if (modType === 'bag-move') {
@@ -1990,6 +1995,15 @@ class SubmitUtils {
    }
 
 
+   addISO2UI(ISOdate, datePos, chart=false) {
+      const idAppendix = chart ? '-chart' : '';
+      const dateElem = document.getElementById(`time-${datePos}${idAppendix}`);
+      const dateArray = (ISOdate).split('-');
+      const UIdate = dateArray[2]+'.'+dateArray[1]+'.'+dateArray[0];
+      dateElem.innerText = UIdate;
+   }
+
+
    retrieveDateSpanFromDOM() {
       let formatStartStr;
       let formatEndStr;
@@ -2126,15 +2140,19 @@ class TimeSet {
          _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.end = new Date(startDateStr);
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_2__.showInfo)('invalidTimespan', 'warning');
       }
-      _backendDataCommunication_timeDataPoster_js__WEBPACK_IMPORTED_MODULE_0__["default"].storeTimeSpan(_index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.start, _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.end);
-      this.appData.setBagAmounts(_index_js__WEBPACK_IMPORTED_MODULE_1__.timespan);
-      const currentPage = window.location.href.split('/').pop();
-      if (currentPage === 'chart') {
-         _index_js__WEBPACK_IMPORTED_MODULE_1__.router.navigate('chartPage');
-      } 
-      else if (currentPage === 'workspace') {
-         _index_js__WEBPACK_IMPORTED_MODULE_1__.router.navigate('flowPage');
+      const execTimeSet = () => {
+         this.appData.setBagAmounts(_index_js__WEBPACK_IMPORTED_MODULE_1__.timespan);
+         const currentPage = window.location.href.split('/').pop();
+         if (currentPage === 'chart') {
+            _index_js__WEBPACK_IMPORTED_MODULE_1__.router.navigate('chartPage');
+         } 
+         else if (currentPage === 'workspace') {
+            _index_js__WEBPACK_IMPORTED_MODULE_1__.router.navigate('flowPage');
+         }
       }
+      const ISOstart = _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.start.toISOString().split('T')[0];
+      const ISOend = _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.end.toISOString().split('T')[0];
+      _backendDataCommunication_timeDataPoster_js__WEBPACK_IMPORTED_MODULE_0__["default"].storeTimeSpan(ISOstart, ISOend, execTimeSet);
    }
 }
 
@@ -2412,7 +2430,8 @@ class TimeSpan {
    async fetchTime(app) {
       const response = await fetch('/time');
       const timeObj = await response.json();
-      this.end = new Date(timeObj.enddate.split('T')[0]);
+      // this.end = new Date(timeObj.enddate.split('T')[0]);  // needs user setting (for now, only 'today' is end)
+      this.end = new Date();
       this.start = new Date(timeObj.startdate.split('T')[0]);
       app.setAppData();
    }
@@ -2525,7 +2544,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("c0e69e7db36737324ece")
+/******/ 		__webpack_require__.h = () => ("1fbbb7644a4cec45b8ee")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

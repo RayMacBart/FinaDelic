@@ -6,7 +6,8 @@ class TimeSpan {
    async fetchTime(app) {
       const response = await fetch('/time');
       const timeObj = await response.json();
-      this.end = new Date(timeObj.enddate.split('T')[0]);
+      // this.end = new Date(timeObj.enddate.split('T')[0]);  // needs user setting (for now, only 'today' is end)
+      this.end = new Date();
       this.start = new Date(timeObj.startdate.split('T')[0]);
       app.setAppData();
    }

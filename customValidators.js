@@ -33,6 +33,17 @@ class CustomValidator {
    }
 
 
+   static async checkTimeSpan(end, { req }) {
+      const startObj = new Date(req.body.start);
+      const endObj = new Date(end);
+      if (endObj < startObj) {
+         throw new Error("Error: Can't etablish timespan with enddate lower than startdate!");
+      } else {
+         return true;
+      }
+   }
+
+
    // FOLLOWING CUSTOM VALIDATION METHOD WOULD WORK, BUT ISN'T AS EFFICIENT AS HANDLING NAME COLLISION WITHIN THE MODEL,
    // WHERE THE TARGETED BAGDOC HAS TO BE TRAVERSED TO FOR OTHER OPERATIONS ANYWAY VIA 'BAG.getBagDocFromPath()' AND IS
    // THEREFORE ALREADY AT HAND.

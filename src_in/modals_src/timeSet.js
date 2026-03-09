@@ -22,15 +22,19 @@ class TimeSet {
          timespan.end = new Date(startDateStr);
          showInfo('invalidTimespan', 'warning');
       }
-      TDP.storeTimeSpan(timespan.start, timespan.end);
-      this.appData.setBagAmounts(timespan);
-      const currentPage = window.location.href.split('/').pop();
-      if (currentPage === 'chart') {
-         router.navigate('chartPage');
-      } 
-      else if (currentPage === 'workspace') {
-         router.navigate('flowPage');
+      const execTimeSet = () => {
+         this.appData.setBagAmounts(timespan);
+         const currentPage = window.location.href.split('/').pop();
+         if (currentPage === 'chart') {
+            router.navigate('chartPage');
+         } 
+         else if (currentPage === 'workspace') {
+            router.navigate('flowPage');
+         }
       }
+      const ISOstart = timespan.start.toISOString().split('T')[0];
+      const ISOend = timespan.end.toISOString().split('T')[0];
+      TDP.storeTimeSpan(ISOstart, ISOend, execTimeSet);
    }
 }
 

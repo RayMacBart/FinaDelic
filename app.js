@@ -56,7 +56,6 @@ app.use((req, res, next) => {
 
 
 app.use((req, res, next) => {
-   console.log('req.path:', req.path);
    if (req.path !== '/signin' && req.path !== '/signup') {
       return csrfProtection(req, res, next);
    }

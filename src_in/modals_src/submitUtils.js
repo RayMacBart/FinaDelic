@@ -96,6 +96,15 @@ class SubmitUtils {
    }
 
 
+   addISO2UI(ISOdate, datePos, chart=false) {
+      const idAppendix = chart ? '-chart' : '';
+      const dateElem = document.getElementById(`time-${datePos}${idAppendix}`);
+      const dateArray = (ISOdate).split('-');
+      const UIdate = dateArray[2]+'.'+dateArray[1]+'.'+dateArray[0];
+      dateElem.innerText = UIdate;
+   }
+
+
    retrieveDateSpanFromDOM() {
       let formatStartStr;
       let formatEndStr;
