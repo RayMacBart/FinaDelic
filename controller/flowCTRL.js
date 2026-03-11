@@ -11,7 +11,7 @@ exports.postCreateFlow = async (req, res) => {
    if (typeof bagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${bagDoc} doesn't exist in the DB!`});
    }
-   await FLOW.createFlow(bagDoc, req.body);
+   await FLOW.createFlow(bagDoc, req.body, req.session.userId);
    res.status(201).send();
 }
 
@@ -24,7 +24,7 @@ exports.postChangeAmount = async (req, res) => {
    if (typeof bagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${bagDoc} doesn't exist in the DB!`});
    }
-   await FLOW.changeAmount(bagDoc, req.body);
+   await FLOW.changeAmount(bagDoc, req.session.userId, req.body);
    res.status(201).send();
 }
 
@@ -37,7 +37,7 @@ exports.postChangeDesc = async (req, res) => {
    if (typeof bagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${bagDoc} doesn't exist in the DB!`});
    }
-   await FLOW.changeDesc(bagDoc, req.body);
+   await FLOW.changeDesc(bagDoc, req.session.userId, req.body);
    res.status(201).send();
 }
 
@@ -50,7 +50,7 @@ exports.postChangeDate = async (req, res) => {
    if (typeof bagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${bagDoc} doesn't exist in the DB!`});
    }
-   await FLOW.changeDate(bagDoc, req.body);
+   await FLOW.changeDate(bagDoc, req.session.userId, req.body);
    res.status(201).send();
 }
 

@@ -2,6 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const rootDir = require('../util/rootpath');
 const userCol = require('../model/schemas').Users;
+const cry = require('../crypt');
 
 
 
@@ -40,7 +41,8 @@ exports.getInjectedHTML = async (req, htmlPath, withRoute=false) => {
    html = html.toString();
    if (req.session.isLoggedIn) {
       const userEmailDoc = await userCol.findById(req.session.userId).select('_id email');
-      const username = userEmailDoc.email.split('@')[0];
+      const decryEmail = await cry.decrypt(userEmailDoc.email, req.session.userId);
+      const username = decryEmail.split('@')[0].replace('.', ' ');
       html = injectHtml(html, 'username-info', username);
    }
    if (withRoute) {

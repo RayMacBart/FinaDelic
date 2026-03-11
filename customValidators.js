@@ -1,4 +1,5 @@
 const UserCol = require('./model/schemas').Users;
+const cry = require('./crypt');
 
 class CustomValidator {
 
@@ -14,10 +15,13 @@ class CustomValidator {
          if (dir === 'IN' || dir === 'OUT') {
             const dataPopDirDoc = await dataDoc.populate(dir);
             let currentBagDoc = dataPopDirDoc[dir];
+            let decryNestBagsSet;
             for (const pathNode of pathList) {  // first item was already removed above via 'shift()'
                if (currentBagDoc.nestedBags) {
                   await currentBagDoc.populate('nestedBags.bag');
-                  currentBagDoc = currentBagDoc.nestedBags.find(item => item.name === pathNode).bag;
+                  decryNestBagsSet = new Set(await Promise.all(currentBagDoc.nestedBags.map(bagItem => cry.decrypt(bagItem.name, req.session.userId))));
+                  currentBagDoc = currentBagDoc.nestedBags.find(bagItem => decryNestBagsSet.has(pathNode));
+                  // currentBagDoc = currentBagDoc.nestedBags.find(item => item.name === pathNode).bag;
                   if (!currentBagDoc) {
                      throw new Error('Bag path not found in DB!');
                   }

@@ -56,7 +56,6 @@ class FlowDataPoster {
                        flowId: flowId,
                        isoDate: isoDate
                      };
-      console.log('packet:', packet);
       this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification', clientExecFunc);
    }
 

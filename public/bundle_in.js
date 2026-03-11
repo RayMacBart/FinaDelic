@@ -69,6 +69,7 @@ class AppData {
 
    getDeepestPaths() {
       const deepestPaths = [];
+      
       const getMostNestedPath = (focussedObj=this.data, path='') => {
          if (path) {
             if (Object.keys(focussedObj['nestedBags']).length) {
@@ -240,7 +241,6 @@ class BagDataPoster {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('nameCollisionError', 'warning', null, errName);
          this.logErrorMsg(response);
       } else if (response.status === 201) {
-         console.log('clientExecFunc:', clientExecFunc);
          clientExecFunc();
       }
    }
@@ -353,7 +353,6 @@ class FlowDataPoster {
                        flowId: flowId,
                        isoDate: isoDate
                      };
-      console.log('packet:', packet);
       this.#sendFlowAction(packet, '/changeFlowDate', 'transaction date modification', clientExecFunc);
    }
 
@@ -2544,7 +2543,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("1fbbb7644a4cec45b8ee")
+/******/ 		__webpack_require__.h = () => ("ddd095f7d98208a24947")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

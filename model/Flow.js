@@ -1,39 +1,44 @@
 const flowCol = require('./schemas').Flows;
+const cry = require('../crypt');
 
 class Flow {
 
-   async createFlow(bagDoc, flowObj) {
+   async createFlow(bagDoc, flowObj, userId) {
+      const [encryDate, encryDesc, encryAmount, encryCurrency] = await Promise.all([cry.encrypt(flowObj.date, userId),
+                                                                                    cry.encrypt(flowObj.desc, userId),
+                                                                                    cry.encrypt(flowObj.amount, userId),
+                                                                                    cry.encrypt(flowObj.currency, userId)]);
       const newFlowDoc = await flowCol.create({frontId: flowObj.flowId,
-                                   date: flowObj.date,
-                                   desc: flowObj.desc,
-                                   amount: flowObj.amount,
-                                   currency: flowObj.currency
-                                 });
+                                               date: encryDate,
+                                               desc: encryDesc,
+                                               amount: encryAmount,
+                                               currency: encryCurrency
+                                              });
       bagDoc.transactions.push(newFlowDoc._id);
       await bagDoc.save();
    }
 
    
-   async changeAmount(bagDoc, { flowId, amount }) {
+   async changeAmount(bagDoc, userId, { flowId, amount }) {
       const bagPopDoc = await bagDoc.populate('transactions');
       const flowDoc = bagPopDoc.transactions.find(flowItem => flowItem.frontId == flowId);
-      flowDoc.amount = amount;
+      flowDoc.amount = await cry.encrypt(amount, userId);
       await flowDoc.save();
    }
 
 
-   async changeDesc(bagDoc, { flowId, desc }) {
+   async changeDesc(bagDoc, userId, { flowId, desc }) {
       const bagPopDoc = await bagDoc.populate('transactions');
       const flowDoc = bagPopDoc.transactions.find(flowItem => flowItem.frontId == flowId);
-      flowDoc.desc = desc;
+      flowDoc.desc = await cry.encrypt(desc, userId);
       await flowDoc.save();
    }
 
 
-   async changeDate(bagDoc, { flowId, isoDate }) {
+   async changeDate(bagDoc, userId, { flowId, isoDate }) {
       const bagPopDoc = await bagDoc.populate('transactions');
       const flowDoc = bagPopDoc.transactions.find(flowItem => flowItem.frontId == flowId);
-      flowDoc.date = isoDate;  // auto cast to Date Object
+      flowDoc.date = await cry.encrypt(isoDate, userId);  // auto cast to Date Object
       await flowDoc.save();
    }
 
@@ -41,7 +46,9 @@ class Flow {
    async deleteFlow(bagDoc, flowId) {
       const bagPopDoc = await bagDoc.populate('transactions');
       const flowDoc = bagPopDoc.transactions.find(flowItem => flowItem.frontId == flowId);
+      bagPopDoc.transactions = bagPopDoc.transactions.filter(flowItem => flowItem.frontId != flowId);
       await flowCol.findByIdAndDelete(flowDoc._id);
+      await bagDoc.save();
    }
 
 

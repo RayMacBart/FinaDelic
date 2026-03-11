@@ -54,6 +54,7 @@ class AppData {
 
    getDeepestPaths() {
       const deepestPaths = [];
+      
       const getMostNestedPath = (focussedObj=this.data, path='') => {
          if (path) {
             if (Object.keys(focussedObj['nestedBags']).length) {

@@ -10,7 +10,7 @@ exports.postCreateBag = async (req, res) => {
    if (typeof bagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${bagDoc} doesn't exist in the DB!`});
    }
-   const nameCollisionDetected = await BAG.createNestedBag(bagDoc, req.body.name);
+   const nameCollisionDetected = await BAG.createNestedBag(bagDoc, req.body.name, req.session.userId);
    if (nameCollisionDetected) {
       res.status(409).send('Operation aborted due to box name collision!');
    } else {
@@ -30,7 +30,7 @@ exports.postRenameBag = async (req, res) => {
    if (typeof parentBagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${parentBagDoc} doesn't exist in the DB!`});
    }
-   const nameCollisionDetected = await BAG.renameBag(parentBagDoc, oldName, req.body.newName);
+   const nameCollisionDetected = await BAG.renameBag(parentBagDoc, oldName, req.body.newName, req.session.userId);
    if (nameCollisionDetected) {
       res.status(409).send('Operation aborted due to box name collision!');
    } else {
@@ -47,7 +47,7 @@ exports.postEraseBag = async (req, res) => {
    if (typeof parentBagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${parentBagDoc} doesn't exist in the DB!`});
    }
-   await BAG.eraseBag(parentBagDoc, bagName);
+   await BAG.eraseBag(parentBagDoc, bagName, req.session.userId);
    res.status(201).send();
 }
 
@@ -63,7 +63,7 @@ exports.postDisbandBag = async (req, res) => {
    if (typeof parentBagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${parentBagDoc} doesn't exist in the DB!`});
    }
-   const nameCollisionDetected = await BAG.disbandBag(parentBagDoc, oldBagName);
+   const nameCollisionDetected = await BAG.disbandBag(parentBagDoc, oldBagName, req.session.userId);
    if (nameCollisionDetected) {
       res.status(409).send('Operation aborted due to box name collision!');
    } else {
@@ -84,7 +84,7 @@ exports.postMoveBag = async (req, res) => {
    if (typeof parentBagDoc === 'string' || typeof destBagDoc === 'string') {
       return res.status(404).json({ error: `The bag ${parentBagDoc} doesn't exist in the DB!`});
    }
-   const nameCollisionDetected = await BAG.moveBag(parentBagDoc, destBagDoc, bagName);
+   const nameCollisionDetected = await BAG.moveBag(parentBagDoc, destBagDoc, bagName, req.session.userId);
    if (nameCollisionDetected) {
       res.status(409).send('Operation aborted due to box name collision!');
    } else {

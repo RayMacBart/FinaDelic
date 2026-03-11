@@ -2,10 +2,13 @@ const { validationResult } = require('express-validator');
 const argon2 = require('argon2');
 const User = require('../model/User');
 const userCol = require('../model/schemas').Users;
+const crypto = require('crypto');
+const cry = require('../crypt');
 
 
 exports.postSignIn = async (req, res) => {
-   const user = await userCol.findOne({email: req.body.email});
+   const hashedEmail = await crypto.createHash("sha256").update(req.body.email).digest("base64");
+   const user = await userCol.findOne({emailHash: hashedEmail});
    if (user) {
       const isRightPW = await argon2.verify(user.pwhash, req.body.password);
       if (isRightPW) {
@@ -27,7 +30,8 @@ exports.postSignIn = async (req, res) => {
 
 
 exports.postSignUp = async (req, res) => {
-   const user = await userCol.findOne({email: req.body.email});
+   const hashedEmail = await crypto.createHash("sha256").update(req.body.email).digest("base64");
+   const user = await userCol.findOne({emailHash: hashedEmail});
    if (user) {
       res.status(409).send();
    } else {
@@ -41,6 +45,8 @@ exports.postSignUp = async (req, res) => {
          const PWmatch = (req.body.password === req.body.repeat);
          if (PWmatch) {
             const newUser = await User.create(req.body.email, req.body.password);
+            newUser.email = await cry.encrypt(req.body.email, newUser._id);
+            newUser.save();
             req.session.userId = newUser._id;
             req.session.isLoggedIn = true;
             res.status(303).send();

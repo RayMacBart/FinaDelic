@@ -20,13 +20,13 @@ router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login'], G
 router.get('/', GenPages.getRootPage);   // 'get' (& all method-named) look for exact route name - only 'use' for match of beginning!
 
 router.post('/signup',
-               body('email', 'Invalid Email!').trim().isEmail().normalizeEmail().escape(),
+               body('email', 'Invalid Email!').trim().isEmail().normalizeEmail(),
                body('password', 'The entered password is too weak!').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape(),
                body('repeat').trim(),
                UserCTRL.postSignUp);
 
 router.post('/signin',
-               body('email').trim().isEmail().normalizeEmail().escape().withMessage('Invalid Email!'),
+               body('email').trim().isEmail().normalizeEmail().withMessage('Invalid Email!'),
                body('password').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape().withMessage('Invalid Password: Too weak!'),
                UserCTRL.postSignIn);
 

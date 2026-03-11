@@ -1,9 +1,14 @@
 const Mongoose = require('mongoose');
+const { TRUE } = require('../node_modules/sass/types/index');
 const Schema = Mongoose.Schema;
 const Model = Mongoose.model;
 
 const userSchema = new Schema({
    email: {
+      type: String,
+      required: true
+   },
+   emailHash: {
       type: String,
       required: true
    },
@@ -67,7 +72,7 @@ const flowSchema = new Schema({
       required: true
    },
    date: {
-      type: Date,
+      type: String,  // Not "Date" anymore, because this fields wil be encrypted
       required: true
    },
    desc: {
@@ -75,7 +80,7 @@ const flowSchema = new Schema({
       required: true
    },
    amount: {
-      type: Number,
+      type: String,  // Not "Number" anymore, because this fields wil be encrypted
       required: true
    },
    currency: {
