@@ -1,5 +1,4 @@
 const Mongoose = require('mongoose');
-const { TRUE } = require('../node_modules/sass/types/index');
 const Schema = Mongoose.Schema;
 const Model = Mongoose.model;
 

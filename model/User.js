@@ -15,7 +15,7 @@ class User {
       const enddate = now.toISOString().split('T')[0];
       return await userCol.create({
                                     email: 'placeholder',
-                                    emailHash: email,
+                                    emailHash: emailHash,
                                     pwhash: pwhash,
                                     data: data,
                                     timeconfig: { 
