@@ -35,7 +35,7 @@ class AppData {
       const response = await fetch('/userdata');
       this.data = await response.json();
       this.setBagAmounts(app.timespan);
-      app.continueConstruction();
+      app.continueConstruction1();
    }
 
 
@@ -283,6 +283,71 @@ const bagDataPoster = new BagDataPoster();
 
 /***/ },
 
+/***/ "./src_in/backendDataCommunication/chartDataPoster.js"
+/*!************************************************************!*\
+  !*** ./src_in/backendDataCommunication/chartDataPoster.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _infos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infos */ "./src_in/infos.js");
+
+
+
+class ChartDataPoster {
+
+   constructor() {
+      this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+   }
+
+   async logErrorMsg(response) {
+      const answer = await response.json();
+      console.error(answer.msg);
+   }
+
+   async processChartPath(path, method, execFunc) {
+      const response = await fetch('/chartPath', {method: method,
+                                               headers: {
+                                                  'Content-Type': 'application/json',
+                                                  'CSRF-Token': this.CSRFToken
+                                                   },
+                                                body: JSON.stringify({path: path})
+                                                }
+                                   );
+      if (response.status === 422) {
+         (0,_infos__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidData', 'warning', null, "The input for chart operation is not valid - must be a bagPath.");
+         this.logErrorMsg(response);
+      }
+      else if (response.status === 507) {
+         (0,_infos__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, "Sorry!\nWhile processing the selected chart path, a server side error occured.");
+         this.logErrorMsg(response);
+      }
+      else if (response.status === 409) {
+         console.log('here!');
+         (0,_infos__WEBPACK_IMPORTED_MODULE_0__.showInfo)('alreadyInChart');
+         this.logErrorMsg(response);
+         execFunc();
+      }
+      else if (response.status === 410) {
+         (0,_infos__WEBPACK_IMPORTED_MODULE_0__.showInfo)('chartPathDelError', 'warning');
+         this.logErrorMsg(response);
+      } 
+      else if (response.status === 201) {
+         execFunc();
+      }
+   }
+}
+
+const chartDataPoster = new ChartDataPoster();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (chartDataPoster);
+
+/***/ },
+
 /***/ "./src_in/backendDataCommunication/flowDataPoster.js"
 /*!***********************************************************!*\
   !*** ./src_in/backendDataCommunication/flowDataPoster.js ***!
@@ -304,6 +369,11 @@ class FlowDataPoster {
       this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
    }
 
+   async logErrorMsg(response) {
+      const answer = await response.json();
+      console.error(answer.msg);
+   }
+
    async #sendFlowAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
@@ -314,8 +384,10 @@ class FlowDataPoster {
       });
       if (response.status === 422) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidData', 'warning', null, errName);
+         this.logErrorMsg(response);
       } else if (response.status === 507) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, errName);
+         this.logErrorMsg(response);
       } else if (response.status === 201) {
          clientExecFunc();
       }
@@ -400,6 +472,11 @@ class TimeDataPoster {
       this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
    }
 
+   async logErrorMsg(response) {
+      const answer = await response.json();
+      console.error(answer.msg);
+   }
+
    async storeTimeSpan(ISOstart, ISOend, execTimeSet) {
       const packet = { start: ISOstart, end: ISOend };
       const response = await fetch('/setTime', {method: 'POST',
@@ -412,9 +489,11 @@ class TimeDataPoster {
                                    );
       if (response.status === 422) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('invalidData', 'warning', null, "The input dates are not valid! (e.g. start date must be <= end date)");
+         this.logErrorMsg(response);
       }
       else if (response.status === 507) {
          (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('dataStorageError', 'warning', null, "Sorry!\nWhile storing the selected time, a server side error occured.");
+         this.logErrorMsg(response);
       }
       else if (response.status === 201) {
          execTimeSet()
@@ -439,13 +518,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _modals_src_chartOps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modals_src/chartOps.js */ "./src_in/modals_src/chartOps.js");
+
+
+
 class Chart {
 
    type = 'line';
    bags = {};  // keys: paths, values: objects of (ALL! also nested) flows with dates as keys and amounts as values!
 
-   constructor(appData) {
-      this.appData = appData;
+   constructor(app) {
+      this.appData = app.appData;
+      this.fetchChartPaths(app)
+   }
+
+   async fetchChartPaths(app) {
+      const response = await fetch('/chartPaths');
+      const chartPaths = await response.json();
+      const chartOps = new _modals_src_chartOps_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+      for (const path of chartPaths) {
+         chartOps.add2chart(path, this.appData.data[path.split('/')[0]], this);
+      }
+      app.continueConstruction2();
    }
 }
 
@@ -541,9 +635,12 @@ class App {
       this.appData = new _appData_js__WEBPACK_IMPORTED_MODULE_4__["default"](this);
    }
    
-   continueConstruction() {   // called in AppData.fetchUserData!
+   continueConstruction1() {   // called in AppData.fetchUserData!
       this.modal = new _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"](this.appData, _modalContents_js__WEBPACK_IMPORTED_MODULE_7__.modalContents);
-      this.chart = new _chart_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.appData);
+      this.chart = new _chart_js__WEBPACK_IMPORTED_MODULE_5__["default"](this);
+   }
+
+   continueConstruction2() {
       this.router = new _route_js__WEBPACK_IMPORTED_MODULE_1__["default"](this);
       populateExportVariables(this);
       this.lazyLoader = new _lazyLoader_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
@@ -1276,7 +1373,7 @@ class ChartAdjuster {
       for (const bag in _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags) {
          if (affChartBags.includes(bag)) {
             delete _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags[bag];
-            this.chartops.add2chart(bag, this.appData.data[bag.split('/')[0]]);
+            this.chartops.add2chart(bag, this.appData.data[bag.split('/')[0]], _index_js__WEBPACK_IMPORTED_MODULE_0__.chart);
          }
       }
    }
@@ -1299,12 +1396,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
 /* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../index.js */ "./src_in/index.js");
+/* harmony import */ var _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../backendDataCommunication/chartDataPoster.js */ "./src_in/backendDataCommunication/chartDataPoster.js");
+
+
 
 
 
 class ChartOps {
 
    bagPath;
+   reloadEvent;
 
    constructor(appData) {
       this.appData = appData;
@@ -1338,22 +1439,34 @@ class ChartOps {
    }
 
 
-   add2chart(broughtBagPath=null, broughtData=null) {
+   add2chart(broughtBagPath=null, broughtData=null, broughtChart=null) {
       const bagPath2Use = broughtBagPath ? broughtBagPath : this.bagPath;
-      const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
-      const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
-      const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
-      const data = {};
-      for (const obj of nestedFlows) {
-         if (obj['date'] in data) {
-            data[obj['date']] += Math.abs(obj['amount']);
+      const addChartPath = () => {
+         const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
+         const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
+         const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
+         const data = {};
+         for (const obj of nestedFlows) {
+            if (obj['date'] in data) {
+               data[obj['date']] += Math.abs(obj['amount']);
+            } else {
+               data[obj['date']] = Math.abs(obj['amount']);
+            }
+         }
+         if (broughtChart) {
+            broughtChart.bags[bagPath2Use] = data;
          } else {
-            data[obj['date']] = Math.abs(obj['amount']);
+            _index_js__WEBPACK_IMPORTED_MODULE_1__.chart.bags[bagPath2Use] = data;
+         }
+         if (!(broughtBagPath || broughtData)) {
+            (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('added2chart');
+            document.dispatchEvent(this.reloadEvent);
          }
       }
-      _index_js__WEBPACK_IMPORTED_MODULE_1__.chart.bags[bagPath2Use] = data;
-      if (!(broughtBagPath || broughtData)) {
-         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('added2chart');
+      if (broughtChart) {
+         addChartPath();
+      } else {
+         _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].processChartPath(bagPath2Use, 'POST', addChartPath);
       }
 
 
@@ -1370,8 +1483,12 @@ class ChartOps {
 
 
    removeFromChart() {
-      delete _index_js__WEBPACK_IMPORTED_MODULE_1__.chart.bags[this.bagPath];
-      (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('removedFromChart', 'warning');
+      const execRemoveChartPath = () => {
+         delete _index_js__WEBPACK_IMPORTED_MODULE_1__.chart.bags[this.bagPath];
+         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('removedFromChart');
+         document.dispatchEvent(this.reloadEvent);
+      }
+      _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].processChartPath(this.bagPath, 'DELETE', execRemoveChartPath);
    }
 }
 
@@ -1744,6 +1861,7 @@ class ModalSubmitAllocator {
       this.flowSubmits.flowchange = flowchange;
       if (modType === 'add2chart' || modType === 'removeFromChart') {
          this.chartOps.bagPath = bagPath;
+         this.chartOps.reloadEvent = reloadEvent;
       } else if (modType.split('-')[0] === 'bag') {
          this.bagSubmits.currelems = currelems;
          this.bagSubmits.bagPath = bagPath;
@@ -2543,7 +2661,7 @@ class TimeSpan {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("ddd095f7d98208a24947")
+/******/ 		__webpack_require__.h = () => ("4cd4134b7d12efc31a57")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

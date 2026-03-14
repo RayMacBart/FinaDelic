@@ -17,6 +17,7 @@ class ModalSubmitAllocator {
       this.flowSubmits.flowchange = flowchange;
       if (modType === 'add2chart' || modType === 'removeFromChart') {
          this.chartOps.bagPath = bagPath;
+         this.chartOps.reloadEvent = reloadEvent;
       } else if (modType.split('-')[0] === 'bag') {
          this.bagSubmits.currelems = currelems;
          this.bagSubmits.bagPath = bagPath;

@@ -30,9 +30,12 @@ class App {
       this.appData = new AppData(this);
    }
    
-   continueConstruction() {   // called in AppData.fetchUserData!
+   continueConstruction1() {   // called in AppData.fetchUserData!
       this.modal = new Modal(this.appData, modalContents);
-      this.chart = new Chart(this.appData);
+      this.chart = new Chart(this);
+   }
+
+   continueConstruction2() {
       this.router = new Router(this);
       populateExportVariables(this);
       this.lazyLoader = new LazyLoader();

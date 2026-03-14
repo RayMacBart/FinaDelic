@@ -25,8 +25,6 @@ class CustomValidator {
                   if (!currentBagDoc) {
                      throw new Error('Bag path not found in DB!');
                   }
-               } else {
-                  throw new Error('Bag path not found in DB!');
                }
             }
             return true;

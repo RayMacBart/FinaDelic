@@ -7,6 +7,11 @@ class FlowDataPoster {
       this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
    }
 
+   async logErrorMsg(response) {
+      const answer = await response.json();
+      console.error(answer.msg);
+   }
+
    async #sendFlowAction(packet, route, errName, clientExecFunc) {
       const response = await fetch(route, {method: 'POST',
                                           headers: {
@@ -17,8 +22,10 @@ class FlowDataPoster {
       });
       if (response.status === 422) {
          showInfo('invalidData', 'warning', null, errName);
+         this.logErrorMsg(response);
       } else if (response.status === 507) {
          showInfo('dataStorageError', 'warning', null, errName);
+         this.logErrorMsg(response);
       } else if (response.status === 201) {
          clientExecFunc();
       }

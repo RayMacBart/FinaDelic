@@ -45,6 +45,9 @@ const dataSchema = new Schema({
       ref: 'bag',
       required: true
    },
+   chartPaths: [ 
+      {type: String}
+    ]
 });
 
 

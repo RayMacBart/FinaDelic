@@ -1,9 +1,12 @@
 import { showInfo } from "../infos.js";
 import { chart } from "../index.js";
+import CDP from "../backendDataCommunication/chartDataPoster.js";
+
 
 class ChartOps {
 
    bagPath;
+   reloadEvent;
 
    constructor(appData) {
       this.appData = appData;
@@ -37,22 +40,34 @@ class ChartOps {
    }
 
 
-   add2chart(broughtBagPath=null, broughtData=null) {
+   add2chart(broughtBagPath=null, broughtData=null, broughtChart=null) {
       const bagPath2Use = broughtBagPath ? broughtBagPath : this.bagPath;
-      const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
-      const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
-      const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
-      const data = {};
-      for (const obj of nestedFlows) {
-         if (obj['date'] in data) {
-            data[obj['date']] += Math.abs(obj['amount']);
+      const addChartPath = () => {
+         const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
+         const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
+         const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
+         const data = {};
+         for (const obj of nestedFlows) {
+            if (obj['date'] in data) {
+               data[obj['date']] += Math.abs(obj['amount']);
+            } else {
+               data[obj['date']] = Math.abs(obj['amount']);
+            }
+         }
+         if (broughtChart) {
+            broughtChart.bags[bagPath2Use] = data;
          } else {
-            data[obj['date']] = Math.abs(obj['amount']);
+            chart.bags[bagPath2Use] = data;
+         }
+         if (!(broughtBagPath || broughtData)) {
+            showInfo('added2chart');
+            document.dispatchEvent(this.reloadEvent);
          }
       }
-      chart.bags[bagPath2Use] = data;
-      if (!(broughtBagPath || broughtData)) {
-         showInfo('added2chart');
+      if (broughtChart) {
+         addChartPath();
+      } else {
+         CDP.processChartPath(bagPath2Use, 'POST', addChartPath);
       }
 
 
@@ -69,8 +84,12 @@ class ChartOps {
 
 
    removeFromChart() {
-      delete chart.bags[this.bagPath];
-      showInfo('removedFromChart', 'warning');
+      const execRemoveChartPath = () => {
+         delete chart.bags[this.bagPath];
+         showInfo('removedFromChart');
+         document.dispatchEvent(this.reloadEvent);
+      }
+      CDP.processChartPath(this.bagPath, 'DELETE', execRemoveChartPath);
    }
 }
 

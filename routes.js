@@ -10,6 +10,7 @@ const BagCTRL = require('./controller/bagCTRL');
 const FlowCTRL = require('./controller/flowCTRL');
 const DataCTRL = require('./controller/dataCTRL');
 const TimeCTRL = require('./controller/timeCTRL');
+const ChartCTRL = require('./controller/chartCTRL');
 const CusVal = require('./customValidators');
 
 const whiteListChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890äöüÄÖÜß ?!,.-/()';
@@ -42,6 +43,20 @@ router.post('/setTime',
                checkExact(),
                TimeCTRL.setTime
 );
+
+router.get('/chartPaths', ChartCTRL.getChartPaths);
+
+router.post('/chartPath',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
+               checkExact(),
+               ChartCTRL.postChartPath
+)
+
+router.delete('/chartPath',
+               body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),
+               checkExact(),
+               ChartCTRL.delChartPath
+)
 
 router.post('/createBag',
                body('path', 'invalid Path!').trim().isLength({min: 2, max: 256}).isWhitelisted(whiteListChars).custom(CusVal.checkPath).withMessage("destination path doesn't exist in DB!"),

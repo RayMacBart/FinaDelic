@@ -20,7 +20,7 @@ class AppData {
       const response = await fetch('/userdata');
       this.data = await response.json();
       this.setBagAmounts(app.timespan);
-      app.continueConstruction();
+      app.continueConstruction1();
    }
 
 

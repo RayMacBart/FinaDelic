@@ -5,6 +5,8 @@ class Infos {
       'invalidTimespan': 'The specified start date is later than the end date. Hence the end date was automatically set to be equal to the start date.',
       'added2chart': 'The current bag was added to the chart.',
       'removedFromChart': 'The current bag was removed from the chart!',
+      'alreadyInChart': 'The current bag already was added to the chart before!',
+      'chartPathDelError': "The Box can't be deleted at the server - because it doesn't exist there!",
       'flowNotInPeriod': "The date of the affected Flow is not within the selected time period - hence it doesn't appear.",
       'duplicate': "Duplicate name: the Box already contains that entry.",
       'invalidLogin': 'Incorrect email or password.',

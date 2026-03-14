@@ -56,7 +56,7 @@ class ChartAdjuster {
       for (const bag in chart.bags) {
          if (affChartBags.includes(bag)) {
             delete chart.bags[bag];
-            this.chartops.add2chart(bag, this.appData.data[bag.split('/')[0]]);
+            this.chartops.add2chart(bag, this.appData.data[bag.split('/')[0]], chart);
          }
       }
    }

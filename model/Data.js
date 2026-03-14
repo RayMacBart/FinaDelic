@@ -8,7 +8,7 @@ const cry = require('../crypt');
 exports.createData = async () => {
    const inBag = await BAG.createBag();
    const outBag = await BAG.createBag();
-   const newDataDoc = await dataCol.create({IN: inBag._id, OUT: outBag._id});
+   const newDataDoc = await dataCol.create({IN: inBag._id, OUT: outBag._id, chartPaths: []});
    return newDataDoc;
 }
 
