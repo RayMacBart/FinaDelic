@@ -12,26 +12,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-
 class Footer {
-
-   constructor(navigate, importSVG) {
-      this.#getLogo(importSVG);
-      this.#setupLinks(navigate);
-   }
-
-   async #getLogo(importSVG) {
-      this.logo = await importSVG('FinaDelic Logo Footer', 'footerLogoBox', ['logo', 'logo--footer']);
-   }
-
-   #setupLinks(navigate) {
-      document.querySelector('menu :nth-child(1) > a').addEventListener('click', (e) => {e.preventDefault(); navigate('terms');});
-      document.querySelector('menu :nth-child(2) > a').addEventListener('click', (e) => {e.preventDefault(); navigate('privacy');});
-      document.querySelector('menu :nth-child(3) > a').addEventListener('click', (e) => {e.preventDefault(); navigate('legal');});
-   }
+  constructor(navigate, importSVG) {
+    this.#getLogo(importSVG);
+    this.#setupLinks(navigate);
+  }
+  async #getLogo(importSVG) {
+    this.logo = await importSVG('FinaDelic Logo Footer', 'footerLogoBox', ['logo', 'logo--footer']);
+  }
+  #setupLinks(navigate) {
+    document.querySelector('menu :nth-child(1) > a').addEventListener('click', e => {
+      e.preventDefault();
+      navigate('terms');
+    });
+    document.querySelector('menu :nth-child(2) > a').addEventListener('click', e => {
+      e.preventDefault();
+      navigate('privacy');
+    });
+    document.querySelector('menu :nth-child(3) > a').addEventListener('click', e => {
+      e.preventDefault();
+      navigate('legal');
+    });
+  }
 }
-
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
 
 /***/ },
@@ -55,34 +58,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 class App {
-   constructor() {
-      console.log('FULL RELOAD!');
-      this.router = new _route_js__WEBPACK_IMPORTED_MODULE_1__["default"](this);
-      this.lazyLoader = new _lazyLoader_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
-      new _footer_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.router.navigate, this.lazyLoader.importSVG);
-   }
-
-   makeIconHoverEffect(iconName) {
-      const iconTapArea = document.getElementById(`${iconName}-icon-tap-area`);
-      iconTapArea.addEventListener('mouseenter', this.lazyLoader.hoverPicLoader);
-      iconTapArea.addEventListener('mouseover', this.lazyLoader.hoverPicLoader);
-      iconTapArea.addEventListener('mouseleave', e => this.lazyLoader.hoverPicLoader(e, false));
-   }
+  constructor() {
+    console.log('FULL RELOAD!');
+    this.router = new _route_js__WEBPACK_IMPORTED_MODULE_1__["default"](this);
+    this.lazyLoader = new _lazyLoader_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
+    new _footer_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.router.navigate, this.lazyLoader.importSVG);
+  }
+  makeIconHoverEffect(iconName) {
+    const iconTapArea = document.getElementById(`${iconName}-icon-tap-area`);
+    iconTapArea.addEventListener('mouseenter', this.lazyLoader.hoverPicLoader);
+    iconTapArea.addEventListener('mouseover', this.lazyLoader.hoverPicLoader);
+    iconTapArea.addEventListener('mouseleave', e => this.lazyLoader.hoverPicLoader(e, false));
+  }
 }
-
-
 const app = new App();
-
 const timespan = app.timespan;
 const router = app.router;
 const chart = app.chart;
 
-                           
-
-                                            
 
 /***/ },
 
@@ -98,12 +92,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   showInfo: () => (/* binding */ showInfo)
 /* harmony export */ });
 class Infos {
-
-   constructor() {
-      this.infoTexts = {
+  constructor() {
+    this.infoTexts = {
       'invalidTimespan': 'The specified start date is later than the end date. Hence the end date was automatically set to be equal to the start date.',
       'added2chart': 'The current bag was added to the chart.',
       'removedFromChart': 'The current bag was removed from the chart!',
+      'alreadyInChart': 'The current bag already was added to the chart before!',
+      'chartPathDelError': "The Box can't be deleted at the server - because it doesn't exist there!",
       'flowNotInPeriod': "The date of the affected Flow is not within the selected time period - hence it doesn't appear.",
       'duplicate': "Duplicate name: the Box already contains that entry.",
       'invalidLogin': 'Incorrect email or password.',
@@ -121,48 +116,44 @@ class Infos {
       'emailSent': 'We sent you an verification email.\nPlease check your mailbox.',
       'failedSignin': 'Invalid email or password!',
       'ValErr1': 'Invalid input in the field: ',
-      'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field.",
+      'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field."
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
+    };
+  }
+  showInfo(infoTitle, infoType = 'neutral', listing = null, field = '') {
+    const box = document.createElement('div');
+    const text = document.createElement('p');
+    box.appendChild(text);
+    if (infoTitle === 'ValErr' && field) {
+      text.innerText = this.infoTexts['ValErr1'] + '\n\n   ' + field + '\n\n' + this.infoTexts['ValErr2'];
+    } else {
+      text.innerText = this.infoTexts[infoTitle];
+    }
+    if (listing) {
+      let newText = text.innerText;
+      for (const item of listing) {
+        newText = ` ${newText}\n --> ${item}`;
       }
-   }
-   
-
-   showInfo(infoTitle, infoType='neutral', listing=null, field='') {
-      const box = document.createElement('div');
-      const text = document.createElement('p');
-      box.appendChild(text);
-      if (infoTitle === 'ValErr' && field) {
-         text.innerText = this.infoTexts['ValErr1']+'\n\n   '+field+'\n\n'+this.infoTexts['ValErr2'];
-      } else {
-         text.innerText = this.infoTexts[infoTitle];
-      }
-      if (listing) {
-         let newText = text.innerText;
-         for (const item of listing) {
-            newText = ` ${newText}\n --> ${item}`;
-         }
-         text.innerText = newText;
-      }
-      const viewWrapper = document.querySelector('.view-wrapper');
-      viewWrapper.appendChild(box);
-      box.classList.add('infobox');
-      text.classList.add('infotext');
-      if (infoType === 'warning') {
-         box.classList.add('infobox--warning');
-         text.classList.add('infotext--warning');
-      } else if (infoType === 'neutral') {
-         box.classList.add('infobox--neutral');
-         text.classList.add('infotext--neutral');
-      }
-      setTimeout(() => {
-         viewWrapper.removeChild(box);
-      }, text.innerText.length*55);
-   }
+      text.innerText = newText;
+    }
+    const viewWrapper = document.querySelector('.view-wrapper');
+    viewWrapper.appendChild(box);
+    box.classList.add('infobox');
+    text.classList.add('infotext');
+    if (infoType === 'warning') {
+      box.classList.add('infobox--warning');
+      text.classList.add('infotext--warning');
+    } else if (infoType === 'neutral') {
+      box.classList.add('infobox--neutral');
+      text.classList.add('infotext--neutral');
+    }
+    setTimeout(() => {
+      viewWrapper.removeChild(box);
+    }, text.innerText.length * 55);
+  }
 }
-
 const infos = new Infos();
 const showInfo = infos.showInfo.bind(infos);
-
 
 
 /***/ },
@@ -179,45 +170,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class LazyLoader {
-
-
-   constructor() {
-      this.parser = new DOMParser();
-   }
-   
-
-   importSVG = async(svgFilename, wrapperCSSclass, ownCSSclasses) => {  // (?)[../docs/methodAsProperty.txt]
-      const res = await fetch(`./assets/${svgFilename}.svg`);
-      const svgText = await res.text();
-      const svg = this.parser.parseFromString(svgText, 'image/svg+xml').documentElement;
-      const clonedSVG = svg.cloneNode(true);
-      const logoBox = document.querySelector('.'+wrapperCSSclass);
-      for (const cls of ownCSSclasses) {
-         clonedSVG.classList.add(cls);
-      }
-      logoBox.appendChild(clonedSVG);
-      return clonedSVG;
-   }
-
-
-   hoverPicLoader(e, hover=true) {
-      const imgEl = e.target.previousElementSibling;
-      if (e.target.dataset.status === 'disabled') {
-         imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_disabled.svg`;
+  constructor() {
+    this.parser = new DOMParser();
+  }
+  importSVG = async (svgFilename, wrapperCSSclass, ownCSSclasses) => {
+    // (?)[../docs/methodAsProperty.txt]
+    const res = await fetch(`./assets/${svgFilename}.svg`);
+    const svgText = await res.text();
+    const svg = this.parser.parseFromString(svgText, 'image/svg+xml').documentElement;
+    const clonedSVG = svg.cloneNode(true);
+    const logoBox = document.querySelector('.' + wrapperCSSclass);
+    for (const cls of ownCSSclasses) {
+      clonedSVG.classList.add(cls);
+    }
+    logoBox.appendChild(clonedSVG);
+    return clonedSVG;
+  };
+  hoverPicLoader(e, hover = true) {
+    const imgEl = e.target.previousElementSibling;
+    if (e.target.dataset.status === 'disabled') {
+      imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_disabled.svg`;
+    } else {
+      if (hover) {
+        setTimeout(() => {
+          imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_hovered.svg`;
+        }, 100);
       } else {
-         if (hover) {
-            setTimeout(() => {
-               imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}_hovered.svg`;
-            }, 100);
-         } else {
-            setTimeout(() => {
-               imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}.svg`;
-            }, 180);
-         }  
+        setTimeout(() => {
+          imgEl.src = `./assets/icons/${imgEl.dataset.iconDesc}.svg`;
+        }, 180);
       }
-   }
+    }
+  }
 }
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LazyLoader);
 
 /***/ },
@@ -235,115 +220,121 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./infos.js */ "./src_out/infos.js");
 
-
-
 class Router {
-
-   pages = {}
-
-   constructor(app) {
-      let frontpath = window.location.pathname;
-      this.app = app;
-      window.addEventListener('popstate', (e) => {
-                                             const extraClassesWanted = [];
-                                             let appPath = window.location.pathname;
-                                             if (appPath === '/') {
-                                                appPath = '/loggedoutHP';
-                                             } else if (appPath === '/login') {
-                                                appPath = '/loginPage';
-                                             }
-                                             if (e.state.page === 'loggedoutHP') {
-                                                extraClassesWanted.push('page--landing');
-                                             }
-                                             this.navigate(appPath.slice(1), extraClassesWanted, true);
-                                             // this.navigate(e.state.page, extraClassesWanted, true);
-                                             });
-
-      if (frontpath === '/' || frontpath === '/out') {
-         this.navigate('loggedoutHP', ['page--landing']); 
-      } else {
-         let wantedpage = frontpath;
-         // let warningTitle;
-         const routeinfoEl = document.getElementById('routeinfo');
-         if (routeinfoEl) {
-            wantedpage = routeinfoEl.textContent
-            // .split('§')[0];
-            // warningTitle = routeinfoEl.textContent.split('§')[1];
-         }
-         routeinfoEl.remove();
-         this.navigate(wantedpage.slice(1));
-         // if (warningTitle) {
-         //    console.log('warningTitle:', warningTitle);
-         //    showInfo(warningTitle);
-         // }
+  pages = {};
+  constructor(app) {
+    let frontpath = window.location.pathname;
+    this.app = app;
+    window.addEventListener('popstate', e => {
+      const extraClassesWanted = [];
+      let appPath = window.location.pathname;
+      if (appPath === '/') {
+        appPath = '/loggedoutHP';
+      } else if (appPath === '/login') {
+        appPath = '/loginPage';
       }
-   }
-
-// 'loggedoutHP', ['page--landing'] | 'loginPage' | 'terms' | 'privacy' | 'legal'
-
-
-   #updatePageClasses(wanted, current) {
-      const toDel = [];
-      let cls;
-      for (cls of current) {
-         if (!(wanted.includes(cls)) && !(cls === 'page')) {
-            toDel.push(cls);
-         }
+      if (e.state.page === 'loggedoutHP') {
+        extraClassesWanted.push('page--landing');
       }
-      for (cls of toDel) {
-         current.remove(cls);
+      this.navigate(appPath.slice(1), extraClassesWanted, true);
+      // this.navigate(e.state.page, extraClassesWanted, true);
+    });
+    if (frontpath === '/' || frontpath === '/out') {
+      this.navigate('loggedoutHP', ['page--landing']);
+    } else {
+      let wantedpage = frontpath;
+      // let warningTitle;
+      const routeinfoEl = document.getElementById('routeinfo');
+      if (routeinfoEl) {
+        wantedpage = routeinfoEl.textContent;
+        // .split('§')[0];
+        // warningTitle = routeinfoEl.textContent.split('§')[1];
       }
-      for (cls of wanted) {
-         if (!current.contains(cls)) {
-            current.add(cls);
-         }
-      }
-   }
-
-   #transit(id, wantedPageClasses) {
-      const pageContainer = document.querySelector('.page');
-      const page = document.getElementById(id).content.cloneNode(true);
-      this.#updatePageClasses(wantedPageClasses, pageContainer.classList)
-      pageContainer.replaceChildren(page);
-      scrollTo(0, 0);
-   }
-
-   navigate = async(pageid, wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
-      this.#transit(pageid, wantedPageClasses);
-      if (!(pageid in this.pages)) {
-         const Module = await __webpack_require__("./src_out/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default")(`./${pageid}.js`);
-         const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
-         this.pages[pageid] = newInst;
-      }
-      const urlname = pageid === 'loginPage' ? 'login' : pageid;
-      // if (!popstate) {
-      if (pageid === 'loggedoutHP') {
-         history.pushState({page: `${pageid}`}, "", '/');
-      }
-      else {
-         history.pushState({page: `${pageid}`}, "", `/${urlname}`);
-      }
+      routeinfoEl.remove();
+      this.navigate(wantedpage.slice(1));
+      // if (warningTitle) {
+      //    console.log('warningTitle:', warningTitle);
+      //    showInfo(warningTitle);
       // }
-      this.pages[pageid].setup(this.app);
-   }
+    }
+  }
+
+  // 'loggedoutHP', ['page--landing'] | 'loginPage' | 'terms' | 'privacy' | 'legal'
+
+  #updatePageClasses(wanted, current) {
+    const toDel = [];
+    let cls;
+    for (cls of current) {
+      if (!wanted.includes(cls) && !(cls === 'page')) {
+        toDel.push(cls);
+      }
+    }
+    for (cls of toDel) {
+      current.remove(cls);
+    }
+    for (cls of wanted) {
+      if (!current.contains(cls)) {
+        current.add(cls);
+      }
+    }
+  }
+  #transit(id, wantedPageClasses) {
+    const pageContainer = document.querySelector('.page');
+    const page = document.getElementById(id).content.cloneNode(true);
+    this.#updatePageClasses(wantedPageClasses, pageContainer.classList);
+    pageContainer.replaceChildren(page);
+    scrollTo(0, 0);
+  }
+  navigate = async (pageid, wantedPageClasses = [], popstate = false) => {
+    // (?)[../docs/methodAsProperty.txt]
+    this.#transit(pageid, wantedPageClasses);
+    if (!(pageid in this.pages)) {
+      const Module = await __webpack_require__("./src_out/routing lazy recursive ^\\.\\/.*$ referencedExports: default")(`./${pageid}`);
+      const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
+      this.pages[pageid] = newInst;
+    }
+    const urlname = pageid === 'loginPage' ? 'login' : pageid;
+    // if (!popstate) {
+    if (pageid === 'loggedoutHP') {
+      history.pushState({
+        page: `${pageid}`
+      }, "", '/');
+    } else {
+      history.pushState({
+        page: `${pageid}`
+      }, "", `/${urlname}`);
+    }
+    // }
+    this.pages[pageid].setup(this.app);
+  };
 }
-
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Router);
 
 /***/ },
 
-/***/ "./src_out/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default"
-/*!****************************************************************************************!*\
-  !*** ./src_out/routing/ lazy ^\.\/.*\.js$ referencedExports: default namespace object ***!
-  \****************************************************************************************/
+/***/ "./src_out/routing lazy recursive ^\\.\\/.*$ referencedExports: default"
+/*!************************************************************************************!*\
+  !*** ./src_out/routing/ lazy ^\.\/.*$ referencedExports: default namespace object ***!
+  \************************************************************************************/
 (module, __unused_webpack_exports, __webpack_require__) {
 
 var map = {
+	"./legal": [
+		"./src_out/routing/legal.js",
+		[
+			"src_out_routing_legal_js"
+		]
+	],
 	"./legal.js": [
 		"./src_out/routing/legal.js",
 		[
 			"src_out_routing_legal_js"
+		]
+	],
+	"./loggedoutHP": [
+		"./src_out/routing/loggedoutHP.js",
+		[
+			"src_out_routing_loggedoutHP_js"
 		]
 	],
 	"./loggedoutHP.js": [
@@ -352,10 +343,22 @@ var map = {
 			"src_out_routing_loggedoutHP_js"
 		]
 	],
-	"./loginPage.js": [
-		"./src_out/routing/loginPage.js",
+	"./loginPage": [
+		"./src_out/routing/loginPage.ts",
 		[
-			"src_out_routing_loginPage_js"
+			"src_out_routing_loginPage_ts"
+		]
+	],
+	"./loginPage.ts": [
+		"./src_out/routing/loginPage.ts",
+		[
+			"src_out_routing_loginPage_ts"
+		]
+	],
+	"./loginPage_src/inputChecker": [
+		"./src_out/routing/loginPage_src/inputChecker.js",
+		[
+			"src_out_routing_loginPage_src_inputChecker_js"
 		]
 	],
 	"./loginPage_src/inputChecker.js": [
@@ -364,16 +367,34 @@ var map = {
 			"src_out_routing_loginPage_src_inputChecker_js"
 		]
 	],
+	"./loginPage_src/serverInteraction": [
+		"./src_out/routing/loginPage_src/serverInteraction.js",
+		[
+			"src_out_routing_loginPage_src_serverInteraction_js"
+		]
+	],
 	"./loginPage_src/serverInteraction.js": [
 		"./src_out/routing/loginPage_src/serverInteraction.js",
 		[
 			"src_out_routing_loginPage_src_serverInteraction_js"
 		]
 	],
+	"./privacy": [
+		"./src_out/routing/privacy.js",
+		[
+			"src_out_routing_privacy_js"
+		]
+	],
 	"./privacy.js": [
 		"./src_out/routing/privacy.js",
 		[
 			"src_out_routing_privacy_js"
+		]
+	],
+	"./terms": [
+		"./src_out/routing/terms.js",
+		[
+			"src_out_routing_terms_js"
 		]
 	],
 	"./terms.js": [
@@ -400,7 +421,7 @@ function webpackAsyncContext(req) {
 	return __webpack_require__.e(ids[1][0]).then(() => (__webpack_require__(id)));
 }
 webpackAsyncContext.keys = () => (Object.keys(map));
-webpackAsyncContext.id = "./src_out/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default";
+webpackAsyncContext.id = "./src_out/routing lazy recursive ^\\.\\/.*$ referencedExports: default";
 module.exports = webpackAsyncContext;
 
 /***/ }
@@ -508,7 +529,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("2034dac79f6e3638387f")
+/******/ 		__webpack_require__.h = () => ("85cabbd605e78c57a0c4")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

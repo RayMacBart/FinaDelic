@@ -1,85 +1,161 @@
 "use strict";
-(globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_out_routing_loginPage_js"],{
+(globalThis["webpackChunkfinadelic"] = globalThis["webpackChunkfinadelic"] || []).push([["src_out_routing_loginPage_ts"],{
 
-/***/ "./src_out/routing/loginPage.js"
+/***/ "./src_out/routing/loginPage.ts"
 /*!**************************************!*\
-  !*** ./src_out/routing/loginPage.js ***!
+  !*** ./src_out/routing/loginPage.ts ***!
   \**************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ LoginPage)
 /* harmony export */ });
 /* harmony import */ var _loginPage_src_inputChecker_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./loginPage_src/inputChecker.js */ "./src_out/routing/loginPage_src/inputChecker.js");
 /* harmony import */ var _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loginPage_src/serverInteraction.js */ "./src_out/routing/loginPage_src/serverInteraction.js");
 /* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../infos.js */ "./src_out/infos.js");
+// LoginPage.ts
 
 
 
+
+/**
+ * Minimal app types used by this module
+ */
+
+/**
+ * Event shape used by handlers: a click event whose target is an element inside a form.
+ * We accept the general Event type in handlers and narrow/cast where needed.
+ */
+
+/**
+ * LoginPage
+ *
+ * - Binds event handlers once in the constructor and stores them as EventListener
+ *   so addEventListener/removeEventListener calls are type-safe and removable.
+ * - Public API: setup(app)
+ */
 class LoginPage {
+  // Bound handlers typed as EventListener so they match addEventListener overloads
+
   constructor() {
-    this.resetModal = document.getElementById('reset-modal');
+    const resetModal = document.getElementById("reset-modal");
+    if (!resetModal) {
+      throw new Error("LoginPage: required element '#reset-modal' not found");
+    }
+    this.resetModal = resetModal;
     this.inputChecker = new _loginPage_src_inputChecker_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+
+    // Bind once and store as EventListener (cast via unknown to satisfy TS)
+    this.onSignIn = this.signIn.bind(this);
+    this.onSignUp = this.signUp.bind(this);
+    this.onOpenResetModal = this.openResetModal.bind(this);
+    this.onSubmitReset = this.submitReset.bind(this);
   }
-  #signIn(event) {
+
+  // -------------------------
+  // Internal handlers (accept Event and narrow inside)
+  // -------------------------
+  signIn(event) {
     event.preventDefault();
+
+    // Narrow event.target to the expected shape
+    const target = event.target;
+    // InputChecker expects the same event shape as original JS code
     const valid = this.inputChecker.checkSignIn(event);
     if (valid) {
+      // SIA.execSignIn expects the event-like object
       _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__["default"].execSignIn(event);
       // async BACKEND SEND AND REACT UPON RESPONSE (e.g. app.router.navigate('flowPage') or showInfo('invalidLogin', 'warning')) LOGIC HERE
     }
   }
-  #signUp(event) {
+  signUp(event) {
     event.preventDefault();
-    // const valid = this.inputChecker.checkSignUp(event);
+    // const valid = this.inputChecker.checkSignUp(event as unknown as Event & { target: any });
     const valid = true;
     if (valid) {
       _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__["default"].execSignUp(event);
     }
   }
-  #submitReset(event) {
+  submitReset(event) {
     event.preventDefault();
-    const mailInput = event.target.form[0].value;
+    const target = event.target;
+    const form = target.form;
+    const mailInput = form ? form[0].value ?? "" : "";
     const isValidEmail = this.inputChecker.emailRX.test(mailInput);
     if (isValidEmail) {
-      // POST REQUEST WITH MAILINPUT TO BACKEND -
-      // IF EMAIL IS FOUND AT BACKEND - THEN SEND THE EMAIL.
-      // ELSE: CONSIDER CREATING ANOTHER SHOWINFO-BOX: EMAIL NOT FOUND!
-
+      // POST REQUEST WITH MAILINPUT TO BACKEND - omitted here
       this.resetModal.close();
-      (0,_infos_js__WEBPACK_IMPORTED_MODULE_2__.showInfo)('emailSent');
+      (0,_infos_js__WEBPACK_IMPORTED_MODULE_2__.showInfo)("emailSent");
     } else {
-      document.getElementById('invalMailWarn').style.display = 'block';
+      const warn = document.getElementById("invalMailWarn");
+      if (warn) {
+        warn.style.display = "block";
+      }
     }
   }
-  #openResetModal(event) {
+  openResetModal(event) {
     event.preventDefault();
     this.resetModal.showModal();
-    document.getElementById('invalMailWarn').style.display = 'none';
-    document.getElementById('reset-modal-input').value = '';
-    document.getElementById('resetSubmitButton').addEventListener('click', this.#submitReset.bind(this));
+    const warn = document.getElementById("invalMailWarn");
+    if (warn) {
+      warn.style.display = "none";
+    }
+    const input = document.getElementById("reset-modal-input");
+    if (input) {
+      input.value = "";
+    }
+    const resetBtn = document.getElementById("resetSubmitButton");
+    if (resetBtn) {
+      // attach the submit handler (use the pre-bound EventListener)
+      resetBtn.addEventListener("click", this.onSubmitReset);
+    }
   }
-  #setupLoginPageLinks(app) {
-    document.querySelector('.loginBackButton').addEventListener('click', () => app.router.navigate('loggedoutHP', ['page--landing']));
-    document.getElementById('forgotPWlink').addEventListener('click', this.#openResetModal.bind(this));
-    document.getElementById('sign-in-submit-button').addEventListener('click', this.#signIn.bind(this));
-    document.getElementById('inline-terms-link').addEventListener('click', event => {
-      event.preventDefault();
-      app.router.navigate('terms');
-    });
-    document.getElementById('inline-privacy-link').addEventListener('click', event => {
-      event.preventDefault();
-      app.router.navigate('privacy');
-    });
-    document.getElementById('sign-up-submit-button').addEventListener('click', this.#signUp.bind(this));
+
+  // -------------------------
+  // Setup wiring
+  // -------------------------
+  setupLoginPageLinks(app) {
+    const backBtn = document.querySelector(".loginBackButton");
+    if (backBtn) {
+      backBtn.addEventListener("click", () => app.router.navigate("loggedoutHP", ["page--landing"]));
+    }
+    const forgotLink = document.getElementById("forgotPWlink");
+    if (forgotLink) {
+      forgotLink.addEventListener("click", this.onOpenResetModal);
+    }
+    const signInBtn = document.getElementById("sign-in-submit-button");
+    if (signInBtn) {
+      signInBtn.addEventListener("click", this.onSignIn);
+    }
+    const termsLink = document.getElementById("inline-terms-link");
+    if (termsLink) {
+      termsLink.addEventListener("click", event => {
+        event.preventDefault();
+        app.router.navigate("terms");
+      });
+    }
+    const privacyLink = document.getElementById("inline-privacy-link");
+    if (privacyLink) {
+      privacyLink.addEventListener("click", event => {
+        event.preventDefault();
+        app.router.navigate("privacy");
+      });
+    }
+    const signUpBtn = document.getElementById("sign-up-submit-button");
+    if (signUpBtn) {
+      signUpBtn.addEventListener("click", this.onSignUp);
+    }
   }
+
+  // -------------------------
+  // Public API
+  // -------------------------
   async setup(app) {
-    this.#setupLoginPageLinks(app);
-    await app.lazyLoader.importSVG('FinaDelic Logo Hero', 'heroLogoBox', ['logo', 'logo--hero']);
+    this.setupLoginPageLinks(app);
+    await app.lazyLoader.importSVG("FinaDelic Logo Hero", "heroLogoBox", ["logo", "logo--hero"]);
   }
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoginPage);
 
 /***/ },
 

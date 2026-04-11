@@ -1,11 +1,13 @@
+// webpack.config.js (development)
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const webpack = require("webpack");
 
-// const source = 'out';
-const source = 'in';
+const source = 'out';
+// const source = 'in';
 
 // const destination = `dist_${source}`;
 const destination = 'public';
@@ -18,6 +20,27 @@ module.exports = {
       path: path.resolve(__dirname, destination),
       publicPath: '/',
       // clean: true,
+   },
+   resolve: {
+      extensions: ['.ts', '.js', '.json']
+   },
+   module: {
+      rules: [
+         {
+            test: /\.[jt]sx?$/,
+            exclude: /node_modules/,
+            use: {
+               loader: 'babel-loader',
+               options: {
+                  presets: [
+                     ['@babel/preset-env', {useBuiltIns: 'usage', corejs: { version: 3 }}],
+                      '@babel/preset-typescript'
+                     
+                  ]
+               }
+            }
+         }
+      ]
    },
    devServer: {
       static: {
@@ -50,6 +73,12 @@ module.exports = {
       //    template: 'src_'+source+`/index_${source}.html`,
       //    inject: false,
       // }),
+      new ForkTsCheckerWebpackPlugin({
+         async: false, // fail build on type errors; set true to run checks async
+         typescript: {
+         configFile: path.resolve(__dirname, 'tsconfig.frontend.json')
+         }
+      }),
       new webpack.HotModuleReplacementPlugin({}),
       new ImageMinimizerPlugin({
          minimizer: {
