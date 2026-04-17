@@ -100,6 +100,7 @@ class FlowSubmits {
          this.utils.recalcBagAmounts(this.bagPath.split('/'));
          document.dispatchEvent(this.reloadEvent);
       }
+      console.log('HERE!');
       FDP.deleteFlow(this.bagPath, this.flowID, execFlowDeletion);
    }
 

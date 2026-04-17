@@ -1,4 +1,5 @@
 // LoginPage.ts
+// migrated from js to ts with help of AI
 import InputChecker from "./loginPage_src/inputChecker.js";
 import SIA from "./loginPage_src/serverInteraction.js";
 import { showInfo } from "../infos.js";
@@ -176,3 +177,5 @@ export default class LoginPage {
     await app.lazyLoader.importSVG("FinaDelic Logo Hero", "heroLogoBox", ["logo", "logo--hero"]);
   }
 }
+
+let obj: { [prop: number]: boolean } = {};
