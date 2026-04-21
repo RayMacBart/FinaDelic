@@ -15,7 +15,7 @@ class FlowPage {
    constructor(appData, modal, chart) {
       this.surface = new FlowPageSurface();
       this.appData = appData;
-      this.reloadEvent = new Event('bagReload');  // (?)[../../docs/customEventToolbarTrigger.txt]
+      this.reloadEvent = new Event('bagReload');  // see @ docs/frontend/special_flows
       this.toolbar = new Toolbar(appData, this.reloadEvent, modal, chart);
       this.baglist = new BagList();
       this.flowlist = new FlowList();

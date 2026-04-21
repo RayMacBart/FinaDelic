@@ -1,6 +1,0 @@
-This method has to be created as a property (arrow function) because this way,
-the method belongs to the instance itself and isn't just created in it's prototype.
-If not created as property, e.g. passing this method to another class,
-would mean that 'this' isn't bound to the instance anymore if called there.
-Keeping the memory to which instance it belongs to is necessary in this place,
-that's why it is created as an property arrow function here.

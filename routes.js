@@ -37,7 +37,7 @@ router.get('/userdata', DataCTRL.getUserData);
 
 router.get('/time', TimeCTRL.getTime);
 
-router.post('/setTime',
+router.post('/time',
                body('start').trim().isDate().withMessage('invalid date input!'),
                body('end').trim().isDate().withMessage('invalid date input!').custom(CusVal.checkTimeSpan).withMessage('Invalid time input: end date is lower than start date!'),
                checkExact(),

@@ -1,5 +1,0 @@
-A custom Event (created @ FlowPage-constructor) is used to listen inside #renderFLowPage (=within FlowPage),
-because here there's access to a proper full reload of the Flowpage-Bag via '#bagRefresh'.
-The Event is forwarded to 'ToolbarEventHandler' (over 'Toolbar') by being passed to the contructors,
-because in 'ToolbarEventHandler', where functionality of toolbar buttons is implemented which need reloads,
-this custom Event is dispatched (=triggered).

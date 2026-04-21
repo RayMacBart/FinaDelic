@@ -13,7 +13,7 @@ class TimeDataPoster {
 
    async storeTimeSpan(ISOstart, ISOend, execTimeSet) {
       const packet = { start: ISOstart, end: ISOend };
-      const response = await fetch('/setTime', {method: 'POST',
+      const response = await fetch('/time', {method: 'POST',
                                                headers: {
                                                   'Content-Type': 'application/json',
                                                   'CSRF-Token': this.CSRFToken
