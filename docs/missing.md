@@ -1,0 +1,14 @@
+### Still missing features:
+- production-ready Terms & Conditions
+- production-ready Privacy Policy
+- e-mail verification upon sign up
+- password reset functionality
+- user account deletion feature
+- data backups
+- aria roles
+- help/tutorial page
+- 'rolling' enddate config. switch for users
+- more error handling
+- implement optimistic front end operations (UX!)
+- migration to TypeScript
+- Vitest unit testing

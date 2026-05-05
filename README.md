@@ -10,9 +10,9 @@
 </br>
 
 *There are no automatic synchronizations with other services -*</br>*users have to make their entries manually.*</br>*Advantage: This ensures maximum privacy.*</br>*Adding transactions manually is made **easy**</br>&nbsp;- FinaDelic is built for **fast** day to day usage.*</br>
-
-##### &nbsp;&nbsp;&nbsp;&nbsp;TECHNICAL NOTE:</br></br>FinaDelic is a SPA built with vanilla JavaScript at the front end &</br>Node/Express + MongoDB (Mongoose) at the Backend.</br>It also uses SASS, webpack+babel, chart.js, crypto, express-session,</br>express-validator, argon2, dr.pogodin/csurf, helmet.js and more.
-_______
+___
+##### &nbsp;&nbsp;&nbsp;&nbsp;For tech-stack details, see: [used_tech.md](/docs/used_tech.md)</br>&nbsp;&nbsp;&nbsp;&nbsp;To see which features are still missing, see: [missing.md](docs/missing.md)</br>
+___
 
 
 ### The workspace
@@ -46,18 +46,3 @@ Each Box's data can be added to the chart (and of course, it can be removed from
 #### *The configured timespan is also used in the TIMELINE charts:</br>There, an automatic time axis aggregation is implemented as well.*
 
 ____
-
-### Still missing features:
-- production-ready Terms & Conditions
-- production-ready Privacy Policy
-- e-mail verification upon sign up
-- password reset functionality
-- user account deletion feature
-- data backups
-- aria roles
-- help/tutorial page
-- 'rolling' enddate config. switch for users
-- more error handling
-- implement optimistic front end operations (UX!)
-- migration to TypeScript
-- Vitest unit testing
