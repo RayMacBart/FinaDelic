@@ -1,4 +1,3 @@
-import { showInfo } from "../infos.js";
 import ChartAdjuster from "./chartAdjuster.js";
 
 

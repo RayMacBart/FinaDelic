@@ -1,4 +1,3 @@
-import { showInfo } from "./infos.js";
 
 
 class Router {
@@ -27,19 +26,12 @@ class Router {
          this.navigate('loggedoutHP', ['page--landing']); 
       } else {
          let wantedpage = frontpath;
-         // let warningTitle;
          const routeinfoEl = document.getElementById('routeinfo');
          if (routeinfoEl) {
             wantedpage = routeinfoEl.textContent
-            // .split('§')[0];
-            // warningTitle = routeinfoEl.textContent.split('§')[1];
          }
          routeinfoEl.remove();
          this.navigate(wantedpage.slice(1));
-         // if (warningTitle) {
-         //    console.log('warningTitle:', warningTitle);
-         //    showInfo(warningTitle);
-         // }
       }
    }
 
@@ -76,7 +68,7 @@ class Router {
       this.#transit(pageid, wantedPageClasses);
       if (!(pageid in this.pages)) {
          const Module = await import(`./routing/${pageid}`);
-         const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
+         const newInst = new Module.default();
          this.pages[pageid] = newInst;
       }
       const urlname = pageid === 'loginPage' ? 'login' : pageid;

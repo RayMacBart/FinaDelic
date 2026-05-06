@@ -1,6 +1,6 @@
 import InputChecker from "./loginPage_src/inputChecker.js";
 import SIA from "./loginPage_src/serverInteraction.js";
-import { showInfo } from "../infos.js";
+import { showInfo } from "./loginPage_src/infos.js";
 
 
 class LoginPage {

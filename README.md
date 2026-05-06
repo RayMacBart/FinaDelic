@@ -15,7 +15,8 @@
 ___
 
 ### <p align="center">For more technical details, read the <span style="text-decoration: underline">[docs](docs/)</span></p>
-#### <p align="end">If interested, check out the used [tech-stack](/docs/used_tech.md)</br></p></br>
+#### <p align="end">Since this is a SPA, I recommend to take a look at the [frontend architecture](/docs/frontend/architecture.md)</p>
+#### <p align="end">If interested, also check out the used [tech-stack](/docs/used_tech.md)</br></p>
 ___
 </br>
 
@@ -48,7 +49,6 @@ ___
 </br>
 </br>
 
-_____
 ___
 
 ## <p align="center">The Chart</p>

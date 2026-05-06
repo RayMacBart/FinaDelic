@@ -6,8 +6,8 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const webpack = require("webpack");
 
-// const source = 'out';
-const source = 'in';
+const source = 'out';
+// const source = 'in';
 
 // const destination = `dist_${source}`;
 const destination = 'public';
@@ -22,7 +22,9 @@ module.exports = {
       // clean: true,
    },
    resolve: {
-      extensions: ['.ts', '.js', '.json']
+      extensions: [
+         // '.ts',
+         '.js', '.json']
    },
    module: {
       rules: [
@@ -34,7 +36,7 @@ module.exports = {
                options: {
                   presets: [
                      ['@babel/preset-env', {useBuiltIns: 'usage', corejs: { version: 3 }}],
-                      '@babel/preset-typescript'
+                     //  '@babel/preset-typescript'
                      
                   ]
                }
@@ -73,12 +75,12 @@ module.exports = {
       //    template: 'src_'+source+`/index_${source}.html`,
       //    inject: false,
       // }),
-      new ForkTsCheckerWebpackPlugin({
-         async: false, // fail build on type errors; set true to run checks async
-         typescript: {
-         configFile: path.resolve(__dirname, 'tsconfig.frontend.json')
-         }
-      }),
+      // new ForkTsCheckerWebpackPlugin({
+      //    async: false, // fail build on type errors; set true to run checks async
+      //    typescript: {
+      //    configFile: path.resolve(__dirname, 'tsconfig.frontend.json')
+      //    }
+      // }),
       new webpack.HotModuleReplacementPlugin({}),
       new ImageMinimizerPlugin({
          minimizer: {

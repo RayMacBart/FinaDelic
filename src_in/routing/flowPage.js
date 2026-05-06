@@ -2,7 +2,7 @@ import FlowPageSurface from "./flowPage_src/flowPageSurface.js";
 import BagList from "./flowPage_src/baglist.js";
 import FlowList from "./flowPage_src/flowlist.js";
 import EventHandler from "./flowPage_src/flowPageEventHandler.js";
-import Toolbar from "./toolbar.js";
+import Toolbar from "./flowPage_src/toolbar.js";
 
 // for now, AppData is used instead of fetching bag related folder and transaction content from backend API!
 

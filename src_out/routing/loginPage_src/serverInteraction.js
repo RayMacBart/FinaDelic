@@ -1,4 +1,4 @@
-import { showInfo } from "../../infos.js";
+import { showInfo } from "./infos.js";
 
 class SIA {
    static async execSignIn(event) {

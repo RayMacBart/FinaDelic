@@ -1,4 +1,4 @@
-import ToolbarEventHandler from "./flowPage_src/toolbarEventHandler.js";
+import ToolbarEventHandler from "./toolbarEventHandler.js";
 
 class Toolbar {
 

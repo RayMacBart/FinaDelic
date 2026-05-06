@@ -424,7 +424,7 @@ class TimeDataPoster {
       start: ISOstart,
       end: ISOend
     };
-    const response = await fetch('/setTime', {
+    const response = await fetch('/time', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -1835,15 +1835,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
-/* harmony import */ var _chartAdjuster_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chartAdjuster.js */ "./src_in/modals_src/chartAdjuster.js");
-
+/* harmony import */ var _chartAdjuster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chartAdjuster.js */ "./src_in/modals_src/chartAdjuster.js");
 
 class SubmitUtils {
   bagPath;
   constructor(appData) {
     this.appData = appData;
-    this.CA = new _chartAdjuster_js__WEBPACK_IMPORTED_MODULE_1__["default"](appData);
+    this.CA = new _chartAdjuster_js__WEBPACK_IMPORTED_MODULE_0__["default"](appData);
   }
   check4Duplicate(newBagName, path = this.bagPath) {
     const bagObj = this.getBagObjByPath(path);
@@ -2240,7 +2238,7 @@ var map = {
 	"./flowPage.js": [
 		"./src_in/routing/flowPage.js",
 		[
-			"src_in_routing_toolbar_js",
+			"src_in_routing_flowPage_src_toolbar_js",
 			"src_in_routing_flowPage_js"
 		]
 	],
@@ -2280,6 +2278,12 @@ var map = {
 			"src_in_routing_flowPage_src_renderAmount_js"
 		]
 	],
+	"./flowPage_src/toolbar.js": [
+		"./src_in/routing/flowPage_src/toolbar.js",
+		[
+			"src_in_routing_flowPage_src_toolbar_js"
+		]
+	],
 	"./flowPage_src/toolbarEventHandler.js": [
 		"./src_in/routing/flowPage_src/toolbarEventHandler.js",
 		[
@@ -2308,12 +2312,6 @@ var map = {
 		"./src_in/routing/terms.js",
 		[
 			"src_in_routing_terms_js"
-		]
-	],
-	"./toolbar.js": [
-		"./src_in/routing/toolbar.js",
-		[
-			"src_in_routing_toolbar_js"
 		]
 	]
 };
@@ -2442,7 +2440,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("c14885c85234f5d39d20")
+/******/ 		__webpack_require__.h = () => ("4e42a3bb1dce56e02866")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

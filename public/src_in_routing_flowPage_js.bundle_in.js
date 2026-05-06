@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _flowPage_src_baglist_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./flowPage_src/baglist.js */ "./src_in/routing/flowPage_src/baglist.js");
 /* harmony import */ var _flowPage_src_flowlist_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./flowPage_src/flowlist.js */ "./src_in/routing/flowPage_src/flowlist.js");
 /* harmony import */ var _flowPage_src_flowPageEventHandler_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./flowPage_src/flowPageEventHandler.js */ "./src_in/routing/flowPage_src/flowPageEventHandler.js");
-/* harmony import */ var _toolbar_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toolbar.js */ "./src_in/routing/toolbar.js");
+/* harmony import */ var _flowPage_src_toolbar_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./flowPage_src/toolbar.js */ "./src_in/routing/flowPage_src/toolbar.js");
 
 
 
@@ -30,8 +30,8 @@ class FlowPage {
   constructor(appData, modal, chart) {
     this.surface = new _flowPage_src_flowPageSurface_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
     this.appData = appData;
-    this.reloadEvent = new Event('bagReload'); // (?)[../../docs/customEventToolbarTrigger.txt]
-    this.toolbar = new _toolbar_js__WEBPACK_IMPORTED_MODULE_4__["default"](appData, this.reloadEvent, modal, chart);
+    this.reloadEvent = new Event('bagReload'); // see @ docs/frontend/special_flows
+    this.toolbar = new _flowPage_src_toolbar_js__WEBPACK_IMPORTED_MODULE_4__["default"](appData, this.reloadEvent, modal, chart);
     this.baglist = new _flowPage_src_baglist_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
     this.flowlist = new _flowPage_src_flowlist_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
     this.eventHandler = new _flowPage_src_flowPageEventHandler_js__WEBPACK_IMPORTED_MODULE_3__["default"]();

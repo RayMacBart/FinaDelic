@@ -80,84 +80,6 @@ const chart = app.chart;
 
 /***/ },
 
-/***/ "./src_out/infos.js"
-/*!**************************!*\
-  !*** ./src_out/infos.js ***!
-  \**************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   showInfo: () => (/* binding */ showInfo)
-/* harmony export */ });
-class Infos {
-  constructor() {
-    this.infoTexts = {
-      'invalidTimespan': 'The specified start date is later than the end date. Hence the end date was automatically set to be equal to the start date.',
-      'added2chart': 'The current bag was added to the chart.',
-      'removedFromChart': 'The current bag was removed from the chart!',
-      'alreadyInChart': 'The current bag already was added to the chart before!',
-      'chartPathDelError': "The Box can't be deleted at the server - because it doesn't exist there!",
-      'flowNotInPeriod': "The date of the affected Flow is not within the selected time period - hence it doesn't appear.",
-      'duplicate': "Duplicate name: the Box already contains that entry.",
-      'invalidLogin': 'Incorrect email or password.',
-      'allEmpty': 'Please enter your email and password.',
-      'emptyEmail': 'Please enter your email address.',
-      'emptyPW': 'Please enter your password.',
-      'invalidEmail': 'Invalid email.',
-      'missRepeat': "Please repeat your password.",
-      'repeatMismatch': "Your password entries don’t match. Please try again.",
-      'password': "Your password does not meet the following requirements:\n",
-      'badChars': 'Your password contains special characters which are not allowed. \nPlease only use one of the following characters: \n § @ . # $ ! % * ? & ',
-      'checkBoxes': 'You must agree to the Terms & Conditions and confirm the Privacy Policy to continue.',
-      'taken': 'This email address is already registered!',
-      'invalidPW': 'Invalid Password!\nTry a stronger one.',
-      'emailSent': 'We sent you an verification email.\nPlease check your mailbox.',
-      'failedSignin': 'Invalid email or password!',
-      'ValErr1': 'Invalid input in the field: ',
-      'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field."
-      // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
-    };
-  }
-  showInfo(infoTitle, infoType = 'neutral', listing = null, field = '') {
-    const box = document.createElement('div');
-    const text = document.createElement('p');
-    box.appendChild(text);
-    if (infoTitle === 'ValErr' && field) {
-      text.innerText = this.infoTexts['ValErr1'] + '\n\n   ' + field + '\n\n' + this.infoTexts['ValErr2'];
-    } else {
-      text.innerText = this.infoTexts[infoTitle];
-    }
-    if (listing) {
-      let newText = text.innerText;
-      for (const item of listing) {
-        newText = ` ${newText}\n --> ${item}`;
-      }
-      text.innerText = newText;
-    }
-    const viewWrapper = document.querySelector('.view-wrapper');
-    viewWrapper.appendChild(box);
-    box.classList.add('infobox');
-    text.classList.add('infotext');
-    if (infoType === 'warning') {
-      box.classList.add('infobox--warning');
-      text.classList.add('infotext--warning');
-    } else if (infoType === 'neutral') {
-      box.classList.add('infobox--neutral');
-      text.classList.add('infotext--neutral');
-    }
-    setTimeout(() => {
-      viewWrapper.removeChild(box);
-    }, text.innerText.length * 55);
-  }
-}
-const infos = new Infos();
-const showInfo = infos.showInfo.bind(infos);
-
-
-/***/ },
-
 /***/ "./src_out/lazyLoader.js"
 /*!*******************************!*\
   !*** ./src_out/lazyLoader.js ***!
@@ -218,8 +140,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./infos.js */ "./src_out/infos.js");
-
 class Router {
   pages = {};
   constructor(app) {
@@ -243,19 +163,12 @@ class Router {
       this.navigate('loggedoutHP', ['page--landing']);
     } else {
       let wantedpage = frontpath;
-      // let warningTitle;
       const routeinfoEl = document.getElementById('routeinfo');
       if (routeinfoEl) {
         wantedpage = routeinfoEl.textContent;
-        // .split('§')[0];
-        // warningTitle = routeinfoEl.textContent.split('§')[1];
       }
       routeinfoEl.remove();
       this.navigate(wantedpage.slice(1));
-      // if (warningTitle) {
-      //    console.log('warningTitle:', warningTitle);
-      //    showInfo(warningTitle);
-      // }
     }
   }
 
@@ -290,7 +203,7 @@ class Router {
     this.#transit(pageid, wantedPageClasses);
     if (!(pageid in this.pages)) {
       const Module = await __webpack_require__("./src_out/routing lazy recursive ^\\.\\/.*$ referencedExports: default")(`./${pageid}`);
-      const newInst = new Module.default(this.app.appData, this.app.modal, this.app.chart);
+      const newInst = new Module.default();
       this.pages[pageid] = newInst;
     }
     const urlname = pageid === 'loginPage' ? 'login' : pageid;
@@ -344,15 +257,27 @@ var map = {
 		]
 	],
 	"./loginPage": [
-		"./src_out/routing/loginPage.ts",
+		"./src_out/routing/loginPage.js",
 		[
-			"src_out_routing_loginPage_ts"
+			"src_out_routing_loginPage_js"
 		]
 	],
-	"./loginPage.ts": [
-		"./src_out/routing/loginPage.ts",
+	"./loginPage.js": [
+		"./src_out/routing/loginPage.js",
 		[
-			"src_out_routing_loginPage_ts"
+			"src_out_routing_loginPage_js"
+		]
+	],
+	"./loginPage_src/infos": [
+		"./src_out/routing/loginPage_src/infos.js",
+		[
+			"src_out_routing_loginPage_src_infos_js"
+		]
+	],
+	"./loginPage_src/infos.js": [
+		"./src_out/routing/loginPage_src/infos.js",
+		[
+			"src_out_routing_loginPage_src_infos_js"
 		]
 	],
 	"./loginPage_src/inputChecker": [
@@ -529,7 +454,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("85cabbd605e78c57a0c4")
+/******/ 		__webpack_require__.h = () => ("de0163a342d81a83e549")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
