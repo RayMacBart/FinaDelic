@@ -10,3 +10,19 @@ ____
 
 ## timespan enddate include
 The number '86400000' was added to the timespan's end within the check,</br>to cause an inclusion of the end date's full day. 86400000 is the number of milliseconds in a day.</br>Otherwise, it would end at 00:00 at the end date.</br>Now, as it seems, it ends on the day after the enddate at 00:00 (!)
+
+</br>
+</br>
+</br>
+
+___
+___
+## FinaDelic Documentation
+### frontend:
+[frontend architecture](/docs/frontend/architecture.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [special flows](/docs/frontend/special_flows.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [cautionary hints](/docs/frontend/cautionary_hints.md)
+___
+### backend:
+[backend architecture](/docs/backend/architecture.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [auth & security](/docs/backend/auth_and_security.md)
+___
+### general:
+[API communication](/docs/API_communication.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [used tech](/docs/used_tech.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [missing features](/docs/missing.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [known bugs](/docs/known_bugs.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [next steps](/docs/next_steps.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [learnings](/docs/learnings.md)

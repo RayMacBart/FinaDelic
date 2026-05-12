@@ -68,7 +68,7 @@ prod-target: *dist_in/*</br>
 </br>
 </br>
 
-### Selection of Modules, Instances and Methods that are imported/used by multiple modules:
+### <p align="center">A Selection of Modules/Methods that are imported and used by multiple modules:</p>
 ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Sorted by modules. Read each line as: *"...: is imported and used by ..."*)
 ___
 
@@ -101,8 +101,81 @@ ___
 
 </br>
 
-### <p align="center">STATE PROPAGATIONS *(authenticated area)*:</p>
-<p align="center">
+### <p align="center">A SELECTION OF SOME STATE PROPAGATIONS *(authenticated area)*:</p>
+<div style="width: 80%; padding-left: 10%">
 
-**App**-instance @ index.js --> new Router @ *route.js* --> *all **setup()** methods of all pages modules*
-</p>
+#### 
+*<span style="text-decoration: underline">index.js</span>*: &nbsp;
+   **app** = new **App**()</br>
+*<span style="text-decoration: underline">route.js</span>*: &nbsp;
+   **Router**.*constructor*(app)</br>
+*<span style="text-decoration: underline">all page modules @ 'routing/'</span>*: &nbsp;
+   **setup**(app) &nbsp;->&nbsp; *Module*.setup*Module*PageLinks(app)
+___
+#### 
+*<span style="text-decoration: underline">index.js</span>*: &nbsp;
+   **app** = new **App**()</br>
+*<span style="text-decoration: underline">appData.js</span>*: &nbsp;
+   **AppData**.*constructor*(app) &nbsp;->&nbsp; appData.**fetchUserData**(app) &nbsp;->&nbsp; appData.**setBagAmounts**(app.**timespan**)</br>
+*<span style="text-decoration: underline">submitUtils.js</span>*: &nbsp;
+   **recalcBagAmounts**(app.timespan)
+___
+#### 
+*<span style="text-decoration: underline">index.js</span>*: &nbsp;
+   **app** = new **App**()</br>
+*<span style="text-decoration: underline">modal.js</span>*: &nbsp;
+   **Modal**.*constructor*(app.**appData**)</br>
+*<span style="text-decoration: underline">modals_src/modalSubmitAllocator.js</span>*: &nbsp;
+    **ModalSubmitAllocator**.*constructor*(app.appData)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; ==> **1.:** &nbsp; *<span style="text-decoration: underline">modals_src/bagSubmits.js</span>*: &nbsp;**BagSubmits**.*constructor*(app.appData)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . . *<span style="text-decoration: underline">modals_src/submitUtils.js</span>*: &nbsp;
+**SubmitUtils**.*constructor*(app.appData)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . . *<span style="text-decoration: underline">modals_src/chartAdjuster.js</span>*: &nbsp;
+**ChartAdjuster**.*constructor*(app.appData)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; ==> **2.:** &nbsp; *<span style="text-decoration: underline">modals_src/flowSubmits.js</span>*: &nbsp;**FlowSubmits**.*constructor*(app.appData)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . . *<span style="text-decoration: underline">modals_src/submitUtils.js</span>*: &nbsp;
+**SubmitUtils**.*constructor*(app.appData)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . . *<span style="text-decoration: underline">modals_src/chartAdjuster.js</span>*: &nbsp;
+**ChartAdjuster**.*constructor*(app.appData)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; ==> **3.:** &nbsp; *<span style="text-decoration: underline">modals_src/timeSet.js</span>*: &nbsp;**TimeSet**.*constructor*(app.appData)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; ==> **4.:** &nbsp; *<span style="text-decoration: underline">modals_src/chartOps.js</span>*: &nbsp;**ChartOps**.*constructor*(app.appData)</br>
+___
+####
+*<span style="text-decoration: underline">routing/flowPage.js</span>*: &nbsp;
+   FlowPage.**reloadEvent** = new **Event**(*bagReload*)</br>
+*<span style="text-decoration: underline">routing/flowPage_src/toolbar.js</span>*: &nbsp;
+   **Toolbar**.*constructor*(**reloadEvent**)</br>
+*<span style="text-decoration: underline">routing/flowPage_src/toolbarEventHandler.js</span>*: &nbsp;
+    **ToolbarEventHandler**.*constructor*(reloadEvent)</br>
+    ToolbarEventHandler.**modal**.reloadEvent = reloadEvent</br>
+*<span style="text-decoration: underline">modal.js</span>*: &nbsp;
+   *injection into the undefined **reloadEvent** of **Modal*** </br>
+*<span style="text-decoration: underline">modals_src/modalSubmitAllocator.js</span>*: &nbsp;
+   **ModalSubmitAllocator**.prepare(reloadEvent)</br>
+&nbsp; &nbsp; &nbsp; &nbsp; ==> **1.:** ModalSubmitAllocator.**bagSubmits**.reloadEvent = reloadEvent</br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . . *<span style="text-decoration: underline">modals_src/bagSubmits.js</span>*: &nbsp;
+*injection into the undefined **reloadEvent** of **BagSubmits***</br>
+&nbsp; &nbsp; &nbsp; &nbsp; ==> **2.:** ModalSubmitAllocator.**flowSubmits**.reloadEvent = reloadEvent</br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . . *<span style="text-decoration: underline">modals_src/flowSubmits.js</span>*: &nbsp;
+*injection into the undefined **reloadEvent** of **FlowSubmits***</br>
+&nbsp; &nbsp; &nbsp; &nbsp; ==> **3.:** ModalSubmitAllocator.**chartOps**.reloadEvent = reloadEvent</br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . . *<span style="text-decoration: underline">modals_src/chartOps.js</span>*: &nbsp;
+*injection into the undefined **reloadEvent** of **ChartOps***</br>
+___
+</div>
+
+</br>
+</br>
+</br>
+
+___
+___
+## FinaDelic Documentation
+### frontend:
+[frontend architecture](/docs/frontend/architecture.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [special flows](/docs/frontend/special_flows.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [cautionary hints](/docs/frontend/cautionary_hints.md)
+___
+### backend:
+[backend architecture](/docs/backend/architecture.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [auth & security](/docs/backend/auth_and_security.md)
+___
+### general:
+[API communication](/docs/API_communication.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [used tech](/docs/used_tech.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [missing features](/docs/missing.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [known bugs](/docs/known_bugs.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [next steps](/docs/next_steps.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [learnings](/docs/learnings.md)
