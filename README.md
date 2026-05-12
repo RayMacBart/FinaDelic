@@ -8,7 +8,7 @@
 ### This is a webapp that lets users organize and visualize their incomes and expenses. It is for private purposes only.
 </br>
 
-#### &nbsp; Most of the features are implemented already. The app is not finished yet, though. If you want, you can check out the [still missing features](docs/missing.md).
+#### Most of the features are implemented already. The app is not finished yet, though. If you want, you can check out the [still missing features](docs/missing.md).
 </br>
 
 *There are no automatic synchronizations with other services - users have to make their entries manually.* </br>*BUT: adding transactions is **easy** - FinaDelic is built for **fast** day to day usage.*</br>*Advantage of manual entries:* &nbsp;*Ensures maximum privacy.*
@@ -79,4 +79,4 @@ ___
 [backend architecture](/docs/backend/architecture.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [auth & security](/docs/backend/auth_and_security.md)
 ___
 ### general:
-[API communication](/docs/API_communication.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [used tech](/docs/used_tech.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [missing features](/docs/missing.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [known bugs](/docs/known_bugs.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [next steps](/docs/next_steps.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [learnings](/docs/learnings.md)
+[readme & features](/README.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [API communication](/docs/API_communication.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [used tech](/docs/used_tech.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [missing features](/docs/missing.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [known bugs](/docs/known_bugs.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [next steps](/docs/next_steps.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [learnings](/docs/learnings.md)
