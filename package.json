@@ -7,6 +7,7 @@
     "build": "webpack --config webpack.config.js --mode development",
     "build:prod": "webpack --config webpack.config.prod.js --mode production",
     "sass": "sass ./style/main.scss ./dist/main.css --watch",
+    "sass-in": "sass ./style/main.scss ./public/main_in.css --watch",
     "sass:prod": "sass ./style/main.scss ./public/wholeApp/main.css --style=compressed",
     "serve": "webpack-dev-server --hot",
     "start": "nodemon app.js",

@@ -30,7 +30,7 @@ class FlowPage {
   constructor(appData, modal, chart) {
     this.surface = new _flowPage_src_flowPageSurface_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
     this.appData = appData;
-    this.reloadEvent = new Event('bagReload'); // see @ docs/frontend/special_flows
+    this.reloadEvent = new Event('bagReload');
     this.toolbar = new _flowPage_src_toolbar_js__WEBPACK_IMPORTED_MODULE_4__["default"](appData, this.reloadEvent, modal, chart);
     this.baglist = new _flowPage_src_baglist_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
     this.flowlist = new _flowPage_src_flowlist_js__WEBPACK_IMPORTED_MODULE_2__["default"]();

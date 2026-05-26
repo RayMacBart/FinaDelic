@@ -38,14 +38,16 @@
          <h4 class="workspace-info workspace-info__pre-username-text">SIGNED IN AS: &nbsp;</h4> 
          <h4 class="workspace-info workspace-info__username" id="username"></h4>
       </hgroup>
-      <!-- <div class="icon-container">
-         <img class="icon icon--logout" src="./assets/icons/profile.svg" data-icon-desc="profile" alt="profile icon" />
-         <div class="icon-tap-area icon-tap-area--loggedinHP" id="profile-icon-tap-area"></div>
-      </div> -->
-      <div class="icon-container">
-         <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
-         <div class="icon-tap-area icon-tap-area--loggedinHP" id="logout-icon-tap-area"></div>
-      </div>
+      <hgroup class="rightIconsWrapper--loggedin-HP">
+         <div class="icon-container">
+            <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+            <div class="icon-tap-area icon-tap-area--loggedinHP" id="logout-icon-tap-area"></div>
+         </div>
+         <div class="icon-container">
+            <img class="icon icon--logout" src="./assets/icons/profile.svg" data-icon-desc="profile" alt="profile icon" />
+            <div class="icon-tap-area icon-tap-area--loggedinHP" id="profile-icon-tap-area"></div>
+         </div>
+      </hgroup>
    </nav>
    <div class="margin-container">
       <header class="header header--loggedin">
@@ -230,15 +232,17 @@
 </template>
 
 
-<template id="profile">
+<template id="profilePage">
+   <div class="compPage compPage__background"></div>
    <nav class="loginBackButton-container">
       <div class="loginBackButton"></div>
    </nav>
-   <dl class="workspace-info">
-      <dt class="workspace-info workspace-info__pre-username-text">WORKSPACE&nbsp; OF </dt> 
-      <dd class="workspace-info workspace-info__username" id="username-workspace"></dd>
-   </dl>
-   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <h2 class="undertitle undertitle--profileTitle">USER PROFILE</h2>
+      <h2 id="username-profile"></h2>
+      <p id="deleteLink">DELETE ACCOUNT</p>
+      <p id="waitForSettingsHint">...more profile settings will be added soon...</p>
+   </div>
    <div class="footer-margin"></div>
 </template>
 

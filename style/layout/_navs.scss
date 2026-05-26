@@ -52,3 +52,13 @@
       // }
    }
 }
+
+.rightIconsWrapper {
+   &--loggedin-HP {
+      display: flex;
+      justify-content: space-between;
+      // width: calc(20dvw - 10px);
+      width: 20dvw;
+   }
+
+}

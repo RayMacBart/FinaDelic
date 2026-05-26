@@ -2,6 +2,7 @@ import BagSubmits from "./bagSubmits.js";
 import FlowSubmits from "./flowSubmits.js";
 import TimeSet from "./timeSet.js"
 import ChartOps from "./chartOps.js";
+import AccountSubmits from "./accountSubmits.js";
 
 
 class ModalSubmitAllocator {
@@ -11,6 +12,7 @@ class ModalSubmitAllocator {
       this.flowSubmits = new FlowSubmits(appData);
       this.timeSet = new TimeSet(appData);
       this.chartOps = new ChartOps(appData);
+      this.accountSubmits = new AccountSubmits();
    }
 
    prepare(currelems, modType, bagPath, flowchange, reloadEvent) {
@@ -67,7 +69,9 @@ class ModalSubmitAllocator {
          this.chartOps.add2chart();
       } else if (modType === 'removeFromChart') {
          this.chartOps.removeFromChart();
-      } 
+      } else if (modType === 'confirmAccDel') {
+         this.accountSubmits.accountDelete();
+      }
    }
 }
 

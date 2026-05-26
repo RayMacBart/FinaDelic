@@ -628,7 +628,8 @@ class Infos {
       'invalidData1': 'WARNING!\n\nThe server received invalid data during following process:\n\n',
       'invalidData2': "\n\nHence it didn't update the database accordingly!",
       'nameCollisionError1': "During the following operation:\n\n",
-      'nameCollisionError2': "\n\n... a name collision occurred.\nThe boxname is already taken.\nPlease try another one."
+      'nameCollisionError2': "\n\n... a name collision occurred.\nThe boxname is already taken.\nPlease try another one.",
+      'couldNotDelAccount': "Your account was not deleted!\nThis service is currently unavailable.\nPlease try again later."
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
     };
   }
@@ -695,7 +696,6 @@ class LazyLoader {
     this.parser = new DOMParser();
   }
   importSVG = async (svgFilename, wrapperCSSclass, ownCSSclasses) => {
-    // (?)[../docs/methodAsProperty.txt]
     const res = await fetch(`/assets/${svgFilename}.svg`);
     const svgText = await res.text();
     const svg = this.parser.parseFromString(svgText, 'image/svg+xml').documentElement;
@@ -1037,9 +1037,55 @@ const modalContents = {
     'end-date': true,
     'date-submit-button': 'SET',
     'cancel-button': 'CANCEL'
+  },
+  'confirmAccDel': {
+    'text-1': 'CAUTION!',
+    'questionmark': '?',
+    'text-2': 'This deletes your account!',
+    'text-3': '(as soon as possible)',
+    'text-4': 'ARE YOU SURE?',
+    'submit-button': 'YES',
+    'cancel-button': 'NO'
   }
 };
 
+
+/***/ },
+
+/***/ "./src_in/modals_src/accountSubmits.js"
+/*!*********************************************!*\
+  !*** ./src_in/modals_src/accountSubmits.js ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
+
+class AccountSubmits {
+  constructor() {
+    this.CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+  }
+  async accountDelete() {
+    const response = await fetch('/userdata', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'CSRF-Token': this.CSRFToken
+      }
+      //  body: JSON.stringify(packet)
+    });
+    if (response.status === 503) {
+      (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('couldNotDelAccount', 'warning');
+    } else if (response.status === 200) {
+      window.location.href = '/login';
+    }
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AccountSubmits);
 
 /***/ },
 
@@ -1680,6 +1726,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _flowSubmits_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./flowSubmits.js */ "./src_in/modals_src/flowSubmits.js");
 /* harmony import */ var _timeSet_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./timeSet.js */ "./src_in/modals_src/timeSet.js");
 /* harmony import */ var _chartOps_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chartOps.js */ "./src_in/modals_src/chartOps.js");
+/* harmony import */ var _accountSubmits_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./accountSubmits.js */ "./src_in/modals_src/accountSubmits.js");
+
 
 
 
@@ -1690,6 +1738,7 @@ class ModalSubmitAllocator {
     this.flowSubmits = new _flowSubmits_js__WEBPACK_IMPORTED_MODULE_1__["default"](appData);
     this.timeSet = new _timeSet_js__WEBPACK_IMPORTED_MODULE_2__["default"](appData);
     this.chartOps = new _chartOps_js__WEBPACK_IMPORTED_MODULE_3__["default"](appData);
+    this.accountSubmits = new _accountSubmits_js__WEBPACK_IMPORTED_MODULE_4__["default"]();
   }
   prepare(currelems, modType, bagPath, flowchange, reloadEvent) {
     this.flowSubmits.flowchange = flowchange;
@@ -1743,6 +1792,8 @@ class ModalSubmitAllocator {
       this.chartOps.add2chart();
     } else if (modType === 'removeFromChart') {
       this.chartOps.removeFromChart();
+    } else if (modType === 'confirmAccDel') {
+      this.accountSubmits.accountDelete();
     }
   }
 }
@@ -2144,7 +2195,6 @@ class Router {
     scrollTo(0, 0);
   }
   navigate = async (pageid, wantedPageClasses = [], popstate = false) => {
-    // (?)[../docs/methodAsProperty.txt]
     this.#transit(pageid, wantedPageClasses);
     if (!(pageid in this.pages)) {
       const Module = await __webpack_require__("./src_in/routing lazy recursive ^\\.\\/.*\\.js$ referencedExports: default")(`./${pageid}.js`);
@@ -2154,6 +2204,8 @@ class Router {
     let urlname = pageid;
     if (['flowPage', 'chartPage'].includes(urlname)) {
       urlname = urlname === 'flowPage' ? 'workspace' : 'chart';
+    } else if (urlname === 'profilePage') {
+      urlname = 'profile';
     }
     // if (!popstate) {
     if (pageid === 'loggedinHP') {
@@ -2308,6 +2360,12 @@ var map = {
 			"src_in_routing_privacy_js"
 		]
 	],
+	"./profilePage.js": [
+		"./src_in/routing/profilePage.js",
+		[
+			"src_in_routing_profilePage_js"
+		]
+	],
 	"./terms.js": [
 		"./src_in/routing/terms.js",
 		[
@@ -2440,7 +2498,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("4e42a3bb1dce56e02866")
+/******/ 		__webpack_require__.h = () => ("b47ea41a3aa159159107")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

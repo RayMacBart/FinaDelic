@@ -16,7 +16,7 @@ const CusVal = require('./customValidators');
 const whiteListChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890äöüÄÖÜß ?!,.-/()';
 
 
-router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login'], GenPages.getPage);
+router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login', '/profile'], GenPages.getPage);
 
 router.get('/', GenPages.getRootPage);   // 'get' (& all method-named) look for exact route name - only 'use' for match of beginning!
 
@@ -34,6 +34,8 @@ router.post('/signin',
 router.get('/logout', UserCTRL.getLogout);
 
 router.get('/userdata', DataCTRL.getUserData);
+
+router.delete('/userdata', DataCTRL.deleteAccount);
 
 router.get('/time', TimeCTRL.getTime);
 

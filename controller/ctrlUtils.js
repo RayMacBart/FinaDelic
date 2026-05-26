@@ -8,11 +8,13 @@ const cry = require('../crypt');
 
 const getAdjustedRouteName = (reqPath) => {
    let routename = reqPath;
-   if (['/workspace', '/login', '/chart'].includes(routename)) {
+   if (['/workspace', '/login', '/chart', '/profile'].includes(routename)) {
       if (routename === '/workspace') {
          routename = '/flowPage';
       } else if (routename === '/chart') {
          routename = '/chartPage';
+      } else if (routename === '/profile') {
+         routename = '/profilePage';
       } else {
          routename = '/loginPage';
       }

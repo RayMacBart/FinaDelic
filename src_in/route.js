@@ -72,7 +72,7 @@ class Router {
       scrollTo(0, 0);
    }
 
-   navigate = async(pageid, wantedPageClasses=[], popstate=false) => {  // (?)[../docs/methodAsProperty.txt]
+   navigate = async(pageid, wantedPageClasses=[], popstate=false) => {
       this.#transit(pageid, wantedPageClasses);
       
       if (!(pageid in this.pages)) {
@@ -83,6 +83,8 @@ class Router {
       let urlname = pageid;
       if (['flowPage', 'chartPage'].includes(urlname)) {
          urlname = urlname === 'flowPage' ? 'workspace' : 'chart';
+      } else if (urlname === 'profilePage') {
+         urlname = 'profile';
       }
       // if (!popstate) {
       if (pageid === 'loggedinHP') {

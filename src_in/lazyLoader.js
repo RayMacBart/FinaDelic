@@ -6,7 +6,7 @@ class LazyLoader {
    }
    
 
-   importSVG = async(svgFilename, wrapperCSSclass, ownCSSclasses) => {  // (?)[../docs/methodAsProperty.txt]
+   importSVG = async(svgFilename, wrapperCSSclass, ownCSSclasses) => {
       const res = await fetch(`/assets/${svgFilename}.svg`);
       const svgText = await res.text();
       const svg = this.parser.parseFromString(svgText, 'image/svg+xml').documentElement;

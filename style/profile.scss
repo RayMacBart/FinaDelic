@@ -1,0 +1,20 @@
+#username-profile {
+   color: #3B489C;
+   font-weight: 480;
+   height: 100%;
+   font-size: 1.3rem;
+   text-transform: uppercase;
+   padding-bottom: 1.8rem;
+}
+
+#deleteLink {
+   text-decoration: underline;
+   color: #D33;
+   cursor: pointer;
+}
+
+#waitForSettingsHint {
+   padding-top: 1rem;
+   color: grey;
+   opacity: 0.7;
+}

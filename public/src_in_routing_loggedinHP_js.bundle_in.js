@@ -15,6 +15,7 @@ class LoggedinHP {
   #setupLoggedinHPLinks(app) {
     // document.getElementById('logout-icon-tap-area').addEventListener('click', () => app.router.navigate('loggedoutHP', ['page--landing']));
     document.getElementById('logout-icon-tap-area').addEventListener('click', () => window.location.href = '/logout');
+    document.getElementById('profile-icon-tap-area').addEventListener('click', () => app.router.navigate('profilePage'));
     document.querySelector('a').addEventListener('click', e => {
       e.preventDefault();
       app.router.navigate('flowPage');

@@ -38,14 +38,16 @@
          <h4 class="workspace-info workspace-info__pre-username-text">SIGNED IN AS: &nbsp;</h4> 
          <h4 class="workspace-info workspace-info__username" id="username"></h4>
       </hgroup>
-      <!-- <div class="icon-container">
-         <img class="icon icon--logout" src="./assets/icons/profile.svg" data-icon-desc="profile" alt="profile icon" />
-         <div class="icon-tap-area icon-tap-area--loggedinHP" id="profile-icon-tap-area"></div>
-      </div> -->
-      <div class="icon-container">
-         <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
-         <div class="icon-tap-area icon-tap-area--loggedinHP" id="logout-icon-tap-area"></div>
-      </div>
+      <hgroup class="rightIconsWrapper--loggedin-HP">
+         <div class="icon-container">
+            <img class="icon icon--logout" src="./assets/icons/logout.svg" data-icon-desc="logout" alt="logout icon" />
+            <div class="icon-tap-area icon-tap-area--loggedinHP" id="logout-icon-tap-area"></div>
+         </div>
+         <div class="icon-container">
+            <img class="icon icon--logout" src="./assets/icons/profile.svg" data-icon-desc="profile" alt="profile icon" />
+            <div class="icon-tap-area icon-tap-area--loggedinHP" id="profile-icon-tap-area"></div>
+         </div>
+      </hgroup>
    </nav>
    <div class="margin-container">
       <header class="header header--loggedin">
@@ -230,15 +232,18 @@
 </template>
 
 
-<template id="profile">
+<template id="profilePage">
    <nav class="loginBackButton-container">
       <div class="loginBackButton"></div>
    </nav>
-   <dl class="workspace-info">
-      <dt class="workspace-info workspace-info__pre-username-text">WORKSPACE&nbsp; OF </dt> 
-      <dd class="workspace-info workspace-info__username" id="username-workspace"></dd>
-   </dl>
-   <div class="compPage compPage__background"></div>
+   <div class="margin-container">
+      <h2 class="undertitle"><strong style="font-weight: 420; margin: auto;">USER PROFILE</strong></h2>
+      <dl class="workspace-info">
+         <dd class="workspace-info workspace-info__username" id="username-workspace"></dd>
+      </dl>
+      <div class="compPage compPage__background"></div>
+      <a href="#page" id="deleteLink">DELETE ACCOUNT</a>
+   </div>
    <div class="footer-margin"></div>
 </template>
 

@@ -9,7 +9,7 @@ class GeneralPages {
       const [htmlPath, authState] = await Util.checkProperHP(req);
       if (authState === 'in' && req.path === '/login') {
          return res.redirect('/');
-      } else if (['/workspace', '/chart'].includes(req.path) && (authState === 'out')) {
+      } else if (['/workspace', '/chart', '/profile'].includes(req.path) && (authState === 'out')) {
          return res.redirect('/login');
       } else {
          const html = await Util.getInjectedHTML(req, htmlPath, true);

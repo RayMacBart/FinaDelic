@@ -26,7 +26,7 @@ class ChartPage {
             }
          }
       }
-                     }
+   }
 
    constructor(appData, modal, chart) {
       this.appData = appData;

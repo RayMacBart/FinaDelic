@@ -92,6 +92,15 @@ const modalContents = {
          'end-date': true,
          'date-submit-button': 'SET',
          'cancel-button': 'CANCEL'
+      },
+      'confirmAccDel': {
+         'text-1': 'CAUTION!',
+         'questionmark': '?',
+         'text-2': 'This deletes your account!',
+         'text-3': '(as soon as possible)',
+         'text-4': 'ARE YOU SURE?',
+         'submit-button': 'YES',
+         'cancel-button': 'NO'
       }
    }
 

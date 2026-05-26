@@ -26,7 +26,8 @@ class Infos {
       'invalidData1': 'WARNING!\n\nThe server received invalid data during following process:\n\n',
       'invalidData2': "\n\nHence it didn't update the database accordingly!",
       'nameCollisionError1': "During the following operation:\n\n",
-      'nameCollisionError2': "\n\n... a name collision occurred.\nThe boxname is already taken.\nPlease try another one."
+      'nameCollisionError2': "\n\n... a name collision occurred.\nThe boxname is already taken.\nPlease try another one.",
+      'couldNotDelAccount': "Your account was not deleted!\nThis service is currently unavailable.\nPlease try again later."
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }
