@@ -56,7 +56,7 @@ app.use((req, res, next) => {
 
 
 app.use((req, res, next) => {
-   if (req.path !== '/signin' && req.path !== '/signup') {
+   if (req.path !== '/signin' && req.path !== '/signup' && req.path !== '/PWresetMail' && req.path !== '/PWreset') {
       return csrfProtection(req, res, next);
    }
    next();

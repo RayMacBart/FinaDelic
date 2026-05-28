@@ -9,6 +9,7 @@ class LoginPage {
    constructor() {
       this.resetModal = document.getElementById('reset-modal');
       this.inputChecker = new InputChecker();
+      this.submitResetFunc = this.#submitReset.bind(this);
    }
    
 
@@ -33,18 +34,36 @@ class LoginPage {
    }
 
 
-   #submitReset(event) {
+   async #submitReset(event) {
+      console.log('REQUESTED PASSWORD RESET EMAIL!');
+      document.getElementById('resetSubmitButton').removeEventListener('click', this.submitResetFunc);
       event.preventDefault();
       const mailInput = event.target.form[0].value;
       const isValidEmail = this.inputChecker.emailRX.test(mailInput);
       if (isValidEmail) {
-
+         const response = await fetch('/PWresetMail', {
+                                       method: 'POST',
+                                       body: JSON.stringify({email: mailInput}),
+                                       headers: {
+                                          'Content-Type': 'application/json',
+                                       }
+                                    }
+         );
+         if (response.status === 409) {
+            this.resetModal.close();
+            showInfo('emailNotFound', 'warning');
+         } else if (response.status === 502) {
+            this.resetModal.close();
+            showInfo('emailNotWorking', 'warning');
+         } else if (response.status === 201) {
+            this.resetModal.close();
+            showInfo('resetEmailSent', 'warning');
+         }
          // POST REQUEST WITH MAILINPUT TO BACKEND -
          // IF EMAIL IS FOUND AT BACKEND - THEN SEND THE EMAIL.
          // ELSE: CONSIDER CREATING ANOTHER SHOWINFO-BOX: EMAIL NOT FOUND!
          
-         this.resetModal.close();
-         showInfo('emailSent');
+         
       } else {
          document.getElementById('invalMailWarn').style.display = 'block';
       }
@@ -55,7 +74,7 @@ class LoginPage {
       this.resetModal.showModal();
       document.getElementById('invalMailWarn').style.display = 'none';
       document.getElementById('reset-modal-input').value = '';
-      document.getElementById('resetSubmitButton').addEventListener('click', this.#submitReset.bind(this));
+      document.getElementById('resetSubmitButton').addEventListener('click', this.submitResetFunc);
    }
 
 

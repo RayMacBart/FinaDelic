@@ -11,12 +11,13 @@ const FlowCTRL = require('./controller/flowCTRL');
 const DataCTRL = require('./controller/dataCTRL');
 const TimeCTRL = require('./controller/timeCTRL');
 const ChartCTRL = require('./controller/chartCTRL');
+const MailCTRL = require('./controller/mailCTRL');
 const CusVal = require('./customValidators');
 
 const whiteListChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890äöüÄÖÜß ?!,.-/()';
 
 
-router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login', '/profile'], GenPages.getPage);
+router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login', '/profile', '/PWresetPage', '/confirmation'], GenPages.getPage);
 
 router.get('/', GenPages.getRootPage);   // 'get' (& all method-named) look for exact route name - only 'use' for match of beginning!
 
@@ -154,6 +155,18 @@ router.post('/moveFlow',
                checkExact(),
                FlowCTRL.postMoveFlow
 );
+
+router.post('/PWresetMail',
+               body('email').trim().isEmail().normalizeEmail().withMessage('Invalid Email!'),
+               MailCTRL.postPWresetMail
+);
+
+router.post('/PWreset',
+               body('email', 'Invalid Email!').trim().isEmail().normalizeEmail(),
+               body('password', 'The entered password is too weak!').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape(),
+               body('repeat').trim(),
+               MailCTRL.postPWreset
+)
 
 
 

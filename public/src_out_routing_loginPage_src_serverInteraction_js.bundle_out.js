@@ -33,10 +33,13 @@ class Infos {
       'checkBoxes': 'You must agree to the Terms & Conditions and confirm the Privacy Policy to continue.',
       'taken': 'This email address is already registered!',
       'invalidPW': 'Invalid Password!\nTry a stronger one.',
-      'emailSent': 'We sent you an verification email.\nPlease check your mailbox.',
+      'veriEmailSent': 'We sent you an verification email.\nPlease check your mailbox.\n\nYou may also want to check your spam folder.',
+      'resetEmailSent': "We sent you an email.\nPlease click the link inside\nto reset your password.\nYou can't find the email?\nThen you may also want to check your spam folder.",
       'failedSignin': 'Invalid email or password!',
       'ValErr1': 'Invalid input in the field: ',
-      'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field."
+      'ValErr2': "The server couldn't accept what you entered there.\nPlease try again and enter something different in this field.",
+      'emailNotFound': "The specified email address\nis not registered at FinaDelic!",
+      'emailNotWorking': "We are sorry!\nThe email wasn't sent because\nthe connection to our SMTP-Host failed.\nPlease try again later."
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
     };
   }
@@ -132,9 +135,14 @@ class SIA {
     } else if (status === 422) {
       const body = await response.json();
       (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('ValErr', 'warning', null, body.path);
-    } else if (status === 303) {
-      window.location.href = '/';
+    } else if (status === 502) {
+      (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('emailNotWorking', 'warning');
+    } else if (status === 201) {
+      (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('veriEmailSent');
     }
+    // else if (status === 303) {
+    //    window.location.href = '/';
+    // }
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SIA);

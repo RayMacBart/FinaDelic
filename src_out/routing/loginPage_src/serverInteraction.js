@@ -39,9 +39,14 @@ class SIA {
       } else if (status === 422) {
          const body = await response.json();
          showInfo('ValErr', 'warning', null, body.path);
-      } else if (status === 303) {
-         window.location.href = '/';
-      }
+      } else if (status === 502) {
+         showInfo('emailNotWorking', 'warning');
+      } else if (status === 201) {
+         showInfo('veriEmailSent');
+      } 
+      // else if (status === 303) {
+      //    window.location.href = '/';
+      // }
    }
 }
 

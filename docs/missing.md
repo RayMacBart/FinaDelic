@@ -2,9 +2,9 @@
 - production-ready Terms & Conditions
 - production-ready Privacy Policy
 - e-mail verification upon sign up
-- password reset functionality
-- user account deletion feature
 - data backups
+- time until signout user config feature!
+- shown name user config feature
 - aria roles
 - help/tutorial page
 - 'rolling' enddate config. switch for users

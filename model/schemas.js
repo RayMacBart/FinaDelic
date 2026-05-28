@@ -1,3 +1,4 @@
+const { String } = require('core-js');
 const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
 const Model = Mongoose.model;
@@ -14,6 +15,12 @@ const userSchema = new Schema({
    pwhash: {
       type: String,
       required: true
+   },
+   mailLinkTokenHash: {
+      type: String
+   },
+   mailLinkExp: {
+      type: Number
    },
    data: {
       type: Schema.Types.ObjectId,
@@ -91,8 +98,24 @@ const flowSchema = new Schema({
    }
 });
 
+const tokenSchema = new Schema({
+   val: {
+      type: String
+   },
+   exp: {
+      type: Number
+   },
+   emailHash: {
+      type: String
+   },
+   pw: {
+      type: String
+   }
+});
+
 
 exports.Users = Model('user', userSchema);
 exports.Datas = Model('data', dataSchema);
 exports.Bags = Model('bag', bagSchema);
 exports.Flows = Model('flow', flowSchema);
+exports.Tokens = Model('token', tokenSchema);

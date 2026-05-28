@@ -233,16 +233,15 @@
 
 
 <template id="profilePage">
+   <div class="compPage compPage__background"></div>
    <nav class="loginBackButton-container">
       <div class="loginBackButton"></div>
    </nav>
    <div class="margin-container">
-      <h2 class="undertitle"><strong style="font-weight: 420; margin: auto;">USER PROFILE</strong></h2>
-      <dl class="workspace-info">
-         <dd class="workspace-info workspace-info__username" id="username-workspace"></dd>
-      </dl>
-      <div class="compPage compPage__background"></div>
-      <a href="#page" id="deleteLink">DELETE ACCOUNT</a>
+      <h2 class="undertitle undertitle--profileTitle">USER PROFILE</h2>
+      <h2 id="username-profile"></h2>
+      <p id="deleteLink">DELETE ACCOUNT</p>
+      <p id="waitForSettingsHint">...more profile settings will be added soon...</p>
    </div>
    <div class="footer-margin"></div>
 </template>

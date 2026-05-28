@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="author" content="Reinhard Höbart"/>
+   <meta name="copyright" content="Reinhard Höbart 2026"/>
+   <meta name="description" content="FinaDelic - personal finance manager. Easy to understand and super customizable. Design your own, best possible overview - and master your money like the pros!"/>
+   <meta http-equiv="cache-control" content="no-cache"/>   <!-- could make sense if caching is self handled within PWA or HTML is changed very frequently -->
+   <title>FinaDelic</title>
+   <link rel="icon" type="image/svg+xml" href="./assets/FinaDelic Logo Hero.svg">
+   <style>
+      @font-face {
+      font-family: "Inter";
+      src: url("fonts/Inter/InterVariable.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+      }
+      @font-face {
+      font-family: "Inter";
+      src: url("fonts/Inter/InterVariable-Italic.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: italic;
+      font-display: swap;
+      }
+      @font-face {
+      font-family: "Commissioner";
+      src: url("fonts/Commissioner/CommissionerVariable.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+      }
+      @font-face {
+      font-family: "Commissioner";
+      src: url("fonts/Commissioner/CommissionerVariable-Italic.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: italic;
+      font-display: swap;
+      }
+      *, *::before, *::after {
+      box-sizing: border-box;
+      }
+
+      * {
+      margin: 0;
+      padding: 0;
+      font-size: 100%;
+      vertical-align: baseline;
+      cursor: default;
+      }
+
+      html {
+      height: 100%;
+      font-size: 1em;
+      }
+      @media (min-width: 576px) {
+      html {
+         font-size: 1.1em;
+      }
+      }
+      @media (min-width: 768px) {
+      html {
+         font-size: 1.2em;
+      }
+      }
+      @media (min-width: 992px) {
+      html {
+         font-size: 1.3em;
+      }
+      }
+      @media (min-width: 1200px) {
+      html {
+         font-size: 1.4em;
+      }
+      }
+      @media (min-width: 1400px) {
+      html {
+         font-size: 1.5em;
+      }
+      }
+
+      body {
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+      font-weight: 500;
+      font-style: normal;
+      font-family: "Inter", sans-serif;
+      }
+      @media (max-width: 768px) {
+      body {
+         min-height: 100dvh;
+      }
+      }
+
+      em {
+      font-style: normal;
+      }
+
+      .view-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: #F7F8FD;
+      }
+      @media screen {
+      @media (orientation: portrait) or (min-width: 992px) {
+         .view-wrapper {
+            min-height: 100%;
+         }
+      }
+      }
+
+      .page {
+      flex-grow: 1;
+      background: #F7F8FD;
+      }
+      .page--landing {
+      background: linear-gradient(180deg, rgba(13, 26, 115, 0.5) 0%, rgba(213, 218, 246, 0.2) 11%, #F7F8FD 100%), #F7F8FD;
+      }
+
+      .margin-container {
+      width: 70%;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      }
+      @media (max-width: 1200px) {
+      .margin-container {
+         width: 75%;
+      }
+      }
+      @media (max-width: 992px) {
+      .margin-container {
+         width: 80%;
+      }
+      }
+      @media (max-width: 768px) {
+      .margin-container {
+         width: 85%;
+      }
+      }
+      @media (max-width: 576px) {
+      .margin-container {
+         width: 90%;
+      }
+      }
+      @media (max-width: 432px) {
+      .margin-container {
+         width: 95%;
+      }
+      }
+      @media (max-width: 360px) {
+      .margin-container {
+         width: 98%;
+      }
+      }
+
+      .form {
+      border-width: 0.0625rem;
+      width: 88dvw;
+      margin-top: 0.35rem;
+      margin-bottom: 3rem;
+      padding: 0 1rem;
+      border-style: solid;
+      border-radius: 0.6rem;
+      box-shadow: 0 0.125rem 0.3125rem rgba(40, 58, 176, 0.5);
+      }
+
+      .form--sign-in {
+      background-color: #F6FEF8;
+      border-color: #008017;
+      }
+
+      .form--sign-up {
+      background-color: #FCF7F7;
+      border-color: #B20000;
+      }
+
+      @media (min-width: 430px) {
+      .form {
+         padding-top: 1rem;
+         width: 24rem;
+      }
+      }
+
+      .input-wrap {
+      vertical-align: middle;
+      margin-top: 1.2rem;
+      margin-bottom: 1rem;
+      }
+
+      .loginput-label {
+      display: block;
+      width: 4.7rem;
+      margin: auto;
+      font-family: 'Commissioner', sans-serif;
+      font-weight: 475;
+      color: rgb(17, 9, 38);
+      text-align: center;
+      letter-spacing: -0.03rem;
+      }
+
+      @media (min-width: 430px) {
+      .loginput-label {
+         display: inline-block;
+      }
+      }
+
+      @media (min-width: 1400px) {
+      .loginput-label {
+         font-size: 22.4px;
+      }
+      }
+
+      .loginput {
+      display: block;
+      width: 100%;
+      margin-top: 0.15rem;
+      overflow: hidden;
+      padding: 0.16rem 0.29rem 0.32rem 0.55rem;
+      font-size: 1rem;
+      font-family: 'Commissioner', sans-serif;
+      color: #232B5C;
+      letter-spacing: -0.05rem;
+      border-color: #273AB0;
+      border-style: solid;
+      border-width: 0.08rem;
+      border-radius: 0.3rem;
+      box-shadow: 0.0625rem 0.0625rem 0.125rem rgba(31, 36, 71, 0.25),
+                  0 0 0.25rem rgba(39, 58, 176, 0.3) inset;
+      }
+
+      @media (min-width: 430px) {
+      .loginput {
+         display: inline-block;
+         width: 70%;
+      }
+      }
+
+      @media (min-width: 1200px) {
+      .loginput {
+         padding: 3.5px 7px 7px 11.5px;
+         font-size: 20.8px;
+      }
+      }
+
+      .login-button {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 530;
+      letter-spacing: 0.015rem;
+      border-style: solid;
+      margin: 1.4rem auto 1.4rem auto;
+      border-width: 0.1rem;
+      border-radius: 0.7rem;
+      padding: 0.75rem 1.25rem;
+      box-shadow: 0 0 0.375rem rgba(38, 42, 64, 0.35) inset,
+                  0 0.0625rem 0.25rem rgba(28, 41, 125, 0.5);
+      background-color: rgba(242, 244, 252, 0.5);
+      border-color: #273AB0;
+      color: #273AB0;
+      }
+
+      @media (min-width: 992px) {
+      .login-button {
+         font-size: 21.12px;
+         padding: 14.4px 24px;
+      }
+      }
+
+      .login-button:hover {
+      background-color: rgb(248, 250, 255);
+      color: #001285;
+      border-color: #001497;
+      font-weight: 570;
+      box-shadow: 0 0 0.2rem rgba(38, 42, 64, 0.2) inset,
+                  0 0.0625rem 0.25rem rgba(28, 41, 125, 0.2);
+      }
+
+      .signup-header {
+      color: #D14747;
+      width: fit-content;
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin: 1.5rem auto 0.3rem auto;
+      }
+
+      @media (min-width: 430px) {
+      .signup-header {
+         margin: 0.3rem auto;
+      }
+      }
+
+      p {
+      display: none;
+      color: rgb(255, 99, 99);
+      text-shadow: 0.1rem 0.1rem 0.1rem rgba(15, 0, 18, 0.8),
+                     -0.1rem -0.1rem 0.1rem rgba(15, 0, 18, 0.8),
+                     -0.1rem 0.1rem 0.1rem rgba(15, 0, 18, 0.8),
+                     0.1rem -0.1rem 0.1rem rgba(15, 0, 18, 0.8);
+      }
+
+      #successInfo {
+         display: none;
+         color: rgb(30, 180, 30);
+         font-weight: 800;
+         font-size: 2rem;
+         margin-top: 5rem;
+         text-shadow: 0.1rem 0.1rem 0.1rem rgba(15, 0, 18, 0.8),
+                     -0.1rem -0.1rem 0.1rem rgba(15, 0, 18, 0.8),
+                     -0.1rem 0.1rem 0.1rem rgba(15, 0, 18, 0.8),
+                     0.1rem -0.1rem 0.1rem rgba(15, 0, 18, 0.8);
+      }
+   </style>
+</head>
+
+<body>
+   <div class="view-wrapper">
+      <div class="page page--landing">
+         <div class="margin-container">
+            <header class="header header--login">
+               <div class="heroLogoBox heroLogoBox--login"></div>
+            </header>
+            <h1 id="successInfo">YOUR PASSWORD HAS BEEN RESET SUCCESSFULLY!</h1>
+            <form class="form form--sign-up" action="get">
+               <h2 class="signup-header">PASSWORD RESET</h2>
+               <div class="input-wrap">
+                  <label class="loginput-label" for="signup-email">e-mail</label>
+                  <input class="loginput" id="signup-email" name="email" type="email" required>
+               </div>
+               <p id="invalMailWarn">This email is not valid!</p>
+               <div class="input-wrap">
+                  <label class="loginput-label" for="signup-password">password</label>
+                  <input class="loginput" id="signup-password" type="password" required>
+               </div>
+               <p id="invalMailWarn">This password is not strong enough.</p>
+               <div class="input-wrap">
+                  <label class="loginput-label" for="signup-repeat">repeat</label>
+                  <input class="loginput" id="signup-repeat" name="password" type="password" required>
+               </div>
+               <p id="invalMailWarn">The passwords do not match!</p>
+               <button class="login-button" type="submit" id="PWreset-submit-button">CONFIRM</button>
+            </form>
+         </div>
+      </div>
+   </div>
+</body>
+
+
+<script>
+   const sendForm = async (event) => {
+      const response = await fetch('/PWreset', {method: 'POST',
+                                          body: JSON.stringify({email: event.target.form[0].value,
+                                                                password: event.target.form[1].value,
+                                                                repeat: event.target.form[2].value}),
+                                          headers: {'Content-Type': 'application/json'}
+      });
+      if (response.status === 409) {} // adjust reactions for different failure cases (find out how to differentiate from server answer!)
+      else if (response.status === 201) {
+         document.getElementById('successInfo').style.display = 'block';
+      }
+   };
+   document.getElementById('PWreset-submit-button').addEventListener('click', sendForm);
+</script>
+
+
+</html>
