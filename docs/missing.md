@@ -1,7 +1,6 @@
 ### Still missing features:
 - production-ready Terms & Conditions
 - production-ready Privacy Policy
-- e-mail verification upon sign up
 - data backups
 - time until signout user config feature!
 - shown name user config feature

@@ -137,22 +137,51 @@
    <nav class="loginBackButton-container">
       <div class="loginBackButton"></div>
    </nav>
-   <div class="compPage compPage__header-container">
-      <h1 class="compPage compPage__appname">FINADELIC</h1>
-      <h1 class="compPage compPage__header">Terms & Conditions</h1>
-   </div>
+   <div style="width: 100%; margin-left: auto; display: flex; justify-content: space-around;">
+      <div style="width: 20dvw";></div> <!-- dummy-div for layout only -->
+      <header class="compPage compPage__header-container" style="display: inline-block;">
+         <h1 class="compPage compPage__appname">FINADELIC</h1>
+         <h1 id="englishTermsHeader" class="compPage compPage__header">Terms & Conditions</h1>
+         <h1 id="germanTermsHeader" class="compPage compPage__header" style="display: none;">Nutzungs<wbr>bedingungen</h1>
+      </header>
+      <div style="display: inline-block; margin-right: calc(20dvw - 70px); padding-top: 2rem;">
+         <div id="termsGermanSwitchWrap" style="width: 5.5rem; text-align: center; height: fit-content;">
+            <button id="termsGermanLangSwitch" style="width: 2.8rem; height: 2.1rem; background-image: url('assets/germanFlag.svg'); margin: auto; display: block; cursor: pointer;"></button>
+            <label id="termsGermanLangSwitchLabel" for="termsGermanLangSwitch" style="text-decoration: underline; color: rgb(14, 14, 188); cursor: pointer;">zu deutsch wechseln</label>
+         </div>
+         <div id="termsEnglishSwitchWrap" style="width: 5.5rem; text-align: center; height: fit-content; display: none;">
+            <button id="termsEnglishLangSwitch" style="width: 2.8rem; height: 2.1rem; background-image: url('assets/britishFlag.svg'); margin: auto; display: block; cursor: pointer;"></button>
+            <label id="termsEnglishLangSwitchLabel" for="termsEnglishLangSwitch" style="text-decoration: underline; color: rgb(14, 14, 188); cursor: pointer;">switch to english</label>
+         </div>
+      </div>
+   </div>  
    <div class="compPage compPage__background"></div>
    <div class="margin-container">
-      <article class="compPage compPage__artwrap">
-         <h2 class="compPage compPage__title">Legal Responsibility</h2>
-         <p class="compPage compPage__paragraph">Note, that FinaDelic is not responsible for any actions done by users that intend to use this app as a tool for law compliance purposes in any states.
-As law dictates anyway, FinaDelic also wants to emphasize that it is forbidden to use this app for any illegal activities.
+      <article id="englishTerms">
+         <section class="compPage compPage__artwrap">
+            <h2 class="compPage compPage__title">Legal Responsibility</h2>
+            <p class="compPage compPage__paragraph">Note, that FinaDelic is not responsible for any actions done by users that intend to use this app as a tool for law compliance purposes in any states.<br>
+As law dictates anyway, FinaDelic also wants to emphasize that it is forbidden to use this app for any illegal activities.<br>
 FinaDelic is not responsible for any criminal activities in which criminal actors involve this app as a tool.</p>
-      </article>
-      <article class="compPage compPage__artwrap">
-         <h2 class="compPage compPage__title">Commercial Use</h2>
-         <p class="compPage compPage__paragraph">Users are not allowed to sell or to lease out this app and it’s specific functionalities as a whole (or use it in any other profitable, commercial way).
+         </section>
+         <section class="compPage compPage__artwrap">
+            <h2 class="compPage compPage__title">Commercial Use</h2>
+            <p class="compPage compPage__paragraph">Users are not allowed to sell or to lease out this app and it’s specific functionalities as a whole (or use it in any other profitable, commercial way).<br>
 Note though, that it is allowed to use charts as they are presented within this app for representational purposes in commercial contexts by those users who created these charts by themselves or who got the permission to do so by the user who created the specific used charts.</p>
+         </section>
+      </article>
+      <article id="germanTerms" style="display: none;">
+         <section class="compPage compPage__artwrap">
+            <h2 class="compPage compPage__title">Gesetzliche Haftung</h2>
+            <p class="compPage compPage__paragraph">Bitte beachten Sie, dass FinaDelic keine Verantwortung für Handlungen von Nutzern übernimmt, die diese App als Werkzeug zur Einhaltung gesetzlicher Vorschriften in irgendeinem Staat verwenden möchten.<br>
+Wie es das Gesetz ohnehin vorschreibt, weist FinaDelic außerdem ausdrücklich darauf hin, dass die Nutzung dieser App für illegale Aktivitäten verboten ist.<br>
+FinaDelic übernimmt keinerlei Verantwortung für strafbare Handlungen, bei denen kriminelle Akteure diese App als Werkzeug einsetzen.</p>
+         </section>
+         <section class="compPage compPage__artwrap">
+            <h2 class="compPage compPage__title">Kommerzielle Nutzung</h2>
+            <p class="compPage compPage__paragraph">Nutzern ist es nicht gestattet, diese App oder ihre spezifischen Funktionen als Ganzes zu verkaufen, zu vermieten oder auf sonstige gewinnorientierte, kommerzielle Weise zu nutzen.<br>
+Es ist jedoch erlaubt, die in dieser App dargestellten Diagramme zu Präsentationszwecken in kommerziellen Zusammenhängen zu verwenden, sofern die jeweiligen Nutzer diese Diagramme selbst erstellt haben oder die Erlaubnis desjenigen Nutzers besitzen, der die betreffenden Diagramme erstellt hat.</p>
+         </section>
       </article>
    </div>
    <div class="footer-margin"></div>
@@ -187,22 +216,51 @@ Note though, that it is allowed to use charts as they are presented within this 
    <nav class="loginBackButton-container">
       <div class="loginBackButton"></div>
    </nav>
-   <div class="compPage compPage__header-container">
-      <h1 class="compPage compPage__appname">FINADELIC</h1>
-      <h1 class="compPage compPage__header">Privacy Policy</h1>
-   </div>
+   <div style="width: 100%; margin-left: auto; display: flex; justify-content: space-around;">
+      <div style="width: 20dvw";></div> <!-- dummy-div for layout only -->
+      <header class="compPage compPage__header-container" style="display: inline-block;">
+         <h1 class="compPage compPage__appname">FINADELIC</h1>
+         <h1 id="englishPriPolHeader" class="compPage compPage__header">Privacy Policy</h1>
+         <h1 id="germanPriPolHeader" class="compPage compPage__header" style="display: none;">Datenschutz<wbr>erklärung</h1>
+      </header>
+      <div style="display: inline-block; margin-right: calc(20dvw - 70px); padding-top: 2rem;">
+         <div id="priPolGermanSwitchWrap" style="width: 5.5rem; text-align: center; height: fit-content;">
+            <button id="priPolGermanLangSwitch" style="width: 2.8rem; height: 2.1rem; background-image: url('assets/germanFlag.svg'); margin: auto; display: block; cursor: pointer;"></button>
+            <label id="priPolGermanLangSwitchLabel" for="priPolGermanLangSwitch" style="text-decoration: underline; color: rgb(14, 14, 188); cursor: pointer;">zu deutsch wechseln</label>
+         </div>
+         <div id="priPolEnglishSwitchWrap" style="width: 5.5rem; text-align: center; height: fit-content; display: none;">
+            <button id="priPolEnglishLangSwitch" style="width: 2.8rem; height: 2.1rem; background-image: url('assets/britishFlag.svg'); margin: auto; display: block; cursor: pointer;"></button>
+            <label id="priPolEnglishLangSwitchLabel" for="priPolEnglishLangSwitch" style="text-decoration: underline; color: rgb(14, 14, 188); cursor: pointer;">switch to english</label>
+         </div>
+      </div>
+   </div>  
    <div class="compPage compPage__background"></div>
    <div class="margin-container">
-      <article class="compPage compPage__artwrap">
-         <h2 class="compPage compPage__title">Data Compliance</h2>
-         <p class="compPage compPage__paragraph">FinaDelic is obliged to protect the user’s app data as good as possible from loss and from being accessed by any other third parties, doing this by using widely acknowledged technical tools which serve this purposes.<br>
-Also, FinaDelic itself must not use the user’s data for any other purpose than to provide the app’s functionalities to the user and obliges itself to prevent the user’s data from being viewed by any human being as long as automated processing of the user’s data is sufficient to serve the above mentioned purpose.</p>
+      <article id="englishPriPol">
+         <section class="compPage compPage__artwrap">
+            <h2 class="compPage compPage__title">Data Compliance</h2>
+            <p class="compPage compPage__paragraph">FinaDelic is obliged to protect the user’s app data as good as possible from loss and from being accessed by any other third parties, doing this by using widely acknowledged technical tools which serve this purposes.<br>
+   Also, FinaDelic itself must not use the user’s data for any other purpose than to provide the app’s functionalities to the user and obliges itself to prevent the user’s data from being viewed by any human being as long as automated processing of the user’s data is sufficient to serve the above mentioned purpose.</p>
+         </section>
+         <section class="compPage compPage__artwrap">
+            <h2 class="compPage compPage__title">Economic Responsibility</h2>
+            <p class="compPage compPage__paragraph">FinaDelic is not responsible for any financial losses users and related companies make by using this app, even if it is caused by malfunctions of this app which led to data loss or data corruption.<br>
+   FinaDelic therefore recommends to use backups for any financial data, to not use this app as the only source of truth and to not let every economic decision depend on it.<br>
+   The user is solely responsible for the security and compliance of his financial accounting, and not FinaDelic.</p>
+         </section>
       </article>
-      <article class="compPage compPage__artwrap">
-         <h2 class="compPage compPage__title">Economic Responsibility</h2>
-         <p class="compPage compPage__paragraph">FinaDelic is not responsible for any financial losses users and related companies make by using this app, even if it is caused by malfunctions of this app which led to data loss or data corruption.<br>
-FinaDelic therefore recommends to use backups for any financial data, to not use this app as the only source of truth and to not let every economic decision depend on it.<br>
-The user is solely responsible for the security and compliance of his financial accounting, and not FinaDelic.</p>
+      <article id="germanPriPol" style="display: none;">
+         <section class="compPage compPage__artwrap">
+            <h2 class="compPage compPage__title">Datenschutz</h2>
+            <p class="compPage compPage__paragraph">FinaDelic ist verpflichtet, die App-Daten der Nutzer so gut wie möglich vor Verlust und vor dem Zugriff durch Dritte zu schützen, und verwendet hierfür allgemein anerkannte technische Maßnahmen.<br>
+Außerdem darf FinaDelic die Daten der Nutzer ausschließlich zum Zweck der Bereitstellung der App‑Funktionen verwenden und verpflichtet sich, zu verhindern, dass die Daten eines Nutzers von einer menschlichen Person eingesehen werden, solange eine automatisierte Verarbeitung der Daten ausreicht, um den oben genannten Zweck zu erfüllen.</p>
+         </section>
+         <section class="compPage compPage__artwrap">
+            <h2 class="compPage compPage__title">Wirtschaftliche Haftung</h2>
+            <p class="compPage compPage__paragraph">FinaDelic übernimmt keine Verantwortung für finanzielle Verluste, die Nutzer oder verbundene Unternehmen durch die Verwendung dieser App erleiden, selbst wenn diese durch Fehlfunktionen der App verursacht wurden, die zu Datenverlust oder Datenbeschädigung geführt haben.<br>
+FinaDelic empfiehlt daher, Sicherungskopien aller finanziellen Daten anzulegen, diese App nicht als einzige Wahrheitsquelle zu verwenden und wirtschaftliche Entscheidungen nicht ausschließlich von ihr abhängig zu machen.<br>
+Der Nutzer ist allein für die Sicherheit und Rechtskonformität seiner Finanzbuchhaltung verantwortlich, nicht FinaDelic.</p>
+         </section>
       </article>
    </div>
    <div class="footer-margin"></div>
