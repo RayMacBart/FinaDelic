@@ -6,8 +6,8 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const webpack = require("webpack");
 
-// const source = 'out';
-const source = 'in';
+const source = 'out';
+// const source = 'in';
 
 // const destination = `dist_${source}`;
 const destination = 'public';

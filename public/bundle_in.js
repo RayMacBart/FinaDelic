@@ -2348,6 +2348,46 @@ var map = {
 			"src_in_routing_legal_js"
 		]
 	],
+	"./legalTexts_src/privacyEnglish.js": [
+		"./src_in/routing/legalTexts_src/privacyEnglish.js",
+		[
+			"src_in_routing_legalTexts_src_privacyEnglish_js"
+		]
+	],
+	"./legalTexts_src/privacyGerman.js": [
+		"./src_in/routing/legalTexts_src/privacyGerman.js",
+		[
+			"src_in_routing_legalTexts_src_privacyGerman_js"
+		]
+	],
+	"./legalTexts_src/privacyHTML.js": [
+		"./src_in/routing/legalTexts_src/privacyHTML.js",
+		[
+			"src_in_routing_legalTexts_src_privacyGerman_js",
+			"src_in_routing_legalTexts_src_privacyEnglish_js",
+			"src_in_routing_legalTexts_src_privacyHTML_js"
+		]
+	],
+	"./legalTexts_src/termsEnglish.js": [
+		"./src_in/routing/legalTexts_src/termsEnglish.js",
+		[
+			"src_in_routing_legalTexts_src_termsEnglish_js"
+		]
+	],
+	"./legalTexts_src/termsGerman.js": [
+		"./src_in/routing/legalTexts_src/termsGerman.js",
+		[
+			"src_in_routing_legalTexts_src_termsGerman_js"
+		]
+	],
+	"./legalTexts_src/termsHTML.js": [
+		"./src_in/routing/legalTexts_src/termsHTML.js",
+		[
+			"src_in_routing_legalTexts_src_termsGerman_js",
+			"src_in_routing_legalTexts_src_termsEnglish_js",
+			"src_in_routing_legalTexts_src_termsHTML_js"
+		]
+	],
 	"./loggedinHP.js": [
 		"./src_in/routing/loggedinHP.js",
 		[
@@ -2357,6 +2397,8 @@ var map = {
 	"./privacy.js": [
 		"./src_in/routing/privacy.js",
 		[
+			"src_in_routing_legalTexts_src_privacyGerman_js",
+			"src_in_routing_legalTexts_src_privacyEnglish_js",
 			"src_in_routing_privacy_js"
 		]
 	],
@@ -2369,6 +2411,8 @@ var map = {
 	"./terms.js": [
 		"./src_in/routing/terms.js",
 		[
+			"src_in_routing_legalTexts_src_termsGerman_js",
+			"src_in_routing_legalTexts_src_termsEnglish_js",
 			"src_in_routing_terms_js"
 		]
 	]
@@ -2498,7 +2542,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("5160317ddc12d7b9497b")
+/******/ 		__webpack_require__.h = () => ("259eeebcf12bd46f4e78")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

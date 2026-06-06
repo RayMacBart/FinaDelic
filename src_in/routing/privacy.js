@@ -1,3 +1,5 @@
+import privacyHTML from './legalTexts_src/privacyHTML';
+
 class PrivacyPage {
 
    constructor() {
@@ -33,6 +35,7 @@ class PrivacyPage {
 
    setup(app) {
       document.querySelector('.loginBackButton').addEventListener('click', () => app.router.navigate('loggedinHP'), ['page--landing']);
+      document.getElementById('privacyContainer').innerHTML = privacyHTML;
       this.retrieveElems();
       document.getElementById('priPolGermanSwitchWrap').addEventListener('click', this.boundSwitchLang);
       document.getElementById('priPolEnglishSwitchWrap').addEventListener('click', this.boundSwitchLang);

@@ -1,0 +1,24 @@
+OLD FINADELIC, NOT VALID LEGAL-TEXTS (DUMMY-VERSIONS):
+
+PRIVACY POLICY
+
+Data Compliance
+FinaDelic is obliged to protect the user’s app data as good as possible from loss and from being accessed by any other third parties, doing this by using widely acknowledged technical tools which serve these purposes.
+Also, FinaDelic itself must not use the user’s data for any other purpose than to provide the app’s functionalities to the user and obliges itself to prevent the user’s data from being viewed by any human being as long as automated processing of the user’s data is sufficient to serve the above mentioned purpose.
+
+Economic Responsibility
+FinaDelic is not responsible for any financial losses users and related companies make by using this app, even if it is caused by malfunctions of this app which led to data loss or data corruption.
+FinaDelic therefore recommends to use backups for any financial data, to not use this app as the only source of truth and to not let every economic decision depend on it.
+The user is solely responsible for the security and compliance of his financial accounting, and not FinaDelic.
+
+
+TERMS & CONDITIONS
+
+Legal Responsibility
+Note, that FinaDelic is not responsible for any actions done by users that intend to use this app as a tool for law compliance purposes in any states.
+As law dictates anyway, FinaDelic also wants to emphasize that it is forbidden to use this app for any illegal activities.
+FinaDelic is not responsible for any criminal activities in which criminal actors involve this app as a tool.
+
+Commercial Use
+Users are not allowed to sell or to lease out this app and it’s specific functionalities as a whole (or use it in any other profitable, commercial way).
+Note though, that it is allowed to use charts as they are presented within this app for representational purposes in commercial contexts by those users who created these charts by themselves or who got the permission to do so by the user who created the specific used charts.

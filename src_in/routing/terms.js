@@ -1,3 +1,5 @@
+import termsHTML from './legalTexts_src/termsHTML';
+
 class TermsPage {
 
    constructor() {
@@ -33,6 +35,7 @@ class TermsPage {
 
    setup(app) {
       document.querySelector('.loginBackButton').addEventListener('click', () => app.router.navigate('loggedinHP'), ['page--landing']);
+      document.getElementById('termsContainer').innerHTML = termsHTML;
       this.retrieveElems();
       document.getElementById('termsGermanSwitchWrap').addEventListener('click', this.boundSwitchLang);
       document.getElementById('termsEnglishSwitchWrap').addEventListener('click', this.boundSwitchLang);

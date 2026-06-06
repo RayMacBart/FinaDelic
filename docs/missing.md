@@ -1,9 +1,9 @@
 ### Still missing features:
-- production-ready Terms & Conditions
-- production-ready Privacy Policy
 - data backups
 - time until signout user config feature!
+- footer logo links to HP
 - shown name user config feature
+- limited login attempts (time related)
 - aria roles
 - help/tutorial page
 - 'rolling' enddate config. switch for users

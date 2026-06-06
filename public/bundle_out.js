@@ -244,6 +244,86 @@ var map = {
 			"src_out_routing_legal_js"
 		]
 	],
+	"./legalTexts_src/privacyEnglish": [
+		"./src_out/routing/legalTexts_src/privacyEnglish.js",
+		[
+			"src_out_routing_legalTexts_src_privacyEnglish_js"
+		]
+	],
+	"./legalTexts_src/privacyEnglish.js": [
+		"./src_out/routing/legalTexts_src/privacyEnglish.js",
+		[
+			"src_out_routing_legalTexts_src_privacyEnglish_js"
+		]
+	],
+	"./legalTexts_src/privacyGerman": [
+		"./src_out/routing/legalTexts_src/privacyGerman.js",
+		[
+			"src_out_routing_legalTexts_src_privacyGerman_js"
+		]
+	],
+	"./legalTexts_src/privacyGerman.js": [
+		"./src_out/routing/legalTexts_src/privacyGerman.js",
+		[
+			"src_out_routing_legalTexts_src_privacyGerman_js"
+		]
+	],
+	"./legalTexts_src/privacyHTML": [
+		"./src_out/routing/legalTexts_src/privacyHTML.js",
+		[
+			"src_out_routing_legalTexts_src_privacyGerman_js",
+			"src_out_routing_legalTexts_src_privacyEnglish_js",
+			"src_out_routing_legalTexts_src_privacyHTML_js"
+		]
+	],
+	"./legalTexts_src/privacyHTML.js": [
+		"./src_out/routing/legalTexts_src/privacyHTML.js",
+		[
+			"src_out_routing_legalTexts_src_privacyGerman_js",
+			"src_out_routing_legalTexts_src_privacyEnglish_js",
+			"src_out_routing_legalTexts_src_privacyHTML_js"
+		]
+	],
+	"./legalTexts_src/termsEnglish": [
+		"./src_out/routing/legalTexts_src/termsEnglish.js",
+		[
+			"src_out_routing_legalTexts_src_termsEnglish_js"
+		]
+	],
+	"./legalTexts_src/termsEnglish.js": [
+		"./src_out/routing/legalTexts_src/termsEnglish.js",
+		[
+			"src_out_routing_legalTexts_src_termsEnglish_js"
+		]
+	],
+	"./legalTexts_src/termsGerman": [
+		"./src_out/routing/legalTexts_src/termsGerman.js",
+		[
+			"src_out_routing_legalTexts_src_termsGerman_js"
+		]
+	],
+	"./legalTexts_src/termsGerman.js": [
+		"./src_out/routing/legalTexts_src/termsGerman.js",
+		[
+			"src_out_routing_legalTexts_src_termsGerman_js"
+		]
+	],
+	"./legalTexts_src/termsHTML": [
+		"./src_out/routing/legalTexts_src/termsHTML.js",
+		[
+			"src_out_routing_legalTexts_src_termsGerman_js",
+			"src_out_routing_legalTexts_src_termsEnglish_js",
+			"src_out_routing_legalTexts_src_termsHTML_js"
+		]
+	],
+	"./legalTexts_src/termsHTML.js": [
+		"./src_out/routing/legalTexts_src/termsHTML.js",
+		[
+			"src_out_routing_legalTexts_src_termsGerman_js",
+			"src_out_routing_legalTexts_src_termsEnglish_js",
+			"src_out_routing_legalTexts_src_termsHTML_js"
+		]
+	],
 	"./loggedoutHP": [
 		"./src_out/routing/loggedoutHP.js",
 		[
@@ -307,24 +387,32 @@ var map = {
 	"./privacy": [
 		"./src_out/routing/privacy.js",
 		[
+			"src_out_routing_legalTexts_src_privacyGerman_js",
+			"src_out_routing_legalTexts_src_privacyEnglish_js",
 			"src_out_routing_privacy_js"
 		]
 	],
 	"./privacy.js": [
 		"./src_out/routing/privacy.js",
 		[
+			"src_out_routing_legalTexts_src_privacyGerman_js",
+			"src_out_routing_legalTexts_src_privacyEnglish_js",
 			"src_out_routing_privacy_js"
 		]
 	],
 	"./terms": [
 		"./src_out/routing/terms.js",
 		[
+			"src_out_routing_legalTexts_src_termsGerman_js",
+			"src_out_routing_legalTexts_src_termsEnglish_js",
 			"src_out_routing_terms_js"
 		]
 	],
 	"./terms.js": [
 		"./src_out/routing/terms.js",
 		[
+			"src_out_routing_legalTexts_src_termsGerman_js",
+			"src_out_routing_legalTexts_src_termsEnglish_js",
 			"src_out_routing_terms_js"
 		]
 	]
@@ -343,7 +431,7 @@ function webpackAsyncContext(req) {
 	}
 
 	var ids = map[req], id = ids[0];
-	return __webpack_require__.e(ids[1][0]).then(() => (__webpack_require__(id)));
+	return Promise.all(ids[1].map(__webpack_require__.e)).then(() => (__webpack_require__(id)));
 }
 webpackAsyncContext.keys = () => (Object.keys(map));
 webpackAsyncContext.id = "./src_out/routing lazy recursive ^\\.\\/.*$ referencedExports: default";
@@ -454,7 +542,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("40a32517fb823dc0d23c")
+/******/ 		__webpack_require__.h = () => ("b1790842d2a7e852813e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
