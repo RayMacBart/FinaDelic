@@ -29,7 +29,7 @@ function chronoInsertFlow(orderedTimes, ID, startIDX, endIDX, dateObj) {
         orderedTimes.splice(startIDX, 0, [ID, dateObj.getTime()]);
       }
     } else {
-      orderedTimes.splice(startIDX + 1, 0, [ID, dateObj.getTime()]);
+      orderedTimes.splice(startIDX + midDist + 1, 0, [ID, dateObj.getTime()]);
     }
   } else {
     orderedTimes.push([ID, dateObj.getTime()]);
@@ -89,7 +89,7 @@ class FlowList {
         const dateArray = bagData['transactions'][transaction]['date'].split('.');
         const formattedDateString = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
         const transDateObj = new Date(formattedDateString);
-        if (timespan.start.getTime() <= transDateObj.getTime() && timespan.end.getTime() + 86400000 > transDateObj.getTime()) {
+        if (timespan.start.getTime() <= transDateObj.getTime() && timespan.end.getTime() >= transDateObj.getTime()) {
           // (?)['../../../../../docs/timespanAddedMS.txt']
           (0,_chronoOrder_js__WEBPACK_IMPORTED_MODULE_1__["default"])(orderedFlows, transaction, 0, orderedFlows.length, transDateObj);
           if (!flowInPeriodExists) {

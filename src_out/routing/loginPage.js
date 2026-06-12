@@ -18,7 +18,6 @@ class LoginPage {
       const valid = this.inputChecker.checkSignIn(event);
       if (valid) {
          SIA.execSignIn(event);
-         // async BACKEND SEND AND REACT UPON RESPONSE (e.g. app.router.navigate('flowPage') or showInfo('invalidLogin', 'warning')) LOGIC HERE
       }
    }
 
@@ -26,8 +25,7 @@ class LoginPage {
 
    #signUp(event) {
       event.preventDefault();
-      // const valid = this.inputChecker.checkSignUp(event);
-      const valid = true;
+      const valid = this.inputChecker.checkSignUp(event);
       if (valid) {
          SIA.execSignUp(event);  
       }
@@ -59,15 +57,11 @@ class LoginPage {
             this.resetModal.close();
             showInfo('resetEmailSent', 'warning');
          }
-         // POST REQUEST WITH MAILINPUT TO BACKEND -
-         // IF EMAIL IS FOUND AT BACKEND - THEN SEND THE EMAIL.
-         // ELSE: CONSIDER CREATING ANOTHER SHOWINFO-BOX: EMAIL NOT FOUND!
-         
-         
       } else {
          document.getElementById('invalMailWarn').style.display = 'block';
       }
    }
+
 
    #openResetModal(event) {
       event.preventDefault();

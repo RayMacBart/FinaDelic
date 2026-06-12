@@ -36,7 +36,8 @@ app.use(session({
    cookie: {
       path: '/',
       httpOnly: true,
-      maxAge: 600000,  // 10min
+      maxAge: 216000000,  // = 60 hours = 2,5 days
+      // secure: true,           // DONT FORGET TO ACTIVATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!
       sameSite: 'lax'
    }
 }));

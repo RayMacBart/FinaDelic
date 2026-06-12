@@ -78,8 +78,15 @@ class FlowPageSurface {
       document.querySelector('.flowBagTitle').innerText = bagPath.split('/').pop();
       const totalBagAmountEl = document.querySelector('#bag-total > p > span');
       (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(bagData.amount, totalBagAmountEl);
-      if (bagData.amount >= 0) {
+      if (bagData.amount === 0) {
         titleBG.classList.remove('flowBagTitleBG--fire');
+        titleBG.classList.remove('flowBagTitleBG--bag');
+        if (!titleBG.classList.contains('flowBagTitleBG--null')) {
+          titleBG.classList.add('flowBagTitleBG--null');
+        }
+      } else if (bagPath.split('/')[0] === 'IN') {
+        titleBG.classList.remove('flowBagTitleBG--fire');
+        titleBG.classList.remove('flowBagTitleBG--null');
         if (!titleBG.classList.contains('flowBagTitleBG--bag')) {
           titleBG.classList.add('flowBagTitleBG--bag');
         }
@@ -88,6 +95,7 @@ class FlowPageSurface {
         }
       } else {
         titleBG.classList.remove('flowBagTitleBG--bag');
+        titleBG.classList.remove('flowBagTitleBG--null');
         if (!titleBG.classList.contains('flowBagTitleBG--fire')) {
           titleBG.classList.add('flowBagTitleBG--fire');
         }

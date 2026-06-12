@@ -101,20 +101,18 @@ class Toolbar {
       if (bartype === 'account') {
          if (this.currentBagName !== 'IN' && this.currentBagName !== 'OUT') {
             buttons[0].style.display = 'inline-block';
-            buttons[0].addEventListener('click', this.boundModifyHandler, {once: true});  // (!)[../../docs/secureOnceNote.txt]
+            buttons[0].addEventListener('click', this.boundModifyHandler, {once: true});
          } else {
             buttons[0].style.display = 'none';
          }
          if (this.TEH.appData.getBagPath() in this.chartBags) {
+            buttons[1].removeEventListener('click', this.TEH.boundAdd2chartHandler);
             buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {once: true});
          } else {
-            buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});  // (warning)[../../docs/onceListenerWarning.txt]
+            console.log('setted up add button (no match!)');
+            buttons[1].removeEventListener('click', this.TEH.boundRemoveFromChartHandler);
+            buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});
          }
-         // if (buttons[1].firstElementChild.innerText === 'ADD TO CHART') {
-         //    buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});  // (warning)[../../docs/onceListenerWarning.txt]
-         // } else if (buttons[1].firstElementChild.innerText === 'CHART: REMOVE') {
-         //    buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {once: true});
-         // }
          buttons[2].addEventListener('click', this.TEH.boundAddNestedBagHandler, {once: true});
          buttons[3].addEventListener('click', this.TEH.boundAddFlowHandler, {once: true});
       }
@@ -171,19 +169,17 @@ class Toolbar {
 
    
    handleDirection(bagPath) {
-      if (bagPath.split('/')[0] !== this.direction) {
-         this.direction = this.direction === 'IN' ? 'OUT' : 'IN';
-         const dynamicWordList = this.toolbarElement.querySelectorAll('span');
-         dynamicWordList.forEach((wordElem) => {
-            if (wordElem.classList.contains('bagname--uppercase')) {
-               wordElem.innerText = this.direction === 'IN' ? 'INBOX' : 'OUTBOX';
-            } else if (wordElem.classList.contains('bagname--lowercase')) {
-               wordElem.innerText = this.direction === 'IN' ? 'inbox' : 'outbox';
-            } else if (wordElem.classList.contains('flowname')) {
-               wordElem.innerText = this.direction === 'IN' ? 'GAIN' : 'LOSS';
-            }
-         })
-      }
+      this.direction = bagPath.split('/')[0] === 'IN' ? 'IN' : 'OUT';
+      const dynamicWordList = this.toolbarElement.querySelectorAll('span');
+      dynamicWordList.forEach((wordElem) => {
+         if (wordElem.classList.contains('bagname--uppercase')) {
+            wordElem.innerText = this.direction === 'IN' ? 'INBOX' : 'OUTBOX';
+         } else if (wordElem.classList.contains('bagname--lowercase')) {
+            wordElem.innerText = this.direction === 'IN' ? 'inbox' : 'outbox';
+         } else if (wordElem.classList.contains('flowname')) {
+            wordElem.innerText = this.direction === 'IN' ? 'GAIN' : 'LOSS';
+         }
+      })
    }
 }
    

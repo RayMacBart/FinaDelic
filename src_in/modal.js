@@ -74,13 +74,13 @@ class Modal {
          document.getElementById('amount-predecimal').value = '';
          document.getElementById('amount-decimal').value = '';
       }
-      if (this.inputModalTypes.includes(this.currentModalType)) {
+      if (this.inputModalTypes.includes(this.currentModalType) || ['flow-delete', 'confirmAccDel'].includes(this.currentModalType)) {
          if (this.elements['submit-button'].classList.contains('modal__button--disabled')) {
             this.elements['submit-button'].classList.remove('modal__button--disabled');
          }
          this.elements['submit-button'].classList.add('modal__button--positive');
       }
-      if (this.currentModalType === 'time') {
+      if (['time', 'flow-delete', 'confirmAccDel'].includes(this.currentModalType)) {
          document.querySelector('.modal__button--positive').disabled = false;
       }
       if (['bag-move', 'flow-move'].includes(this.currentModalType)) {
@@ -183,11 +183,11 @@ class Modal {
          }
          this.elements['submit-button'].classList.remove('modal__button--disabled');
          
-         if (['add2chart', 'removeFromChart'].includes(this.currentModalType)) {
+         if (['add2chart', 'removeFromChart', 'flow-delete', 'confirmAccDel'].includes(this.currentModalType)) {
             this.elements['submit-button'].disabled = false;
          }
 
-         this.elements['submit-button'].addEventListener('click', this.boundSubmitFunction, {once: true});
+         this.elements['submit-button'].addEventListener('click', this.boundSubmitFunction);
       }
       this.elements['cancel-button'].addEventListener('click', this.boundCancelFunction, {once: true});
    }

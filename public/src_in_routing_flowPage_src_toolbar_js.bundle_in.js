@@ -110,11 +110,17 @@ class Toolbar {
       } else {
         buttons[0].style.display = 'none';
       }
+      console.log('this.TEH.appData.getBagPath():', this.TEH.appData.getBagPath());
+      console.log('this.chartBags:', this.chartBags);
       if (this.TEH.appData.getBagPath() in this.chartBags) {
+        console.log('setted up remove button (match!)');
+        buttons[1].removeEventListener('click', this.TEH.boundAdd2chartHandler);
         buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {
           once: true
         });
       } else {
+        console.log('setted up add button (no match!)');
+        buttons[1].removeEventListener('click', this.TEH.boundRemoveFromChartHandler);
         buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {
           once: true
         }); // (warning)[../../docs/onceListenerWarning.txt]
@@ -199,19 +205,17 @@ class Toolbar {
     this.activateBar('flow-change');
   }
   handleDirection(bagPath) {
-    if (bagPath.split('/')[0] !== this.direction) {
-      this.direction = this.direction === 'IN' ? 'OUT' : 'IN';
-      const dynamicWordList = this.toolbarElement.querySelectorAll('span');
-      dynamicWordList.forEach(wordElem => {
-        if (wordElem.classList.contains('bagname--uppercase')) {
-          wordElem.innerText = this.direction === 'IN' ? 'INBOX' : 'OUTBOX';
-        } else if (wordElem.classList.contains('bagname--lowercase')) {
-          wordElem.innerText = this.direction === 'IN' ? 'inbox' : 'outbox';
-        } else if (wordElem.classList.contains('flowname')) {
-          wordElem.innerText = this.direction === 'IN' ? 'GAIN' : 'LOSS';
-        }
-      });
-    }
+    this.direction = bagPath.split('/')[0] === 'IN' ? 'IN' : 'OUT';
+    const dynamicWordList = this.toolbarElement.querySelectorAll('span');
+    dynamicWordList.forEach(wordElem => {
+      if (wordElem.classList.contains('bagname--uppercase')) {
+        wordElem.innerText = this.direction === 'IN' ? 'INBOX' : 'OUTBOX';
+      } else if (wordElem.classList.contains('bagname--lowercase')) {
+        wordElem.innerText = this.direction === 'IN' ? 'inbox' : 'outbox';
+      } else if (wordElem.classList.contains('flowname')) {
+        wordElem.innerText = this.direction === 'IN' ? 'GAIN' : 'LOSS';
+      }
+    });
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Toolbar);
@@ -250,11 +254,30 @@ class ToolbarEventHandler {
     this.modal.reloadEvent = reloadEvent;
   }
   add2chartHandler(event) {
+    console.log('in add2chartHandler');
     event.stopPropagation();
+    // const toolbarWrapElem = document.getElementById('flowpage-bag').querySelector('#toolbar-wrapper');
+    const buttons = document.querySelectorAll('.tool-button');
+    for (const button of buttons) {
+      if (button.firstElementChild && button.firstElementChild.innerText && button.firstElementChild.innerText.includes('CHART')) {
+        button.removeEventListener('click', this.boundAdd2chartHandler);
+        button.removeEventListener('click', this.boundRemoveFromChartHandler);
+        console.log('add!');
+      }
+    }
     this.modal.startModal('add2chart');
   }
   removeFromChartHandler(event) {
+    console.log('in removeFromChartHandler');
     event.stopPropagation();
+    const buttons = document.querySelectorAll('.tool-button');
+    for (const button of buttons) {
+      if (button.firstElementChild && button.firstElementChild.innerText && button.firstElementChild.innerText.includes('CHART')) {
+        button.removeEventListener('click', this.boundRemoveFromChartHandler);
+        button.removeEventListener('click', this.boundAdd2chartHandler);
+        console.log('rem!');
+      }
+    }
     this.modal.startModal('removeFromChart');
   }
   addNestedBagHandler() {

@@ -1,5 +1,6 @@
 ### Still missing features:
 - data backups
+- implement optimistic front end operations (now bad UX due to performance issues!)
 - time until signout user config feature!
 - footer logo links to HP
 - shown name user config feature
@@ -8,9 +9,9 @@
 - help/tutorial page
 - 'rolling' enddate config. switch for users
 - more error handling
-- implement optimistic front end operations (UX!)
 - migration to TypeScript
 - Vitest unit testing
+- currency features: Setting which currency to show @ profile, use API for conversions - upon every setting-change: convert/calculate from the view of the currency that was used when the flow was created ( - this is the therefore NOT dynamic currency property, which every flow has!)
 
 </br>
 </br>

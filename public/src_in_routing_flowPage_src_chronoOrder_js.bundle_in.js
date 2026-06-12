@@ -29,7 +29,7 @@ function chronoInsertFlow(orderedTimes, ID, startIDX, endIDX, dateObj) {
         orderedTimes.splice(startIDX, 0, [ID, dateObj.getTime()]);
       }
     } else {
-      orderedTimes.splice(startIDX + 1, 0, [ID, dateObj.getTime()]);
+      orderedTimes.splice(startIDX + midDist + 1, 0, [ID, dateObj.getTime()]);
     }
   } else {
     orderedTimes.push([ID, dateObj.getTime()]);

@@ -13,7 +13,7 @@ class SIA {
       if (response.status === 403) {
          showInfo('failedSignin', 'warning');
       } else if (response.status === 303) {
-         window.location.href = '/';
+         window.location.href = '/workspace';
       }
    }
 

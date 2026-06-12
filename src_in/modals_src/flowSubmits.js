@@ -95,12 +95,12 @@ class FlowSubmits {
    flowDelete() {
       const execFlowDeletion = () => {
          const bagObj = this.utils.getBagObjByPath(this.bagPath);
+         bagObj['transactions'][this.flowID]['amount'] = 0;
+         this.utils.recalcBagAmounts(this.bagPath.split('/'));
          delete bagObj['transactions'][this.flowID];
          this.utils.checkAndAdjustChart();
-         this.utils.recalcBagAmounts(this.bagPath.split('/'));
          document.dispatchEvent(this.reloadEvent);
       }
-      console.log('HERE!');
       FDP.deleteFlow(this.bagPath, this.flowID, execFlowDeletion);
    }
 

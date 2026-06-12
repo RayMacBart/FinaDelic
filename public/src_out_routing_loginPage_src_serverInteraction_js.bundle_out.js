@@ -108,7 +108,7 @@ class SIA {
     if (response.status === 403) {
       (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('failedSignin', 'warning');
     } else if (response.status === 303) {
-      window.location.href = '/';
+      window.location.href = '/workspace';
     }
   }
   static async execSignUp(event) {

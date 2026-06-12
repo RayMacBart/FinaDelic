@@ -814,13 +814,13 @@ class Modal {
       document.getElementById('amount-predecimal').value = '';
       document.getElementById('amount-decimal').value = '';
     }
-    if (this.inputModalTypes.includes(this.currentModalType)) {
+    if (this.inputModalTypes.includes(this.currentModalType) || ['flow-delete', 'confirmAccDel'].includes(this.currentModalType)) {
       if (this.elements['submit-button'].classList.contains('modal__button--disabled')) {
         this.elements['submit-button'].classList.remove('modal__button--disabled');
       }
       this.elements['submit-button'].classList.add('modal__button--positive');
     }
-    if (this.currentModalType === 'time') {
+    if (['time', 'flow-delete', 'confirmAccDel'].includes(this.currentModalType)) {
       document.querySelector('.modal__button--positive').disabled = false;
     }
     if (['bag-move', 'flow-move'].includes(this.currentModalType)) {
@@ -916,12 +916,10 @@ class Modal {
         this.elements['submit-button'].classList.add('modal__button--positive');
       }
       this.elements['submit-button'].classList.remove('modal__button--disabled');
-      if (['add2chart', 'removeFromChart'].includes(this.currentModalType)) {
+      if (['add2chart', 'removeFromChart', 'flow-delete', 'confirmAccDel'].includes(this.currentModalType)) {
         this.elements['submit-button'].disabled = false;
       }
-      this.elements['submit-button'].addEventListener('click', this.boundSubmitFunction, {
-        once: true
-      });
+      this.elements['submit-button'].addEventListener('click', this.boundSubmitFunction);
     }
     this.elements['cancel-button'].addEventListener('click', this.boundCancelFunction, {
       once: true
@@ -1508,12 +1506,12 @@ class FlowSubmits {
   flowDelete() {
     const execFlowDeletion = () => {
       const bagObj = this.utils.getBagObjByPath(this.bagPath);
+      bagObj['transactions'][this.flowID]['amount'] = 0;
+      this.utils.recalcBagAmounts(this.bagPath.split('/'));
       delete bagObj['transactions'][this.flowID];
       this.utils.checkAndAdjustChart();
-      this.utils.recalcBagAmounts(this.bagPath.split('/'));
       document.dispatchEvent(this.reloadEvent);
     };
-    console.log('HERE!');
     _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].deleteFlow(this.bagPath, this.flowID, execFlowDeletion);
   }
   flowMove() {
@@ -2016,7 +2014,7 @@ class SubmitUtils {
         let startDateObj;
         let endDateObj;
         [startDateObj, endDateObj] = timespan ? [timespan.start, timespan.end] : this.retrieveDateSpanFromDOM();
-        if (startDateObj.getTime() <= transDateObj.getTime() && endDateObj.getTime() + 86399999 > transDateObj.getTime()) {
+        if (startDateObj.getTime() <= transDateObj.getTime() && endDateObj.getTime() >= transDateObj.getTime()) {
           flowIDs.push(flowID);
         }
       }
@@ -2542,7 +2540,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("259eeebcf12bd46f4e78")
+/******/ 		__webpack_require__.h = () => ("d012bcf1e73b2e5139a7")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -41,7 +41,7 @@ class FlowList {
             const dateArray = bagData['transactions'][transaction]['date'].split('.');
             const formattedDateString = dateArray[2]+'-'+dateArray[1]+'-'+dateArray[0];
             const transDateObj = new Date(formattedDateString);
-            if ((timespan.start.getTime() <= transDateObj.getTime()) && (timespan.end.getTime()+86400000 > transDateObj.getTime() )) {  // (?)['../../../../../docs/timespanAddedMS.txt']
+            if ((timespan.start.getTime() <= transDateObj.getTime()) && (timespan.end.getTime() >= transDateObj.getTime() )) {  // (?)['../../../../../docs/timespanAddedMS.txt']
                chronoInsertFlow(orderedFlows, transaction, 0, orderedFlows.length, transDateObj);
                if (!flowInPeriodExists) {
                   flowInPeriodExists = true;

@@ -28,6 +28,11 @@
       background-image: url('./assets/fireheader.svg');
       top: -2.4rem;
    }
+   &--null {
+      background-image: url('./assets/nullheader.svg');
+      height: 6rem;
+      top: -0.6rem;
+   }
 }
 
 .flowBagTitle {

@@ -1,6 +1,6 @@
 ## KNOWN BUGS
 
-- The 'Delete' Button of the delete Modal doesn't react sometimes (on very first flows created before?)
+- Double Start of Modals? (E.g. add2Chart and removeFromChart Modals!)
 
 </br>
 </br>

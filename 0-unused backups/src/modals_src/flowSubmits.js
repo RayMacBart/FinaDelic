@@ -68,9 +68,10 @@ class FlowSubmits {
 
    flowDelete() {
       const bagObj = this.utils.getBagObjByPath(this.bagPath);
-      delete bagObj['transactions'][this.flowID];
+      bagObj['transactions'][this.flowID][amount] = 0;
       this.utils.checkAndAdjustChart();
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
+      delete bagObj['transactions'][this.flowID];
    }
 
 

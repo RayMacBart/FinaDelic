@@ -1069,6 +1069,11 @@ canvas {
   background-image: url("./assets/fireheader.svg");
   top: -2.4rem;
 }
+.flowBagTitleBG--null {
+  background-image: url("./assets/nullheader.svg");
+  height: 6rem;
+  top: -0.6rem;
+}
 
 .flowBagTitle {
   padding-top: 1rem;

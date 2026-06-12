@@ -219,7 +219,7 @@ function chronoInsertFlow(orderedTimes, ID, startIDX, endIDX, dateObj) {
         orderedTimes.splice(startIDX, 0, [ID, dateObj.getTime()]);
       }
     } else {
-      orderedTimes.splice(startIDX + 1, 0, [ID, dateObj.getTime()]);
+      orderedTimes.splice(startIDX + midDist + 1, 0, [ID, dateObj.getTime()]);
     }
   } else {
     orderedTimes.push([ID, dateObj.getTime()]);
@@ -380,8 +380,15 @@ class FlowPageSurface {
       document.querySelector('.flowBagTitle').innerText = bagPath.split('/').pop();
       const totalBagAmountEl = document.querySelector('#bag-total > p > span');
       (0,_renderAmount_js__WEBPACK_IMPORTED_MODULE_0__["default"])(bagData.amount, totalBagAmountEl);
-      if (bagData.amount >= 0) {
+      if (bagData.amount === 0) {
         titleBG.classList.remove('flowBagTitleBG--fire');
+        titleBG.classList.remove('flowBagTitleBG--bag');
+        if (!titleBG.classList.contains('flowBagTitleBG--null')) {
+          titleBG.classList.add('flowBagTitleBG--null');
+        }
+      } else if (bagPath.split('/')[0] === 'IN') {
+        titleBG.classList.remove('flowBagTitleBG--fire');
+        titleBG.classList.remove('flowBagTitleBG--null');
         if (!titleBG.classList.contains('flowBagTitleBG--bag')) {
           titleBG.classList.add('flowBagTitleBG--bag');
         }
@@ -390,6 +397,7 @@ class FlowPageSurface {
         }
       } else {
         titleBG.classList.remove('flowBagTitleBG--bag');
+        titleBG.classList.remove('flowBagTitleBG--null');
         if (!titleBG.classList.contains('flowBagTitleBG--fire')) {
           titleBG.classList.add('flowBagTitleBG--fire');
         }
@@ -454,7 +462,7 @@ class FlowList {
         const dateArray = bagData['transactions'][transaction]['date'].split('.');
         const formattedDateString = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
         const transDateObj = new Date(formattedDateString);
-        if (timespan.start.getTime() <= transDateObj.getTime() && timespan.end.getTime() + 86400000 > transDateObj.getTime()) {
+        if (timespan.start.getTime() <= transDateObj.getTime() && timespan.end.getTime() >= transDateObj.getTime()) {
           // (?)['../../../../../docs/timespanAddedMS.txt']
           (0,_chronoOrder_js__WEBPACK_IMPORTED_MODULE_1__["default"])(orderedFlows, transaction, 0, orderedFlows.length, transDateObj);
           if (!flowInPeriodExists) {

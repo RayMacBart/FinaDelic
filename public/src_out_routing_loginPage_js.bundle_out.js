@@ -28,13 +28,11 @@ class LoginPage {
     const valid = this.inputChecker.checkSignIn(event);
     if (valid) {
       _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__["default"].execSignIn(event);
-      // async BACKEND SEND AND REACT UPON RESPONSE (e.g. app.router.navigate('flowPage') or showInfo('invalidLogin', 'warning')) LOGIC HERE
     }
   }
   #signUp(event) {
     event.preventDefault();
-    // const valid = this.inputChecker.checkSignUp(event);
-    const valid = true;
+    const valid = this.inputChecker.checkSignUp(event);
     if (valid) {
       _loginPage_src_serverInteraction_js__WEBPACK_IMPORTED_MODULE_1__["default"].execSignUp(event);
     }
@@ -65,9 +63,6 @@ class LoginPage {
         this.resetModal.close();
         (0,_loginPage_src_infos_js__WEBPACK_IMPORTED_MODULE_2__.showInfo)('resetEmailSent', 'warning');
       }
-      // POST REQUEST WITH MAILINPUT TO BACKEND -
-      // IF EMAIL IS FOUND AT BACKEND - THEN SEND THE EMAIL.
-      // ELSE: CONSIDER CREATING ANOTHER SHOWINFO-BOX: EMAIL NOT FOUND!
     } else {
       document.getElementById('invalMailWarn').style.display = 'block';
     }
@@ -324,7 +319,7 @@ class SIA {
     if (response.status === 403) {
       (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('failedSignin', 'warning');
     } else if (response.status === 303) {
-      window.location.href = '/';
+      window.location.href = '/workspace';
     }
   }
   static async execSignUp(event) {
