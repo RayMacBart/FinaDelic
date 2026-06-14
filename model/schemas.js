@@ -35,7 +35,11 @@ const userSchema = new Schema({
          enddate: {
             type: Date,
             required: true
-         },    
+         },
+         rollingEndDate: {
+            type: Boolean,
+            // required: true
+         }
       },
       required: true
    }

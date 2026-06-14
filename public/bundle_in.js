@@ -15,20 +15,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modals_src_submitUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modals_src/submitUtils.js */ "./src_in/modals_src/submitUtils.js");
 
 class AppData {
-  constructor(app) {
+  constructor() {
     this.revisitFlag = Symbol('revisitFlag');
     this.utils = new _modals_src_submitUtils_js__WEBPACK_IMPORTED_MODULE_0__["default"](this);
     if (document.getElementById('username-info')) {
       this.username = document.getElementById('username-info').textContent;
     }
-    this.fetchUserData(app);
   }
   #currentBag = '';
-  async fetchUserData(app) {
-    const response = await fetch('/userdata');
-    this.data = await response.json();
-    this.setBagAmounts(app.timespan);
+  async loadFromBackendFirst(app) {
+    await this.fetchUserData(app.timespan);
     app.continueConstruction1();
+  }
+  async fetchUserData(timespan) {
+    const response = await fetch('/userdata');
+    const fetchedData = await response.json();
+    localStorage.setItem('userdata', JSON.stringify(fetchedData));
+    this.data = fetchedData;
+    this.setBagAmounts(timespan);
   }
 
   //   EXAMPLE DATA STRUCTURE:
@@ -92,6 +96,9 @@ class AppData {
   getBagPath() {
     return this.#currentBag;
   }
+  setBagPath(bagPath) {
+    this.#currentBag = bagPath;
+  }
   changeCurrentBagProp(newName = null) {
     const curBagArray = this.#currentBag.split('/');
     curBagArray.pop();
@@ -127,17 +134,21 @@ class AppData {
       }
     } else if (stepUp && (this.#currentBag === "IN" || this.#currentBag === "OUT")) {
       this.#currentBag = '';
+      localStorage.setItem('path', '');
       return;
     } else if (stepUp) {
       const bagArray = this.#currentBag.split('/');
       bagArray.pop();
       this.#currentBag = bagArray.join('/');
+      localStorage.setItem('path', bagArray.join('/'));
     }
     if (!stepUp) {
       if (this.#currentBag) {
         this.#currentBag = this.#currentBag + '/' + bagName;
+        localStorage.setItem('path', this.#currentBag);
       } else {
         this.#currentBag = bagName;
+        localStorage.setItem('path', bagName);
       }
     }
   }
@@ -560,15 +571,34 @@ const populateExportVariables = app => {
 };
 class App {
   constructor() {
-    console.log('FULL RELOAD!');
+    // console.log('FULL RELOAD!');
     this.timespan = new _timespan_js__WEBPACK_IMPORTED_MODULE_3__["default"](this);
+    if (localStorage.getItem('timespan')) {
+      const timeObj = JSON.parse(localStorage.getItem('timespan'));
+      this.timespan.setupTimespan(timeObj);
+      this.setAppData();
+      this.timespan.fetchTime();
+    } else {
+      this.timespan.loadFromBackendFirst(this);
+    }
   }
   setAppData() {
     // called in TimeSpan.fetchTime!
     this.appData = new _appData_js__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+    if (localStorage.getItem('path')) {
+      this.appData.setBagPath(localStorage.getItem('path'));
+    }
+    if (localStorage.getItem('userdata')) {
+      this.appData.data = JSON.parse(localStorage.getItem('userdata'));
+      this.appData.setBagAmounts(this.timespan);
+      this.continueConstruction1();
+      this.appData.fetchUserData(this.timespan); // no 'await' necessary!
+    } else {
+      this.appData.loadFromBackendFirst(this);
+    }
   }
   continueConstruction1() {
-    // called in AppData.fetchUserData!
+    // called in AppData.retrieveUserData!
     this.modal = new _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"](this.appData, _modalContents_js__WEBPACK_IMPORTED_MODULE_7__.modalContents);
     this.chart = new _chart_js__WEBPACK_IMPORTED_MODULE_5__["default"](this);
   }
@@ -943,46 +973,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const modalContents = {
   'add2chart': {
-    'text-1': 'Are you sure you want to add',
+    'text-1': 'Add the Box:',
     'text-2': 'BAGNAME',
     'text-3': 'to the current chart?',
     'submit-button': 'YES',
     'cancel-button': 'NO'
   },
   'removeFromChart': {
-    'text-1': 'Are you sure you want to remove',
+    'text-1': 'Remove the Box:',
     'text-2': 'BAGNAME',
     'text-3': 'from the current chart?',
     'submit-button': 'YES',
     'cancel-button': 'NO'
   },
   'bag-create': {
-    'text-1': 'CREATE NEW BAG',
+    'text-1': 'Create New Box:',
     'input-label': 'Enter Name',
     'input': true,
     'submit-button': 'CREATE',
     'cancel-button': 'CANCEL'
   },
   'bag-rename': {
-    'text-1': 'old name:',
+    'text-1': 'Old Name:',
     'text-2': 'BAGNAME',
-    'input-label': 'Enter new name:',
+    'input-label': 'Enter New Name:',
     'input': true,
     'submit-button': 'RENAME',
     'cancel-button': 'CANCEL'
   },
   'bag-erase': {
-    'text-1': 'Are you sure you want to delete',
+    'text-1': 'Erase the Box:',
     'text-2': 'BAGNAME',
-    'text-3': 'and also all the content inside',
+    'text-3': 'and all the content inside',
     'questionmark': '?',
     'submit-button': 'YES',
     'cancel-button': 'NO'
   },
   'bag-disband': {
-    'text-1': 'Are you sure you want to delete',
+    'text-1': 'Delete the Box:',
     'text-2': 'BAGNAME',
-    'text-3': 'and move all it\'s content up to',
+    'text-3': 'and move all content up to',
     'text-4': 'PARENTBAG',
     'questionmark': '?',
     'submit-button': 'YES',
@@ -991,13 +1021,13 @@ const modalContents = {
   'bag-move': {
     'text-1': 'MOVE',
     'text-2': 'BAGNAME',
-    'select-label': 'Choose destination bag:',
+    'select-label': 'Choose Destination Box:',
     'select': true,
     'submit-button': 'MOVE',
     'cancel-button': 'CANCEL'
   },
   'flow-delete': {
-    'text-1': 'Are you sure you want to delete the selected flow',
+    'text-1': 'Delete Selection',
     'questionmark': '?',
     'submit-button': 'YES',
     'cancel-button': 'NO'
@@ -1022,13 +1052,13 @@ const modalContents = {
   },
   'flow-move': {
     'text-1': 'MOVE FLOW',
-    'select-label': 'Choose destination bag:',
+    'select-label': 'Choose Destination Box:',
     'select': true,
     'submit-button': 'MOVE',
     'cancel-button': 'CANCEL'
   },
   'time': {
-    'text-1': 'Select the time period to be considered',
+    'text-1': 'Select the Period to Display:',
     'start-date-label': 'Start Date:',
     'start-date': true,
     'end-date-label': 'End Date:',
@@ -1039,7 +1069,7 @@ const modalContents = {
   'confirmAccDel': {
     'text-1': 'CAUTION!',
     'questionmark': '?',
-    'text-2': 'This deletes your account!',
+    'text-2': 'This Deletes Your Account!',
     'text-3': '(as soon as possible)',
     'text-4': 'ARE YOU SURE?',
     'submit-button': 'YES',
@@ -2238,12 +2268,19 @@ class TimeSpan {
   constructor(app) {
     this.fetchTime(app);
   }
-  async fetchTime(app) {
+  setupTimespan(timeObj) {
+    this.start = new Date(timeObj.startdate.split('T')[0]);
+    this.end = new Date();
+    this.rollingEndDate = timeObj.rollingEndDate;
+  }
+  async fetchTime() {
     const response = await fetch('/time');
     const timeObj = await response.json();
-    // this.end = new Date(timeObj.enddate.split('T')[0]);  // needs user setting (for now, only 'today' is end)
-    this.end = new Date();
-    this.start = new Date(timeObj.startdate.split('T')[0]);
+    localStorage.setItem('timespan', JSON.stringify(timeObj));
+    this.setupTimespan(timeObj);
+  }
+  async loadFromBackendFirst(app) {
+    await this.fetchTime();
     app.setAppData();
   }
 }
@@ -2540,7 +2577,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("d012bcf1e73b2e5139a7")
+/******/ 		__webpack_require__.h = () => ("388d9874f2bde78f957e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

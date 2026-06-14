@@ -109,7 +109,6 @@ class Toolbar {
             buttons[1].removeEventListener('click', this.TEH.boundAdd2chartHandler);
             buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {once: true});
          } else {
-            console.log('setted up add button (no match!)');
             buttons[1].removeEventListener('click', this.TEH.boundRemoveFromChartHandler);
             buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});
          }

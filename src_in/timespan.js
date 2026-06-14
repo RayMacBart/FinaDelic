@@ -3,14 +3,26 @@ class TimeSpan {
       this.fetchTime(app);
    }
 
-   async fetchTime(app) {
+   setupTimespan(timeObj) {
+      this.start = new Date(timeObj.startdate.split('T')[0]);
+      this.end = new Date();
+      this.rollingEndDate = timeObj.rollingEndDate;
+   }
+
+   
+   async fetchTime() {
       const response = await fetch('/time');
       const timeObj = await response.json();
-      // this.end = new Date(timeObj.enddate.split('T')[0]);  // needs user setting (for now, only 'today' is end)
-      this.end = new Date();
-      this.start = new Date(timeObj.startdate.split('T')[0]);
+      localStorage.setItem('timespan', JSON.stringify(timeObj));
+      this.setupTimespan(timeObj);
+   }
+
+
+   async loadFromBackendFirst(app) {
+      await this.fetchTime();
       app.setAppData();
    }
+      
 }
 
 export default TimeSpan;

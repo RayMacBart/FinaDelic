@@ -134,6 +134,66 @@ input[type=number] {
   background: linear-gradient(180deg, rgba(13, 26, 115, 0.5) 0%, rgba(213, 218, 246, 0.2) 11%, #F7F8FD 100%), #F7F8FD;
 }
 
+.load {
+  height: calc(100dvh - 10rem);
+  width: 100%;
+}
+
+.loadText {
+  width: 50dvw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3rem;
+  text-align: center;
+  color: #222c69;
+}
+
+.spinner {
+  width: 4rem;
+  height: 4rem;
+  margin-top: calc(50dvh - 9rem);
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite;
+}
+
+.spinner::before, .spinner::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 0.417rem solid #3745a2;
+  animation: prixClipFix 2s linear infinite;
+}
+
+.spinner::after {
+  inset: 0.667rem;
+  transform: rotate3d(90, 90, 0, 180deg);
+  border-color: #4056df;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  75%, 100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+}
 .margin-container {
   width: 70%;
   margin: auto;
@@ -1493,6 +1553,41 @@ canvas {
   cursor: pointer;
 }
 
+.addflowbutton {
+  border-width: 0.2em;
+  animation-name: shine;
+  animation-fill-mode: both;
+  animation-duration: 10s;
+  animation-delay: 500ms;
+}
+@keyframes shine {
+  0% {
+    transform: scale(1);
+    border-color: #363F7D;
+  }
+  1.5% {
+    transform: scale(1.2);
+  }
+  3.5% {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.15);
+  }
+  8% {
+    border-color: #e600ff;
+  }
+  10% {
+    transform: scale(1);
+  }
+  30% {
+    border-color: #0022ff;
+  }
+  100% {
+    border-color: #363F7D;
+  }
+}
+
 .menu > li > details {
   color: #f8f9ff;
   text-shadow: 0.1rem 0.1rem 0.08rem #2E366B, -0.1rem 0.1rem 0.08rem #2E366B, 0.1rem -0.1rem 0.08rem #2E366B, -0.1rem -0.1rem 0.08rem #2E366B;
@@ -2218,6 +2313,16 @@ dialog::backdrop {
   margin-top: 1rem;
   margin-bottom: 1.6rem;
 }
+@media (max-width: 626px) {
+  .modal__start-date-wrapper, .modal__end-date-wrapper {
+    margin-left: calc(50dvw - 9.3rem);
+  }
+}
+@media (max-width: 390px) {
+  .modal__start-date-wrapper, .modal__end-date-wrapper {
+    margin-left: calc(50dvw - 8.3rem);
+  }
+}
 .modal__select-label {
   font-size: 1.375rem;
   margin-bottom: 0.5rem;
@@ -2332,12 +2437,14 @@ dialog::backdrop {
 .modal__select {
   background-color: #f2f3f8;
   font-family: "Inter", sans-serif;
-  text-indent: 2.3rem;
+  text-indent: 3rem;
+  height: 1.7rem;
 }
 .modal__select::picker-icon {
   color: #676987;
   position: relative;
-  left: 0.9rem;
+  left: 2.85rem;
+  bottom: 1.15rem;
 }
 
 ::picker(select) {

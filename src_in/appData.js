@@ -3,26 +3,29 @@ import SubmitUtils from './modals_src/submitUtils.js';
 
 class AppData {
 
-   constructor(app) {
+   constructor() {
       this.revisitFlag = Symbol('revisitFlag');
       this.utils = new SubmitUtils(this);
       if (document.getElementById('username-info')) {
          this.username = document.getElementById('username-info').textContent;
       }
-      this.fetchUserData(app);
    }
 
 
    #currentBag = ''
    
-
-   async fetchUserData(app) {
-      const response = await fetch('/userdata');
-      this.data = await response.json();
-      this.setBagAmounts(app.timespan);
+   async loadFromBackendFirst(app) {
+      await this.fetchUserData(app.timespan);
       app.continueConstruction1();
    }
 
+   async fetchUserData(timespan) {
+      const response = await fetch('/userdata');
+      const fetchedData = await response.json();
+      localStorage.setItem('userdata', JSON.stringify(fetchedData));
+      this.data = fetchedData;
+      this.setBagAmounts(timespan);
+   }
 
 
 //   EXAMPLE DATA STRUCTURE:
@@ -94,6 +97,10 @@ class AppData {
       return this.#currentBag;
    }
 
+   setBagPath(bagPath) {
+      this.#currentBag = bagPath;
+   }
+
    
    changeCurrentBagProp(newName=null) {
       const curBagArray = this.#currentBag.split('/');
@@ -139,18 +146,22 @@ class AppData {
       }
       else if (stepUp && (this.#currentBag === "IN" || this.#currentBag === "OUT")) {
          this.#currentBag = '';
+         localStorage.setItem('path', '');
          return;
       }
       else if (stepUp) {
          const bagArray = this.#currentBag.split('/');
          bagArray.pop();
          this.#currentBag = bagArray.join('/');
+         localStorage.setItem('path', bagArray.join('/'));
       }
       if (!stepUp) {
          if (this.#currentBag) {
             this.#currentBag = this.#currentBag+'/'+bagName;
+            localStorage.setItem('path', this.#currentBag);
          } else {
             this.#currentBag = bagName;
+            localStorage.setItem('path', bagName);
          }
       }
    }

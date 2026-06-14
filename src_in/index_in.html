@@ -15,7 +15,13 @@
 
 <body>
    <div class="view-wrapper">
-      <div class="page"></div>
+      <div class="page load">
+         <div class="spinner"></div>
+         <div class="loadText">
+            <p>Preparing your data...</p>
+            <p>This may take a bit longer if you’re using a new browser or after your browser storage was cleared.</p>
+         </div>
+      </div>
       <footer class="footer">
          <div class="margin-container">
             <div class="footer__content-flexwrap">
@@ -338,7 +344,7 @@
          <li><button class="tool-button">MODIFY</button></li>
          <li><button class="tool-button"><p class="dynamicChartButtonText"></p></button></li>
          <li><button class="tool-button">ADD<br><span class="bagname--uppercase">INBOX</span></button></li>
-         <li><button class="tool-button">ADD<br><span class="flowname">GAIN</span></button></li>
+         <li><button class="tool-button addflowbutton">ADD<br><span class="flowname">GAIN</span></button></li>
       </menu>
       <menu class="menu menu--account-modification">
          <li><button class="tool-button"><img class="toolback" src="./assets/icons/toolback.svg" alt="back arrow" /></button></li>

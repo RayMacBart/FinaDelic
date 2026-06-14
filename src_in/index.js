@@ -22,15 +22,34 @@ const populateExportVariables = (app) => {
 
 class App {
    constructor() {
-      console.log('FULL RELOAD!');
+      // console.log('FULL RELOAD!');
       this.timespan = new TimeSpan(this);
+      if (localStorage.getItem('timespan')) {
+         const timeObj = JSON.parse(localStorage.getItem('timespan'));
+         this.timespan.setupTimespan(timeObj);
+         this.setAppData();
+         this.timespan.fetchTime();
+      } else {
+         this.timespan.loadFromBackendFirst(this);
+      }
    }
    
    setAppData() {   // called in TimeSpan.fetchTime!
       this.appData = new AppData(this);
+      if (localStorage.getItem('path')) {
+         this.appData.setBagPath(localStorage.getItem('path'));
+      }
+      if (localStorage.getItem('userdata')) {
+         this.appData.data = JSON.parse(localStorage.getItem('userdata'));
+         this.appData.setBagAmounts(this.timespan);
+         this.continueConstruction1();
+         this.appData.fetchUserData(this.timespan);   // no 'await' necessary!
+      } else {
+         this.appData.loadFromBackendFirst(this);
+      }
    }
    
-   continueConstruction1() {   // called in AppData.fetchUserData!
+   continueConstruction1() {   // called in AppData.retrieveUserData!
       this.modal = new Modal(this.appData, modalContents);
       this.chart = new Chart(this);
    }

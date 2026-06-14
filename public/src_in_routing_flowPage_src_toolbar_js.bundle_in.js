@@ -106,30 +106,21 @@ class Toolbar {
         buttons[0].style.display = 'inline-block';
         buttons[0].addEventListener('click', this.boundModifyHandler, {
           once: true
-        }); // (!)[../../docs/secureOnceNote.txt]
+        });
       } else {
         buttons[0].style.display = 'none';
       }
-      console.log('this.TEH.appData.getBagPath():', this.TEH.appData.getBagPath());
-      console.log('this.chartBags:', this.chartBags);
       if (this.TEH.appData.getBagPath() in this.chartBags) {
-        console.log('setted up remove button (match!)');
         buttons[1].removeEventListener('click', this.TEH.boundAdd2chartHandler);
         buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {
           once: true
         });
       } else {
-        console.log('setted up add button (no match!)');
         buttons[1].removeEventListener('click', this.TEH.boundRemoveFromChartHandler);
         buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {
           once: true
-        }); // (warning)[../../docs/onceListenerWarning.txt]
+        });
       }
-      // if (buttons[1].firstElementChild.innerText === 'ADD TO CHART') {
-      //    buttons[1].addEventListener('click', this.TEH.boundAdd2chartHandler, {once: true});  // (warning)[../../docs/onceListenerWarning.txt]
-      // } else if (buttons[1].firstElementChild.innerText === 'CHART: REMOVE') {
-      //    buttons[1].addEventListener('click', this.TEH.boundRemoveFromChartHandler, {once: true});
-      // }
       buttons[2].addEventListener('click', this.TEH.boundAddNestedBagHandler, {
         once: true
       });
