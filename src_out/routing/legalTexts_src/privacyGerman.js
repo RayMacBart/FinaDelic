@@ -7,6 +7,7 @@ const privacyGerman = `\
             <p class="compPage compPage__paragraph">
                <strong>Dieser Datenschutzhinweis für Reinhard Höbart („wir“, „uns“ oder „unser“) erklärt, wie wir personenbezogene Daten erheben, speichern und verwenden, wenn Sie unsere Dienste nutzen, einschließlich wenn Sie https://www.finadelic.com besuchen oder die Finadelic-Webanwendung verwenden.<br><br>
                Finadelic ermöglicht es Nutzern, ihre persönlichen Finanzdaten manuell einzugeben, zu organisieren und zu visualisieren.</strong><br>Es werden keine Finanzinformationen von Drittanbietern importiert, und die Anwendung synchronisiert keine Daten mit externen Diensten. Alle Finanzdaten werden freiwillig vom Nutzer eingegeben.<br><br>
+               <strong>Zur Verbesserung der Ladegeschwindigkeit und Benutzererfahrung speichert Finadelic bestimmte Daten lokal auf Ihrem Gerät mittels des lokalen Browserspeichers („localStorage“).</strong><br>Dazu gehören zwischengespeicherte Konto‑ und Transaktionsdaten, der zuletzt besuchte Bereich („Pfad“) sowie der ausgewählte Zeitraum für Transaktionen. Diese lokal gespeicherten Daten werden nicht an unsere Server übertragen, es sei denn, Sie speichern oder aktualisieren Ihre Daten ausdrücklich innerhalb der Anwendung.<br><br>
                Die Anwendung ist ausschließlich für den privaten, persönlichen Gebrauch bestimmt. Finadelic überprüft nicht die Richtigkeit, Vollständigkeit oder Aktualität der von den Nutzern eingegebenen Daten. Die Anwendung speichert die Daten entsprechend den Eingaben des Nutzers und gewährleistet deren Sicherheit und Integrität, übernimmt jedoch keine Haftung für den Inhalt oder die Korrektheit der vom Nutzer bereitgestellten Daten.<br><br>
                <strong>Fragen oder Bedenken?</strong> Das Lesen dieser Datenschutzerklärung hilft Ihnen, Ihre Datenschutzrechte und -optionen zu verstehen. Wir sind verantwortlich dafür, wie Ihre personenbezogenen Daten verarbeitet werden. Wenn Sie mit unseren Richtlinien und Praktiken nicht einverstanden sind, nutzen Sie bitte unsere Dienste nicht.<br><br>
                Wenn Sie Fragen oder Bedenken haben, können Sie uns unter <strong>info@finadelic.com</strong> kontaktieren.</p>
@@ -16,7 +17,7 @@ const privacyGerman = `\
             <h2 class="compPage compPage__title">ZUSAMMENFASSUNG DER WICHTIGSTEN PUNKTE</h2>
             <p class="compPage compPage__paragraph">
                Diese Zusammenfassung hebt die wichtigsten Punkte unserer Datenschutzerklärung hervor. Für weitere Details lesen Sie bitte die vollständigen Abschnitte unten.<br><br>
-               <strong>Welche personenbezogenen Daten verarbeiten wir?</strong><br>Wir verarbeiten nur die Daten, die für den Betrieb der Finadelic-Webanwendung erforderlich sind: Ihre E‑Mail‑Adresse, Ihr gehashtes Passwort und die Finanzdaten, die Sie manuell in die App eingeben.<br><br>
+               <strong>Welche personenbezogenen Daten verarbeiten wir?</strong><br>Wir verarbeiten nur die Daten, die für den Betrieb der Finadelic-Webanwendung erforderlich sind: Ihre E‑Mail‑Adresse, Ihr gehashtes Passwort und die Finanzdaten, die Sie manuell in die App eingeben.<br>Zusätzlich speichert Finadelic bestimmte Daten lokal auf Ihrem Gerät (localStorage), um die Ladegeschwindigkeit und Benutzererfahrung zu verbessern. Diese lokal gespeicherten Daten werden nicht an unsere Server übertragen.<br><br>
                <strong>Verarbeiten wir sensible personenbezogene Daten?</strong><br>Nein. Wir verarbeiten keine sensiblen oder besonderen Kategorien personenbezogener Daten.<br><br>
                <strong>Erheben wir Daten von Dritten?</strong><br>Nein. Alle Daten werden direkt von Ihnen bereitgestellt.<br><br>
                <strong>Wie verarbeiten wir Ihre Daten?</strong><br>Wir verarbeiten Ihre Daten ausschließlich, um die Finadelic-Anwendung bereitzustellen, zu warten und zu sichern, einschließlich Authentifizierung, Datenspeicherung und Kontoverwaltung.<br><br>
@@ -54,6 +55,7 @@ const privacyGerman = `\
                <strong>Von Ihnen bereitgestellte personenbezogene Daten.</strong><br>Wir erheben personenbezogene Daten, die Sie freiwillig bereitstellen, wenn Sie ein Konto erstellen oder die Finadelic-Webanwendung nutzen. Finadelic erhebt keine Daten automatisch, außer dem, was technisch für den Betrieb des Dienstes erforderlich ist.<br><br>
                <strong>Von Ihnen bereitgestellte personenbezogene Daten.</strong><br>Die von uns erhobenen personenbezogenen Daten beschränken sich auf das, was für den Betrieb Ihres Kontos und die Speicherung der von Ihnen eingegebenen Finanzdaten erforderlich ist. Dazu gehören:<br>
                <ul><li>E‑Mail‑Adresse</li><li>Passwort (in gehashter Form gespeichert)</li><li>Finanzdaten, die Sie manuell in die Anwendung eingeben</li></ul><br>
+               <strong>Lokal auf Ihrem Gerät gespeicherte Daten (localStorage).</strong><br>Um die Ladegeschwindigkeit und Benutzererfahrung zu verbessern, speichert Finadelic bestimmte Daten lokal auf Ihrem Gerät mittels des Browserspeichers („localStorage“). Dazu gehören zwischengespeicherte Konto‑ und Transaktionsdaten, der zuletzt besuchte Bereich („Pfad“) sowie der ausgewählte Zeitraum für Transaktionen.<br>Diese lokal gespeicherten Daten werden nicht automatisch an unsere Server übertragen und verbleiben ausschließlich auf Ihrem Gerät, es sei denn, Sie speichern oder aktualisieren Ihre Daten ausdrücklich innerhalb der Anwendung.<br><br>
                <strong>Sensible Daten.</strong><br>Wir verarbeiten keine sensiblen oder besonderen Kategorien personenbezogener Daten.<br><br>
                Sie sind dafür verantwortlich, dass die von Ihnen bereitgestellten Informationen korrekt sind. Wenn Sie Ihre E‑Mail‑Adresse oder andere Kontoinformationen aktualisieren müssen, die nicht in der App geändert werden können, können Sie uns unter <strong>info@finadelic.com</strong> kontaktieren.
             </p>
@@ -66,6 +68,7 @@ const privacyGerman = `\
                Wir verarbeiten Ihre Informationen zu folgenden Zwecken:<br><br>
                <strong>Zur Erstellung und Verwaltung Ihres Benutzerkontos.</strong><br>Wir verarbeiten Ihre E‑Mail‑Adresse und Ihr Passwort (in gehashter Form), um Ihr Konto zu registrieren, Sie zu authentifizieren und Ihre Sitzung aktiv zu halten.<br><br>
                <strong>Zur Bereitstellung der Kernfunktionalität der Anwendung.</strong><br>Wir speichern und verarbeiten die Finanzdaten, die Sie manuell eingeben, damit die Anwendung Ihre Informationen anzeigen, organisieren und verwalten kann.<br><br>
+               <strong>Zur Verbesserung der Benutzererfahrung.</strong><br>Um Ladezeiten zu reduzieren und die Nutzung der Anwendung zu optimieren, speichert Finadelic bestimmte Daten lokal auf Ihrem Gerät mittels des Browserspeichers („localStorage“). Dazu gehören zwischengespeicherte Konto‑ und Transaktionsdaten, der zuletzt besuchte Bereich („Pfad“) sowie der ausgewählte Zeitraum für Transaktionen.<br>Diese lokal gespeicherten Daten werden nicht automatisch an unsere Server übertragen und dienen ausschließlich funktionalen Zwecken.<br><br>
                <strong>Zur Gewährleistung der Sicherheit und Integrität des Dienstes.</strong><br>Wir verwenden technische Maßnahmen wie verschlüsselte Verbindungen, sicheres Passwort‑Hashing und Sitzungsverwaltung, um Ihr Konto und Ihre Daten zu schützen.<br><br>
                <strong>Zur Beantwortung von Nutzeranfragen.</strong><br>Wenn Sie uns direkt kontaktieren (z. B. bezüglich Kontolöschung oder Datenschutzrechten), verarbeiten wir die Informationen, die zur Beantwortung Ihrer Anfrage erforderlich sind.<br><br>
                Wir verarbeiten Ihre Daten <strong>nicht</strong> für Analysen, Werbung, Profiling oder andere sekundäre Zwecke.
@@ -78,6 +81,7 @@ const privacyGerman = `\
                <em><strong>Kurz gesagt:&nbsp;</strong>Wir verarbeiten Ihre personenbezogenen Daten nur, wenn eine gültige Rechtsgrundlage gemäß DSGVO vorliegt.</em><br><br>
                Nach der Datenschutz-Grundverordnung (DSGVO) stützen wir uns auf folgende Rechtsgrundlagen:<br><br>
                <strong>Vertragserfüllung.</strong><br>Wir verarbeiten Ihre personenbezogenen Daten, soweit dies zur Erstellung und Verwaltung Ihres Kontos, zur Authentifizierung, zur Speicherung der von Ihnen eingegebenen Finanzdaten und zur Bereitstellung der Kernfunktionalität der Finadelic-Anwendung erforderlich ist.<br><br>
+               <strong>Lokal auf Ihrem Gerät gespeicherte Daten (localStorage).</strong><br>Bestimmte Daten werden ausschließlich auf Ihrem eigenen Gerät gespeichert, um die Nutzung der Anwendung zu verbessern (z. B. zwischengespeicherte Konto‑ und Transaktionsdaten, zuletzt besuchter Bereich, ausgewählter Zeitraum). Diese Daten werden nicht an unsere Server übertragen und stellen daher keine Verarbeitung im Sinne von Art. 6 DSGVO durch uns dar.<br><br>
                <strong>Rechtliche Verpflichtungen.</strong><br>Wir können bestimmte Informationen verarbeiten oder aufbewahren, wenn dies zur Erfüllung gesetzlicher Pflichten erforderlich ist, z. B. zur Beantwortung rechtmäßiger behördlicher Anfragen.<br><br>
                Wir stützen uns <strong>nicht</strong> auf Einwilligungen, berechtigte Interessen oder lebenswichtige Interessen als Rechtsgrundlagen für die Verarbeitung Ihrer personenbezogenen Daten.
                <strong></strong>
@@ -89,6 +93,7 @@ const privacyGerman = `\
             <p class="compPage compPage__paragraph">
                <em><strong>Kurz gesagt:&nbsp;</strong>Wir geben Ihre personenbezogenen Daten nicht an Dritte weiter.</em><br><br>
                Wir verkaufen, vermieten oder offenbaren Ihre personenbezogenen Daten nicht an Dritte, und wir verwenden keine externen Analyse‑, Werbe‑ oder Dienstleistungsanbieter, die eine Weitergabe Ihrer Daten erfordern würden.<br><br>
+               <strong>Lokal auf Ihrem Gerät gespeicherte Daten (localStorage).</strong><br>Bestimmte Daten werden ausschließlich auf Ihrem eigenen Gerät gespeichert, um die Nutzung der Anwendung zu verbessern (z. B. zwischengespeicherte Konto‑ und Transaktionsdaten, zuletzt besuchter Bereich, ausgewählter Zeitraum). Diese Daten werden nicht an uns übertragen und werden daher auch nicht an Dritte weitergegeben.<br><br>
                Die einzige Ausnahme besteht, wenn eine Offenlegung gesetzlich vorgeschrieben ist – beispielsweise wenn wir einer gültigen Anfrage einer Strafverfolgungsbehörde oder eines Gerichts nachkommen müssen. Außerhalb solcher seltenen und gesetzlich vorgeschriebenen Situationen werden Ihre Daten niemals weitergegeben.
             </p>
          </section>
@@ -100,6 +105,7 @@ const privacyGerman = `\
                Wir verwenden nur eine Art von Cookie: <strong>Session-Cookies</strong>. Diese Cookies sind unbedingt erforderlich, um Sie eingeloggt zu halten, Ihre Sitzung während der Nutzung der App aufrechtzuerhalten und Ihr Konto vor unbefugtem Zugriff zu schützen.<br><br>
                Diese Cookies verfolgen Ihre Aktivitäten <strong>nicht</strong>, speichern <strong>keine</strong> personenbezogenen Daten über das für die Authentifizierung erforderliche Maß hinaus und unterstützen <strong>keine</strong> Analysen, Werbung oder Profiling.<br><br>
                Wir verwenden <strong>keine</strong> Cookies von Drittanbietern, Web Beacons, Tracking‑Pixel oder andere Tracking‑Technologien.<br><br>
+               <strong>Lokaler Browserspeicher (localStorage).</strong><br>Zusätzlich speichert Finadelic bestimmte Daten lokal auf Ihrem Gerät mittels des Browserspeichers („localStorage“), um die Ladegeschwindigkeit und Benutzererfahrung zu verbessern. Dazu gehören zwischengespeicherte Konto‑ und Transaktionsdaten, der zuletzt besuchte Bereich („Pfad“) sowie der ausgewählte Zeitraum für Transaktionen.<br>Diese Daten werden <strong>nicht</strong> an unsere Server übertragen und dienen ausschließlich funktionalen Zwecken. Sie stellen <strong>keine</strong> Tracking‑Technologie</strong> dar.<br><br>
                Da unsere Cookies für den Betrieb und die Sicherheit der Dienste unbedingt erforderlich sind, können sie nicht deaktiviert werden, ohne die Kernfunktionen zu beeinträchtigen.
             </p>
          </section>
@@ -110,6 +116,7 @@ const privacyGerman = `\
                <em><strong>Kurz gesagt:&nbsp;</strong>Wir bewahren Ihre Daten nur so lange auf, wie Sie ein aktives Konto haben.</em><br><br>
                Wir speichern Ihre personenbezogenen Daten (Ihre E-Mail-Adresse, das gehashte Passwort und die von Ihnen manuell eingegebenen Finanzdaten) so lange, wie Ihr Finadelic-Konto besteht. Wenn Sie Ihr Konto löschen, werden alle damit verbundenen personenbezogenen und finanziellen Daten dauerhaft aus unseren aktiven Systemen gelöscht.<br><br>
                Wir bewahren Ihre Daten nicht für Marketing, Analysen oder andere sekundäre Zwecke auf.<br><br>
+               <strong>Lokal auf Ihrem Gerät gespeicherte Daten (localStorage).</strong><br>Bestimmte Daten werden ausschließlich auf Ihrem eigenen Gerät gespeichert, um die Nutzung der Anwendung zu verbessern (z. B. zwischengespeicherte Konto‑ und Transaktionsdaten, zuletzt besuchter Bereich, ausgewählter Zeitraum).<br>Diese Daten werden nicht an unsere Server übertragen und unterliegen daher nicht unseren Aufbewahrungsfristen. Sie können jederzeit gelöscht werden, indem Sie die Website‑Daten in Ihrem Browser entfernen.<br><br>
                Wenn wir gesetzlich verpflichtet sind, bestimmte Informationen aufzubewahren (z. B. zur Erfüllung einer gültigen behördlichen Anfrage), bewahren wir nur die minimal erforderlichen Daten und nur für die gesetzlich vorgeschriebene Dauer auf.<br><br>
                Derzeit führen wir keine langfristigen Backup‑Archive. Wenn in Zukunft ein Backup‑System eingeführt wird, wird dieser Datenschutzhinweis entsprechend aktualisiert.
             </p>
@@ -128,6 +135,7 @@ const privacyGerman = `\
                   <li><strong>CSRF‑Schutz</strong> zur Verhinderung unbefugter Anfragen</li>
                   <li><strong>Eingeschränkter Zugriff</strong> auf die Serverumgebung</li>
                </ul><br>
+               <strong>Lokal auf Ihrem Gerät gespeicherte Daten (localStorage).</strong><br>Bestimmte Daten werden ausschließlich auf Ihrem eigenen Gerät gespeichert, um die Nutzung der Anwendung zu verbessern (z. B. zwischengespeicherte Konto‑ und Transaktionsdaten, zuletzt besuchter Bereich, ausgewählter Zeitraum).<br>Da diese Daten nicht an unsere Server übertragen werden, unterliegen sie nicht unseren Sicherheitsmaßnahmen. Ihre Sicherheit hängt von den Einstellungen und Schutzmechanismen Ihres Browsers und Ihres Geräts ab.<br><br>
                Obwohl wir uns bemühen, Ihre Daten zu schützen, kann kein Online‑Dienst absolute Sicherheit garantieren. Wir verwenden jedoch branchenübliche Verfahren, um Risiken zu minimieren und Ihre Daten bestmöglich zu schützen.
             </p>
          </section>
@@ -161,6 +169,7 @@ const privacyGerman = `\
                Sie können die von Ihnen eingegebenen Finanzdaten direkt in der Anwendung einsehen, ändern und löschen.<br><br>
                Wenn Sie Ihr Konto vollständig löschen möchten, können Sie dies innerhalb der App tun oder uns kontaktieren. Wenn Ihr Konto gelöscht wird, werden alle zugehörigen personenbezogenen und finanziellen Daten dauerhaft aus unseren aktiven Systemen entfernt.<br><br>
                Wenn Sie Ihre E‑Mail‑Adresse oder andere Kontoinformationen aktualisieren müssen, die nicht in der App geändert werden können, kontaktieren Sie uns bitte direkt.<br><br>
+               <strong>Bestimmte Daten werden ausschließlich auf Ihrem Gerät gespeichert,</strong> um die Nutzung der Anwendung zu verbessern (z. B. zwischengespeicherte Konto‑ und Transaktionsdaten, zuletzt besuchter Bereich, ausgewählter Zeitraum).<br>Diese Daten werden <strong>nicht</strong> an unsere Server übertragen.<br>Sie können sie jederzeit löschen, indem Sie in Ihrem Browser die <strong>Website‑Daten / lokalen Speicher</strong> für finadelic.com entfernen.<br><br>
                <strong>Cookies und ähnliche Technologien</strong><br><br>
                Finadelic verwendet ausschließlich notwendige Session-Cookies, die für Authentifizierung und Sicherheit erforderlich sind. Diese Cookies können nicht deaktiviert werden, da der Dienst ohne sie nicht funktioniert.<br><br>
                Wenn Sie Fragen oder Anmerkungen zu Ihren Datenschutzrechten haben, können Sie uns unter <strong>info@finadelic.com</strong> kontaktieren.
@@ -211,6 +220,14 @@ const privacyGerman = `\
                </ul><br>
                <strong>Wenn Sie Informationen aktualisieren müssen, die nicht innerhalb der App geändert werden können</strong> (z. B. Ihre E‑Mail‑Adresse), oder wenn Sie eines Ihrer DSGVO‑Rechte ausüben möchten, können Sie uns unter <strong>info@finadelic.com</strong> kontaktieren.<br><br>
                Wir werden alle Anfragen gemäß den geltenden Datenschutzgesetzen beantworten.<br><br>
+               <strong>Bestimmte Daten werden ausschließlich auf Ihrem eigenen Gerät gespeichert,</strong> um die Nutzung der Anwendung zu verbessern. Dazu gehören:<br><br>
+               <ul>
+                  <li>zwischengespeicherte Konto‑ und Transaktionsdaten</li>
+                  <li>der zuletzt besuchte Bereich („Pfad“)</li>
+                  <li>der ausgewählte Zeitraum für Transaktionen</li>
+               </ul><br>
+               Diese Daten werden <strong>nicht</strong> an unsere Server übertragen und können daher <strong>nicht</strong> über Ihr Benutzerkonto gelöscht werden.<br><br>
+               Sie können diese lokal gespeicherten Daten jederzeit entfernen, indem Sie in Ihrem Browser die <strong>Website‑Daten / lokalen Speicher</strong> für finadelic.com löschen.<br><br>
             </p>
          </section>
 

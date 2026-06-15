@@ -29,7 +29,8 @@ const termsEnglish = `
                   <li>FinaDelic <strong>does not import data</strong> from banks or third‑party providers.</li>
                   <li>FinaDelic <strong>does not verify</strong> the accuracy of the data you enter.</li>
                   <li>FinaDelic is <strong>NOT</strong> an accounting system, tax software, or financial advisory tool.</li>
-               </ul>
+               </ul><br>
+               <strong>Local storage on your device.</strong><br>To improve loading speed and user experience, FinaDelic stores certain data locally on your device using your browser’s local storage. This data is not transmitted to our servers and remains solely on your device.<br>
             </p><br>
          </section>
          <section class="compPage compPage__artwrap">

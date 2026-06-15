@@ -42,7 +42,8 @@ const termsGerman = `
                   <li>FinaDelic <strong>importiert keine Daten</strong> von Banken oder Drittanbietern.</li>
                   <li>FinaDelic <strong>überprüft nicht</strong> die Richtigkeit der eingegebenen Daten.</li>
                   <li>FinaDelic ist <strong>kein Buchhaltungssystem, keine Steuer‑Software</strong> und <strong>kein Finanzberatungs‑Tool</strong>.</li>
-               </ul>
+               </ul><br>
+               <strong>Lokale Speicherung auf Ihrem Gerät.</strong><br>Zur Verbesserung der Ladegeschwindigkeit und Benutzererfahrung speichert FinaDelic bestimmte Daten lokal auf Ihrem Gerät mittels des Browserspeichers („localStorage“). Diese Daten werden nicht an unsere Server übertragen und verbleiben ausschließlich auf Ihrem Gerät.<br>
             </p><br>
          </section>
          <section class="compPage compPage__artwrap">

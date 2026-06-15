@@ -20,6 +20,7 @@ const privacyEnglish = `
                <strong>This privacy notice for Reinhard Höbart ("we", "us", or "our") explains how we collect, store, and use personal information when you use our services, including when you visit https://www.finadelic.com or use the Finadelic web application.<br><br>
                Finadelic allows users to manually enter, organize, and visualize their personal financial data.</strong><br>No financial information is imported from third‑party providers, nor does the application synchronize data with external services. All financial data is entered voluntarily by the user.<br><br>
                The application is intended solely for private, personal use. Finadelic does not verify the accuracy, completeness, or timeliness of the data entered by users. The application stores the data according to the user’s input and ensures its security and integrity, but it does not assume liability for the content or correctness of the data provided by users.<br><br>
+               <strong>Local Storage:</strong><br>To improve loading speed and user experience, Finadelic uses the browser’s local storage (“localStorage”) to temporarily store certain data directly on your device. This includes cached copies of your account and transaction data, your last visited account (“path”), and your selected transaction timespan. These data remain on your device until you delete them manually or clear your browser’s site data. They are not transmitted to our servers unless you explicitly save or update them within the application.<br><br>
                <strong>Questions or concerns?</strong> Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for determining how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services.<br><br>
                If you have any questions or concerns, you can contact us at <strong>info@finadelic.com</strong>.</p>
          </section>
@@ -28,7 +29,7 @@ const privacyEnglish = `
             <h2 class="compPage compPage__title">SUMMARY OF KEY POINTS</h2>
             <p class="compPage compPage__paragraph">
                This summary highlights the key points of our Privacy Notice. For more details, please refer to the full sections below.<br><br>
-               <strong>What personal information do we process?</strong><br>We process only the information necessary to operate the Finadelic web application: your email address, your hashed password, and the financial data you manually enter into the app.<br><br>
+               <strong>What personal information do we process?</strong><br>We process only the information necessary to operate the Finadelic web application: your email address, your hashed password, and the financial data you manually enter into the app. We also use your browser’s local storage to temporarily store certain data on your device to improve loading speed and user experience.<br><br>
                <strong>Do we process any sensitive personal information?</strong><br>No. We do not process sensitive or special categories of personal data.<br><br>
                <strong>Do we collect information from third parties?</strong><br>No. All data is provided directly by you.<br><br>
                <strong>How do we process your information?</strong><br>We process your information solely to provide, maintain, and secure the Finadelic application, including authentication, data storage, and account management.<br><br>
@@ -66,6 +67,7 @@ const privacyEnglish = `
                <strong>Personal information you disclose to us.</strong><br>We collect personal information that you voluntarily provide when you create an account or use the Finadelic web application. Finadelic does not collect information automatically beyond what is technically necessary to operate the service.<br><br>
                <strong>Personal Information Provided by You.</strong><br>The personal information we collect is limited to what is required to operate your account and store the financial data you enter. This includes:<br>
                <ul><li>email address</li><li>password (stored in hashed form)</li><li>financial data that you manually enter into the application</li></ul><br>
+               <strong>Local Storage Data (stored on your device):</strong><br>To improve loading speed and user experience, Finadelic stores certain data locally on your device using the browser’s local storage (“localStorage”).<br>This includes cached copies of your account and transaction data, your last visited account (“path”), and your selected transaction timespan.<br>These data are stored only on your device and are not transmitted to our servers unless you explicitly save or update them within the application.<br><br>
                <strong>Sensitive Information.</strong><br>We do not process sensitive or special categories of personal information.<br><br>
                You are responsible for ensuring that the information you provide is accurate. If you need to update your email address or other account information that cannot be changed within the app, you may contact us at <strong>info@finadelic.com</strong>.
             </p>
@@ -78,6 +80,7 @@ const privacyEnglish = `
                We process your personal information for the following purposes:<br><br>
                <strong>To create and manage your user account.</strong><br>We process your email address and password (in hashed form) to register your account, authenticate you, and keep your session active.<br><br>
                <strong>To provide the core functionality of the application.</strong><br>We store and process the financial data you manually enter so that the application can display, organize, and manage your information as intended.<br><br>
+               <strong>To improve loading speed and user experience.</strong><br>Finadelic uses the browser’s local storage (“localStorage”) to temporarily store certain data directly on your device, including cached copies of your account and transaction data, your last visited account (“path”), and your selected transaction timespan.<br>This processing occurs only on your device and is not transmitted to our servers unless you explicitly save or update your data within the application.<br><br>
                <strong>To ensure the security and integrity of the service.</strong><br>We use technical measures such as encrypted connections, secure password hashing, and session management to protect your account and data.<br><br>
                <strong>To respond to user requests.</strong><br>If you contact us directly (for example, regarding account deletion or data rights), we process the information necessary to respond to your inquiry.<br><br>
                We do <strong>not</strong> process your information for analytics, advertising, profiling, or any other secondary purposes.
@@ -111,6 +114,7 @@ const privacyEnglish = `
                <em><strong>In Short: &nbsp;</strong>We only use essential cookies that are required for authentication and the proper functioning of our Services.</em><br><br>
                We use a single type of cookie: <strong>session cookies</strong>. These cookies are strictly necessary to keep you logged in, maintain your session while you navigate the app, and protect your account from unauthorized access.<br><br>
                These cookies do <strong>not</strong> track your activity, do <strong>not</strong> store personal information beyond what is required for authentication, and do <strong>not</strong> support analytics, advertising, or profiling.<br><br>
+               <strong>Local Storage:</strong><br>In addition to session cookies, Finadelic uses the browser’s local storage (“localStorage”) to store certain data directly on your device. This includes cached copies of your account and transaction data to improve loading speed, your last visited account (“path”), and your selected transaction timespan.<br>This information is stored only on your device and is <strong>not</strong> transmitted to our servers unless you explicitly save or update your data within the application. LocalStorage is used solely for functionality and performance and does <strong>not</strong> involve tracking or analytics.<br><br>
                We do <strong>not</strong> use third‑party cookies, web beacons, tracking pixels, or any other tracking technologies.<br><br>
                Because our cookies are strictly necessary for the operation and security of the Services, they cannot be disabled without affecting core functionality.
             </p>
@@ -121,6 +125,7 @@ const privacyEnglish = `
             <p class="compPage compPage__paragraph">
                <em><strong>In Short: &nbsp;</strong>We keep your information only for as long as you maintain an active account.</em><br><br>
                We store your personal information (your email address, hashed password, and the financial data you manually enter) for as long as your Finadelic account exists. When you delete your account, all associated personal and financial data is permanently deleted from our active systems.<br><br>
+               <strong>Local Storage:</strong><br>Certain data are stored locally on your device using the browser’s local storage (“localStorage”) to improve loading speed and user experience. This includes cached copies of your account and transaction data, your last visited account (“path”), and your selected transaction timespan.<br>These data are not stored on our servers and remain on your device until you delete them manually or clear your browser’s site data.<br><br>
                We do not retain your information for marketing, analytics, or any other secondary purposes.<br><br>
                If we are legally required to retain certain information (for example, to comply with a valid request from authorities), we may retain only the minimum amount of data necessary and only for the duration required by law.<br><br>
                We currently do not maintain long‑term backup archives. If a backup system is introduced in the future, this Privacy Notice will be updated accordingly.
@@ -140,6 +145,7 @@ const privacyEnglish = `
                   <li><strong>CSRF protection </strong>to prevent unauthorized requests</li>
                   <li><strong>restricted access </strong>to the server environment</li>
                </ul><br>
+               <strong>Local Storage:</strong><br>Certain data are stored locally on your device using the browser’s local storage (“localStorage”) to improve loading speed and user experience. Because this data never leaves your device, it is not protected by our server‑side security measures. Its security depends on your browser and device settings. You can delete this locally stored data at any time by clearing your browser’s site data.<br><br>
                While we strive to protect your information, no online service can guarantee absolute security. However, we use industry‑standard practices to reduce risks and safeguard your data as effectively as possible.
             </p>
          </section>
@@ -175,6 +181,7 @@ const privacyEnglish = `
                If you need to update your email address or other account information that cannot be changed within the app, please contact us directly.<br><br>
                <strong>Cookies and similar technologies</strong><br><br>
                Finadelic uses only essential session cookies required for authentication and security. These cookies cannot be disabled, as the service will not function without them.<br><br>
+               <strong>Local Storage</strong><br>Finadelic also uses the browser’s local storage (“localStorage”) to store certain data directly on your device, such as cached account and transaction data, your last visited account (“path”), and your selected transaction timespan.<br>This data is not stored on our servers and can be deleted at any time by clearing your browser’s site data.<br><br>
                If you have questions or comments about your privacy rights, you may contact us at <strong>info@finadelic.com</strong>.
             </p>
          </section>
@@ -220,7 +227,8 @@ const privacyEnglish = `
                <ul>
                   <li>view and delete the financial data you have entered</li>
                   <li>delete your entire account, which permanently removes all associated personal and financial data from our active systems<br><br></li>
-               </ul>
+               </ul><br>
+               <strong>Local Storage Data</strong><br>Certain data are stored locally on your device using the browser’s local storage (“localStorage”), such as cached account and transaction data, your last visited account (“path”), and your selected transaction timespan. This data is not stored on our servers and can be deleted at any time by clearing your browser’s site data.<br><br>
                <strong>If you need to update information that cannot be changed within the app</strong> (such as your email address), or if you wish to exercise any GDPR rights, you can contact us at <strong>info@finadelic.com</strong>.<br><br>
                We will respond to all requests in accordance with applicable data protection laws.<br><br>
             </p>
