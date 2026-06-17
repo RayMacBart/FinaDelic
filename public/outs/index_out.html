@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<meta name=author content="Reinhard Höbart"/>
+<meta name=copyright content="Reinhard Höbart 2025"/>
+<meta name=description content="FinaDelic - personal finance manager. Easy to understand and super customizable. Design your own, best possible overview - and master your money like the pros!"/>
+<meta http-equiv=cache-control content="no-cache"/>
+<title>FinaDelic</title>
+<script type=module src=./bundle_out.js defer></script>
+<link rel=icon type=image/svg+xml href="./assets/FinaDelic Logo Hero.svg">
+<link rel=stylesheet href=./main_out.css>
+</head>
+<body>
+<div class=view-wrapper>
+<div class=page></div>
+<footer class=footer>
+<div class=margin-container>
+<div class=footer__content-flexwrap>
+<div class=footerLogoBox></div>
+<menu class=footer__menu>
+<li class=footer-link><a href=#page>Terms &amp; Conditions</a></li>
+<li class=footer-link><a href=#page>Privacy Policy</a></li>
+<li class=footer-link><a href=#page>Contact/<wbr>Legal&nbsp;Notice</a></li>
+</menu>
+</div>
+</div>
+</footer>
+</div>
+</body>
+<template id=loggedoutHP>
+<nav class="nav nav--HP nav--HP--loggedout" style=overflow:visible>
+<div class=icon-container style=margin-right:1rem>
+<img class="icon icon--login" src=./assets/icons/login.svg data-icon-desc=login alt="login icon" style=transform:scale(1.3) />
+<div class="icon-tap-area icon-tap-area--loggedoutHP" id=login-icon-tap-area></div>
+</div>
+</nav>
+<div class=margin-container>
+<header class=header>
+<div class=heroLogoBox></div>
+<hgroup class=hero>
+<picture class=hero__pic_container>
+<div class=hero__pic></div>
+<source class=hero__pic--desktop media=(min-width:992px) srcset=assets/moneyplant_desktop.jpg type=image/jpeg>
+<img class=hero__pic__img-layer src=assets/empty.png alt="plant prospering in money">
+<div class=hero__pic--desktop__overlay></div>
+</picture>
+<h1 class=hero__title>Insight &nbsp;&nbsp;&nbsp;<br> through &nbsp;<br>adaptability</h1>
+</hgroup>
+<h2 class=undertitle style=margin-left:1.5rem>Organize your financials <em style=font-style:italic>your</em> way.<br>
+<strong style=font-weight:420>FinaDelic</strong> emphasizes <strong>flexibility</strong>,<br class=undertitle__mobile-linebreak>
+delivering<br class=undertitle__desktop-linebreak> <em>individual</em> insights -
+<br class=undertitle__mobile-linebreak>giving you the cutting edge!</h2>
+</header>
+<main>
+<button class="button button--call2action" type=button>SIGN IN / SIGN UP</button>
+<section class=feature-presentation>
+<svg class="graphic graphic--bag"><use href=assets/bg_bag.svg#bg-bag></use></svg>
+<svg class="graphic graphic--fire"><use href=assets/bg_fire.svg#bg-fire></use></svg>
+<svg class="graphic graphic--chart"><use href=assets/bg_chart.svg#bg-chart></use></svg>
+<svg class="graphic graphic--clock"><use href=assets/bg_clock.svg#bg-clock></use></svg>
+<svg class="graphic graphic--flows"><use href=assets/bg_flows.svg#bg-flows></use></svg>
+<dl class=desc-list>
+<dt class=desc-list__title>IN & OUT accounts</dt>
+<dd class=desc-list__description>Define, group and nest 'Boxes' as you like to keep the perfect overview!</dd>
+<dt class=desc-list__title>Customizable Charts</dt>
+<dd class=desc-list__description>Add any in & out Boxes to build up your personal charts for any time period!</dd>
+<dt class=desc-list__title>Flow Entries Made Easy</dt>
+<dd class=desc-list__description>Note your financial transactions as 'Flows' fast and uncomplicated everyday!</dd>
+</dl>
+</section>
+<button class="button button--enter" type=button>ENTER</button>
+</main>
+</div>
+<div class=footer-margin></div>
+</template>
+<template id=loginPage>
+<div class=loginPage-BG>
+<nav class=loginBackButton-container>
+<div class=loginBackButton></div>
+</nav>
+<div class=margin-container>
+<header class="header header--login">
+<div class="heroLogoBox heroLogoBox--login"></div>
+</header>
+<form class="form form--sign-in" action=get>
+<div class=input-wrap>
+<label class=loginput-label for=signin-email>e-mail</label>
+<input class=loginput id=signin-email type=email name=email required>
+</div>
+<div class=input-wrap>
+<label class=loginput-label for=signin-password>password</label>
+<input class=loginput id=signin-password name=password type=password required>
+</div>
+<a id=forgotPWlink href=#page>forgot password?</a>
+<button class=login-button type=submit id=sign-in-submit-button>SIGN IN</button>
+</form>
+<p class=new-ask>New to FinaDelic?<br>
+If yes, please...</p>
+<form class="form form--sign-up" action=get>
+<h2 class=signup-header>SIGN UP</h2>
+<div class=input-wrap>
+<label class=loginput-label for=signup-email>e-mail</label>
+<input class=loginput id=signup-email name=email type=email required>
+</div>
+<div class=input-wrap>
+<label class=loginput-label for=signup-password>password</label>
+<input class=loginput id=signup-password type=password required>
+</div>
+<div class=input-wrap>
+<label class=loginput-label for=signup-repeat>repeat</label>
+<input class=loginput id=signup-repeat name=password type=password required>
+</div>
+<div class=input-wrap>
+<input class=check id=terms-check type=checkbox required>
+<label class=logincheck-label for=terms-check>I agree with the &nbsp;<a href=#page id=inline-terms-link>Terms & Conditions</a></label>
+</div>
+<div class=input-wrap>
+<input class=check id=privacy-check type=checkbox required>
+<label class=logincheck-label for=privacy-check>I read and understood the &nbsp;<a href=#page id=inline-privacy-link>Privacy Policy</a></label>
+</div>
+<button class=login-button type=submit id=sign-up-submit-button>CONFIRM</button>
+</form>
+</div>
+</div>
+<div class=footer-margin id=login-footer-margin></div>
+</template>
+<template id=terms>
+<nav class=loginBackButton-container>
+<div class=loginBackButton></div>
+</nav>
+<div style=width:100%;margin-left:auto;display:flex;justify-content:space-around>
+<div style="width:20dvw";></div>
+<header class="compPage compPage__header-container" style=display:inline-block>
+<h1 class="compPage compPage__appname">FINADELIC</h1>
+<h1 id=englishTermsHeader class="compPage compPage__header">Terms & Conditions</h1>
+<h1 id=germanTermsHeader class="compPage compPage__header" style=display:none>Nutzungs<wbr>bedingungen</h1>
+</header>
+<div style="display:inline-block;margin-right:calc(20dvw - 70px);padding-top:2rem">
+<div id=termsGermanSwitchWrap style=width:5.5rem;text-align:center;height:fit-content>
+<button id=termsGermanLangSwitch style="width:2.8rem;height:2.1rem;background-image:url('assets/germanFlag.svg');margin:auto;display:block;cursor:pointer"></button>
+<label id=termsGermanLangSwitchLabel for=termsGermanLangSwitch style=text-decoration:underline;color:#0e0ebc;cursor:pointer>zu deutsch wechseln</label>
+</div>
+<div id=termsEnglishSwitchWrap style=width:5.5rem;text-align:center;height:fit-content;display:none>
+<button id=termsEnglishLangSwitch style="width:2.8rem;height:2.1rem;background-image:url('assets/britishFlag.svg');margin:auto;display:block;cursor:pointer"></button>
+<label id=termsEnglishLangSwitchLabel for=termsEnglishLangSwitch style=text-decoration:underline;color:#0e0ebc;cursor:pointer>switch to english</label>
+</div>
+</div>
+</div>
+<div class="compPage compPage__background"></div>
+<div id=termsContainer class=margin-container></div>
+<div class=footer-margin></div>
+</template>
+<template id=legal>
+<nav class=loginBackButton-container>
+<div class=loginBackButton></div>
+</nav>
+<div class="compPage compPage__header-container">
+<h1 class="compPage compPage__appname">FINADELIC</h1>
+<h1 class="compPage compPage__header">Contact/<wbr>Legal&nbsp;Notice</h1>
+</div>
+<div class="compPage compPage__background"></div>
+<div class=margin-container>
+<address class="compPage compPage__address">
+<h3 class="compPage compPage__address-title" style=text-decoration:none;font-weight:normal;margin-bottom:-1.5rem>e-mail: &nbsp;<strong style=font-weight:600>info@finadelic.com</strong></h3>
+<h3 class="compPage compPage__address-title">FinaDelic is owned by:</h3>
+Mag. Reinhard Höbart<br>
+Kaiser-Ebersdorfer-Straße 87<br>
+1110 Vienna<br>
+Austria<br>
+tel: &nbsp;+43 664 975 04 14
+</address>
+</div>
+<div class=footer-margin></div>
+</template>
+<template id=privacy>
+<nav class=loginBackButton-container>
+<div class=loginBackButton></div>
+</nav>
+<div style=width:100%;margin-left:auto;display:flex;justify-content:space-around>
+<div style="width:20dvw";></div>
+<header class="compPage compPage__header-container" style=display:inline-block>
+<h1 class="compPage compPage__appname">FINADELIC</h1>
+<h1 id=englishPriPolHeader class="compPage compPage__header">Privacy Policy</h1>
+<h1 id=germanPriPolHeader class="compPage compPage__header" style=display:none>Datenschutz<wbr>erklärung</h1>
+</header>
+<div style="display:inline-block;margin-right:calc(20dvw - 70px);padding-top:2rem">
+<div id=priPolGermanSwitchWrap style=width:5.5rem;text-align:center;height:fit-content>
+<button id=priPolGermanLangSwitch style="width:2.8rem;height:2.1rem;background-image:url('assets/germanFlag.svg');margin:auto;display:block;cursor:pointer"></button>
+<label id=priPolGermanLangSwitchLabel for=priPolGermanLangSwitch style=text-decoration:underline;color:#0e0ebc;cursor:pointer>zu deutsch wechseln</label>
+</div>
+<div id=priPolEnglishSwitchWrap style=width:5.5rem;text-align:center;height:fit-content;display:none>
+<button id=priPolEnglishLangSwitch style="width:2.8rem;height:2.1rem;background-image:url('assets/britishFlag.svg');margin:auto;display:block;cursor:pointer"></button>
+<label id=priPolEnglishLangSwitchLabel for=priPolEnglishLangSwitch style=text-decoration:underline;color:#0e0ebc;cursor:pointer>switch to english</label>
+</div>
+</div>
+</div>
+<div class="compPage compPage__background"></div>
+<div id=privacyContainer class=margin-container></div>
+<div class=footer-margin></div>
+</template>
+<dialog id=reset-modal>
+<form method=dialog class=modal-form>
+<p class="modal modal--reset modal__text">For a new password, you have to verify your email address by clicking on a link inside an email which we would send you.<br></p>
+<label for=reset-modal-input class="modal modal--reset modal__input-label">Please enter your email:</label>
+<input type=text id=reset-modal-input class="modal modal--reset modal__input" name=modal-input />
+<p class="modal modal--reset modal__text">Are you sure you want to proceed?</p>
+<p class="modal modal--reset" id=invalMailWarn>This e-mail address is invalid!</p>
+<div class="modal-button-wrapper modal-button-wrapper--reset">
+<input id=resetSubmitButton type=submit value=YES class="modal modal--reset modal__button modal__button--positive" />
+<button class="modal modal--reset modal__button modal__button--negative cancelButton">NO</button>
+</div>
+</form>
+</dialog>
+</html>
