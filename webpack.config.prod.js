@@ -7,16 +7,19 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const source = 'out';
 // const source = 'in';
 
-const destination = `dist_${source}`
+// const destination = `dist_${source}`;
+const destination = `public`;
 
 module.exports = {
    mode: "production",
    entry: "./src_"+source+"/index.js",
+   // entry: "./dist/PWreset.js",
    output: {
-      filename: "bundle.js",
+      filename: "bundle_"+source+".js",
+      // filename: "PWreset.js",
       path: path.resolve(__dirname, destination),
       publicPath: "/",
-      clean: true
+      // clean: true
    },
    module: {
       rules: [
@@ -34,27 +37,55 @@ module.exports = {
          }
       ]
    },
+   optimization: {
+      splitChunks: false,
+      runtimeChunk: false,
+      concatenateModules: true,
+   },
    plugins: [
-      new CopyPlugin({
-         patterns: [
-            { from: path.resolve(__dirname, 'src_'+source, 'main.css'), to: "main.css" },
-            { from: path.resolve(__dirname, 'src_'+source, 'assets'), to: "assets" },
-            { from: path.resolve(__dirname, 'src_'+source, 'assets', 'icons'), to: "assets/icons" },
-            { from: "lib/fonts", to: "fonts" },
-         ],
-      }),
+      // new CopyPlugin({
+      //    patterns: [
+      //       // { from: path.resolve(__dirname, 'src_'+source, 'main.css'), to: "main.css" },
+      //       { from: path.resolve(__dirname, 'src_'+source, 'assets'), to: "assets" },
+      //       { from: path.resolve(__dirname, 'src_'+source, 'assets', 'icons'), to: "assets/icons" },
+      //       { from: "lib/fonts", to: "fonts" },
+      //    ],
+      // }),
+      // new ImageMinimizerPlugin({
+      //    minimizer: {
+      //       implementation: ImageMinimizerPlugin.imageminMinify,
+      //       options: {
+      //          plugins: [
+      //             ["jpegtran", { progressive: true }],
+      //             ["mozjpeg", { quality: 66 }],
+      //       ],},
+      //    },
+      // }),
       new ImageMinimizerPlugin({
          minimizer: {
             implementation: ImageMinimizerPlugin.imageminMinify,
             options: {
                plugins: [
+               ["jpegtran", { progressive: true }],
+               ["mozjpeg", { quality: 66 }],
+               ],
+            },
+         },
+         generator: [
+            {
+               type: "asset",
+               implementation: ImageMinimizerPlugin.imageminGenerate,
+               options: {
+               plugins: [
                   ["jpegtran", { progressive: true }],
                   ["mozjpeg", { quality: 66 }],
-            ],},
-         },
-      }),
-      new HtmlPlugin({
-               template: 'src_'+source+'/index.html'
-      }),
+               ],
+               },
+            },
+         ],
+         }),
+      // new HtmlPlugin({
+      //          template: 'src_'+source+'/index.html'
+      // }),
    ],
 };
