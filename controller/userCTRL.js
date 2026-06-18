@@ -55,6 +55,7 @@ exports.postSignUp = async (req, res) => {
                const encryPW = await cry.encrypt(req.body.password, mailToken);
                const tokenDoc = await tokenCol.create({'val': mailTokenHash, 'exp': linkExp, 'emailHash': hashedEmail, 'pw': encryPW});
                await tokenDoc.save();
+               console.log('before sending mail');
                const mailResponseObj = await transporter.sendMail({
                   from: 'noreply@finadelic.com', // sender address
                   to: req.body.email, // list of recipients
