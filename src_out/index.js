@@ -5,7 +5,7 @@ import LazyLoader from "./lazyLoader.js";
 
 class App {
    constructor() {
-      console.log('FULL RELOAD!');
+      // console.log('FULL RELOAD!');
       this.router = new Router(this);
       this.lazyLoader = new LazyLoader();
       new Footer(this.router.navigate, this.lazyLoader.importSVG);
