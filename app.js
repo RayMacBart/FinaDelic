@@ -72,7 +72,7 @@ app.use((req, res) => {
 
 const connectMongoose = async (app) => {
    await Mongoose.connect(process.env.MONGODB_URI);
-   app.listen(3000);
+   app.listen(process.env.PORT);
 }
 
 connectMongoose(app);
