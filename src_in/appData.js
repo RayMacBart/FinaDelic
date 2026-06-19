@@ -24,6 +24,15 @@ class AppData {
       const fetchedData = await response.json();
       localStorage.setItem('userdata', JSON.stringify(fetchedData));
       this.data = fetchedData;
+      const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+      const CSRFToken = csrfMeta ? csrfMeta.content : null;
+      fetch('/client-errorLog', {
+         method: 'POST',
+         headers: {'Content-Type': 'application/json',
+                  'CSRF-Token': CSRFToken
+         },
+         body: JSON.stringify({location: "after fetching data & setting localStorage", data: JSON.stringify(this.data)})
+      });
       this.setBagAmounts(timespan);
    }
 

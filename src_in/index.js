@@ -24,6 +24,17 @@ window.onerror = function(message, source, lineno, colno, error) {
                               body: JSON.stringify({message, source, lineno, colno, stack: error?.stack || null})
    });
 };
+window.onunhandledrejection = function(event) {
+   fetch('/client-errorLog', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+         type: 'unhandledrejection',
+         reason: event.reason?.message,
+         stack: event.reason?.stack
+      })
+   });
+};
 
 console.log("TEST LOG");
 fetch('/client-errorLog', {
