@@ -25,11 +25,19 @@ router.post('/signup',
    (req, res, next) => {
     console.log("Reached Signup Route!");
     next();
-  },
-               body('email', 'Invalid Email!').trim().isEmail().normalizeEmail(),
-               body('password', 'The entered password is too weak!').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape(),
-               body('repeat').trim(),
-               UserCTRL.postSignUp);
+   },
+   body('email', 'Invalid Email!').trim().isEmail().normalizeEmail(),
+   body('password', 'The entered password is too weak!').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape(),
+   body('repeat').trim(),
+   (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+         console.log("Validation failed:", errors.array());
+         return res.status(400).json({ errors: errors.array() });
+      }
+      next();
+   },
+   UserCTRL.postSignUp);
 
 router.post('/signin',
                body('email').trim().isEmail().normalizeEmail().withMessage('Invalid Email!'),
