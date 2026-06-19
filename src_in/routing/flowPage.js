@@ -26,6 +26,16 @@ class FlowPage {
 
    #renderFlowPage(bagName, stepUp=false, toolbarReset=false) {
 
+      const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+      const CSRFToken = csrfMeta ? csrfMeta.content : null;
+      fetch('/client-errorLog', {
+         method: 'POST',
+         headers: {'Content-Type': 'application/json',
+                  'CSRF-Token': CSRFToken
+         },
+         body: JSON.stringify({location: "in #renderFlowPage", bagName})
+      });
+
       this.appData.setCurrentBag(bagName, stepUp);
       const bagData = this.appData.getData();
       const bagPath = this.appData.getBagPath();
