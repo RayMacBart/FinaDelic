@@ -37,8 +37,8 @@ app.use(session({
       path: '/',
       httpOnly: true,
       maxAge: 216000000,  // = 60 hours = 2,5 days
-      // secure: true,           // DONT FORGET TO ACTIVATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!
-      sameSite: 'lax'
+      secure: true,           // DONT FORGET TO ACTIVATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!
+      sameSite: 'none'
    }
 }));
 
