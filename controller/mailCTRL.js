@@ -1,6 +1,6 @@
 const userCol = require('../model/schemas').Users;
 const crypto = require('crypto');
-const transporter = require('../emailTransporter');
+const brevoAPIinstance = require('../brevoAPIinstance');
 const resetMail = require('../mailContents').resetEmail;
 const checkAndHandleValError = require('../util/valErrorCheck');
 const { validationResult } = require('express-validator');
@@ -17,7 +17,6 @@ exports.postPWresetMail = async (req, res) => {
       res.status(409).send();
    } else {
       try {
-         // await transporter.verify(); DOESN'T WORK WITH BREVO
          const mailToken = await crypto.randomBytes(32).toString('hex');
          const mailTokenHash = await crypto.createHash('sha256').update(mailToken).digest('base64');
          userDoc.mailLinkTokenHash = mailTokenHash;
@@ -32,13 +31,18 @@ exports.postPWresetMail = async (req, res) => {
             path.join(__dirname, "../assets/FinaDelic Logo Background.svg"),
             { encoding: "base64" }
          );
-         const mailResponseObj = await transporter.sendMail({
-            sender: {email: 'noreply@finadelic.com'}, // sender address
-            to: [{email: req.body.email}], // list of recipients
-            subject: "FinaDelic Account Password Reset", // subject line
-            // text: "email verification", // plain text body
-            htmlContent: resetMail(mailToken, req.body.email, logoBase64, bgLogoBase64), // HTML body,
-         });
+         try {
+            const mailResponseObj = await brevoAPIinstance.sendTransacEmail({
+               sender: {email: 'noreply@finadelic.com'}, // sender address
+               to: [{email: req.body.email}], // list of recipients
+               subject: "FinaDelic Account Password Reset", // subject line
+               // text: "email verification", // plain text body
+               htmlContent: resetMail(mailToken, req.body.email, logoBase64, bgLogoBase64), // HTML body,
+            });
+            console.log('email sent:', mailResponseObj);
+         } catch (error) {
+            console.error('email error:', error);
+         }
          // console.log('accepted mail recipients:', mailResponseObj.accepted);
          res.status(201).send();
       } catch (err) {

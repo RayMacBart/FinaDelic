@@ -51,7 +51,6 @@ exports.postSignUp = async (req, res) => {
          const PWmatch = (req.body.password === req.body.repeat);
          if (PWmatch) {
             try {
-               // await transporter.verify(); DOESN'T WORK WITH BREVO
                const mailToken = await crypto.randomBytes(32).toString('hex');
                const mailTokenHash = await crypto.createHash('sha256').update(mailToken).digest('base64');
                const linkExp = Date.now() + 10*60000;  // minutes*60000
@@ -66,13 +65,18 @@ exports.postSignUp = async (req, res) => {
                   path.join(__dirname, "../assets/FinaDelic Logo Background.svg"),
                   { encoding: "base64" }
                );
-               const mailResponseObj = await transporter.sendMail({
-                  sender: {email: 'noreply@finadelic.com'}, // sender address
-                  to: [{email: req.body.email}], // list of recipients
-                  subject: "FinaDelic Account Email Verification", // subject line
-                  // text: "email verification", // plain text body
-                  htmlContent: verificationMail(mailToken, req.body.email, logoBase64, bgLogoBase64), // HTML body,
-               });
+               try {
+                  const mailResponseObj = await brevoAPIinstance.sendTransacEmail({
+                     sender: {email: 'noreply@finadelic.com'}, // sender address
+                     to: [{email: req.body.email}], // list of recipients
+                     subject: "FinaDelic Account Email Verification", // subject line
+                     // text: "email verification", // plain text body
+                     htmlContent: verificationMail(mailToken, req.body.email, logoBase64, bgLogoBase64), // HTML body,
+                  });
+                  console.log('email sent:', mailResponseObj);
+               } catch (error) {
+                  console.error('email error:', error);
+               }
                // console.log('accepted mail recipients:', mailResponseObj.accepted);
                res.status(201).send();
             } catch (err) {
