@@ -24,11 +24,9 @@ class LoginPage {
    
 
    #signUp(event) {
-      console.log('in #signUp');
       event.preventDefault();
       const valid = this.inputChecker.checkSignUp(event);
       if (valid) {
-         console.log('is valid');
          SIA.execSignUp(event);  
       }
    }

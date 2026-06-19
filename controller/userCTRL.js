@@ -33,6 +33,7 @@ exports.postSignIn = async (req, res) => {
 
 
 exports.postSignUp = async (req, res) => {
+   console.log('###### IN POSTSIGNUP!!! ######');
    const hashedEmail = await crypto.createHash("sha256").update(req.body.email).digest("base64");
    const user = await userCol.findOne({emailHash: hashedEmail});
    if (user) {
