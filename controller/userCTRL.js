@@ -49,14 +49,16 @@ exports.postSignUp = async (req, res) => {
          const PWmatch = (req.body.password === req.body.repeat);
          if (PWmatch) {
             try {
+               console.log('before verifying email transporter');
                await transporter.verify();
+               console.log('after verifying email transporter, before sending mail');
                const mailToken = await crypto.randomBytes(32).toString('hex');
                const mailTokenHash = await crypto.createHash('sha256').update(mailToken).digest('base64');
                const linkExp = Date.now() + 10*60000;  // minutes*60000
                const encryPW = await cry.encrypt(req.body.password, mailToken);
                const tokenDoc = await tokenCol.create({'val': mailTokenHash, 'exp': linkExp, 'emailHash': hashedEmail, 'pw': encryPW});
                await tokenDoc.save();
-               console.log('before sending mail');
+               console.log('directly before sending mail');
                const mailResponseObj = await transporter.sendMail({
                   from: 'noreply@finadelic.com', // sender address
                   to: req.body.email, // list of recipients
