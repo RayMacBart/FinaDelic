@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 
 const sessionStore = MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: 'sessions'});
 
+app.set('trust proxy', 1);
 
 app.use(session({
    secret: process.env.SESSION_SECRET,
@@ -34,7 +35,7 @@ app.use(session({
    rolling: true,
    store: sessionStore,
    cookie: {
-      path: '/',
+      // path: '/',
       httpOnly: true,
       maxAge: 216000000,  // = 60 hours = 2,5 days
       secure: true,           // DONT FORGET TO ACTIVATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!
