@@ -5,6 +5,8 @@ const resetMail = require('../mailContents').resetEmail;
 const checkAndHandleValError = require('../util/valErrorCheck');
 const { validationResult } = require('express-validator');
 const argon2 = require('argon2');
+const fs = require("fs");
+const path = require("path");
 
 
 exports.postPWresetMail = async (req, res) => {
