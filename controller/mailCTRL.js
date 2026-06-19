@@ -17,7 +17,7 @@ exports.postPWresetMail = async (req, res) => {
       res.status(409).send();
    } else {
       try {
-         await transporter.verify();
+         // await transporter.verify();
          const mailToken = await crypto.randomBytes(32).toString('hex');
          const mailTokenHash = await crypto.createHash('sha256').update(mailToken).digest('base64');
          userDoc.mailLinkTokenHash = mailTokenHash;

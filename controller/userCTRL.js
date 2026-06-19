@@ -48,7 +48,7 @@ exports.postSignUp = async (req, res) => {
          const PWmatch = (req.body.password === req.body.repeat);
          if (PWmatch) {
             try {
-               await transporter.verify();
+               // await transporter.verify(); DOESN'T WORK WITH BREVO
                const mailToken = await crypto.randomBytes(32).toString('hex');
                const mailTokenHash = await crypto.createHash('sha256').update(mailToken).digest('base64');
                const linkExp = Date.now() + 10*60000;  // minutes*60000
