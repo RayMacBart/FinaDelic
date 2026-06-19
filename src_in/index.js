@@ -12,7 +12,8 @@ let timespan;
 let router;
 let chart;
 
-const CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+const CSRFToken = csrfMeta ? csrfMeta.content : null;
 
 window.onerror = function(message, source, lineno, colno, error) {
    fetch('/client-errorLog', {
