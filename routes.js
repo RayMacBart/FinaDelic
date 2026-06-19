@@ -1,6 +1,6 @@
 const express = require('express');
 const Mongoose = require('mongoose');
-const { body, checkExact } = require('express-validator');
+const { body, checkExact, validationResult } = require('express-validator');
 const path = require('path');
 const rootDir = require('./util/rootpath');
 const router = express.Router();
