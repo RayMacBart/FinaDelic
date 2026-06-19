@@ -55,7 +55,6 @@
   },
   "dependencies": {
     "@dr.pogodin/csurf": "^1.16.8",
-    "@getbrevo/brevo": "^5.0.4",
     "argon2": "^0.44.0",
     "body-parser": "^2.2.2",
     "chart.js": "^4.5.1",
@@ -67,6 +66,7 @@
     "express-validator": "^7.3.1",
     "helmet": "^8.1.0",
     "mongoose": "^9.1.5",
-    "regenerator-runtime": "^0.14.1"
+    "regenerator-runtime": "^0.14.1",
+    "sib-api-v3-sdk": "^8.5.0"
   }
 }
