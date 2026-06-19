@@ -12,10 +12,14 @@ let timespan;
 let router;
 let chart;
 
+const CSRFToken = document.querySelector('meta[name="csrf-token"]').content;
+
 window.onerror = function(message, source, lineno, colno, error) {
    fetch('/client-errorLog', {
                               method: 'POST',
-                              headers: {'Content-Type': 'application/json'},
+                              headers: {'Content-Type': 'application/json',
+                                        'CSRF-Token': CSRFToken
+                                       },
                               body: JSON.stringify({message, source, lineno, colno, stack: error?.stack || null})
    });
 };
@@ -23,7 +27,9 @@ window.onerror = function(message, source, lineno, colno, error) {
 console.log("TEST LOG");
 fetch('/client-errorLog', {
    method: 'POST',
-   headers: {'Content-Type': 'application/json'},
+   headers: {'Content-Type': 'application/json',
+            'CSRF-Token': CSRFToken
+   },
    body: JSON.stringify({test: "hello"})
 });
 
