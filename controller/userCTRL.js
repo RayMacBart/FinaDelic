@@ -25,7 +25,7 @@ exports.postSignIn = async (req, res) => {
          }
          req.session.userId = user._id;
          req.session.isLoggedIn = true;
-         res.status(303).send();
+         res.status(200).send();
       } else {
          res.status(403).send();
       }

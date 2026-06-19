@@ -4,8 +4,8 @@ const HtmlPlugin = require("html-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 
-// const source = 'out';
-const source = 'in';
+const source = 'out';
+// const source = 'in';
 
 // const destination = `dist_${source}`;
 const destination = `public`;

@@ -12,7 +12,7 @@ class SIA {
                                              });
       if (response.status === 403) {
          showInfo('failedSignin', 'warning');
-      } else if (response.status === 303) {
+      } else if (response.status === 200) {
          window.location.href = '/workspace';
       }
    }
