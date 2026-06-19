@@ -4,6 +4,7 @@ const BAG = require('../model/Bag');
 
 
 exports.postCreateFlow = async (req, res) => {
+   console.log('--- FLOW CREATED! ---');
    if (checkAndHandleValError(req, res)) { // the function will also run!
       return;
    }
