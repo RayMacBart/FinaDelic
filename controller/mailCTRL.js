@@ -17,29 +17,27 @@ exports.postPWresetMail = async (req, res) => {
       res.status(409).send();
    } else {
       try {
-         // await transporter.verify();
+         // await transporter.verify(); DOESN'T WORK WITH BREVO
          const mailToken = await crypto.randomBytes(32).toString('hex');
          const mailTokenHash = await crypto.createHash('sha256').update(mailToken).digest('base64');
          userDoc.mailLinkTokenHash = mailTokenHash;
          const linkExp = Date.now() + 10*60000;  // minutes*60000
          userDoc.mailLinkExp = linkExp;
          await userDoc.save();
+         const logoBase64 = fs.readFileSync(
+            path.join(__dirname, "../assets/FinaDelic Logo Footer.svg"),
+            { encoding: "base64" }
+         );
+         const bgLogoBase64 = fs.readFileSync(
+            path.join(__dirname, "../assets/FinaDelic Logo Background.svg"),
+            { encoding: "base64" }
+         );
          const mailResponseObj = await transporter.sendMail({
-            from: 'noreply@finadelic.com', // sender address
-            to: req.body.email, // list of recipients
+            sender: {email: 'noreply@finadelic.com'}, // sender address
+            to: [{email: req.body.email}], // list of recipients
             subject: "FinaDelic Account Password Reset", // subject line
-            text: "PW reset", // plain text body
-            html: resetMail(mailToken, req.body.email), // HTML body,
-            attachments: [{
-                  filename: "FinaDelic Logo.svg",
-                  path: "./assets/FinaDelic Logo Footer.svg",
-                  cid: "logo@finadelic.com", // matches the cid in the img src attribute
-               }, {
-                  filename: "FinaDelic BG-Logo.svg",
-                  path: "./assets/FinaDelic Logo Background.svg",
-                  cid: "bglogo@finadelic.com", // matches the cid in the img src attribute
-               },
-            ],
+            // text: "email verification", // plain text body
+            htmlContent: resetMail(mailToken, req.body.email, logoBase64, bgLogoBase64), // HTML body,
          });
          // console.log('accepted mail recipients:', mailResponseObj.accepted);
          res.status(201).send();

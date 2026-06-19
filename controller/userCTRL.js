@@ -5,8 +5,11 @@ const userCol = require('../model/schemas').Users;
 const tokenCol = require('../model/schemas').Tokens;
 const crypto = require('crypto');
 const cry = require('../crypt');
-const transporter = require('../emailTransporter');
+const brevoAPIinstance = require('../brevoAPIinstance');
 const verificationMail = require('../mailContents').verificationEmail;
+const fs = require("fs");
+const path = require("path");
+
 
 
 exports.postSignIn = async (req, res) => {
@@ -55,27 +58,25 @@ exports.postSignUp = async (req, res) => {
                const encryPW = await cry.encrypt(req.body.password, mailToken);
                const tokenDoc = await tokenCol.create({'val': mailTokenHash, 'exp': linkExp, 'emailHash': hashedEmail, 'pw': encryPW});
                await tokenDoc.save();
+               const logoBase64 = fs.readFileSync(
+                  path.join(__dirname, "../assets/FinaDelic Logo Footer.svg"),
+                  { encoding: "base64" }
+               );
+               const bgLogoBase64 = fs.readFileSync(
+                  path.join(__dirname, "../assets/FinaDelic Logo Background.svg"),
+                  { encoding: "base64" }
+               );
                const mailResponseObj = await transporter.sendMail({
-                  from: 'noreply@finadelic.com', // sender address
-                  to: req.body.email, // list of recipients
+                  sender: {email: 'noreply@finadelic.com'}, // sender address
+                  to: [{email: req.body.email}], // list of recipients
                   subject: "FinaDelic Account Email Verification", // subject line
-                  text: "email verification", // plain text body
-                  html: verificationMail(mailToken, req.body.email), // HTML body,
-                  attachments: [{
-                        filename: "FinaDelic Logo.svg",
-                        path: "./assets/FinaDelic Logo Footer.svg",
-                        cid: "logo@finadelic.com", // matches the cid in the img src attribute
-                     }, {
-                        filename: "FinaDelic BG-Logo.svg",
-                        path: "./assets/FinaDelic Logo Background.svg",
-                        cid: "bglogo@finadelic.com", // matches the cid in the img src attribute
-                     },
-                  ],
+                  // text: "email verification", // plain text body
+                  htmlContent: verificationMail(mailToken, req.body.email, logoBase64, bgLogoBase64), // HTML body,
                });
                // console.log('accepted mail recipients:', mailResponseObj.accepted);
                res.status(201).send();
             } catch (err) {
-               console.error("SMTP Connect Verification failed:", err);
+               console.error("sending email (Brevo-API) failed:", err);
                res.status(502).send();
             }
          } else {
