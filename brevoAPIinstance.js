@@ -1,4 +1,4 @@
-const Brevo = require('@getbrevo/brevo');
+const Brevo = require('@getbrevo/brevo').default;
 
 const apiInstance = new Brevo.TransactionalEmailsApi();
 
