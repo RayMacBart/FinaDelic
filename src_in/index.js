@@ -20,6 +20,13 @@ window.onerror = function(message, source, lineno, colno, error) {
    });
 };
 
+console.log("TEST LOG");
+fetch('/client-errorLog', {
+   method: 'POST',
+   headers: {'Content-Type': 'application/json'},
+   body: JSON.stringify({test: "hello"})
+});
+
 const populateExportVariables = (app) => {
    timespan = app.timespan;
    router = app.router;
