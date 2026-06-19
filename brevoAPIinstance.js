@@ -1,6 +1,6 @@
-const Brevo = require('@getbrevo/brevo').default;
+const Brevo = require('@getbrevo/brevo');
 
-const apiInstance = new Brevo.TransactionalEmailsApi();
+const apiInstance = new Brevo.Api.TransactionalEmailsApi();
 
 apiInstance.setApiKey(
   Brevo.TransactionalEmailsApiApiKeys.apiKey,
