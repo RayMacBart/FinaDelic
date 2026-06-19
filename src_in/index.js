@@ -12,6 +12,13 @@ let timespan;
 let router;
 let chart;
 
+window.onerror = function(message, source, lineno, colno, error) {
+   fetch('/client-errorLog', {
+                              method: 'POST',
+                              headers: {'Content-Type': 'application/json'},
+                              body: JSON.stringify({message, source, lineno, colno, stack: error?.stack || null})
+   });
+};
 
 const populateExportVariables = (app) => {
    timespan = app.timespan;

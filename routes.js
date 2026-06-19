@@ -17,6 +17,11 @@ const CusVal = require('./customValidators');
 const whiteListChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890äöüÄÖÜß ?!,.-/()';
 
 
+router.post('/client-errorLog', (req, res) => {
+   console.log("CLIENT-ERROR:", req.body);
+   res.sendStatus(200);
+});
+
 router.get(['/legal', '/privacy', '/terms', '/workspace', '/chart', '/login', '/profile', '/PWresetPage', '/confirmation'], GenPages.getPage);
 
 router.get('/', GenPages.getRootPage);   // 'get' (& all method-named) look for exact route name - only 'use' for match of beginning!
