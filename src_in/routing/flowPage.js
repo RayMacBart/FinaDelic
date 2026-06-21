@@ -4,6 +4,8 @@ import FlowList from "./flowPage_src/flowlist.js";
 import EventHandler from "./flowPage_src/flowPageEventHandler.js";
 import Toolbar from "./flowPage_src/toolbar.js";
 
+import logg from "./logger.js";
+
 // for now, AppData is used instead of fetching bag related folder and transaction content from backend API!
 
 
@@ -26,27 +28,25 @@ class FlowPage {
 
    #renderFlowPage(bagName, stepUp=false, toolbarReset=false) {
 
-      const csrfMeta = document.querySelector('meta[name="csrf-token"]');
-      const CSRFToken = csrfMeta ? csrfMeta.content : null;
-      fetch('/client-errorLog', {
-         method: 'POST',
-         headers: {'Content-Type': 'application/json',
-                  'CSRF-Token': CSRFToken
-         },
-         body: JSON.stringify({location: "in #renderFlowPage", bagName})
-      });
+      logg({location: '#renderFLowPage start', bagName: bagName});
 
       this.appData.setCurrentBag(bagName, stepUp);
       const bagData = this.appData.getData();
       const bagPath = this.appData.getBagPath();
       
+      logg({location: '#RFP after bagData & bagPath assignment', bagPath: bagPath, bagData: bagData});
+
       const cachedFlowId = this.eventHandler.choosenFlowID;
       this.surface.clear(this.eventHandler);
       
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.appData.revisitFlag), this.timespan);
       
+      logg({location: '#RFP after setupProperSurface'});
+
       this.baglist.render(bagData, bagPath);
       this.flowlist.render(bagData, this.timespan);
+
+      logg({location: '#RFP after bag- & flowlist rendering'});
 
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
 
@@ -124,17 +124,23 @@ class FlowPage {
    
    
    #setupFlowPageLinks(app) {
+
+      logg({location: '#setupFlowPageLinks start'});
+      
       document.querySelector('.logo--nav').addEventListener('click', () => app.router.navigate('loggedinHP', ['page--landing']));
       document.getElementById('uparrow-icon-tap-area').addEventListener('click', (e) => {
-                                                                            if (!(e.target.dataset.status === 'disabled')) {
-                                                                              this.#renderFlowPage('', true, true);
-                                                                            }
-                                                                        });
+         if (!(e.target.dataset.status === 'disabled')) {
+            this.#renderFlowPage('', true, true);
+         }
+      });
       document.getElementById('clock-icon-tap-area').addEventListener('click', () => app.modal.startModal('time')); // OPEN MODAL
       document.getElementById('chart-icon-tap-area').addEventListener('click', () => app.router.navigate('chartPage'));
       document.getElementById('logout-icon-tap-area').addEventListener('click', () => window.location.href = '/logout');
       document.querySelector('.buzzer--in').addEventListener('click', () => this.#renderFlowPage('IN'));
       document.querySelector('.buzzer--out').addEventListener('click', () => this.#renderFlowPage('OUT'));
+
+      logg({location: '#setupFlowPageLinks end'});
+
    };
    
 

@@ -1,5 +1,7 @@
 import renderAmount from './renderAmount.js';
 
+import logg from "../logger.js";
+
 class FlowPageSurface {
 
    clear(eventHandler) {
@@ -22,6 +24,9 @@ class FlowPageSurface {
    
 
    renderTopMostBagAmounts(bagData) {
+
+      logg({location: 'in renderTopMostBagAmounts start'});
+
       renderAmount(bagData.IN.amount, document.getElementById('in-total'));
       renderAmount(bagData.OUT.amount, document.getElementById('out-total'));
       const totalBalanceEl = document.querySelector('#total-balance > span');
@@ -41,6 +46,9 @@ class FlowPageSurface {
 
 
    setupProperSurface(bagData, bagPath, revisit, timespan) {
+
+      logg({location: 'setupProperSurface start', revisit: revisit, timespan: timespan});
+
       const flowbag = document.getElementById('flowpage-bag');
       const flowtop = document.getElementById('flowpage-top');
       const uparrow_icon = document.querySelector('.icon--uparrow');
@@ -50,6 +58,9 @@ class FlowPageSurface {
       document.getElementById('time-end').innerText = timespan.end.getDate()+'.'+(timespan.end.getMonth()+1)+'.'+timespan.end.getFullYear();
       
       if ((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData)) {  // if topmost
+
+         logg({location: 'in topmost @ SetupPS start'});
+
          flowbag.style.display = 'none';
          flowtop.style.display = 'block';
          this.renderTopMostBagAmounts(bagData);
