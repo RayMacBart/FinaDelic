@@ -181,6 +181,11 @@ router.post('/PWreset',
                MailCTRL.postPWreset
 )
 
+router.post('/deriveKey', 
+               body('saltBase64').isLength({ min: 24, max: 24 }).matches(/^[A-Za-z0-9+/]+={0,2}$/).withMessage('Invalid Base64 salt'),
+               DataCTRL.postDeriveKey
+
+)
 
 
 

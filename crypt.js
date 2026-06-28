@@ -19,7 +19,7 @@ class Crypt {
    // MASTER_PASSWORD = process.env.APP_ENCRYPTION_PASSWORD;
    
    // Derive a 32-byte key from master password + salt (Base64)
-   async #deriveKey(masterPassword, saltBase64) {
+   async deriveKey(masterPassword, saltBase64) {
      const salt = Buffer.from(saltBase64, 'base64');
    
      const key = await argon2.hash(masterPassword, {
@@ -40,7 +40,7 @@ class Crypt {
      }
    
      const salt = crypto.randomBytes(this.SALT_LENGTH);
-     const key = await this.#deriveKey(this.MASTER_PASSWORD, salt.toString('base64'));
+     const key = await this.deriveKey(this.MASTER_PASSWORD, salt.toString('base64'));
    
      const iv = crypto.randomBytes(this.IV_LENGTH);
      const cipher = crypto.createCipheriv(this.ALGO, key, iv);
@@ -83,7 +83,7 @@ class Crypt {
        throw new Error(`Unsupported key version: ${v}`);
      }
    
-     const key = await this.#deriveKey(this.MASTER_PASSWORD, s);
+     const key = await this.deriveKey(this.MASTER_PASSWORD, s);
    
      const ivBuf = Buffer.from(i, 'base64');
      const tagBuf = Buffer.from(t, 'base64');

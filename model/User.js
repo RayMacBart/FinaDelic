@@ -11,6 +11,7 @@ class User {
    static async create(email, password) {
       const emailHash = await crypto.createHash("sha256").update(email).digest("base64");
       const pwhash = await argon2.hash(password);
+      const clientStorageID = crypto.randomBytes(8).toString('hex');
       const data = await Data.createData();
       const now = new Date();
       const startdate = (now.getFullYear()-1)+'-01-01';
@@ -19,6 +20,7 @@ class User {
                                     email: 'placeholder',
                                     emailHash: emailHash,
                                     pwhash: pwhash,
+                                    clientStorageID: clientStorageID,
                                     data: data,
                                     timeconfig: { 
                                        startdate: startdate,

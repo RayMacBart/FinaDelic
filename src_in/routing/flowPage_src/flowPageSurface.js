@@ -1,6 +1,6 @@
 import renderAmount from './renderAmount.js';
 
-import logg from "../logger.js";
+// import logg from "../logger.js";
 
 class FlowPageSurface {
 
@@ -25,7 +25,7 @@ class FlowPageSurface {
 
    renderTopMostBagAmounts(bagData) {
 
-      logg({location: 'in renderTopMostBagAmounts start'});
+      // logg({location: 'in renderTopMostBagAmounts start'});
 
       renderAmount(bagData.IN.amount, document.getElementById('in-total'));
       renderAmount(bagData.OUT.amount, document.getElementById('out-total'));
@@ -47,7 +47,7 @@ class FlowPageSurface {
 
    setupProperSurface(bagData, bagPath, revisit, timespan) {
 
-      logg({location: 'setupProperSurface start', revisit: revisit, timespan: timespan});
+      // logg({location: 'setupProperSurface start', revisit: revisit, timespan: timespan});
 
       const flowbag = document.getElementById('flowpage-bag');
       const flowtop = document.getElementById('flowpage-top');
@@ -59,7 +59,7 @@ class FlowPageSurface {
       
       if ((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData)) {  // if topmost
 
-         logg({location: 'in topmost @ SetupPS start'});
+         // logg({location: 'in topmost @ SetupPS start'});
 
          flowbag.style.display = 'none';
          flowtop.style.display = 'block';

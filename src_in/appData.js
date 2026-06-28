@@ -1,39 +1,30 @@
-import SubmitUtils from './modals_src/submitUtils.js';
+import SubmitUtils from "./modals_src/submitUtils.js";
+import crypting from "./crypting.js";
 
 
 class AppData {
 
-   constructor() {
+   keyU8A;
+   ivU8A;
+
+   constructor(storeID) {
+      this.storeID = storeID;
       this.revisitFlag = Symbol('revisitFlag');
       this.utils = new SubmitUtils(this);
       if (document.getElementById('username-info')) {
          this.username = document.getElementById('username-info').textContent;
+      } else {
+         this.username = 'incognito';
       }
    }
 
 
    #currentBag = ''
    
-   async loadFromBackendFirst(app) {
-      await this.fetchUserData(app.timespan);
-      app.continueConstruction1();
-   }
 
-   async fetchUserData(timespan) {
-      const response = await fetch('/userdata');
-      const fetchedData = await response.json();
-      localStorage.setItem('userdata', JSON.stringify(fetchedData));
-      this.data = fetchedData;
-      const csrfMeta = document.querySelector('meta[name="csrf-token"]');
-      const CSRFToken = csrfMeta ? csrfMeta.content : null;
-      fetch('/client-errorLog', {
-         method: 'POST',
-         headers: {'Content-Type': 'application/json',
-                  'CSRF-Token': CSRFToken
-         },
-         body: JSON.stringify({location: "after fetching data & setting localStorage", data: JSON.stringify(this.data)})
-      });
-      this.setBagAmounts(timespan);
+   setCryptoInfos(keyOBJ, ivU8A) {
+      this.keyOBJ = keyOBJ;
+      this.ivU8A = ivU8A;
    }
 
 
@@ -130,6 +121,12 @@ class AppData {
       this.data[this.#currentBag]['transactions'][flowId]['amount'] = amount ? amount : this.data[this.#currentBag]['transactions'][flowId]['amount'];
    }
 
+
+   async dumpPath(path) {
+      const cipherpathBase64 = await crypting.encryptDataToBase64(this.keyOBJ, this.ivU8A, path);
+      localStorage.setItem(`path:${this.storeID}`, cipherpathBase64);
+   }
+
    
    setCurrentBag(bagName, stepUp) {
       if (bagName === this.revisitFlag) {
@@ -155,23 +152,22 @@ class AppData {
       }
       else if (stepUp && (this.#currentBag === "IN" || this.#currentBag === "OUT")) {
          this.#currentBag = '';
-         localStorage.setItem('path', '');
+         this.dumpPath(this.#currentBag);
          return;
       }
       else if (stepUp) {
          const bagArray = this.#currentBag.split('/');
          bagArray.pop();
          this.#currentBag = bagArray.join('/');
-         localStorage.setItem('path', bagArray.join('/'));
+         this.dumpPath(this.#currentBag);
       }
       if (!stepUp) {
          if (this.#currentBag) {
             this.#currentBag = this.#currentBag+'/'+bagName;
-            localStorage.setItem('path', this.#currentBag);
          } else {
             this.#currentBag = bagName;
-            localStorage.setItem('path', bagName);
          }
+         this.dumpPath(this.#currentBag);
       }
    }
 
