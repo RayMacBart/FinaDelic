@@ -40,6 +40,8 @@ class App {
 
    async continueWithLocalDataFirst(storeID) {
       const {dataAndTimeObj, decryPath} = await crypting.getDecryptedLocals(storeID);
+      console.log('dataAndTimeObj:', dataAndTimeObj);
+      console.log('decryPath:', decryPath);
       this.timespan.setupTimespan(dataAndTimeObj.timeObj);
       this.appData.data = dataAndTimeObj.data;
       this.appData.setBagPath(decryPath);
