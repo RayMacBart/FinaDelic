@@ -22,6 +22,10 @@ const userSchema = new Schema({
    mailLinkExp: {
       type: Number
    },
+   clientStorageID: {
+      type: String,
+      required: true
+   },
    data: {
       type: Schema.Types.ObjectId,
       ref: 'data'
@@ -44,6 +48,7 @@ const userSchema = new Schema({
       required: true
    }
 });
+
 
 const dataSchema = new Schema({
    IN: {

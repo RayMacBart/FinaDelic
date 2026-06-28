@@ -9,7 +9,7 @@ exports.getTime = async (req, res) => {
    const userDocPopEnd = await userColl.findById(req.session.userId).populate('timeconfig.enddate');
    const startdate = userDocPopStart.timeconfig.startdate;
    const enddate = userDocPopEnd.timeconfig.enddate;
-   res.json( {startdate, enddate} );
+   res.json( {startdate, enddate, rollingEndDate: true} );
 }
 
 

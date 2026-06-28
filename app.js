@@ -40,6 +40,8 @@ app.use(session({
       maxAge: 216000000,  // = 60 hours = 2,5 days
       secure: true,           // DONT FORGET TO ACTIVATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!
       sameSite: 'none'
+      // secure: false,           // FOR DEV ONLY!
+      // sameSite: 'lax'
    }
 }));
 

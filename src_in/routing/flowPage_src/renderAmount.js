@@ -1,7 +1,7 @@
-import logg from "../logger.js";
+// import logg from "../logger.js";
 
 function renderAmount(amount, amountEl) {
-   logg({location: 'in renderAmount start!', amount: amount, amountEl: amountEl});
+   // logg({location: 'in renderAmount start!', amount: amount, amountEl: amountEl});
    const formattedAmount = new Intl.NumberFormat('de-DE').format(amount.toFixed(2));
    const amountArray = String(formattedAmount).split(',');
    if (amountArray.length === 2) {

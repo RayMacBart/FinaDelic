@@ -3,6 +3,7 @@ const path = require('path');
 const rootDir = require('../util/rootpath');
 const userCol = require('../model/schemas').Users;
 const cry = require('../crypt');
+const crypto = require('crypto');
 
 
 
@@ -42,6 +43,16 @@ exports.getInjectedHTML = async (req, htmlPath, withRoute=false) => {
    let html = await fs.readFile(htmlPath, (err) => console.log(err));
    html = html.toString();
    if (req.session.isLoggedIn) {
+      if (req.path === '/workspace') {
+         const saltBuffer = crypto.randomBytes(16);
+         const saltBase64 = saltBuffer.toString('base64');
+         const specificUserDoc = await userCol.findById(req.session.userId).select('_id pwhash clientStorageID');
+         const keyBuffer = await cry.deriveKey(specificUserDoc.pwhash, saltBase64);
+         const keyBase64 = keyBuffer.toString('base64');
+         html = injectHtml(html, 'storeKey', keyBase64);
+         html = injectHtml(html, 'storeSalt', saltBase64);
+         html = injectHtml(html, 'storeID', specificUserDoc.clientStorageID);
+      }
       const userEmailDoc = await userCol.findById(req.session.userId).select('_id email');
       const decryEmail = await cry.decrypt(userEmailDoc.email, req.session.userId);
       const username = decryEmail.split('@')[0].replace('.', ' ');

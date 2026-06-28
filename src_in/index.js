@@ -6,6 +6,7 @@ import AppData from "./appData.js";
 import Chart from "./chart.js";
 import Modal from "./modal.js";
 import { modalContents } from "./modalContents.js";
+import crypting from "./crypting.js";
 
 
 let timespan;
@@ -15,35 +16,6 @@ let chart;
 const csrfMeta = document.querySelector('meta[name="csrf-token"]');
 const CSRFToken = csrfMeta ? csrfMeta.content : null;
 
-window.onerror = function(message, source, lineno, colno, error) {
-   fetch('/client-errorLog', {
-                              method: 'POST',
-                              headers: {'Content-Type': 'application/json',
-                                        'CSRF-Token': CSRFToken
-                                       },
-                              body: JSON.stringify({message, source, lineno, colno, stack: error?.stack || null})
-   });
-};
-window.onunhandledrejection = function(event) {
-   fetch('/client-errorLog', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-         type: 'unhandledrejection',
-         reason: event.reason?.message,
-         stack: event.reason?.stack
-      })
-   });
-};
-
-console.log("TEST LOG");
-fetch('/client-errorLog', {
-   method: 'POST',
-   headers: {'Content-Type': 'application/json',
-            'CSRF-Token': CSRFToken
-   },
-   body: JSON.stringify({test: "hello"})
-});
 
 const populateExportVariables = (app) => {
    timespan = app.timespan;
@@ -55,43 +27,48 @@ const populateExportVariables = (app) => {
 class App {
    constructor() {
       // console.log('FULL RELOAD!');
-      this.timespan = new TimeSpan(this);
-      if (localStorage.getItem('timespan')) {
-         const timeObj = JSON.parse(localStorage.getItem('timespan'));
-         this.timespan.setupTimespan(timeObj);
-         this.setAppData();
-         this.timespan.fetchTime();
+      this.timespan = new TimeSpan();
+      this.storeID = document.getElementById('storeID').textContent;
+      this.appData = new AppData(this.storeID);
+      this.lazyLoader = new LazyLoader();
+      if (localStorage.getItem(this.storeID)) {
+         this.continueWithLocalDataFirst(this.storeID);
       } else {
-         this.timespan.loadFromBackendFirst(this);
+         this.loadFromBackendFirst(this.storeID);
       }
    }
-   
-   setAppData() {   // called in TimeSpan.fetchTime!
-      this.appData = new AppData(this);
-      if (localStorage.getItem('path')) {
-         this.appData.setBagPath(localStorage.getItem('path'));
-      }
-      if (localStorage.getItem('userdata')) {
-         this.appData.data = JSON.parse(localStorage.getItem('userdata'));
-         this.appData.setBagAmounts(this.timespan);
-         this.continueConstruction1();
-         this.appData.fetchUserData(this.timespan);   // no 'await' necessary!
-      } else {
-         this.appData.loadFromBackendFirst(this);
-      }
+
+   async continueWithLocalDataFirst(storeID) {
+      const {dataAndTimeObj, decryPath} = await crypting.getDecryptedLocals(storeID);
+      console.log('dataAndTimeObj:', dataAndTimeObj);
+      console.log('decryPath:', decryPath);
+      this.timespan.setupTimespan(dataAndTimeObj.timeObj);
+      this.appData.data = dataAndTimeObj.data;
+      this.appData.setBagPath(decryPath);
+      this.appData.setBagAmounts(this.timespan);
+      this.lazyLoader.loadAndSetFromBackend(this);  // NO 'AWAIT'!
+      this.continueConstruction1();
    }
    
-   continueConstruction1() {   // called in AppData.retrieveUserData!
+
+   async loadFromBackendFirst(storeID) {
+      await this.lazyLoader.loadAndSetFromBackend(this); // 'AWAIT'!
+      this.continueConstruction1();
+   }
+
+   
+   continueConstruction1() {
       this.modal = new Modal(this.appData, modalContents);
       this.chart = new Chart(this);
    }
 
+
    continueConstruction2() {
       this.router = new Router(this);
       populateExportVariables(this);
-      this.lazyLoader = new LazyLoader();
       new Footer(this.router.navigate, this.lazyLoader.importSVG);
    }
+
 
    makeIconHoverEffect(iconName) {
       const iconTapArea = document.getElementById(`${iconName}-icon-tap-area`);

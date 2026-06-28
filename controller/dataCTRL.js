@@ -1,5 +1,8 @@
 const Data = require('../model/Data');
 const User = require('../model/User');
+const userCol = require('../model/schemas').Users;
+const { validationResult } = require('express-validator');
+const cry = require('../crypt');
 
 
 exports.getUserData = async (req, res) => {
@@ -26,4 +29,16 @@ exports.deleteAccount = async (req, res) => {
    } else {
       res.status(503).send('Failed to delete useraccount!');
    }
+}
+
+
+exports.postDeriveKey = async (req, res) => {
+   const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const userDoc = await userCol.findById(req.session.userId).select('_id pwhash');
+    const keyBuffer = await cry.deriveKey(userDoc.pwhash, req.body.saltBase64);
+    const keyBase64 = keyBuffer.toString('base64');
+    res.json({keyBase64: keyBase64});
 }
