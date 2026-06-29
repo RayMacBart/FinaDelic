@@ -16,7 +16,7 @@ class Chart {
       const chartPaths = await response.json();
       const chartOps = new ChartOps();
       for (const path of chartPaths) {
-         chartOps.add2chart(path, this.appData.data[path.split('/')[0]], this);
+         chartOps.add2chart(path, app.appData.data[path.split('/')[0]], this);
       }
       app.continueConstruction2();
    }
