@@ -33,6 +33,8 @@ class ChartOps {
          const pathArray = bagPath.split('/');
          pathArray.shift();
          const nextPathPart = pathArray.join('/');
+         console.log('nextPathPart:', nextPathPart);
+         console.log("obj['nestedBags'][pathArray[0]]:", obj['nestedBags'][pathArray[0]]);
          return this.getBagObjByPath(nextPathPart, obj['nestedBags'][pathArray[0]]);
       } else {
          return obj;
