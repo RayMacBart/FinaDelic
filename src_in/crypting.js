@@ -73,15 +73,15 @@ class Crypting {
       const ciphertextBase64 = storeObj.ciphertext;
       const ciphertextU8A = this.base64ToUint8Array(ciphertextBase64);
       
-      console.log("KeyU8A:", keyU8A);
-      console.log("KeyU8A length:", keyU8A.length);
-      console.log("KeyObj:", keyOBJ);
+      // console.log("KeyU8A:", keyU8A);
+      // console.log("KeyU8A length:", keyU8A.length);
+      // console.log("KeyObj:", keyOBJ);
 
-      console.log("IV:", ivU8A);
-      console.log("IV length:", ivU8A.length);
+      // console.log("IV:", ivU8A);
+      // console.log("IV length:", ivU8A.length);
 
-      console.log("Ciphertext:", ciphertextU8A);
-      console.log("Ciphertext length:", ciphertextU8A.length);
+      // console.log("Ciphertext:", ciphertextU8A);
+      // console.log("Ciphertext length:", ciphertextU8A.length);
 
 
       const decryptedDataString = await this.decryptData(keyOBJ, ivU8A, ciphertextU8A);

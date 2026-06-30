@@ -30,7 +30,6 @@ class ChartDataPoster {
          this.logErrorMsg(response);
       }
       else if (response.status === 409) {
-         console.log('here!');
          showInfo('alreadyInChart');
          this.logErrorMsg(response);
          execFunc();
