@@ -8,15 +8,15 @@ class Chart {
 
    constructor(app) {
       this.appData = app.appData;
+      this.chartOps = new ChartOps(app.appData);
       this.fetchChartPaths(app)
    }
 
    async fetchChartPaths(app) {
       const response = await fetch('/chartPaths');
       const chartPaths = await response.json();
-      const chartOps = new ChartOps();
       for (const path of chartPaths) {
-         chartOps.add2chart(path, app.appData.data[path.split('/')[0]], this);
+         this.chartOps.add2chart(path, app.appData.data[path.split('/')[0]], this);
       }
       app.continueConstruction2();
    }
