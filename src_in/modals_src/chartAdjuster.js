@@ -5,7 +5,7 @@ class ChartAdjuster {
 
    constructor(appData) {
       this.appData = appData;
-      this.chartops = new ChartOps;
+      this.chartops = new ChartOps(appData);
    }
 
 
