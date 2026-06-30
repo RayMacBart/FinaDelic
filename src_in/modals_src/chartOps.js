@@ -43,8 +43,12 @@ class ChartOps {
    add2chart(broughtBagPath=null, broughtData=null, broughtChart=null) {
       const bagPath2Use = broughtBagPath ? broughtBagPath : this.bagPath;
       const addChartPath = () => {
+         console.log('this.appData.data:', this.appData.data);
          const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
+         console.log('bagPath2Use:', bagPath2Use);
+         console.log('appData2Use:', appData2Use);
          const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
+         console.log('bagObj:', bagObj);
          const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
          const data = {};
          for (const obj of nestedFlows) {
