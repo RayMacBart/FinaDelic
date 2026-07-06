@@ -16,9 +16,12 @@ class Chart {
       const response = await fetch('/chartPaths');
       const chartPaths = await response.json();
       for (const path of chartPaths) {
-         this.chartOps.add2chart(path, app.appData.data[path.split('/')[0]], this);
+         if (path.split('/')[0] === 'IN') {
+            this.chartOps.add2chart(path, app.appData.data['IN'], this);
+         } else if (path.split('/')[0] === 'OUT') {
+            this.chartOps.add2chart(path, app.appData.data['OUT'], this);
+         }
       }
-      app.continueConstruction2();
    }
 }
 

@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkfinadelic=globalThis.webpackChunkfinadelic||[]).push([[997],{997(e,a,t){t.d(a,{default:()=>l});const l=class{setup(e){document.querySelector(".loginBackButton").addEventListener("click",()=>e.router.navigate("loggedoutHP"),["page--landing"])}}}}]);

@@ -179,13 +179,14 @@ router.post('/PWreset',
                body('password', 'The entered password is too weak!').trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).escape(),
                body('repeat').trim(),
                MailCTRL.postPWreset
-)
+);
 
 router.post('/deriveKey', 
                body('saltBase64').isLength({ min: 24, max: 24 }).matches(/^[A-Za-z0-9+/]+={0,2}$/).withMessage('Invalid Base64 salt'),
                DataCTRL.postDeriveKey
+);
 
-)
+router.get('/storeID', DataCTRL.getStoreID);
 
 
 

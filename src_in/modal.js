@@ -12,7 +12,7 @@ class Modal {
    currentModalType;
    isModalSeries;
 
-   constructor(appData, modalContents) {
+   constructor(appData, modalContents, chart) {
       this.appData = appData;
       this.modalContents = modalContents;
       this.dialog = document.getElementById('main-modal-element');
@@ -40,7 +40,7 @@ class Modal {
       this.boundCancelFunction = this.finishModal.bind(this);
       this.inputModal = new InputModal(this);
       this.selectModal = new SelectModal(this);
-      this.modSub = new ModalSubmitAllocator(this.appData);
+      this.modSub = new ModalSubmitAllocator(this.appData, chart);
       this.dialog.addEventListener('keydown', (e) => {if (e.key === 'Escape') {document.dispatchEvent(this.reloadEvent);}});
    }
 

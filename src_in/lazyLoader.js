@@ -16,15 +16,10 @@ class LazyLoader {
       const fetchedTimeObj = await timeResponse.json(); // gets into dataAndTimeObj -> will be part of encrypted ciphertext!
       const updatedDataAndTimeObj = {data: fetchedData, timeObj: fetchedTimeObj};
       const updatedDataAndTimeObjString = JSON.stringify(updatedDataAndTimeObj);
-      const keyBase64 = document.getElementById('storeKey').textContent;
-      const keyU8A = crypting.base64ToUint8Array(keyBase64);
-      const keyOBJ = await crypto.subtle.importKey("raw", keyU8A, { name: "AES-GCM" }, false, ["encrypt"]);
-      const ivU8A = crypto.getRandomValues(new Uint8Array(12));
-      app.appData.setCryptoInfos(keyOBJ, ivU8A);
-      const ciphertextBase64 = await crypting.encryptDataToBase64(keyOBJ, ivU8A, updatedDataAndTimeObjString);
-      const ivBase64 = crypting.uint8ArrayToBase64(ivU8A);
-      const saltBase64 = document.getElementById('storeSalt').textContent;
-      const storageItem = JSON.stringify({ciphertext: ciphertextBase64, iv: ivBase64, salt: saltBase64});
+      const ciphertextBase64 = await crypting.encryptDataToBase64(app.appData.keyOBJ, app.appData.ivU8A, updatedDataAndTimeObjString);
+      const ivBase64 = crypting.uint8ArrayToBase64(app.appData.ivU8A);
+      console.log('setting local salt:', app.localSaltB64);
+      const storageItem = JSON.stringify({ciphertext: ciphertextBase64, iv: ivBase64, salt: app.localSaltB64});
       localStorage.setItem(app.storeID, storageItem);
       app.timespan.setupTimespan(fetchedTimeObj);
       app.appData.data = fetchedData;

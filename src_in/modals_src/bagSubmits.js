@@ -1,6 +1,8 @@
 import { showInfo } from '../infos.js';
 import SubmitUtils from './submitUtils.js';
 import BDP from '../backendDataCommunication/bagDataPoster.js';
+import CDP from '../backendDataCommunication/chartDataPoster.js';
+import crypting from '../crypting.js';
 
 
 
@@ -12,8 +14,10 @@ class BagSubmits {
    reloadEvent;
 
 
-   constructor(appData) {
+   constructor(appData, chart, chartOps) {
       this.appData = appData;
+      this.chart = chart;
+      this.chartOps = chartOps;
       this.utils = new SubmitUtils(this.appData);
    }  
 
@@ -127,10 +131,22 @@ class BagSubmits {
       const duplicateDetected = this.utils.check4Duplicate(currentBagName, selection);
       if (!duplicateDetected) {
          const execBagMove = () => {
+            
+            if (this.bagPath in this.chart.bags) {
+               this.chartOps.removeFromChart(true);
+            }
+
             const choosenObj = this.utils.getBagObjByPath(selection);
             this.transferBag(currentBagName, choosenObj);
+
+            if (this.bagPath in this.chart.bags) {
+               this.chartOps.add2chart(selection+'/'+currentBagName, this.appData.data[selection.split('/')[0]]);
+            }
             this.utils.checkAndAdjustChart();
             document.dispatchEvent(this.reloadEvent);
+            localStorage.removeItem(this.appData.storeID);
+            localStorage.removeItem(`path:${this.appData.storeID}`);
+            crypting.setEncryptedLocals();
          }
          BDP.bagMove(this.bagPath, selection, execBagMove);
       } else {

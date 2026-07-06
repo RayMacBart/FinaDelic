@@ -24,7 +24,7 @@ app.use(helmet());
 // app.use(bodyParser.urlencoded({extended: false}));  // Maybe will be used by login form submission?
 app.use(bodyParser.json());
 
-const sessionStore = MongoStore.create({mongoUrl: process.env.MONGODB_URI, collectionName: 'sessions'});
+const sessionStore = MongoStore.create({mongoUrl: process.env.MONGODB_URI2, collectionName: 'sessions'});
 
 app.set('trust proxy', 1);
 
@@ -38,10 +38,10 @@ app.use(session({
       // path: '/',
       httpOnly: true,
       maxAge: 216000000,  // = 60 hours = 2,5 days
-      secure: true,           // DONT FORGET TO ACTIVATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!
-      sameSite: 'none'
-      // secure: false,           // FOR DEV ONLY!
-      // sameSite: 'lax'
+      // secure: true,           // DONT FORGET TO ACTIVATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!
+      // sameSite: 'none'
+      secure: false,           // FOR DEV ONLY!
+      sameSite: 'lax'
    }
 }));
 
@@ -74,7 +74,7 @@ app.use((req, res) => {
 });
 
 const connectMongoose = async (app) => {
-   await Mongoose.connect(process.env.MONGODB_URI);
+   await Mongoose.connect(process.env.MONGODB_URI2);
    app.listen(process.env.PORT);
 }
 

@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkfinadelic=globalThis.webpackChunkfinadelic||[]).push([[462],{462(e,n,t){t.d(n,{default:()=>i});const i=function(e,n){const t=new Intl.NumberFormat("de-DE").format(e.toFixed(2)),i=String(t).split(",");2===i.length?(Number(i[1])>0&&Number(i[1])<10&&1===i[1].length&&(i[1]=i[1]+"0"),n.innerText=i[0]+","+i[1]):n.innerText=i[0]}}}]);

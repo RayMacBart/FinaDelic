@@ -42,3 +42,9 @@ exports.postDeriveKey = async (req, res) => {
     const keyBase64 = keyBuffer.toString('base64');
     res.json({keyBase64: keyBase64});
 }
+
+
+exports.getStoreID = async (req, res) => {
+   const specificUserDoc = await userCol.findById(req.session.userId).select('_id clientStorageID');
+   res.json({storeID: specificUserDoc.clientStorageID});
+}

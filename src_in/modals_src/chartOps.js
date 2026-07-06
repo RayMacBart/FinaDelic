@@ -29,12 +29,14 @@ class ChartOps {
 
 
    getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
-      if (bagPath.includes('/')) {
-         const pathArray = bagPath.split('/');
+      // console.log('@ begin of getBagObjByPath (ops):');
+      // console.log('bagPath:', bagPath, '|| obj:', obj);
+      const pathArray = bagPath.split('/');
+      if (bagPath.includes('/') && obj['nestedBags'][pathArray[1]]) {
          pathArray.shift();
          const nextPathPart = pathArray.join('/');
-         console.log('nextPathPart:', nextPathPart);
-         console.log("obj['nestedBags'][pathArray[0]]:", obj['nestedBags'][pathArray[0]]);
+         // console.log('nextPathPart:', nextPathPart);
+         // console.log("obj['nestedBags'][pathArray[0]]:", obj['nestedBags'][pathArray[0]]);
          return this.getBagObjByPath(nextPathPart, obj['nestedBags'][pathArray[0]]);
       } else {
          return obj;
@@ -45,12 +47,15 @@ class ChartOps {
    add2chart(broughtBagPath=null, broughtData=null, broughtChart=null) {
       const bagPath2Use = broughtBagPath ? broughtBagPath : this.bagPath;
       const addChartPath = () => {
-         console.log('this.appData.data:', this.appData.data);
+         // console.log('______________________________________')
+         // console.log('STARTING CHARTOPS ADD2CHART');
+         // console.log('--------------------------------------')
+         // console.log('this.appData.data:', this.appData.data);
          const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
-         console.log('bagPath2Use:', bagPath2Use);
-         console.log('appData2Use:', appData2Use);
+         // console.log('bagPath2Use:', bagPath2Use);
+         // console.log('appData2Use:', appData2Use);
          const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
-         console.log('bagObj:', bagObj);
+         // console.log('bagObj:', bagObj);
          const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
          const data = {};
          for (const obj of nestedFlows) {
@@ -89,11 +94,13 @@ class ChartOps {
    }
 
 
-   removeFromChart() {
+   removeFromChart(auto=false) {
       const execRemoveChartPath = () => {
          delete chart.bags[this.bagPath];
-         showInfo('removedFromChart');
-         document.dispatchEvent(this.reloadEvent);
+         if (!auto) {
+            showInfo('removedFromChart');
+            document.dispatchEvent(this.reloadEvent);
+         }
       }
       CDP.processChartPath(this.bagPath, 'DELETE', execRemoveChartPath);
    }

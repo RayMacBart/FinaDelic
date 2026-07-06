@@ -30,7 +30,21 @@ class FlowPage {
 
       // logg({location: '#renderFLowPage start', bagName: bagName});
 
+      // console.log('____________________________');
+      // console.log('@ #renderFlowPaqge BEFORE setCurrentBag:');
+      // console.log('this.appData.data:');
+      // console.log(this.appData.data);
+      // console.log('this.appData.getData()');
+      // console.log(this.appData.getData());
+      
       this.appData.setCurrentBag(bagName, stepUp);
+      
+      // console.log('@ #renderFlowPaqge AFTER setCurrentBag:');
+      // console.log('this.appData.data:');
+      // console.log(this.appData.data);
+      // console.log('this.appData.getData()');
+      // console.log(this.appData.getData());
+      // console.log('____________________________');
       const bagData = this.appData.getData();
       const bagPath = this.appData.getBagPath();
       
