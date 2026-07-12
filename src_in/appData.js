@@ -6,6 +6,7 @@ class AppData {
 
    keyU8A;
    ivU8A;
+   saltB64;
    data;
    storeID;
 
@@ -24,14 +25,9 @@ class AppData {
    
 
    async setCryptoInfos(keyOBJ, ivU8A, saltB64) {
-      // console.log('--------------------');
-      // console.log('setting AppData Crypto Infos:');
-      // console.log('keyOBJ:', keyOBJ);
-      // console.log('ivU8A:', ivU8A);
-      // console.log('--------------------');
       this.keyOBJ = keyOBJ;
       this.ivU8A = ivU8A;
-      this.saltB64 = this.saltB64;
+      this.saltB64 = saltB64;
       if (!localStorage.getItem(`path:${this.storeID}`)) {
          await this.dumpPath('');
       }
@@ -133,15 +129,8 @@ class AppData {
 
 
    async dumpPath(path) {
-      // console.log('_______');
-      // console.log('dumping path:');
-      // console.log('path:', path);
-      // console.log('this.keyOBJ:', this.keyOBJ);
-      // console.log('this.ivU8A:', this.ivU8A);
-      // console.log('_______');
       const taggedPath = '1X2Y3Z4A5B6C7D8E9F'+path;
       const cipherpathBase64 = await crypting.encryptDataToBase64(this.keyOBJ, this.ivU8A, taggedPath);
-      console.log('cipherpathBase64 after encryption:', cipherpathBase64);
       localStorage.setItem(`path:${this.storeID}`, cipherpathBase64);
    }
 
@@ -190,10 +179,15 @@ class AppData {
    }
 
 
-   getData() {
-      if (this.#currentBag) {
+   getData(path=null) {
+      if (this.#currentBag || path) {
          let focussedObj = this.data;
-         const currentBagList = this.#currentBag.split('/');
+         let currentBagList;
+         if (path) {
+            currentBagList = path.split('/');
+         } else {
+            currentBagList = this.#currentBag.split('/');
+         }
          for (const i of currentBagList) {
             if ((i === 'IN') || (i === 'OUT')) {
                focussedObj = focussedObj[i];

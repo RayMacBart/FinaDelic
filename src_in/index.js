@@ -42,7 +42,6 @@ class App {
       this.localSaltB64 = null;
       if (document.getElementById('storeID')) {
          this.storeID = document.getElementById('storeID').textContent;
-         console.log('document.getElementById("storeID").textContent:', this.storeID);
       } else {
          this.loadFromServerFirst = true;
       }
@@ -55,28 +54,22 @@ class App {
       if (this.storeID && localStorage.getItem(this.storeID)) {
          const storeObj = JSON.parse(localStorage.getItem(this.storeID));
          this.localSaltB64 = storeObj.salt;
-         console.log('got salt from storeObj.salt:', this.localSaltB64);
       } else if (document.getElementById('storeSalt')) {
          this.localSaltB64 = document.getElementById('storeSalt').textContent;
-         console.log('got salt from document/storeSalt', this.localSaltB64);
       } else {
          const saltU8A = new Uint8Array(16);
          crypto.getRandomValues(saltU8A);
          this.localSaltB64 = crypting.uint8ArrayToBase64(saltU8A);
-         console.log('DID FRONTEND SALT CREATION:', this.localSaltB64);
       }
       if (this.loadFromServerFirst) {
          this.storeID = await fetchStoreID();
-         console.log('from fetchStoreID:', this.storeID);
       }
       this.appData.storeID = this.storeID;
       let keyBase64;
       if (document.getElementById('storeKey')) {
          keyBase64 = document.getElementById('storeKey').textContent;
-         console.log('got keyB64 from document/storeKey:', keyBase64);
       } else {
          keyBase64 = await fetchDerivedKeyBase64(this.localSaltB64);
-         console.log('got keyB64 from fetchDerivedKeyBase64():', keyBase64);
       }
       const keyU8A = crypting.base64ToUint8Array(keyBase64);
       const keyOBJ = await crypto.subtle.importKey("raw", keyU8A, { name: "AES-GCM" }, false, ["encrypt"]);
@@ -99,10 +92,6 @@ class App {
       const {dataAndTimeObj, decryPath} = await crypting.getDecryptedLocals(storeID);
       this.timespan.setupTimespan(dataAndTimeObj.timeObj);
       this.appData.data = dataAndTimeObj.data;
-      console.log('_______');
-      console.log('@ continueWithLocalDataFirst - this.appData.data:');
-      console.log(this.appData.data);
-      console.log('-------');
       this.appData.setBagPath(decryPath);
       this.appData.setBagAmounts(this.timespan);
       this.chart = new Chart(this);

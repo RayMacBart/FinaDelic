@@ -1,6 +1,7 @@
 import TDP from '../backendDataCommunication/timeDataPoster.js';
 import { timespan, router } from '../index.js';
 import { showInfo } from '../infos.js';
+import crypting from '../crypting.js';
 
 
 class TimeSet {
@@ -31,6 +32,9 @@ class TimeSet {
          else if (currentPage === 'workspace') {
             router.navigate('flowPage');
          }
+         localStorage.removeItem(this.appData.storeID);
+         localStorage.removeItem(`path:${this.appData.storeID}`);
+         crypting.setEncryptedLocals();
       }
       const ISOstart = timespan.start.toISOString().split('T')[0];
       const ISOend = timespan.end.toISOString().split('T')[0];

@@ -27,7 +27,8 @@ class Infos {
       'invalidData2': "\n\nHence it didn't update the database accordingly!",
       'nameCollisionError1': "During the following operation:\n\n",
       'nameCollisionError2': "\n\n... a name collision occurred.\nThe boxname is already taken.\nPlease try another one.",
-      'couldNotDelAccount': "Your account was not deleted!\nThis service is currently unavailable.\nPlease try again later."
+      'couldNotDelAccount': "Your account was not deleted!\nThis service is currently unavailable.\nPlease try again later.",
+      'sameName': 'The box already has this name.\nNothing changes.'
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
       }
    }

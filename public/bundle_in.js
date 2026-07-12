@@ -19,6 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 class AppData {
   keyU8A;
   ivU8A;
+  saltB64;
   data;
   storeID;
   constructor() {
@@ -32,14 +33,9 @@ class AppData {
   }
   #currentBag = '';
   async setCryptoInfos(keyOBJ, ivU8A, saltB64) {
-    // console.log('--------------------');
-    // console.log('setting AppData Crypto Infos:');
-    // console.log('keyOBJ:', keyOBJ);
-    // console.log('ivU8A:', ivU8A);
-    // console.log('--------------------');
     this.keyOBJ = keyOBJ;
     this.ivU8A = ivU8A;
-    this.saltB64 = this.saltB64;
+    this.saltB64 = saltB64;
     if (!localStorage.getItem(`path:${this.storeID}`)) {
       await this.dumpPath('');
     }
@@ -123,15 +119,8 @@ class AppData {
     this.data[this.#currentBag]['transactions'][flowId]['amount'] = amount ? amount : this.data[this.#currentBag]['transactions'][flowId]['amount'];
   }
   async dumpPath(path) {
-    // console.log('_______');
-    // console.log('dumping path:');
-    // console.log('path:', path);
-    // console.log('this.keyOBJ:', this.keyOBJ);
-    // console.log('this.ivU8A:', this.ivU8A);
-    // console.log('_______');
     const taggedPath = '1X2Y3Z4A5B6C7D8E9F' + path;
     const cipherpathBase64 = await _crypting_js__WEBPACK_IMPORTED_MODULE_1__["default"].encryptDataToBase64(this.keyOBJ, this.ivU8A, taggedPath);
-    console.log('cipherpathBase64 after encryption:', cipherpathBase64);
     localStorage.setItem(`path:${this.storeID}`, cipherpathBase64);
   }
   setCurrentBag(bagName, stepUp) {
@@ -173,10 +162,15 @@ class AppData {
       this.dumpPath(this.#currentBag);
     }
   }
-  getData() {
-    if (this.#currentBag) {
+  getData(path = null) {
+    if (this.#currentBag || path) {
       let focussedObj = this.data;
-      const currentBagList = this.#currentBag.split('/');
+      let currentBagList;
+      if (path) {
+        currentBagList = path.split('/');
+      } else {
+        currentBagList = this.#currentBag.split('/');
+      }
       for (const i of currentBagList) {
         if (i === 'IN' || i === 'OUT') {
           focussedObj = focussedObj[i];
@@ -600,7 +594,6 @@ class Crypting {
     return base64;
   };
   decryptData = async (keyOBJ, ivU8A, ciphertextU8A) => {
-    console.log('ciphertextU8A in decryptFunc:', ciphertextU8A);
     const decryptedBinary = await crypto.subtle.decrypt({
       name: "AES-GCM",
       iv: ivU8A
@@ -619,7 +612,6 @@ class Crypting {
     const updatedDataAndTimeObjString = JSON.stringify(updatedDataAndTimeObj);
     const ciphertextBase64 = await this.encryptDataToBase64(this.appData.keyOBJ, this.appData.ivU8A, updatedDataAndTimeObjString);
     const ivBase64 = this.uint8ArrayToBase64(this.appData.ivU8A);
-    console.log('setting local salt:', this.appData.saltB64);
     const storageItem = JSON.stringify({
       ciphertext: ciphertextBase64,
       iv: ivBase64,
@@ -630,7 +622,6 @@ class Crypting {
   };
   getDecryptedLocals = async storeID => {
     const storeObj = JSON.parse(localStorage.getItem(storeID));
-    console.log('fetch key with salt:', storeObj.salt);
     const keyBase64 = await (0,_backendDataCommunication_keyDerivationPoster_js__WEBPACK_IMPORTED_MODULE_0__["default"])(storeObj.salt);
     const keyU8A = this.base64ToUint8Array(keyBase64);
     const keyOBJ = await crypto.subtle.importKey("raw", keyU8A, {
@@ -640,25 +631,11 @@ class Crypting {
     const ivU8A = this.base64ToUint8Array(ivBase64);
     const ciphertextBase64 = storeObj.ciphertext;
     const ciphertextU8A = this.base64ToUint8Array(ciphertextBase64);
-    console.log("keyBase64:", keyBase64);
-    // console.log("KeyU8A:", keyU8A);
-    // console.log("KeyU8A length:", keyU8A.length);
-    // console.log("KeyObj:", keyOBJ);
-
-    console.log("ivBase64:", ivBase64);
-    // console.log("IV:", ivU8A);
-    // console.log("IV length:", ivU8A.length);
-
-    console.log("ciphertextBase64:", ciphertextBase64);
-    console.log("Ciphertext:", ciphertextU8A);
-    console.log("Ciphertext length:", ciphertextU8A.length);
     try {
       const decryptedDataString = await this.decryptData(keyOBJ, ivU8A, ciphertextU8A);
       const localObj = JSON.parse(decryptedDataString);
       const cipherpathBase64 = localStorage.getItem(`path:${storeID}`);
-      console.log('attempt to decrypt pathB64:', cipherpathBase64);
       const cipherpathU8A = this.base64ToUint8Array(cipherpathBase64);
-      console.log('AFTER DATA DECRYPTION // BEFORE PATH DECRYPTION!!!');
       const decryptedTaggedPath = await this.decryptData(keyOBJ, ivU8A, cipherpathU8A);
       const decryptedPath = decryptedTaggedPath.replace('1X2Y3Z4A5B6C7D8E9F', '');
       return {
@@ -667,15 +644,13 @@ class Crypting {
       };
     } catch (e) {
       if (e.name === 'OperationError') {
-        console.warn('in Operation Error Handler!');
         if (localStorage.getItem(`path:${storeID}`)) {
           localStorage.removeItem(`path:${storeID}`);
         }
         if (localStorage.getItem(storeID)) {
           localStorage.removeItem(storeID);
         }
-        console.log('sleeping...');
-        await sleep(8000);
+        // await sleep(5000);
         location.reload();
       }
     }
@@ -782,7 +757,6 @@ class App {
     this.localSaltB64 = null;
     if (document.getElementById('storeID')) {
       this.storeID = document.getElementById('storeID').textContent;
-      console.log('document.getElementById("storeID").textContent:', this.storeID);
     } else {
       this.loadFromServerFirst = true;
     }
@@ -794,28 +768,22 @@ class App {
     if (this.storeID && localStorage.getItem(this.storeID)) {
       const storeObj = JSON.parse(localStorage.getItem(this.storeID));
       this.localSaltB64 = storeObj.salt;
-      console.log('got salt from storeObj.salt:', this.localSaltB64);
     } else if (document.getElementById('storeSalt')) {
       this.localSaltB64 = document.getElementById('storeSalt').textContent;
-      console.log('got salt from document/storeSalt', this.localSaltB64);
     } else {
       const saltU8A = new Uint8Array(16);
       crypto.getRandomValues(saltU8A);
       this.localSaltB64 = _crypting_js__WEBPACK_IMPORTED_MODULE_8__["default"].uint8ArrayToBase64(saltU8A);
-      console.log('DID FRONTEND SALT CREATION:', this.localSaltB64);
     }
     if (this.loadFromServerFirst) {
       this.storeID = await fetchStoreID();
-      console.log('from fetchStoreID:', this.storeID);
     }
     this.appData.storeID = this.storeID;
     let keyBase64;
     if (document.getElementById('storeKey')) {
       keyBase64 = document.getElementById('storeKey').textContent;
-      console.log('got keyB64 from document/storeKey:', keyBase64);
     } else {
       keyBase64 = await (0,_backendDataCommunication_keyDerivationPoster_js__WEBPACK_IMPORTED_MODULE_9__["default"])(this.localSaltB64);
-      console.log('got keyB64 from fetchDerivedKeyBase64():', keyBase64);
     }
     const keyU8A = _crypting_js__WEBPACK_IMPORTED_MODULE_8__["default"].base64ToUint8Array(keyBase64);
     const keyOBJ = await crypto.subtle.importKey("raw", keyU8A, {
@@ -841,10 +809,6 @@ class App {
     } = await _crypting_js__WEBPACK_IMPORTED_MODULE_8__["default"].getDecryptedLocals(storeID);
     this.timespan.setupTimespan(dataAndTimeObj.timeObj);
     this.appData.data = dataAndTimeObj.data;
-    console.log('_______');
-    console.log('@ continueWithLocalDataFirst - this.appData.data:');
-    console.log(this.appData.data);
-    console.log('-------');
     this.appData.setBagPath(decryPath);
     this.appData.setBagAmounts(this.timespan);
     this.chart = new _chart_js__WEBPACK_IMPORTED_MODULE_5__["default"](this);
@@ -916,7 +880,8 @@ class Infos {
       'invalidData2': "\n\nHence it didn't update the database accordingly!",
       'nameCollisionError1': "During the following operation:\n\n",
       'nameCollisionError2': "\n\n... a name collision occurred.\nThe boxname is already taken.\nPlease try another one.",
-      'couldNotDelAccount': "Your account was not deleted!\nThis service is currently unavailable.\nPlease try again later."
+      'couldNotDelAccount': "Your account was not deleted!\nThis service is currently unavailable.\nPlease try again later.",
+      'sameName': 'The box already has this name.\nNothing changes.'
       // 'noSpecialChars': 'Beside normal letters, digits and spaces, only  ? ! . , / ) (  are allowed!'
     };
   }
@@ -996,7 +961,6 @@ class LazyLoader {
     const updatedDataAndTimeObjString = JSON.stringify(updatedDataAndTimeObj);
     const ciphertextBase64 = await _crypting_js__WEBPACK_IMPORTED_MODULE_0__["default"].encryptDataToBase64(app.appData.keyOBJ, app.appData.ivU8A, updatedDataAndTimeObjString);
     const ivBase64 = _crypting_js__WEBPACK_IMPORTED_MODULE_0__["default"].uint8ArrayToBase64(app.appData.ivU8A);
-    console.log('setting local salt:', app.localSaltB64);
     const storageItem = JSON.stringify({
       ciphertext: ciphertextBase64,
       iv: ivBase64,
@@ -1430,6 +1394,23 @@ class BagSubmits {
     this.chartOps = chartOps;
     this.utils = new _submitUtils_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.appData);
   }
+  spin() {
+    const spinner = document.createElement('div');
+    spinner.classList.add('spinner');
+    spinner.style.position = 'absolute';
+    spinner.style.zIndex = '1000';
+    spinner.style.left = 'calc(50dvw - 2rem)';
+    const viewWrapper = document.querySelector('.view-wrapper');
+    const page = document.querySelector('.page');
+    page.style.filter = 'blur(0.1rem)';
+    viewWrapper.insertBefore(spinner, page);
+    return [viewWrapper, page, spinner];
+  }
+  async #updateLocalStorage() {
+    localStorage.removeItem(this.appData.storeID);
+    localStorage.removeItem(`path:${this.appData.storeID}`);
+    _crypting_js__WEBPACK_IMPORTED_MODULE_4__["default"].setEncryptedLocals();
+  }
   bagCreate() {
     const newBagName = this.currelems['input'].value;
     const duplicateDetected = this.utils.check4Duplicate(newBagName, this.bagPath);
@@ -1441,6 +1422,7 @@ class BagSubmits {
           'transactions': {}
         };
         document.dispatchEvent(this.reloadEvent);
+        this.#updateLocalStorage();
       };
       _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].createBag(this.bagPath, newBagName, execBagCreation);
       // Because arrow-functions always remember the surrounding 'this' where they were defined,
@@ -1459,41 +1441,79 @@ class BagSubmits {
       (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
     }
   }
+  async finishRename(currentBagName, newBagName, bagArray, affectedBagPaths) {
+    const [viewWrapper, page, spinner] = this.spin();
+    for (const affPath of affectedBagPaths) {
+      if (affPath in this.chart.bags) {
+        const changedPath = affPath.replace(currentBagName, newBagName);
+        this.chartOps.removeFromChart(affPath, true);
+        this.chartOps.add2chart(changedPath, this.appData.data[bagArray[0]]);
+        await _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_3__["default"].processChartPath(affPath, 'DELETE', () => {});
+        await _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_3__["default"].processChartPath(changedPath, 'POST', () => {});
+      }
+    }
+    this.appData.changeCurrentBagProp(newBagName);
+    this.utils.checkAndAdjustChart(null, false, {
+      'old': this.bagPath,
+      'new': bagArray.join('/') + '/' + newBagName
+    });
+    document.dispatchEvent(this.reloadEvent);
+    this.#updateLocalStorage();
+    viewWrapper.removeChild(spinner);
+    page.style.filter = 'none';
+  }
   bagRename() {
     this.utils.bagPath = this.bagPath;
     const newBagName = this.currelems['input'].value;
     const bagArray = this.bagPath.split('/');
-    const duplicateDetected = this.utils.check4Duplicate(newBagName, bagArray.join('/'));
-    if (!duplicateDetected) {
-      const execBagRename = () => {
-        const currentBagName = bagArray.pop();
-        const parentObj = this.utils.getParentObj(currentBagName);
-        parentObj[newBagName] = {
-          ...parentObj[currentBagName]
+    if (bagArray[bagArray.length - 1] !== newBagName) {
+      const duplicateDetected = this.utils.check4Duplicate(newBagName, bagArray.join('/'));
+      if (!duplicateDetected) {
+        const execBagRename = () => {
+          const currentBagName = bagArray.pop();
+          const parentObj = this.utils.getParentObj(currentBagName);
+          const affectedBagPaths = this.utils.getAllNestedBagPaths(this.bagPath);
+          affectedBagPaths.push(this.bagPath);
+          parentObj[newBagName] = {
+            ...parentObj[currentBagName]
+          };
+          delete parentObj[currentBagName];
+          this.finishRename(currentBagName, newBagName, bagArray, affectedBagPaths);
         };
-        delete parentObj[currentBagName];
-        this.appData.changeCurrentBagProp(newBagName);
-        this.utils.checkAndAdjustChart(null, false, {
-          'old': this.bagPath,
-          'new': bagArray.join('/') + '/' + newBagName
-        });
-        document.dispatchEvent(this.reloadEvent);
-      };
-      _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].renameBag(this.bagPath, newBagName, execBagRename);
+        _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].renameBag(this.bagPath, newBagName, execBagRename);
+      } else {
+        (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
+      }
     } else {
-      (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('duplicate', 'warning');
+      (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('sameName');
     }
+  }
+  async finishErase(affectedBagPaths) {
+    const [viewWrapper, page, spinner] = this.spin();
+    this.chartOps.removeFromChart(this.bagPath, true);
+    await _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_3__["default"].processChartPath(this.bagPath, 'DELETE', () => {});
+    for (const affPath of affectedBagPaths) {
+      if (affPath in this.chart.bags) {
+        this.chartOps.removeFromChart(affPath, true);
+        await _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_3__["default"].processChartPath(affPath, 'DELETE', () => {});
+      }
+    }
+    this.appData.changeCurrentBagProp();
+    this.utils.checkAndAdjustChart();
+    document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+    document.dispatchEvent(this.reloadEvent);
+    this.#updateLocalStorage();
+    viewWrapper.removeChild(spinner);
+    page.style.filter = 'none';
   }
   bagErase() {
     const execBagErase = () => {
       this.utils.bagPath = this.bagPath;
       const currentBagName = this.bagPath.split('/').pop();
       const parentObj = this.utils.getParentObj(currentBagName);
+      const affectedBagPaths = this.utils.getAllNestedBagPaths(this.bagPath);
       delete parentObj[currentBagName];
-      this.appData.changeCurrentBagProp();
-      this.utils.checkAndAdjustChart();
-      document.querySelector('.menu--account-remove').dataset.removalHappened = true;
-      document.dispatchEvent(this.reloadEvent);
+      this.finishErase(affectedBagPaths);
     };
     _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagErase(this.bagPath, execBagErase);
   }
@@ -1518,16 +1538,51 @@ class BagSubmits {
     delete parentObj['nestedBags'][currentBagName];
     this.appData.changeCurrentBagProp();
   }
+  async finishDisband(pathArray, currentBagName, affectedBagPaths) {
+    const [viewWrapper, page, spinner] = this.spin();
+    for (const affPath of affectedBagPaths) {
+      if (affPath in this.chart.bags) {
+        const strippedPath = affPath.replace('/' + currentBagName, '');
+        this.chartOps.add2chart(strippedPath, this.appData.data[pathArray[0]], this.chart);
+        this.chartOps.removeFromChart(affPath, true);
+        await _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_3__["default"].processChartPath(strippedPath, 'POST', () => {});
+        await _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_3__["default"].processChartPath(affPath, 'DELETE', () => {});
+      }
+    }
+    document.querySelector('.menu--account-remove').dataset.removalHappened = true;
+    this.utils.checkAndAdjustChart(null, true);
+    document.dispatchEvent(this.reloadEvent);
+    this.#updateLocalStorage();
+    viewWrapper.removeChild(spinner);
+    page.style.filter = 'none';
+  }
   bagDisband() {
     const execBagDisband = () => {
       const pathArray = this.bagPath.split('/');
       const currentBagName = pathArray[pathArray.length - 1];
+      const affectedBagPaths = this.utils.getAllNestedBagPaths(this.bagPath);
       this.transferBag(currentBagName);
-      document.querySelector('.menu--account-remove').dataset.removalHappened = true;
-      this.utils.checkAndAdjustChart(null, true);
-      document.dispatchEvent(this.reloadEvent);
+      this.finishDisband(pathArray, currentBagName, affectedBagPaths);
     };
     _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagDisband(this.bagPath, execBagDisband);
+  }
+  async finishMove(selection, currentBagName, affectedBagPaths) {
+    const [viewWrapper, page, spinner] = this.spin();
+    for (const affPath of affectedBagPaths) {
+      if (affPath in this.chart.bags) {
+        const strippedPath = affPath.replace(this.bagPath, '');
+        const addedPath = selection + '/' + currentBagName + strippedPath;
+        this.chartOps.add2chart(addedPath, this.appData.data[selection.split('/')[0]], this.chart);
+        this.chartOps.removeFromChart(affPath, true);
+        await _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_3__["default"].processChartPath(addedPath, 'POST', () => {});
+        await _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_3__["default"].processChartPath(affPath, 'DELETE', () => {});
+      }
+    }
+    this.utils.checkAndAdjustChart();
+    document.dispatchEvent(this.reloadEvent);
+    this.#updateLocalStorage();
+    viewWrapper.removeChild(spinner);
+    page.style.filter = 'none';
   }
   bagMove() {
     const selection = document.getElementById('modal-select').value;
@@ -1536,19 +1591,11 @@ class BagSubmits {
     const duplicateDetected = this.utils.check4Duplicate(currentBagName, selection);
     if (!duplicateDetected) {
       const execBagMove = () => {
-        if (this.bagPath in this.chart.bags) {
-          this.chartOps.removeFromChart(true);
-        }
+        const affectedBagPaths = this.utils.getAllNestedBagPaths(this.bagPath);
+        affectedBagPaths.push(this.bagPath);
         const choosenObj = this.utils.getBagObjByPath(selection);
         this.transferBag(currentBagName, choosenObj);
-        if (this.bagPath in this.chart.bags) {
-          this.chartOps.add2chart(selection + '/' + currentBagName, this.appData.data[selection.split('/')[0]]);
-        }
-        this.utils.checkAndAdjustChart();
-        document.dispatchEvent(this.reloadEvent);
-        localStorage.removeItem(this.appData.storeID);
-        localStorage.removeItem(`path:${this.appData.storeID}`);
-        _crypting_js__WEBPACK_IMPORTED_MODULE_4__["default"].setEncryptedLocals();
+        this.finishMove(selection, currentBagName, affectedBagPaths);
       };
       _backendDataCommunication_bagDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].bagMove(this.bagPath, selection, execBagMove);
     } else {
@@ -1582,8 +1629,6 @@ class ChartAdjuster {
   }
   getBagObjByPath(bagPath, obj = this.appData.data[bagPath.split('/')[0]]) {
     // recursive
-    // console.log('@ begin of getBagObjByPath (adjuster):');
-    // console.log('bagPath:', bagPath, '|| obj:', obj);
     const pathArray = bagPath.split('/');
     if (bagPath.includes('/') && obj['nestedBags'][pathArray[1]]) {
       pathArray.shift();
@@ -1601,11 +1646,6 @@ class ChartAdjuster {
       delete _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags[renameInfo['old']];
     }
     const affectedChartBags = defaultAffectedBag ? [defaultAffectedBag] : [];
-
-    // console.log('______________________________________');
-    // console.log('STARTING CHARTADJUSTER GETAFFECTEDBAGS');
-    // console.log('--------------------------------------');
-
     for (const bag in _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags) {
       let curBagAmountAtChart = 0;
       for (const keydate in _index_js__WEBPACK_IMPORTED_MODULE_0__.chart.bags[bag]) {
@@ -1618,10 +1658,6 @@ class ChartAdjuster {
       } else {
         bagObj = this.getBagObjByPath(bag);
       }
-      // console.log('----- final ------');
-      // console.log('bagObj:', bagObj);
-      // console.log('----- final ------');
-      // console.log('__________________');
       const curBagAppDataFlows = this.chartops.getNestedFlows(bag.split('/'), bagObj);
       let curBagAmountAtAppData = 0;
       for (const flowObj of curBagAppDataFlows) {
@@ -1685,14 +1721,10 @@ class ChartOps {
   }
   getBagObjByPath(bagPath, obj = this.appData.data[bagPath.split('/')[0]]) {
     // recursive
-    // console.log('@ begin of getBagObjByPath (ops):');
-    // console.log('bagPath:', bagPath, '|| obj:', obj);
     const pathArray = bagPath.split('/');
     if (bagPath.includes('/') && obj['nestedBags'][pathArray[1]]) {
       pathArray.shift();
       const nextPathPart = pathArray.join('/');
-      // console.log('nextPathPart:', nextPathPart);
-      // console.log("obj['nestedBags'][pathArray[0]]:", obj['nestedBags'][pathArray[0]]);
       return this.getBagObjByPath(nextPathPart, obj['nestedBags'][pathArray[0]]);
     } else {
       return obj;
@@ -1701,15 +1733,8 @@ class ChartOps {
   add2chart(broughtBagPath = null, broughtData = null, broughtChart = null) {
     const bagPath2Use = broughtBagPath ? broughtBagPath : this.bagPath;
     const addChartPath = () => {
-      // console.log('______________________________________')
-      // console.log('STARTING CHARTOPS ADD2CHART');
-      // console.log('--------------------------------------')
-      // console.log('this.appData.data:', this.appData.data);
       const appData2Use = broughtData ? broughtData : this.appData.data[bagPath2Use.split('/')[0]];
-      // console.log('bagPath2Use:', bagPath2Use);
-      // console.log('appData2Use:', appData2Use);
       const bagObj = this.getBagObjByPath(bagPath2Use, appData2Use);
-      // console.log('bagObj:', bagObj);
       const nestedFlows = this.getNestedFlows(bagPath2Use.split('/'), bagObj);
       const data = {};
       for (const obj of nestedFlows) {
@@ -1734,24 +1759,21 @@ class ChartOps {
     } else {
       _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].processChartPath(bagPath2Use, 'POST', addChartPath);
     }
-
-    // chart.bags[this.bagPath] = this.appData.data['nestedBags'];  // appCode --> recursive bag collector wanted!
-    // app.chart.bags must contain all nested bags (recursive)
-    // when creating line charts, the choosen timespan must be splitted into smaller timespans (around 7-15 would be good).
-    // The program has to decide, how to split, depending on the choosen timespan's length
-    // (eg. year => months, 3 months => weeks. For a half year, you may take half months...).
-    // then, the bags within app.chart.bags are allocated to each small timespan.
-    // here at last, add temporary message that bag NAME has been added to chart!
   }
-  removeFromChart(auto = false) {
+  removeFromChart(broughtBagPath = null, auto = false) {
+    const usedBagPath = broughtBagPath ? broughtBagPath : this.bagPath;
     const execRemoveChartPath = () => {
-      delete _index_js__WEBPACK_IMPORTED_MODULE_1__.chart.bags[this.bagPath];
+      delete _index_js__WEBPACK_IMPORTED_MODULE_1__.chart.bags[usedBagPath];
       if (!auto) {
         (0,_infos_js__WEBPACK_IMPORTED_MODULE_0__.showInfo)('removedFromChart');
         document.dispatchEvent(this.reloadEvent);
       }
     };
-    _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].processChartPath(this.bagPath, 'DELETE', execRemoveChartPath);
+    if (auto) {
+      execRemoveChartPath();
+    } else {
+      _backendDataCommunication_chartDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].processChartPath(usedBagPath, 'DELETE', execRemoveChartPath);
+    }
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChartOps);
@@ -1772,10 +1794,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _submitUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./submitUtils.js */ "./src_in/modals_src/submitUtils.js");
 /* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
 /* harmony import */ var _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../backendDataCommunication/flowDataPoster.js */ "./src_in/backendDataCommunication/flowDataPoster.js");
+/* harmony import */ var _crypting_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../crypting.js */ "./src_in/crypting.js");
+
 
 
 
 class FlowSubmits {
+  appData;
   currelems;
   bagPath;
   flowID;
@@ -1784,7 +1809,13 @@ class FlowSubmits {
   flowchange;
   reloadEvent;
   constructor(appData) {
+    this.appData = appData;
     this.utils = new _submitUtils_js__WEBPACK_IMPORTED_MODULE_0__["default"](appData);
+  }
+  async #updateLocalStorage() {
+    localStorage.removeItem(this.appData.storeID);
+    localStorage.removeItem(`path:${this.appData.storeID}`);
+    _crypting_js__WEBPACK_IMPORTED_MODULE_3__["default"].setEncryptedLocals();
   }
   flowAmount() {
     const predec = document.getElementById('amount-predecimal').value ? document.getElementById('amount-predecimal').value : 0;
@@ -1797,6 +1828,7 @@ class FlowSubmits {
         this.utils.recalcBagAmounts(this.bagPath.split('/'));
         this.utils.checkAndAdjustChart();
         document.dispatchEvent(this.reloadEvent);
+        this.#updateLocalStorage();
       };
       _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeAmount(this.bagPath, this.flowID, amount, execAmountChange);
     } else {
@@ -1810,6 +1842,7 @@ class FlowSubmits {
         const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
         currentBagObj['transactions'][this.flowID]['desc'] = newText;
         document.dispatchEvent(this.reloadEvent);
+        this.#updateLocalStorage();
       };
       _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].changeDesc(this.bagPath, this.flowID, newText, execDescChange);
     } else {
@@ -1829,6 +1862,7 @@ class FlowSubmits {
       }
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
       document.dispatchEvent(this.reloadEvent);
+      this.#updateLocalStorage();
     };
     if (this.flowchange) {
       const execDateChange = () => {
@@ -1862,6 +1896,7 @@ class FlowSubmits {
       delete bagObj['transactions'][this.flowID];
       this.utils.checkAndAdjustChart();
       document.dispatchEvent(this.reloadEvent);
+      this.#updateLocalStorage();
     };
     _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].deleteFlow(this.bagPath, this.flowID, execFlowDeletion);
   }
@@ -1876,6 +1911,7 @@ class FlowSubmits {
       this.utils.recalcBagAmounts(this.bagPath.split('/'));
       this.utils.recalcBagAmounts(selection.split('/'));
       document.dispatchEvent(this.reloadEvent);
+      this.#updateLocalStorage();
     };
     _backendDataCommunication_flowDataPoster_js__WEBPACK_IMPORTED_MODULE_2__["default"].moveFlow(this.bagPath, this.flowID, selection, execFlowMove);
   }
@@ -2409,6 +2445,23 @@ class SubmitUtils {
     const affectedChartBags = this.CA.getAffectedChartBags(defaultAffectedBag, bagRemoval, renameInfo);
     this.CA.refreshAffectedCharts(affectedChartBags);
   }
+  getAllNestedBagPaths(path = null) {
+    const usedPath = path ? path : this.appData.getBagPath;
+    const usedData = this.appData.getData(usedPath);
+    const bagList = [];
+    const addNestedBags = (bagObj, path) => {
+      // recursive
+      if ('nestedBags' in bagObj) {
+        for (const nestedBag in bagObj.nestedBags) {
+          const newPath = path + '/' + nestedBag;
+          bagList.push(newPath);
+          addNestedBags(bagObj.nestedBags[nestedBag], newPath);
+        }
+      }
+    };
+    addNestedBags(usedData, usedPath);
+    return bagList;
+  }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SubmitUtils);
 
@@ -2428,6 +2481,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _backendDataCommunication_timeDataPoster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../backendDataCommunication/timeDataPoster.js */ "./src_in/backendDataCommunication/timeDataPoster.js");
 /* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../index.js */ "./src_in/index.js");
 /* harmony import */ var _infos_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../infos.js */ "./src_in/infos.js");
+/* harmony import */ var _crypting_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../crypting.js */ "./src_in/crypting.js");
+
 
 
 
@@ -2454,6 +2509,9 @@ class TimeSet {
       } else if (currentPage === 'workspace') {
         _index_js__WEBPACK_IMPORTED_MODULE_1__.router.navigate('flowPage');
       }
+      localStorage.removeItem(this.appData.storeID);
+      localStorage.removeItem(`path:${this.appData.storeID}`);
+      _crypting_js__WEBPACK_IMPORTED_MODULE_3__["default"].setEncryptedLocals();
     };
     const ISOstart = _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.start.toISOString().split('T')[0];
     const ISOend = _index_js__WEBPACK_IMPORTED_MODULE_1__.timespan.end.toISOString().split('T')[0];
@@ -2895,7 +2953,7 @@ module.exports = webpackAsyncContext;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("36e50830305190037d15")
+/******/ 		__webpack_require__.h = () => ("53518eb92d5e11d23f46")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -18,7 +18,6 @@ class LazyLoader {
       const updatedDataAndTimeObjString = JSON.stringify(updatedDataAndTimeObj);
       const ciphertextBase64 = await crypting.encryptDataToBase64(app.appData.keyOBJ, app.appData.ivU8A, updatedDataAndTimeObjString);
       const ivBase64 = crypting.uint8ArrayToBase64(app.appData.ivU8A);
-      console.log('setting local salt:', app.localSaltB64);
       const storageItem = JSON.stringify({ciphertext: ciphertextBase64, iv: ivBase64, salt: app.localSaltB64});
       localStorage.setItem(app.storeID, storageItem);
       app.timespan.setupTimespan(fetchedTimeObj);

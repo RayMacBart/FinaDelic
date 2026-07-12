@@ -6,8 +6,6 @@ import Toolbar from "./flowPage_src/toolbar.js";
 
 // import logg from "./logger.js";
 
-// for now, AppData is used instead of fetching bag related folder and transaction content from backend API!
-
 
 class FlowPage {
 
@@ -29,38 +27,18 @@ class FlowPage {
    #renderFlowPage(bagName, stepUp=false, toolbarReset=false) {
 
       // logg({location: '#renderFLowPage start', bagName: bagName});
-
-      // console.log('____________________________');
-      // console.log('@ #renderFlowPaqge BEFORE setCurrentBag:');
-      // console.log('this.appData.data:');
-      // console.log(this.appData.data);
-      // console.log('this.appData.getData()');
-      // console.log(this.appData.getData());
       
       this.appData.setCurrentBag(bagName, stepUp);
-      
-      // console.log('@ #renderFlowPaqge AFTER setCurrentBag:');
-      // console.log('this.appData.data:');
-      // console.log(this.appData.data);
-      // console.log('this.appData.getData()');
-      // console.log(this.appData.getData());
-      // console.log('____________________________');
       const bagData = this.appData.getData();
       const bagPath = this.appData.getBagPath();
-      
-      // logg({location: '#RFP after bagData & bagPath assignment', bagPath: bagPath, bagData: bagData});
 
       const cachedFlowId = this.eventHandler.choosenFlowID;
       this.surface.clear(this.eventHandler);
       
       this.surface.setupProperSurface(bagData, bagPath, (bagName === this.appData.revisitFlag), this.timespan);
-      
-      // logg({location: '#RFP after setupProperSurface'});
 
       this.baglist.render(bagData, bagPath);
       this.flowlist.render(bagData, this.timespan);
-
-      // logg({location: '#RFP after bag- & flowlist rendering'});
 
       if (!((Object.keys(bagData).length === 2) && ('IN' in bagData) && ('OUT' in bagData))) { // --> if not topmost
 
@@ -86,7 +64,7 @@ class FlowPage {
             document.removeEventListener('bagReload', this.toolbar.boundRefreshHandler);
          }
          this.toolbar.boundRefreshHandler = this.#renderFlowPage.bind(this, this.appData.revisitFlag);
-         document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);   // (?)[../../docs/customEventToolbarTrigger.txt]
+         document.addEventListener('bagReload', this.toolbar.boundRefreshHandler);
          
          if (document.querySelector('.dynamicChartButtonText')) {
             document.querySelector('.dynamicChartButtonText').innerText = (bagPath in this.chartBags) ? 'CHART REMOVE' : 'ADD TO CHART';
@@ -138,8 +116,6 @@ class FlowPage {
    
    
    #setupFlowPageLinks(app) {
-
-      // logg({location: '#setupFlowPageLinks start'});
       
       document.querySelector('.logo--nav').addEventListener('click', () => app.router.navigate('loggedinHP', ['page--landing']));
       document.getElementById('uparrow-icon-tap-area').addEventListener('click', (e) => {
@@ -152,9 +128,6 @@ class FlowPage {
       document.getElementById('logout-icon-tap-area').addEventListener('click', () => window.location.href = '/logout');
       document.querySelector('.buzzer--in').addEventListener('click', () => this.#renderFlowPage('IN'));
       document.querySelector('.buzzer--out').addEventListener('click', () => this.#renderFlowPage('OUT'));
-
-      // logg({location: '#setupFlowPageLinks end'});
-
    };
    
 

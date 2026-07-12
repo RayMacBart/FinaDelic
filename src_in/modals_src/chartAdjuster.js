@@ -10,8 +10,6 @@ class ChartAdjuster {
 
 
    getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
-      // console.log('@ begin of getBagObjByPath (adjuster):');
-      // console.log('bagPath:', bagPath, '|| obj:', obj);
       const pathArray = bagPath.split('/');
       if (bagPath.includes('/') && obj['nestedBags'][pathArray[1]]) {
          pathArray.shift();
@@ -30,10 +28,6 @@ class ChartAdjuster {
       }
       const affectedChartBags = defaultAffectedBag ? [defaultAffectedBag] : [];
 
-      // console.log('______________________________________');
-      // console.log('STARTING CHARTADJUSTER GETAFFECTEDBAGS');
-      // console.log('--------------------------------------');
-
       for (const bag in chart.bags) {
          let curBagAmountAtChart = 0;
          for (const keydate in chart.bags[bag]) {
@@ -46,10 +40,6 @@ class ChartAdjuster {
          } else {
             bagObj = this.getBagObjByPath(bag);
          }
-         // console.log('----- final ------');
-         // console.log('bagObj:', bagObj);
-         // console.log('----- final ------');
-         // console.log('__________________');
          const curBagAppDataFlows = this.chartops.getNestedFlows(bag.split('/'), bagObj);
          let curBagAmountAtAppData = 0;
          for (const flowObj of curBagAppDataFlows) {
