@@ -10,8 +10,8 @@ class ChartAdjuster {
 
 
    getBagObjByPath(bagPath, obj=this.appData.data[bagPath.split('/')[0]]) {  // recursive
-      if (bagPath.includes('/')) {
-         const pathArray = bagPath.split('/');
+      const pathArray = bagPath.split('/');
+      if (bagPath.includes('/') && obj['nestedBags'][pathArray[1]]) {
          pathArray.shift();
          const nextPathPart = pathArray.join('/');
          return this.getBagObjByPath(nextPathPart, obj['nestedBags'][pathArray[0]]);
@@ -27,6 +27,7 @@ class ChartAdjuster {
          delete chart.bags[renameInfo['old']];
       }
       const affectedChartBags = defaultAffectedBag ? [defaultAffectedBag] : [];
+
       for (const bag in chart.bags) {
          let curBagAmountAtChart = 0;
          for (const keydate in chart.bags[bag]) {

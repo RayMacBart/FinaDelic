@@ -1,6 +1,14 @@
 import fetchDerivedKeyBase64 from "./backendDataCommunication/keyDerivationPoster.js";
 
+
+function sleep(ms) {
+   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 class Crypting {
+   
+   timespan;
+   appData;
 
    base64ToUint8Array(base64) {
       const binary = atob(base64);
@@ -49,19 +57,35 @@ class Crypting {
    }
 
    
-   decryptData = async (keyOBJ, ivU8A, ciphertext) => {
+   decryptData = async (keyOBJ, ivU8A, ciphertextU8A) => {
       const decryptedBinary = await crypto.subtle.decrypt(
        {
          name: "AES-GCM",
          iv: ivU8A
        },
        keyOBJ,
-       ciphertext
+       ciphertextU8A
      );
 
-     
      return new TextDecoder().decode(decryptedBinary);
    }
+
+
+   setEncryptedLocals = async () => {
+      const updatedDataAndTimeObj = {data: this.appData.data, 
+                                    timeObj: {
+                                       startdate: this.timespan.start.toISOString(),
+                                       enddate: this.timespan.end.toISOString(),
+                                       rollingEndDate: this.timespan.rollingEndDate
+                                    }};
+      const updatedDataAndTimeObjString = JSON.stringify(updatedDataAndTimeObj);
+      const ciphertextBase64 = await this.encryptDataToBase64(this.appData.keyOBJ, this.appData.ivU8A, updatedDataAndTimeObjString);
+      const ivBase64 = this.uint8ArrayToBase64(this.appData.ivU8A);
+      const storageItem = JSON.stringify({ciphertext: ciphertextBase64, iv: ivBase64, salt: this.appData.saltB64});
+      localStorage.setItem(this.appData.storeID, storageItem);
+      this.appData.dumpPath(this.appData.getBagPath());
+   }
+
 
    getDecryptedLocals = async (storeID) => {
       const storeObj = JSON.parse(localStorage.getItem(storeID));
@@ -72,24 +96,26 @@ class Crypting {
       const ivU8A = this.base64ToUint8Array(ivBase64);
       const ciphertextBase64 = storeObj.ciphertext;
       const ciphertextU8A = this.base64ToUint8Array(ciphertextBase64);
-      
-      // console.log("KeyU8A:", keyU8A);
-      // console.log("KeyU8A length:", keyU8A.length);
-      // console.log("KeyObj:", keyOBJ);
-
-      // console.log("IV:", ivU8A);
-      // console.log("IV length:", ivU8A.length);
-
-      // console.log("Ciphertext:", ciphertextU8A);
-      // console.log("Ciphertext length:", ciphertextU8A.length);
-
-
-      const decryptedDataString = await this.decryptData(keyOBJ, ivU8A, ciphertextU8A);
-      const localObj = JSON.parse(decryptedDataString);
-      const cipherpathBase64 = localStorage.getItem(`path:${storeID}`)
-      const cipherpathU8A = this.base64ToUint8Array(cipherpathBase64);
-      const decryptedPath = await this.decryptData(keyOBJ, ivU8A, cipherpathU8A);
-      return {dataAndTimeObj: localObj, decryPath: decryptedPath};
+      try {
+         const decryptedDataString = await this.decryptData(keyOBJ, ivU8A, ciphertextU8A);
+         const localObj = JSON.parse(decryptedDataString);
+         const cipherpathBase64 = localStorage.getItem(`path:${storeID}`);
+         const cipherpathU8A = this.base64ToUint8Array(cipherpathBase64);
+         const decryptedTaggedPath = await this.decryptData(keyOBJ, ivU8A, cipherpathU8A);
+         const decryptedPath = decryptedTaggedPath.replace('1X2Y3Z4A5B6C7D8E9F', '');
+         return {dataAndTimeObj: localObj, decryPath: decryptedPath};
+      } catch (e) {
+         if (e.name === 'OperationError') {
+            if (localStorage.getItem(`path:${storeID}`)) {
+               localStorage.removeItem(`path:${storeID}`);
+            }
+            if (localStorage.getItem(storeID)) {
+               localStorage.removeItem(storeID);
+            }
+            // await sleep(5000);
+            location.reload();
+         }
+      }
    }
 }
 

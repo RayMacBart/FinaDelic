@@ -6,9 +6,11 @@ class AppData {
 
    keyU8A;
    ivU8A;
+   saltB64;
+   data;
+   storeID;
 
-   constructor(storeID) {
-      this.storeID = storeID;
+   constructor() {
       this.revisitFlag = Symbol('revisitFlag');
       this.utils = new SubmitUtils(this);
       if (document.getElementById('username-info')) {
@@ -22,9 +24,13 @@ class AppData {
    #currentBag = ''
    
 
-   setCryptoInfos(keyOBJ, ivU8A) {
+   async setCryptoInfos(keyOBJ, ivU8A, saltB64) {
       this.keyOBJ = keyOBJ;
       this.ivU8A = ivU8A;
+      this.saltB64 = saltB64;
+      if (!localStorage.getItem(`path:${this.storeID}`)) {
+         await this.dumpPath('');
+      }
    }
 
 
@@ -123,7 +129,8 @@ class AppData {
 
 
    async dumpPath(path) {
-      const cipherpathBase64 = await crypting.encryptDataToBase64(this.keyOBJ, this.ivU8A, path);
+      const taggedPath = '1X2Y3Z4A5B6C7D8E9F'+path;
+      const cipherpathBase64 = await crypting.encryptDataToBase64(this.keyOBJ, this.ivU8A, taggedPath);
       localStorage.setItem(`path:${this.storeID}`, cipherpathBase64);
    }
 
@@ -172,10 +179,15 @@ class AppData {
    }
 
 
-   getData() {
-      if (this.#currentBag) {
+   getData(path=null) {
+      if (this.#currentBag || path) {
          let focussedObj = this.data;
-         const currentBagList = this.#currentBag.split('/');
+         let currentBagList;
+         if (path) {
+            currentBagList = path.split('/');
+         } else {
+            currentBagList = this.#currentBag.split('/');
+         }
          for (const i of currentBagList) {
             if ((i === 'IN') || (i === 'OUT')) {
                focussedObj = focussedObj[i];

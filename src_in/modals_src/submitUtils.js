@@ -193,6 +193,24 @@ class SubmitUtils {
       const affectedChartBags = this.CA.getAffectedChartBags(defaultAffectedBag, bagRemoval, renameInfo);
       this.CA.refreshAffectedCharts(affectedChartBags);
    }
+
+
+   getAllNestedBagPaths(path=null) {
+      const usedPath = path ? path : this.appData.getBagPath;
+      const usedData = this.appData.getData(usedPath);
+      const bagList = [];
+      const addNestedBags = (bagObj, path) => {   // recursive
+         if ('nestedBags' in bagObj) {
+            for (const nestedBag in bagObj.nestedBags) {
+               const newPath = path+'/'+nestedBag;
+               bagList.push(newPath);
+               addNestedBags(bagObj.nestedBags[nestedBag], newPath);
+            }
+         }
+      }
+      addNestedBags(usedData, usedPath);
+      return bagList;
+   }
 }
 
 

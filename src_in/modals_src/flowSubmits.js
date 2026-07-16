@@ -1,10 +1,12 @@
 import SubmitUtils from './submitUtils.js';
 import { showInfo } from "../infos.js";
 import FDP from '../backendDataCommunication/flowDataPoster.js';
+import crypting from '../crypting.js';
 
 
 class FlowSubmits {
 
+   appData;
    currelems;
    bagPath;
    flowID;
@@ -15,7 +17,15 @@ class FlowSubmits {
 
 
    constructor(appData) {
+      this.appData = appData;
       this.utils = new SubmitUtils(appData);
+   }
+
+
+   async #updateLocalStorage() {
+      localStorage.removeItem(this.appData.storeID);
+      localStorage.removeItem(`path:${this.appData.storeID}`);
+      crypting.setEncryptedLocals();
    }
 
 
@@ -30,6 +40,7 @@ class FlowSubmits {
             this.utils.recalcBagAmounts(this.bagPath.split('/'));
             this.utils.checkAndAdjustChart();
             document.dispatchEvent(this.reloadEvent);
+            this.#updateLocalStorage();
          }
          FDP.changeAmount(this.bagPath, this.flowID, amount, execAmountChange);
       } else {
@@ -45,6 +56,7 @@ class FlowSubmits {
             const currentBagObj = this.utils.getBagObjByPath(this.bagPath);
             currentBagObj['transactions'][this.flowID]['desc'] = newText;
             document.dispatchEvent(this.reloadEvent);
+            this.#updateLocalStorage();
          }
          FDP.changeDesc(this.bagPath, this.flowID, newText, execDescChange);
       } else {
@@ -66,6 +78,7 @@ class FlowSubmits {
          }
          this.utils.recalcBagAmounts(this.bagPath.split('/'));
          document.dispatchEvent(this.reloadEvent);
+         this.#updateLocalStorage();
       }
       if (this.flowchange) {
          const execDateChange = () => {
@@ -100,6 +113,7 @@ class FlowSubmits {
          delete bagObj['transactions'][this.flowID];
          this.utils.checkAndAdjustChart();
          document.dispatchEvent(this.reloadEvent);
+         this.#updateLocalStorage();
       }
       FDP.deleteFlow(this.bagPath, this.flowID, execFlowDeletion);
    }
@@ -116,6 +130,7 @@ class FlowSubmits {
          this.utils.recalcBagAmounts(this.bagPath.split('/'));
          this.utils.recalcBagAmounts(selection.split('/'));
          document.dispatchEvent(this.reloadEvent);
+         this.#updateLocalStorage();
       }
       FDP.moveFlow(this.bagPath, this.flowID, selection, execFlowMove);
    }

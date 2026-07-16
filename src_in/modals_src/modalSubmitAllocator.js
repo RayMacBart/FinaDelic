@@ -7,11 +7,11 @@ import AccountSubmits from "./accountSubmits.js";
 
 class ModalSubmitAllocator {
 
-   constructor(appData) {
-      this.bagSubmits = new BagSubmits(appData);
+   constructor(appData, chart) {
+      this.chartOps = new ChartOps(appData);
+      this.bagSubmits = new BagSubmits(appData, chart, this.chartOps);
       this.flowSubmits = new FlowSubmits(appData);
       this.timeSet = new TimeSet(appData);
-      this.chartOps = new ChartOps(appData);
       this.accountSubmits = new AccountSubmits();
    }
 

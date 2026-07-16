@@ -24,7 +24,6 @@ class ToolbarEventHandler {
 
 
    add2chartHandler(event) {
-      console.log('in add2chartHandler');
       event.stopPropagation();
       // const toolbarWrapElem = document.getElementById('flowpage-bag').querySelector('#toolbar-wrapper');
       const buttons = document.querySelectorAll('.tool-button');
@@ -32,7 +31,6 @@ class ToolbarEventHandler {
          if (button.firstElementChild && button.firstElementChild.innerText && (button.firstElementChild.innerText).includes('CHART')) {
             button.removeEventListener('click', this.boundAdd2chartHandler);
             button.removeEventListener('click', this.boundRemoveFromChartHandler);
-            console.log('add!');
          }
       }
       this.modal.startModal('add2chart');
@@ -40,14 +38,12 @@ class ToolbarEventHandler {
    
    
    removeFromChartHandler(event) {
-      console.log('in removeFromChartHandler');
       event.stopPropagation();
       const buttons = document.querySelectorAll('.tool-button');
       for (const button of buttons) {
          if (button.firstElementChild && button.firstElementChild.innerText && (button.firstElementChild.innerText).includes('CHART')) {
             button.removeEventListener('click', this.boundRemoveFromChartHandler);
             button.removeEventListener('click', this.boundAdd2chartHandler);
-            console.log('rem!');
          }
       }
       this.modal.startModal('removeFromChart');
