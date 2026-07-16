@@ -67,6 +67,7 @@ class ChartOps {
       if (broughtChart) {
          addChartPath();
       } else {
+         console.log('sending chartpath to backend for adding:', bagPath2Use);
          CDP.processChartPath(bagPath2Use, 'POST', addChartPath);
       }
    }
@@ -84,6 +85,7 @@ class ChartOps {
       if (auto) {
          execRemoveChartPath();
       } else {
+         console.log('sending chartpath to backend for deletion:', usedBagPath);
          CDP.processChartPath(usedBagPath, 'DELETE', execRemoveChartPath);
       }
    }

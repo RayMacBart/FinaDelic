@@ -205,12 +205,6 @@ class ChartPage {
             );
          })(this.getLegendPluginObj, this.legendSize);
       }
-   
-
-      // ALSO TODO: 
-      // - IMPLEMENT CHART-TYPE-SWITCH-BUTTON FUNCTIONALITY
-      // - FOR EVERY INPUT IN EVERY MODAL: INPUT VALIDATION!!!
-
    }
 
 
@@ -234,6 +228,9 @@ class ChartPage {
       }
       this.#setTimeHeader(app.timespan);
       this.#renderChart();
+      if (app.chart.chartPageFirst && (!app.chart.chartRefreshDone)) {
+         app.chart.fetchChartPaths(app, true);  // as a refresh including fetched data
+      }
       this.#setupChartPageLinks(app);
       document.getElementById('username-chart').innerText = app.appData.username;
       app.makeIconHoverEffect('switch');

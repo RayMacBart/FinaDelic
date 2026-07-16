@@ -50,6 +50,7 @@ class App {
       this.setupDataCryptoParams();
    }
 
+
    async setupDataCryptoParams() {
       if (this.storeID && localStorage.getItem(this.storeID)) {
          const storeObj = JSON.parse(localStorage.getItem(this.storeID));

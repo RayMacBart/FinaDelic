@@ -40,8 +40,10 @@ exports.delChartPath = async (req, res) => {
    let pathFound = false;
    const otherPaths = [];
 
+   console.log('before deletion:');
    for (const encryPath of dataDoc.chartPaths) {
       const decryPath = await cry.decrypt(encryPath, userId);
+      console.log('decryPath:', decryPath, ' | body.path:', req.body.path);
       if (decryPath === req.body.path) {
          pathFound = true;
       } else {
@@ -52,6 +54,12 @@ exports.delChartPath = async (req, res) => {
       dataDoc.chartPaths = otherPaths;
       await dataDoc.save();
 
+      console.log('path found!');
+      console.log('after deletion:');
+      for (const encryPath of dataDoc.chartPaths) {
+         const decryPath = await cry.decrypt(encryPath, userId);
+         console.log('decryPath:', decryPath);
+      }
       return res.status(201).send();
    }
    res.status(410).json({ error: `The path "${req.body.path}" isn't in the DB, hence it can't be deleted!`});
