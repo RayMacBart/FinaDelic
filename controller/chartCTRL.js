@@ -40,10 +40,8 @@ exports.delChartPath = async (req, res) => {
    let pathFound = false;
    const otherPaths = [];
 
-   console.log('before deletion:');
    for (const encryPath of dataDoc.chartPaths) {
       const decryPath = await cry.decrypt(encryPath, userId);
-      console.log('decryPath:', decryPath, ' | body.path:', req.body.path);
       if (decryPath === req.body.path) {
          pathFound = true;
       } else {
@@ -53,12 +51,8 @@ exports.delChartPath = async (req, res) => {
    if (pathFound) {
       dataDoc.chartPaths = otherPaths;
       await dataDoc.save();
-
-      console.log('path found!');
-      console.log('after deletion:');
       for (const encryPath of dataDoc.chartPaths) {
          const decryPath = await cry.decrypt(encryPath, userId);
-         console.log('decryPath:', decryPath);
       }
       return res.status(201).send();
    }

@@ -22,7 +22,6 @@ export interface RouterType {
                                              // if (appPath === '/') {
                                              //    appPath = '/loggedinHP';
                                              // } else if (appPath === '/workspace') {
-                                             //    console.log('heeeeeere');
                                              //    appPath = '/flowPage';
                                              // } else if (appPath === '/chart') {
                                              //    appPath = '/chartPage';
