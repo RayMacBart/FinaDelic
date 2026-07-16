@@ -11,18 +11,15 @@ class CustomValidator {
             const userPopDoc = await UserCol.findById(req.session.userId).populate('data');
             const dataDoc = userPopDoc.data;
             const pathList = path.split('/');
-            console.log('path:', path);
             const dir = pathList.shift();
             if (dir === 'IN' || dir === 'OUT') {
                const dataPopDirDoc = await dataDoc.populate(dir);
                let currentBagDoc = dataPopDirDoc[dir];
-               console.log('currentBagDoc (outer):', currentBagDoc);
                let decryNestBagsSet;
                for (const pathNode of pathList) {  // first item was already removed above via 'shift()'
                   if (currentBagDoc.nestedBags) {
                      await currentBagDoc.populate('nestedBags.bag');
                      // decryNestBagsSet = new Set(await Promise.all(currentBagDoc.nestedBags.map(bagItem => cry.decrypt(bagItem.name, req.session.userId))));
-                     // console.log('decryNestBagsSet:', decryNestBagsSet);
                      // currentBagDoc = currentBagDoc.nestedBags.find(bagItem => decryNestBagsSet.has(pathNode)).bag;
                      for (const item of currentBagDoc.nestedBags) {
                         const decrypted = await cry.decrypt(item.name, req.session.userId);
@@ -31,10 +28,7 @@ class CustomValidator {
                            break;
                         }
                      }
-                     // currentBagDoc = currentBagDoc.nestedBags.find(item => (await cry.decrypt(item.name, req.session.userId)) === pathNode).bag;
-                     console.log('currentBagDoc (inner):', currentBagDoc);
                      if (!currentBagDoc) {
-                        console.log('NO CURRENTBAGDOC!');
                         throw new Error('Bag path not found in DB!');
                      }
                   }

@@ -177,17 +177,11 @@ class BagSubmits {
 
    async finishDisband(pathArray, currentBagName, affectedBagPaths) {
       const [viewWrapper, page, spinner] = this.spin();
-      console.log('in finishDisband!');
-      console.log('chart.bags:', this.chart.bags);
-      console.log('affectedBagPaths:', affectedBagPaths);
       for (const affPath of affectedBagPaths) {
          if (affPath in this.chart.bags) {
             const strippedPath = affPath.replace('/'+currentBagName, '');
             this.chartOps.add2chart(strippedPath, this.appData.data[pathArray[0]], this.chart);
             this.chartOps.removeFromChart(affPath, true);
-            console.log('DISBAND:');
-            console.log('adding', strippedPath);
-            console.log('removing', affPath);
             await CDP.processChartPath(strippedPath, 'POST', () => {});
             await CDP.processChartPath(affPath, 'DELETE', () => {});
          }

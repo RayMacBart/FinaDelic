@@ -33,7 +33,7 @@ class LoginPage {
 
 
    async #submitReset(event) {
-      console.log('REQUESTED PASSWORD RESET EMAIL!');
+      console.log('Requested password reset email!');
       document.getElementById('resetSubmitButton').removeEventListener('click', this.submitResetFunc);
       event.preventDefault();
       const mailInput = event.target.form[0].value;
