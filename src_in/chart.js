@@ -12,8 +12,8 @@ class Chart {
       this.chartRefreshDone = false;
       this.chartPageFirst = false;
       const routeinfoEl = document.getElementById('routeinfo');
-      const wantedpage = routeinfoEl.textContent;
-      if (routeinfoEl && (wantedpage.slice(1) === 'chartPage')) {
+      const wantedpage = routeinfoEl ? routeinfoEl.textContent : null;
+      if (routeinfoEl && wantedpage && (wantedpage.slice(1) === 'chartPage')) {
          this.chartPageFirst = true;
       }
       if (!this.chartPageFirst) {
